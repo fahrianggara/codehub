@@ -13,7 +13,7 @@ class CreateNotificationsTable extends Migration
             'user_id' => ['type' => 'INT', 'constraint' => 11],
             'model_id' => ['type' => 'INT', 'constraint' => 11],
             'model_class' => ['type' => 'VARCHAR', 'constraint' => 255],
-            'type' => ['type' => 'ENUM', 'constraint' => ['new_reply']],
+            'type' => ['type' => 'ENUM', 'constraint' => ['t_reply', 't_like']], // t = thread.
             'created_at datetime default current_timestamp',
             'updated_at datetime default current_timestamp on update current_timestamp',
         ]);
