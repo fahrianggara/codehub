@@ -2,23 +2,15 @@
 
 namespace App\Models;
 
+use App\Entities\Thread;
 use CodeIgniter\Model;
 
 class ThreadModel extends Model
 {
-    protected $DBGroup          = 'default';
     protected $table            = 'threads';
-    protected $primaryKey       = 'id';
-    protected $useAutoIncrement = true;
-    protected $returnType       = 'object';
-    protected $protectFields    = true;
+    protected $returnType       = Thread::class;
+    protected $useTimestamps    = true;
     protected $allowedFields    = [
         'title', 'content', 'views', 'user_id'
     ];
-
-    // Dates
-    protected $useTimestamps = false;
-    protected $dateFormat    = 'datetime';
-    protected $createdField  = 'created_at';
-    protected $updatedField  = 'updated_at';
 }

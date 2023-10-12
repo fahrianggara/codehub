@@ -7,21 +7,12 @@ use CodeIgniter\Model;
 
 class UserModel extends Model
 {
-    protected $DBGroup          = 'default';
     protected $table            = 'users';
-    protected $primaryKey       = 'id';
-    protected $useAutoIncrement = true;
     protected $returnType       = User::class;
-    protected $protectFields    = true;
+    protected $useTimestamps    = true;
     protected $allowedFields    = [
         'username', 'first_name', 'last_name', 'email', 'avatar', 'password'
     ];
-
-    // Dates
-    protected $useTimestamps = true;
-    protected $dateFormat    = 'datetime';
-    protected $createdField  = 'created_at';
-    protected $updatedField  = 'updated_at';
 
 
     /**
@@ -35,10 +26,11 @@ class UserModel extends Model
         $builder = $this->db->table('users');
         $builder->select('users.avatar');
         $builder->where('users.id', $user_id);
-
         $query = $builder->get()->getRow();
 
         $path = base_url("images/avatars/{$query->avatar}");
+
+        return file_exists($path) ? $path : base_url('images/avatar.png');
     }
 
         

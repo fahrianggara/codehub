@@ -2,23 +2,15 @@
 
 namespace App\Models;
 
+use App\Entities\Role;
 use CodeIgniter\Model;
 
 class RoleModel extends Model
 {
-    protected $DBGroup          = 'default';
     protected $table            = 'roles';
-    protected $primaryKey       = 'id';
-    protected $useAutoIncrement = true;
-    protected $returnType       = 'object';
-    protected $protectFields    = true;
+    protected $returnType       = Role::class;
+    protected $useTimestamps    = true;
     protected $allowedFields    = [
         'name'
     ];
-
-    // Dates
-    protected $useTimestamps = false;
-    protected $dateFormat    = 'datetime';
-    protected $createdField  = 'created_at';
-    protected $updatedField  = 'updated_at';
 }
