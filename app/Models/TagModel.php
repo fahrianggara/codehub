@@ -4,7 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class Tag extends Model
+class TagModel extends Model
 {
     protected $DBGroup          = 'default';
     protected $table            = 'tags';

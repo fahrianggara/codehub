@@ -4,16 +4,16 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class Category extends Model
+class ReplyModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'categories';
+    protected $table            = 'replies';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'object';
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'name'
+        'content', 'approved', 'thread_id', 'user_id', 'parent_id'
     ];
 
     // Dates

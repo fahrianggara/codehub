@@ -4,16 +4,16 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class Role extends Model
+class NotificationModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'roles';
+    protected $table            = 'notifications';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'object';
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'name'
+        'user_id', 'model_id', 'model_class', 'message', 'readed_at'
     ];
 
     // Dates

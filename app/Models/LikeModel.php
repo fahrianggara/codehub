@@ -4,16 +4,16 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class Thread extends Model
+class LikeModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'threads';
+    protected $table            = 'likes';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'object';
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'title', 'content', 'views', 'user_id'
+        'model_id', 'model_class', 'user_id'
     ];
 
     // Dates

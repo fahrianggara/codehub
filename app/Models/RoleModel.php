@@ -4,16 +4,16 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class User extends Model
+class RoleModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'users';
+    protected $table            = 'roles';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'object';
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'username', 'first_name', 'last_name', 'email', 'avatar', 'password'
+        'name'
     ];
 
     // Dates

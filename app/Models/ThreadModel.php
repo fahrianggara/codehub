@@ -4,16 +4,16 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class Report extends Model
+class ThreadModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'reports';
+    protected $table            = 'threads';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'object';
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'message', 'model_id', 'model_class', 'user_id'
+        'title', 'content', 'views', 'user_id'
     ];
 
     // Dates
