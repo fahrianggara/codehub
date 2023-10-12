@@ -9,6 +9,8 @@
     <!-- CSS File -->
     <link rel="stylesheet" href="<?= base_url('plugins/bootstrap4/bootstrap.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('css/auth.css') ?>">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
 </head>
 
 <body>
@@ -18,6 +20,9 @@
     <script src="<?= base_url('plugins/jquery/jquery.min.js') ?>"></script>
     <script src="<?= base_url('plugins/bootstrap4/bootstrap.bundle.min.js') ?>"></script>
     <script src="<?= base_url('js/auth.js') ?>"></script>
+
+    <?= $this->renderSection('js') ?>
+
 </body>
 
 </html>
