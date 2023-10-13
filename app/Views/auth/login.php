@@ -10,8 +10,8 @@ $flashDataPassword = session()->getFlashdata('errPassword');
 <div class="wrapper">
         <form action="">
     
-            <div class="header-login">
-                <h1>Log<a>in</a></h1>
+            <div class="header">
+                <h1>Login</h1>
             </div>
     
             <div class="input-box">
@@ -36,7 +36,7 @@ $flashDataPassword = session()->getFlashdata('errPassword');
             <button type="submit" class="button">Login</button>
     
             <div class="register-link">
-                <p>Belum punya akun?<a href="#">Register</a></p>
+                <p>Belum punya akun? <a href="/register">Register</a></p>
             </div>
             
         </form>
