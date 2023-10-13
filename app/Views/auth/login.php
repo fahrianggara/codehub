@@ -41,7 +41,7 @@ $flashDataPassword = session()->getFlashdata('errPassword');
             
         </form>
     
-    </div>
+</div>
 
 
 
@@ -50,6 +50,19 @@ $flashDataPassword = session()->getFlashdata('errPassword');
 <?= $this->section('js'); ?>
 <script>
     $(document).ready(function() {
+        $("#show-password").hide(); // Sembunyikan logo mata awalnya
+
+        $("#password").on("input", function() {
+            var passwordField = $("#password");
+            var showPasswordIcon = $("#show-password");
+
+            if (passwordField.val() !== "") {
+                showPasswordIcon.show();
+            } else {
+                showPasswordIcon.hide();
+            }
+        });
+
         $("#show-password").on("click", function() {
             var passwordField = $("#password");
             var showPasswordIcon = $("#show-password i");
@@ -64,5 +77,6 @@ $flashDataPassword = session()->getFlashdata('errPassword');
         });
     });
 </script>
+
 
 <?= $this->endSection(); ?>
