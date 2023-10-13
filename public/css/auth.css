@@ -93,7 +93,7 @@ body {
     border: 1px solid rgba(4, 32, 69, .14);
     border-radius: 40px;
     color: #000;
-    padding-left: 20px;
+    padding-left: 50px;
 }
 
 .input-box input::placeholder {
@@ -110,7 +110,7 @@ body {
 
 .input-box i {
     position: absolute;
-    right: 340px;
+    right: 295px;
     top: 50%;
     transform: translateY(-50%);
     font-size: 20px;
