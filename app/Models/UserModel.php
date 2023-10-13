@@ -11,9 +11,8 @@ class UserModel extends Model
     protected $returnType       = User::class;
     protected $useTimestamps    = true;
     protected $allowedFields    = [
-        'username', 'first_name', 'last_name', 'email', 'avatar', 'password'
+        'username', 'first_name', 'last_name', 'email', 'avatar', 'password', 'email_verified_at'
     ];
-
 
     /**
      * Get avatar user by user_id

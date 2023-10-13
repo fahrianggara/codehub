@@ -7,6 +7,6 @@ use CodeIgniter\Entity\Entity;
 class User extends Entity
 {
     protected $datamap = [];
-    protected $dates   = ['created_at', 'updated_at'];
+    protected $dates   = ['created_at', 'updated_at', 'email_verified_at'];
     protected $casts   = [];
 }
