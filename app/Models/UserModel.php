@@ -37,4 +37,22 @@ class UserModel extends Model
             throw new \Exception("Role $role tidak ditemukan.");
         }
     }
+    
+    /**
+     * Get role name by user id
+     *
+     * @param  mixed $user_id
+     * @return void
+     */
+    public function getRoleName($user_id)
+    {
+        $role = $this->db->table('user_has_roles')
+            ->select('roles.name')
+            ->join('roles', 'roles.id = user_has_roles.role_id')
+            ->where('user_id', $user_id)
+            ->get()
+            ->getRowArray();
+
+        return $role['name'];
+    }
 }

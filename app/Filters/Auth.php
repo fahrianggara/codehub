@@ -6,7 +6,7 @@ use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 
-class Guest implements FilterInterface
+class Auth implements FilterInterface
 {
     /**
      * Do whatever processing this filter needs to do.
@@ -25,15 +25,8 @@ class Guest implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
-        if (session()->get('logged_in')) {
-            $username = session()->get('username');
-            
-            if (session()->get('role') === 'admin') {
-                return redirect()->to('admin/dash');
-            } else {
-                return redirect()->to("$username");
-            }
-        }
+        if (!session()->get('logged_in')) return redirect()->to('login');
+        
     }
 
     /**

@@ -12,8 +12,13 @@ $routes->get('/', 'Home::index');
 $routes->group('', ['filter' => 'guest', 'namespace' => Auth::class], function (RouteCollection $routes) {
     $routes->get('login', 'LoginController::index');
     $routes->post('login', 'LoginController::login');
+
     $routes->get('register', 'RegisterController::index');
     $routes->post('register', 'RegisterController::register');
 });
 
-$routes->get('(:any)', 'ProfileController::index/$1');
+$routes->group('', ['filter' => 'auth', 'namespace' => Auth::class], function (RouteCollection $routes) {
+    $routes->delete('logout', 'LoginController::logout');
+});
+
+$routes->get('(:segment)', 'ProfileController::index/$1');

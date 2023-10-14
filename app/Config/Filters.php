@@ -2,6 +2,7 @@
 
 namespace Config;
 
+use App\Filters\Auth;
 use App\Filters\Guest;
 use CodeIgniter\Config\BaseConfig;
 use CodeIgniter\Filters\CSRF;
@@ -26,6 +27,7 @@ class Filters extends BaseConfig
         'invalidchars'  => InvalidChars::class,
         'secureheaders' => SecureHeaders::class,
         'guest'         => Guest::class,
+        'auth'          => Auth::class,
     ];
 
     /**
