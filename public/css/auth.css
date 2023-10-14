@@ -86,6 +86,7 @@ body {
     border-radius: 40px;
     color: #000;
     padding-left: 50px;
+    display: flex;
 }
 
 .input-box input::placeholder {
@@ -105,9 +106,9 @@ body {
 }
 
 .input-box i {
-    position: absolute;
-    right: 295px;
-    top: 50%;
+    position: relative;
+    right: -18px;
+    top: -82%;
     transform: translateY(-50%);
     font-size: 20px;
     color:#14B8A6;
