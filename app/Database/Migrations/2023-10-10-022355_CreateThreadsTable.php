@@ -12,6 +12,7 @@ class CreateThreadsTable extends Migration
             'id' => ['type' => 'INT', 'constraint' => 11, 'auto_increment' => true],
             'title' => ['type' => 'VARCHAR', 'constraint' => 255],
             'content' => ['type' => 'TEXT'],
+            'status' => ['type' => 'ENUM', 'constraint' => ['draft', 'published'], 'default' => 'published'],
             'views' => ['type' => 'INT', 'constraint' => 11, 'default' => 0],
             'user_id' => ['type' => 'INT', 'constraint' => 11],
             'created_at datetime default current_timestamp',

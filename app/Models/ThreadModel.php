@@ -11,6 +11,7 @@ class ThreadModel extends Model
     protected $returnType       = Thread::class;
     protected $useTimestamps    = true;
     protected $allowedFields    = [
-        'title', 'content', 'views', 'user_id'
+        'title', 'content', 'views', 'status', 'user_id'
     ];
+
 }
