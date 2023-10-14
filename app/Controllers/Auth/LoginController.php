@@ -15,9 +15,6 @@ class LoginController extends BaseController
      */
     public function index()
     {
-        if (session()->get('logged_in'))
-            return redirect()->to("{session()->get('role_name')}/dash");
-
         return view('auth/login', [
             'title' => 'Login',
             'validation' => Services::validation()

@@ -18,10 +18,7 @@ class RegisterController extends BaseController
      * @return void
      */
     public function index()
-    {
-        if (session()->get('logged_in'))
-            return redirect()->to("{session()->get('role_name')}/dash");
-            
+    {       
         return view('auth/register', [
             'title' => 'Register'
         ]);
@@ -38,7 +35,6 @@ class RegisterController extends BaseController
 
         $validation = Services::validation(); // Load validation library
         $validate = $this->validateRegisterForm(); // Load validation rules
-        $session = session(); // Load session..
         $request = $this->request; // Load request..
         $db = db_connect(); // Load db connection..
 
