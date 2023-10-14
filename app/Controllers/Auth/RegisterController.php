@@ -19,6 +19,10 @@ class RegisterController extends BaseController
      */
     public function index()
     {       
+        if ($this->request->isAJAX()) { // Check if request is AJAX
+            return $this->register();
+        }
+
         return view('auth/register', [
             'title' => 'Register'
         ]);
@@ -29,10 +33,8 @@ class RegisterController extends BaseController
      *
      * @return void
      */
-    public function register()
+    private function register()
     {
-        helper(['form', 'url']); // Load helper
-
         $validation = Services::validation(); // Load validation library
         $validate = $this->validateRegisterForm(); // Load validation rules
         $request = $this->request; // Load request..

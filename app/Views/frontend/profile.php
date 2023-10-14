@@ -11,7 +11,10 @@
             <p class="card-text mb-1">Bergabung: <?= $user->getJoinedAt() ?></p>
             <p class="card-text mb-1">Role: <?= ucfirst($user->getRole()->name) ?></p>
             <p class="card-text mb-1">Total Diskusi: <?= count($user->threads) ?></p>
-            <p class="card-text mb-0">Sedang Login? <?= session()->get('logged_in') == 1 ? 'Ya' : "Tidak" ?></p>
+            <p class="card-text mb-0">
+                Sedang Login? <?= session()->get('logged_in') == 1 ? 'Ya' : "Tidak" ?>.
+                Sebagai <b><?= session()->get('username') ?></b>
+            </p>
 
             <?php if (session()->get('logged_in')): ?>
                 <form action="<?= base_url('logout') ?>" method="post" class="mt-3">

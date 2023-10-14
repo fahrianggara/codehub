@@ -16,6 +16,10 @@ class LoginController extends BaseController
      */
     public function index()
     {
+        if ($this->request->isAJAX()) { // Check if request is AJAX
+            return $this->login();
+        }
+
         return view('auth/login', [
             'title' => 'Login',
             'validation' => Services::validation()
@@ -27,7 +31,7 @@ class LoginController extends BaseController
      * 
      * @return void
      */
-    public function login()
+    private function login()
     {
         $validation = Services::validation();
         $db = db_connect();
