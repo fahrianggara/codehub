@@ -108,7 +108,7 @@
             // Register form handler
             // ===============================================
 
-            const form = $('#form-register');
+            const form = $('form');
             const submit = form.find('button[type="submit"]');
 
             form.on("submit", function (e) {
