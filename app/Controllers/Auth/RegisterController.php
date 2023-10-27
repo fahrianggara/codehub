@@ -64,7 +64,8 @@ class RegisterController extends BaseController
 
             return response()->setJSON([
                 'status' => 200, // OK
-                'message' => 'Register berhasil, silahkan login.'
+                'message' => 'Register berhasil, silahkan login.',
+                'redirect' => base_url('login'),
             ]);
         } catch (\Exception $e) { // Catch exception
             $db->transRollback();  // Rollback transaction..
