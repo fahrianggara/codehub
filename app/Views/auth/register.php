@@ -32,7 +32,7 @@
                         <i class="fas fa-lock"></i>
                     </div>
 
-                    <input type="password" id="password" class="form-control password">
+                    <input type="password" id="password" class="form-control password" name="password">
 
                     <label for="password">Password</label>
 
@@ -46,7 +46,7 @@
                         <i class="fas fa-lock"></i>
                     </div>
 
-                    <input type="password" id="c-password" class="form-control">
+                    <input type="password" id="c-password" class="form-control" name="c-password">
 
                     <label for="c-password">Konfirmasi</label>
                 </div>

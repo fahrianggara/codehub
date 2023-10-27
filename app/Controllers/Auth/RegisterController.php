@@ -120,7 +120,7 @@ class RegisterController extends BaseController
                     'max_length' => 'Password maksimal 16 karakter'
                 ]
             ],
-            'confirmpass' => [
+            'c-password' => [
                 'rules' => 'matches[password]',
                 'errors' => [
                     'matches' => 'Password tidak sama'
