@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Profil Pengguna</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        .profile {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background-size: cover;
+            background-position: center;
+            background-attachment: no-repeat;
+        }
+
+        .status h6 {
+            margin: 0 !important;
+        }
+    </style>
+</head>
+
+<body class="bg-light">
+
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <br>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 bg-white rounded p-4">
+                <div class="row">
+                    <div class="col-lg-3 p-4">
+                        <div class="profile"
+                            style="background-image: url(https://cdn.antaranews.com/cache/1200x800/2023/05/24/000_338L2Q7.jpg);">
+                        </div>
+                    </div>
+                    <div class="col-lg-9 pt-4 status">
+                        <h4 class="m-0">Sultan Jordy</h4>
+                        <small>Sultan Jordy Priadi</small>
+                        <br><br>
+                        <h6><strong>Negara:</strong> Indonesia</h6>
+                        <h6><strong>Bahasa yang digunakan:</strong> Python</h6>
+                        <h6><strong>Bahasa yang diminati:</strong> Elixir</h6>
+                        <h6><strong>Kerangka kerja atau teknologi yang digunakan:</strong> CodeIgniter</h6>
+                        <h6><strong>GitHub:</strong> <a href="https://github.com/dajaru">https://github.com/dajaru</a>
+                        </h6>
+                        <h6><strong>OS yang digunakan:</strong> Windows</h6>
+                        <h6><strong>Pekerjaan:</strong> Programmer</h6>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-lg-auto">
+                        Bergabung 10 Okt 23
+                    </div>
+                    <div class="col-lg-auto">
+                        Terlihat 10 Okt 23
+                    </div>
+                    <div class="col-lg-auto">
+                        Views 2540
+                    </div>
+                </div>
+                <hr>
+            </div>
+            <div class="col-lg-3 mt-4 p-0">
+                <div class="card p-2 bg-white rounded border-0 text-center">
+                    <div style="border-bottom: 1px solid rgba(0,0,0,.1);">
+                        Postingan dan Thread masih kosong
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="number py-2 font-weight-bold">1</div>
+                            Postingan
+                        </div>
+                        <div class="col-6">
+                            <div class="number py-2 font-weight-bold">1</div>
+                            Thread
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9 mt-4 mx-auto pl-4">
+                <div class="card p-2 bg-white rounded border-0">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#home">Post</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#menu1">Thread</a>
+                        </li>
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane container fade active d-flex justify-content-center align-items-center p-5"
+                            id="home">
+                            <div class="col-6 text-center">
+                                Postingan Anda Masih Kosong <br>
+                                <button type="button" class="btn btn-success">Membuat Postingan</button>
+                            </div>
+                        </div>
+                        <div class="tab-pane container fade active d-flex justify-content-center align-items-center p-0"
+                            id="menu1">
+                            <div class="col-6 text-center">
+                                Thread Anda Masih Kosong <br>
+                                <button type="button" class="btn btn-success">Membuat Thread</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
