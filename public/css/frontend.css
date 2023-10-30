@@ -251,3 +251,136 @@ left: 350px;
     font-size: 12px;
     padding: 5px !important;
 }
+
+/* footer start */
+:root{
+    --bg-color: #1a1919;
+	--bg-sec-color: #000;
+	--text-color: #fff;
+	--button-color: #3da9fc;
+	--stroke-color: #094067;
+	--primary-color: #14B8A6;
+	--paragraph-color: #90b4ce;
+	--secondary-color: #1c1d1e;
+	--border-color: rgba(164, 164, 164, 0.125);
+	--card-sec-color: #252627;
+	--brs-sm: 4px;
+	--brs-md: 6px;
+	--brs-lg: 8px;
+	--brs-xl: 10px;
+}
+
+body{
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin-left: 50px;
+    margin-right:50px ;
+}
+
+footer {
+	border-top: 1px solid var(--border-color);
+}
+
+.footer-top {
+	padding: 60px 0 0 0;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 5px;
+}
+
+.col-md-4 p span{
+    color: var(--primary-color) ;
+}
+
+.footer-top h3 {
+	font-size: 1.5rem;
+	font-weight: 700;
+	color: var(--text-color) !important;
+	position: relative;
+	padding-bottom: 5px;
+	display: flex ;
+	align-items: center;
+	white-space: nowrap;
+    border-bottom: 2px solid var(--primary-color);
+    display: inline-block;
+}
+
+.footer-top * {
+	color: var(--text-color);
+}
+
+.footer-top ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.footer-top ul li {
+	display: flex;
+	align-items: center;
+}
+
+.footer-top ul li:not(:last-child) {
+	padding: 0 0 10px 0;
+}
+
+.contact-us li a {
+    display: flex;
+}
+
+.contact-us li i {
+   margin-right: 10px;
+   color: var(--);
+}
+
+.footer-top ul li a {
+	color: var(--text-color);
+	text-decoration: none;
+}
+
+.footer-top ul li a.active {
+	color: var(--primary-color);
+}
+
+.news-item {
+    display: flex;
+    align-items: center; 
+}
+
+.news-item img {
+    max-width: 75px; 
+    margin-right: 10px;
+	height: 60px;
+	width: 60px;
+	border-radius: 8px;
+}
+
+.news-content {
+    flex: 1; 
+}
+
+.news-content h6 {
+    display: flex;
+}
+
+
+.footer-bottom {
+	padding: 15px 5px 30px 5px;
+}
+
+.footer-bottom p {
+	text-align: center;
+	color: var(--text-color);
+	font-size: 16px;
+	margin: 0;
+}
+
+.footer-bottom p span{
+	color: var(--primary-color) ;
+	
+}
+@media (max-width: 767.98px) {
+	.footer-top .row .col-md-4:not(:first-child) {
+		margin-top: 10px;
+	}
+}
+/* footer end */
