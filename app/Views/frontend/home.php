@@ -142,7 +142,7 @@
                     <ul class="list-group">
 
                         <li class="list-group-item d-flex align-items-center">
-                            <a href="" style="color: black;">
+                            <a href="" style="color: black; text-decoration: none !important">
                                 <div class="item-content d-flex">
                                     <img class="mr-2" src="images/menu/piton.png" alt="uler">
                                     <div class="text-content">Python
@@ -230,14 +230,14 @@
                         <ul class="list-group mt-2">
                             <li class="list-group-item">
                                 <div class="item-content mb-2">
-                                    <a class="d-flex align-items-center" href="" style="color: black;">
+                                    <a class="d-flex align-items-center" href="" style="color: black; text-decoration: none !important">
                                         <img class="mr-2 profile-pic-detail" src="images/menu/gojo.jpg " alt="uler">
                                         <div class="name-content">Sultan Jordy Priadi
                                             <span class="thread-count">PHP || Hari Ini 10.00</span>
                                         </div>
                                     </a>
                                 </div>
-                                <a href="" style="color: black;">
+                                <a href="" style="color: black; text-decoration: none !important">
                                     <div class="thread-comment text-truncate">
                                         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis adipisci hic
                                         tempore dolore illo iste possimus tenetur nesciunt aliquid deserunt Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo voluptatibus numquam, sint, ipsam expedita excepturi iste iusto omnis neque facere qui quam odit esse impedit repellat repudiandae quasi, corrupti accusantium!.
@@ -265,14 +265,14 @@
                             </li>
                             <li class="list-group-item">
                                 <div class="item-content mb-2">
-                                    <a class="d-flex align-items-center" href="" style="color: black;">
+                                    <a class="d-flex align-items-center" href="" style="color: black; text-decoration: none !important">
                                         <img class="mr-2 profile-pic-detail" src="images/menu/gojo.jpg " alt="uler">
                                         <div class="name-content">Sultan Jordy Priadi
                                             <span class="thread-count">PHP || Hari Ini 10.00</span>
                                         </div>
                                     </a>
                                 </div>
-                                <a href="" style="color: black;">
+                                <a href="" style="color: black; text-decoration: none !important">
                                     <div class="thread-comment">
                                         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis adipisci hic
                                         tempore dolore illo iste possimus tenetur nesciunt aliquid deserunt.
@@ -314,14 +314,14 @@
                         <li class="list-group-item">
                             <div class="title-kanan mt-1 mb-3 ">New Post</div>
                             <div class="item-content mb-2">
-                                <a class="d-flex align-items-center" href="" style="color: black;">
+                                <a class="d-flex align-items-center" href="" style="color: black; text-decoration: none !important">
                                     <img class="mr-2 profile-pic-detail-kanan" src="images/menu/gojo.jpg " alt="uler">
                                     <div class="name-content-kanan">Sultan Jordy Priadi
                                         <span class="thread-count">PHP || Hari Ini 10.00</span>
                                     </div>
                                 </a>
                             </div>
-                            <a href="" style="color: black;">
+                            <a href="" style="color: black; text-decoration: none !important">
                                 <div class="thread-comment-kanan">
                                     Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis adipisci hic
                                     tempore dolore illo iste possimus tenetur nesciunt aliquid deserunt.
@@ -346,14 +346,14 @@
                         </li>
                         <li class="list-group-item">
                             <div class="item-content mb-2">
-                                <a class="d-flex align-items-center" href="" style="color: black;">
+                                <a class="d-flex align-items-center" href="" style="color: black; text-decoration: none !important">
                                     <img class="mr-2 profile-pic-detail-kanan" src="images/menu/gojo.jpg " alt="uler">
                                     <div class="name-content-kanan">Sultan Jordy Priadi
                                         <span class="thread-count">PHP || Hari Ini 10.00</span>
                                     </div>
                                 </a>
                             </div>
-                            <a href="" style="color: black;">
+                            <a href="" style="color: black; text-decoration: none !important">
                                 <div class="thread-comment-kanan">
                                     Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis adipisci hic
                                     tempore dolore illo iste possimus tenetur nesciunt aliquid deserunt.
