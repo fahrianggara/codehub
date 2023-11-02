@@ -1,122 +1,234 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-        <div class="logo-nav">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+<div class="mobile-search-overlay"></div>
+<div class="mobile-search">
+    <div class="container-fluid d-flex">
+        <button type="button" class="btn close-search">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+        <form class="w-100">
+            <div class="form-group m-0">
+                <input type="search" class="form-control mobile-search-input" placeholder="Cari Diskusi...">
+            </div>
+        </form>
+    </div>
+</div>
 
-            <a class="navbar-brand ml-2" href="javascript:void(0);">
-                <img src="images/logo/logo.png" alt="logo image">
-            </a>
+<div class="mobile-nav-overlay"></div>
+<nav class="mobile-nav">
+    <div class="mobile-nav-top">
+        <div class="text">
+            <h3>Masuk ke akunmu</h3>
+            <p>Agar dapat mengakses semua fitur di CODEHUB.</p>
         </div>
-
-        <div class="icon-nav d-block d-lg-none"> <!-- Untuk mobile -->
-            <div class="btn-group">
-                <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <i class="bi bi-bell-fill"></i>
-                </button>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    <div class="dropdown-header">
-                        Notifikasi
-                    </div>
-                </div>
-            </div>
-            <div class="btn-group">
-                <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <figure>
-                        <img src="https://i.pravatar.cc/500?img=32" alt="avatar" class="rounded-circle" width="30" height="30">
-                    </figure>
-                </button>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    <div class="dropdown-header">
-                        Hello, Username!
-                    </div>
-                    <a class="dropdown-item" href="javascript:void(0);">
-                        Profile
-                    </a>
-                    <a class="dropdown-item" href="javascript:void(0);">
-                        Settings
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="javascript:void(0);">
-                        <i class="bi bi-box-arrow-right mr-2"></i> Logout
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="javascript:void(0);">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0);">Contact</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0);">Support</a>
-                </li>
-                <!-- <li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="javascript:void(0);" role="button"
-							data-toggle="dropdown" aria-expanded="false">
-							Dropdown
-						</a>
-						<div class="dropdown-menu">
-							<a class="dropdown-item" href="javascript:void(0);">Action</a>
-							<a class="dropdown-item" href="javascript:void(0);">Another action</a>
-							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="javascript:void(0);">Something else here</a>
-						</div> -->
-                </li>
-                <li>
-                    <form class="form-inline my-2 my-lg-0 form-search">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <button type="submit" class="input-group-text" id="basic-addon1">
-                                    <i class="bi bi-search"></i>
-                                </button>
-                            </div>
-                            <input type="search" class="form-control" placeholder="Cari Diskusi..." aria-label="Hello, Username!" aria-describedby="basic-addon1">
-                        </div>
-                    </form>
-                </li>
-            </ul>
-        </div>
-
-        <div class="icon-nav d-none d-lg-block"> <!-- Untuk desktop -->
-            <div class="btn-group">
-                <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <i class="bi bi-bell-fill"></i>
-                </button>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    <div class="dropdown-header">
-                        Notifikasi
-                    </div>
-                </div>
-            </div>
-            <div class="btn-group">
-                <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <figure>
-                        <img src="https://i.pravatar.cc/500?img=32" alt="avatar" class="rounded-circle" width="30" height="30">
-                        <!-- <span class="name">Username</span>
-								<i class="bi bi-chevron-down"></i> -->
-                </button>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    <div class="dropdown-header">
-                        Hello, Username!
-                    </div>
-                    <a class="dropdown-item" href="javascript:void(0);">
-                        Profile
-                    </a>
-                    <a class="dropdown-item" href="javascript:void(0);">
-                        Settings
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="javascript:void(0);">
-                        <i class="bi bi-box-arrow-right mr-2"></i> Logout
-                    </a>
-                </div>
-            </div>
+        <div class="action">
+            <a href="javascript:void(0)" class="login">Masuk</a>
+            <a href="javascript:void(0)" class="register">Daftar</a>
         </div>
     </div>
+    <ul class="mobile-nav-bottom">
+        <li class="nav-item d-block d-md-none">
+            <a href="javascript:void(0)">
+                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
+                    width="512" height="512" x="0" y="0" viewBox="0 0 32 32" style="enable-background:new 0 0 512 512"
+                    xml:space="preserve" class="">
+                    <g>
+                        <path
+                            d="M21.82 30H10.18A5 5 0 0 1 5 25.24V19a1 1 0 0 1 2 0v6.24A3 3 0 0 0 10.18 28h11.64A3 3 0 0 0 25 25.24V19a1 1 0 0 1 2 0v6.24A5 5 0 0 1 21.82 30zm7.89-13.29a1 1 0 0 0 0-1.42l-13-13a1 1 0 0 0-1.42 0l-13 13a1 1 0 0 0 1.42 1.42L16 4.41l12.29 12.3a1 1 0 0 0 1.42 0z"
+                            data-name="9-Home" opacity="1" class=""></path>
+                    </g>
+                </svg>
+                <span class="nav-text">Beranda</span>
+            </a>
+        </li>
+        <li class="nav-item d-block d-md-none">
+            <a href="javascript:void(0)">
+                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
+                    width="512" height="512" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512"
+                    xml:space="preserve" class="">
+                    <g>
+                        <path
+                            d="M12.75 20a.75.75 0 0 1-.75.75 11.843 11.843 0 0 1-3.394-.48 7.225 7.225 0 0 1-4.749 1.48c-.144 0-.286 0-.423-.007a1.228 1.228 0 0 1-.749-2.162 4.124 4.124 0 0 0 1.455-2.155A8.3 8.3 0 0 1 2.25 12c0-5.151 4.01-8.75 9.75-8.75 5.272 0 9.165 3.081 9.686 7.667A8.878 8.878 0 0 1 21.75 12a.75.75 0 0 1-1.5 0 7.425 7.425 0 0 0-.05-.9c-.435-3.8-3.728-6.35-8.2-6.35-4.857 0-8.25 2.982-8.25 7.25a6.787 6.787 0 0 0 1.75 4.7.749.749 0 0 1 .19.625 5.391 5.391 0 0 1-1.507 2.914 5.326 5.326 0 0 0 3.68-1.329.748.748 0 0 1 .792-.2 10.208 10.208 0 0 0 3.345.543.75.75 0 0 1 .75.747zM21 16.75h-1.75V15a.75.75 0 0 0-1.5 0v1.75H16a.75.75 0 0 0 0 1.5h1.75V20a.75.75 0 0 0 1.5 0v-1.75H21a.75.75 0 0 0 0-1.5zM12.02 11h-.01a1.005 1.005 0 1 0 .01 0zm4 2a1 1 0 0 0 0-2h-.01a1 1 0 0 0 .01 2zm-8.01-2a1.005 1.005 0 1 0 .01 0z"
+                            opacity="1" class="">
+                        </path>
+                    </g>
+                </svg>
+                <span class="nav-text">Buat Diskusi</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
+                    width="512" height="512" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512"
+                    xml:space="preserve" class="">
+                    <g>
+                        <path
+                            d="M12 0a12 12 0 1 0 12 12A12.013 12.013 0 0 0 12 0zm0 22a10 10 0 1 1 10-10 10.011 10.011 0 0 1-10 10z"
+                            opacity="1" class=""></path>
+                        <path d="M12 9a1 1 0 0 0-1 1v8a1 1 0 0 0 2 0v-8a1 1 0 0 0-1-1z" opacity="1" class=""></path>
+                        <circle cx="12" cy="6" r="1" opacity="1" class=""></circle>
+                    </g>
+                </svg>
+                <span class="nav-text">Tentang</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
+                    width="512" height="512" x="0" y="0" viewBox="0 0 128 128" style="enable-background:new 0 0 512 512"
+                    xml:space="preserve" class="">
+                    <g>
+                        <path
+                            d="M108 16H20C8.973 16 0 24.973 0 36v56c0 11.027 8.973 20 20 20h88c11.027 0 20-8.973 20-20V36c0-11.027-8.973-20-20-20zm12 76c0 6.617-5.383 12-12 12H20c-6.617 0-12-5.383-12-12V36c0-6.617 5.383-12 12-12h88c6.617 0 12 5.383 12 12zm-9.172-53.172L85.656 64l25.172 25.172a3.997 3.997 0 0 1 0 5.656C110.047 95.609 109.023 96 108 96s-2.047-.391-2.828-1.172L80 69.656 66.828 82.828C66.047 83.609 65.023 84 64 84s-2.047-.391-2.828-1.172L48 69.656 22.828 94.828C22.047 95.609 21.023 96 20 96s-2.047-.391-2.828-1.172a3.997 3.997 0 0 1 0-5.656L42.344 64 17.172 38.828c-1.563-1.563-1.563-4.094 0-5.656s4.094-1.563 5.656 0L64 74.344l41.172-41.172c1.563-1.563 4.094-1.563 5.656 0s1.563 4.094 0 5.656z"
+                            opacity="1">
+                        </path>
+                    </g>
+                </svg>
+                <span class="nav-text">Kontak</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
+                    width="512" height="512" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512"
+                    xml:space="preserve" fill-rule="evenodd" class="">
+                    <g>
+                        <path
+                            d="M307.66 465.229c0-17.696-14.346-32.042-32.042-32.042h-39.236a32.042 32.042 0 0 0-32.042 32.042c0 17.696 14.346 32.042 32.042 32.042h39.236c17.696 0 32.042-14.346 32.042-32.042zM67.361 382.606c5.352.409 11.827.644 18.331.263a90.96 90.96 0 0 0 89.238 73.36h12.226a50.247 50.247 0 0 0-.008 18H174.93a108.957 108.957 0 0 1-107.569-91.623zm-9.156-19.153A69.812 69.812 0 0 1 0 294.613V252.07a69.812 69.812 0 0 1 69.811-69.812h4.647C81.886 88.502 160.328 14.729 256 14.729s174.114 73.773 181.542 167.529h4.647A69.812 69.812 0 0 1 512 252.07v42.543a69.812 69.812 0 0 1-69.811 69.812h-20.601c-8.544 0-15.47-6.927-15.47-15.47V196.847c0-82.908-67.21-150.118-150.118-150.118s-150.118 67.21-150.118 150.118v152.108c0 6.032-3.453 11.259-8.491 13.81-13.868 4.812-35.375 1.331-39.186.688z"
+                            opacity="1" class="">
+                        </path>
+                    </g>
+                </svg>
+                <span class="nav-text">Bantuan</span>
+            </a>
+        </li>
+    </ul>
 </nav>
+
+<header id="header">
+    <nav>
+        <div class="nav-top">
+            <div class="container-fluid">
+                <ul>
+                    <li class="nav-item">
+                        <a href="#"><span class="nav-text">Tentang</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#"><span class="nav-text">Kontak</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#"><span class="nav-text">Bantuan</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <div class="nav-bottom">
+                <div class="navbar-left">
+                    <button class="mobile-nav-toggle btn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <div class="navbar-brand">
+                        <a href="javascript:void(0)">
+                            <img src="<?= base_url('images/logo/sm.png') ?>" alt="logo">
+                            <span class="logo-text d-none d-lg-block">codehub</span>
+                        </a>
+                    </div>
+                </div>
+
+                <form class="form-search">
+                    <div class="form-group m-0">
+                        <input type="search" class="form-control" placeholder="Cari Diskusi...">
+                        <button type="submit" class="btn btn-search">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </form>
+
+                <div class="navbar-right">
+                    <ul>
+                        <li class="nav-item">
+                            <a href="javascript:void(0)">
+                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+                                    xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0"
+                                    viewBox="0 0 32 32" style="enable-background:new 0 0 512 512" xml:space="preserve"
+                                    class="">
+                                    <g>
+                                        <path
+                                            d="M21.82 30H10.18A5 5 0 0 1 5 25.24V19a1 1 0 0 1 2 0v6.24A3 3 0 0 0 10.18 28h11.64A3 3 0 0 0 25 25.24V19a1 1 0 0 1 2 0v6.24A5 5 0 0 1 21.82 30zm7.89-13.29a1 1 0 0 0 0-1.42l-13-13a1 1 0 0 0-1.42 0l-13 13a1 1 0 0 0 1.42 1.42L16 4.41l12.29 12.3a1 1 0 0 0 1.42 0z"
+                                            data-name="9-Home" opacity="1" class=""></path>
+                                    </g>
+                                </svg>
+                                <span class="nav-text">Beranda</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="javascript:void(0)">
+                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+                                    xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0"
+                                    viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve"
+                                    class="">
+                                    <g>
+                                        <path
+                                            d="M12.75 20a.75.75 0 0 1-.75.75 11.843 11.843 0 0 1-3.394-.48 7.225 7.225 0 0 1-4.749 1.48c-.144 0-.286 0-.423-.007a1.228 1.228 0 0 1-.749-2.162 4.124 4.124 0 0 0 1.455-2.155A8.3 8.3 0 0 1 2.25 12c0-5.151 4.01-8.75 9.75-8.75 5.272 0 9.165 3.081 9.686 7.667A8.878 8.878 0 0 1 21.75 12a.75.75 0 0 1-1.5 0 7.425 7.425 0 0 0-.05-.9c-.435-3.8-3.728-6.35-8.2-6.35-4.857 0-8.25 2.982-8.25 7.25a6.787 6.787 0 0 0 1.75 4.7.749.749 0 0 1 .19.625 5.391 5.391 0 0 1-1.507 2.914 5.326 5.326 0 0 0 3.68-1.329.748.748 0 0 1 .792-.2 10.208 10.208 0 0 0 3.345.543.75.75 0 0 1 .75.747zM21 16.75h-1.75V15a.75.75 0 0 0-1.5 0v1.75H16a.75.75 0 0 0 0 1.5h1.75V20a.75.75 0 0 0 1.5 0v-1.75H21a.75.75 0 0 0 0-1.5zM12.02 11h-.01a1.005 1.005 0 1 0 .01 0zm4 2a1 1 0 0 0 0-2h-.01a1 1 0 0 0 .01 2zm-8.01-2a1.005 1.005 0 1 0 .01 0z"
+                                            opacity="1" class="">
+                                        </path>
+                                    </g>
+                                </svg>
+                                <span class="nav-text">Buat Diskusi</span>
+                            </a>
+                        </li>
+                        <!-- <li class="nav-button mr-0">
+                                <a href="javascript:void(0)" class="login">
+                                    <span class="nav-text">Masuk</span>
+                                </a>
+                                <a href="javascript:void(0)" class="register">
+                                    <span class="nav-text">Daftar</span>
+                                </a>
+                            </li> -->
+                        <li class="nav-item nav-profile d-block d-md-none">
+                            <button type="button" class="btn btn-search" id="btn-search">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </li>
+                        <li class="nav-profile nav-item">
+                            <div class="btn-group">
+                                <button type="button" class="btn dropdown-toggle" data-toggle="dropdown"
+                                    aria-expanded="false">
+                                    <figure class="position-relative">
+                                        <img src="https://i.pravatar.cc/500?img=32" alt="avatar"
+                                            class="rounded-circle avatar">
+                                        <span class="badge badge-danger notification-alert"> </span>
+                                    </figure>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
+                                    <div class="dropdown-header">
+                                        Ilham Ramadan
+                                    </div>
+                                    <a class="dropdown-item" href="javascript:void(0);">
+                                        <i class="fas fa-user mr-2"></i>
+                                        Profile
+                                    </a>
+                                    <a class="dropdown-item" href="javascript:void(0);">
+                                        <i class="fas fa-cog mr-2"></i>
+                                        Settings
+                                    </a>
+                                    <a class="dropdown-item" href="javascript:void(0);">
+                                        <i class="fas fa-bell mr-2"></i>
+                                        Notifications
+                                        <span class="badge badge-pill badge-danger ml-auto">6</span>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="javascript:void(0);">
+                                        <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>

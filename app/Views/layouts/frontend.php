@@ -13,6 +13,7 @@
     <!-- CSS -->
     <link rel="stylesheet" href="<?= base_url('plugins/bootstrap4/bootstrap.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('plugins/bootstrap4/icons/bootstrap-icons.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('plugins/fontawesome-free/css/all.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('plugins/alertify/css/alerts.css') ?>">
     <link rel="stylesheet" href="<?= base_url('css/frontend.css') ?>">
 
