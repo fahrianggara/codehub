@@ -10,7 +10,7 @@ use Faker\Provider\Base;
     <div class="thread container-fluid">  <!-- row container -->
         <div class="row">
             
-            <div class="col-md-3 mb-3"> <!-- barisn kiri -->
+            <div class="col-lg-3 col-md-12 mb-3"> <!-- barisn kiri -->
                 <div class="thread-header mb-3 list-group-item">
                     Most Topic Search
                 </div>
@@ -58,8 +58,8 @@ use Faker\Provider\Base;
                 </ul>
             </div>
 
-            <div class="col-md-6 mb-3"> <!-- baris tengah -->
-                <div class="most-liked mb-3">
+            <div class="col-lg-6 col-md-12 mb-3"> <!-- baris tengah -->
+                <div class="most-liked">
                     <div class="thread-header main mb-3 list-group-item d-flex justify-content-between align-items-center">
                         <div class="most-title">Most <span>Liked</span></div>
                         <img class="logo-most" src="<?= base_url('images/logo/sm.png') ?>">
@@ -76,7 +76,10 @@ use Faker\Provider\Base;
                                 </a>
                             </div>
                             <a href="#">
-                                <div class="thread-comment text-truncate">
+                                <h3 class="thread-comment-title">
+                                    Lorem ipsum dolor
+                                </h3>
+                                <div class="thread-comment">
                                     Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis adipisci hic
                                     tempore dolore illo iste possimus tenetur nesciunt aliquid deserunt Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo voluptatibus numquam, sint, ipsam expedita excepturi iste iusto omnis neque facere qui quam odit esse impedit repellat repudiandae quasi, corrupti accusantium!.
                                 </div>
@@ -109,7 +112,10 @@ use Faker\Provider\Base;
                                 </a>
                             </div>
                             <a href="#">
-                                <div class="thread-comment text-truncate">
+                                <h3 class="thread-comment-title">
+                                    Lorem ipsum dolor
+                                </h3>
+                                <div class="thread-comment">
                                     Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis adipisci hic
                                     tempore dolore illo iste possimus tenetur nesciunt aliquid deserunt Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo voluptatibus numquam, sint, ipsam expedita excepturi iste iusto omnis neque facere qui quam odit esse impedit repellat repudiandae quasi, corrupti accusantium!.
                                 </div>
@@ -136,10 +142,13 @@ use Faker\Provider\Base;
                 </div>
             </div>
 
-            <div class="col-md-3 mb-3"> <!-- baris kanan -->
+            <div class="col-lg-3 col-md-12 mb-3"> <!-- baris kanan -->
+                <div class="thread-header mb-3 list-group-item">
+                    New Posts
+                </div>
+
                 <ul class="list-group">
                     <li class="list-group-item">
-                        <div class="title-kanan mt-1 mb-3">New Post</div>
                         <div class="item-content mb-2">
                             <a class="d-flex align-items-center" href="">
                                 <img class="mr-2 profile-pic-detail-kanan" src="<?= base_url('images/avatar.png') ?>">
@@ -149,6 +158,9 @@ use Faker\Provider\Base;
                             </a>
                         </div>
                         <a href="">
+                            <h3 class="thread-comment-kanan-title">
+                                Lorem ipsum dolor
+                            </h3>
                             <div class="thread-comment-kanan">
                                 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis adipisci hic
                                 tempore dolore illo iste possimus tenetur nesciunt aliquid deserunt.
@@ -156,16 +168,16 @@ use Faker\Provider\Base;
                         </a>
                         <div class="thread-action d-flex justify-content-between align-items-center">
                             <div class=""></div>
-                            <div class="thread-kanan d-flex">
-                                <button class="btn love-kanan ">
+                            <div class="thread-kanan">
+                                <button class="btn love">
                                     <i class="bi bi-heart"></i>
                                     <small>1</small>
                                 </button>
-                                <button class="btn comment-kanan  ">
+                                <button class="btn comment">
                                     <i class="bi bi-chat"></i>
                                     <small>1</small>
                                 </button>
-                                <button class="btn share-kanan  ">
+                                <button class="btn share">
                                     <i class="bi bi-share"></i>
                                 </button>
                             </div>
@@ -181,6 +193,9 @@ use Faker\Provider\Base;
                             </a>
                         </div>
                         <a href="">
+                            <h3 class="thread-comment-kanan-title">
+                                Lorem ipsum dolor
+                            </h3>
                             <div class="thread-comment-kanan">
                                 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis adipisci hic
                                 tempore dolore illo iste possimus tenetur nesciunt aliquid deserunt.
@@ -188,16 +203,16 @@ use Faker\Provider\Base;
                         </a>
                         <div class="thread-action d-flex justify-content-between align-items-center">
                             <div class=""></div>
-                            <div class="thread-kanan d-flex">
-                                <button class="btn love-kanan ">
+                            <div class="thread-kanan">
+                                <button class="btn love">
                                     <i class="bi bi-heart"></i>
                                     <small>1</small>
                                 </button>
-                                <button class="btn comment-kanan ">
+                                <button class="btn comment">
                                     <i class="bi bi-chat"></i>
                                     <small>1</small>
                                 </button>
-                                <button class="btn share-kanan  ">
+                                <button class="btn share">
                                     <i class="bi bi-share"></i>
                                 </button>
                             </div>

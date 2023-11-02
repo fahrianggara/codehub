@@ -688,6 +688,19 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
     font-weight: 500;
 }
 
+.thread .thread-comment-title {
+    font-weight: 600;
+    font-size: 16px;
+    margin: 15px 0 5px 0;
+}
+
+.thread .thread-comment, .thread .thread-comment-kanan {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
 .thread .title-kanan {
     font-weight: bolder;
 }
@@ -697,6 +710,12 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
     height: 35px !important;
     border-radius: 50%;
     background-size: cover;
+}
+
+.thread .thread-comment-kanan-title {
+    font-weight: 600;
+    font-size: 14px;
+    margin: 15px 0 5px 0;
 }
 
 .thread .thread-comment-kanan {
@@ -715,11 +734,42 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
     font-weight: 400;
 }
 
-.thread .btn.comment-kanan,
-.thread .btn.love-kanan,
-.thread .btn.share-kanan {
-    font-size: 12px;
+.thread .thread-tengah .btn {
+    font-size: 18px;
+    padding: 10px;
+}
+
+.thread .thread-kanan .btn {
+    font-size: 14px;
     padding: 5px !important;
+}
+
+@media (max-width: 991.98px) {
+    .thread .thread-comment-kanan-title {
+        font-size: 16px;
+    }
+
+    .thread .thread-comment-kanan {
+        font-size: 16px;
+    }
+
+    .thread .profile-pic-detail-kanan {
+        width: 40px !important;
+        height: 40px !important;
+    }
+
+    .thread .name-content-kanan {
+        font-size: 16px;
+    }
+
+    .thread .name-content-kanan span {
+        font-size: 14px;
+    }
+
+    .thread .thread-kanan .btn {
+        font-size: 18px;
+        padding: 10px;
+    }
 }
 
 /* =======================================================================
