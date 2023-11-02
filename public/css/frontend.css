@@ -24,10 +24,6 @@ a:hover {
     text-decoration: none;
 }
 
-figure {
-    margin: 0;
-}
-
 .sticky {
     position: sticky;
     top: 30px;
@@ -61,7 +57,7 @@ section.section-bg {
  *  NAVBAR & HEADER CSS
  * ======================================================================= */
 
- #header {
+#header {
     position: sticky;
     top: 0;
     left: 0;
@@ -773,6 +769,488 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
 }
 
 /* =======================================================================
+ *  CSS FOR PROFILE
+ * ======================================================================= */
+
+ .profile-header {
+    position: relative;
+}
+
+.profile-banner-container {
+    overflow: hidden;
+    width: 100%;
+    max-height: 100%;
+}
+
+.profile-banner {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 10px;
+}
+
+.profile-banner::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+
+.profile-banner:not(.banner-default):after {
+    background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.9));
+}
+
+.profile-banner img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.profile-banner .action {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    z-index: 1;
+}
+
+.profile-banner .action .btn {
+    border-radius: 0;
+    border-radius: 8px;
+    padding: 10px 15px;
+    font-size: 14px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-banner .action .btn span {
+    margin-left: 10px;
+}
+
+.profile-banner .action .btn:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.profile-user {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
+}
+
+.profile-info {
+    display: flex;
+    align-items: center;
+}
+
+.profile-avatar {
+    position: relative;
+    bottom: 20px;
+    left: 20px;
+}
+
+.profile-avatar img {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    border: 5px solid #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    object-fit: cover;
+}
+
+.btn-avatar {
+    position: absolute;
+    bottom: 0;
+    right: 20px;
+    border-radius: 50%;
+    background-color: #fff;
+    padding: 10px;
+    width: 40px;
+    height: 40px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-avatar:hover {
+    background-color: #f1f2f6;
+}
+
+.profile-name {
+    position: relative;
+    margin-left: 50px;
+    top: 19px;
+    line-height: 1;
+}
+
+.profile-name h3 {
+    font-size: 30px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.profile-name span {
+    font-size: 16px;
+    color: var(--secondary-color);
+}
+
+.profile-name .user-sosmed {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px 0 0 0;
+    display: flex;
+    align-items: center;
+}
+
+.profile-name .user-sosmed li {
+    margin-right: 15px;
+}
+.profile-name .user-sosmed li:last-child {
+    margin-right: 0;
+}
+
+.profile-name .user-sosmed li a {
+    color: var(--secondary-color);
+    font-size: 18px;
+    transition: all 0.1s ease-in-out;
+}
+
+.profile-name .user-sosmed li a:hover {
+    color: var(--primary-color);
+}
+
+.profile-user .action .btn {
+    border-radius: 0;
+    border-radius: 8px;
+    padding: 10px 15px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-user .action .btn span {
+    margin-left: 10px;
+}
+
+/* Responsive */
+@media (max-width: 991.98px) {
+    .profile-user {
+        flex-direction: column;
+        height: calc(100px + 160px);
+        bottom: 70px;
+    }
+
+    .profile-info {
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 35px;
+    }
+
+    .profile-avatar {
+        position: relative;
+        bottom: 0;
+        left: 0;
+        margin-bottom: 10px;
+    }
+
+    .profile-avatar img {
+        width: 150px;
+        height: 150px;
+    }
+
+    .profile-name {
+        margin-left: 0;
+        text-align: center;
+        line-height: 1;
+    }
+
+    .profile-banner .action .btn span {
+        display: none;
+    }
+
+    .profile-name .user-sosmed {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 576.98px) {
+
+    .profile-user {
+        height: calc(100px + 120px);
+        bottom: 60px;
+    }
+
+    .profile-avatar {
+        margin-bottom: 5px;
+    }
+
+    .profile-avatar img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .btn-avatar {
+        width: 35px;
+        height: 35px;
+        right: 5px;
+    }
+
+    .profile-banner .action .btn {
+        padding:10px;
+        font-size: 12px;
+    }
+
+    .profile-user .action .btn {
+        padding: 5px 15px;
+        font-size: 14px;
+    
+    }
+
+    .profile-banner .action .btn span {
+        display: none;
+    }
+
+    .profile-info {
+        margin-bottom: 40px;
+    }
+
+    .profile-name h3 {
+        font-size: 24px;
+    }
+
+    .profile-name span {
+        font-size: 15px;
+    }
+}
+
+/* =======================================================================
+ *  POST CSS
+ * ======================================================================= */
+
+.btn-add-post {
+    border-radius: 8px;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: 500;
+    background-color: var(--success);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    text-transform: uppercase;
+}
+
+.btn-add-post:hover {
+    color: #fff;
+    background-color: #1f8335;
+}
+
+/* =======================================================================
+ *  THREAD LIST CSS
+ * ======================================================================= */
+
+.thread-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.thread-container .thread-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.thread-container .thread-item {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.225);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    margin: 15px 0;
+    position: relative;
+}
+
+.thread-container .thread-item:not(:first-child) {
+    margin-top: 30px;
+}
+
+.thread-container .thread-category {
+    position: absolute;
+    top: -15px;
+    left: 15px;
+    padding: 5px 10px;
+    border-radius: 6px;
+    background-color: #fff;
+    color: var(--secondary-color);
+    font-size: 12px;
+    font-weight: 400;
+    z-index: 1;
+    border: 1px solid var(--border-color);
+    transition: all 0.1s ease-in-out;
+}
+
+.thread-container .thread-category:hover {
+    color: #fff;
+    text-decoration: none;
+    background-color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+}
+
+.thread-container .thread-header {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.thread-container .thread-author {
+    display: flex;
+}
+
+.thread-container .thread-author .avatar {
+    margin-right: 15px;
+}
+
+.thread-container .thread-author .avatar img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--border-color);
+    object-fit: cover;
+}
+
+.thread-container .thread-author .info {
+    line-height: 1.2;
+}
+
+.thread-container .thread-author .info .name {
+    font-size: 16px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.thread-container .thread-author .info .name a.category {
+    font-size: 14px;
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.1s ease-in-out;
+}
+
+.thread-container .thread-author .info .name a.category:hover {
+    color: var(--primary-color);
+}
+
+.thread-container .thread-author .info .date {
+    font-size: 12px;
+    color: var(--secondary-color);
+    margin: 0;
+}
+
+.thread-container .thread-header .btn-more {
+    background-color: transparent;
+    border: none;
+    color: var(--secondary-color);
+    font-size: 20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.thread-container .thread-header .btn-more:hover, 
+.thread-container .thread-header .btn-more[aria-expanded="true"] {
+    background-color: #f1f2f6;
+}
+
+.thread-container .thread-tags {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 10px;
+}
+
+.thread-container .thread-tags li {
+    display: inline-block;
+    margin-right: 1px;
+}
+
+.thread-container .thread-tags li a {
+    font-size: 12px;
+    color: var(--secondary-color);
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    transition: all 0.1s ease-in-out;
+}
+
+.thread-container .thread-tags li a:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+}
+
+.thread-container .thread-title {
+    color: #000;
+    width: 100%;
+}
+
+.thread-container .thread-title:hover {
+    text-decoration: none;
+    color: #000;
+}
+
+.thread-container .thread-title:hover h3 {
+    color: var(--hover-color);
+
+}
+
+.thread-container .thread-title h3 {
+    font-size: 17px;
+    font-weight: 500;
+    margin-top: 14px;
+    transition: all 0.3s ease-in-out;
+}
+
+.thread-container .thread-content {
+    /* margin: 10px 0 15px 0; */
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+.thread-container .thread-action {
+    border-top: 1px solid var(--border-color);
+    margin-top: 10px;
+    padding-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.thread-container .thread-action .btn {
+    border-radius: 8px;
+}
+
+.thread-container .thread-action .btn:hover {
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.9);
+}
+
+/* =======================================================================
  *  FOOTER
  * ======================================================================= */
 
@@ -908,6 +1386,10 @@ footer .footer-bottom {
     font-weight: 500;
 }
 
+.dropdown-toggle figure {
+    margin: 0;
+}
+
 /* =======================================================================
  *  CUSTOM CARD BOOTSTRAP
  * ======================================================================= */
@@ -1008,4 +1490,32 @@ footer .footer-bottom {
 .form-control:focus, .custom-select:focus {
     border-color: var(--primary-color) !important;
     box-shadow: 0 0 0 0.2rem rgba(20, 184, 166, .25) !important;
+}
+
+/* =======================================================================
+*  NAV PILLS CUSTOM BOOTSTRAP
+* ======================================================================= */
+
+.nav-pills {
+    overflow-x: auto;
+    overflow-y:hidden;
+    flex-wrap: nowrap;
+}
+
+.nav-pills .nav-link {
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--secondary-color);
+    transition: all 0.1s ease-in-out;
+    white-space: nowrap;
+}
+
+.nav-pills .nav-link:hover {
+    color: var(--primary-color);
+}
+.nav-pills .nav-link.active {
+    background-color: var(--primary-color);
+    color: #fff;
 }

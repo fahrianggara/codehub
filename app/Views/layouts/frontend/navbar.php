@@ -26,7 +26,7 @@
     </div>
     <ul class="mobile-nav-bottom">
         <li class="nav-item d-block d-md-none">
-            <a href="javascript:void(0)">
+            <a href="<?= base_url('/') ?>">
                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
                     width="512" height="512" x="0" y="0" viewBox="0 0 32 32" style="enable-background:new 0 0 512 512"
                     xml:space="preserve" class="">
@@ -149,7 +149,7 @@
                 <div class="navbar-right">
                     <ul>
                         <li class="nav-item">
-                            <a href="javascript:void(0)">
+                            <a href="<?= base_url('/') ?>">
                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
                                     xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0"
                                     viewBox="0 0 32 32" style="enable-background:new 0 0 512 512" xml:space="preserve"

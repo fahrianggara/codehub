@@ -20,6 +20,24 @@ function hideMobileSearch() {
 !(function($) {
     "use strict";
     
+    moment.locale('id');
+
+    $(".modal").modal({
+        backdrop: "static",
+        keyboard: false,
+        show: false
+    });
+
+    $(".modal").on('shown.bs.modal', function () {
+        $(this).find("input:visible:first").focus();
+    });
+
+    $('[data-toggle="tooltip"]').tooltip({
+        trigger: 'hover'
+    }).on('click', function () {
+        $(this).tooltip('hide');
+    });
+    
     $(window).scroll(function () {
         var scrollTop = $(window).scrollTop();
 
