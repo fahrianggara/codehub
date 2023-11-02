@@ -15,6 +15,12 @@ class CreateUsersTable extends Migration
             'last_name' => ['type' => 'VARCHAR', 'constraint' => 255, 'null' => true],
             'avatar' => ['type' => 'VARCHAR', 'constraint' => 255, 'default' => 'avatar.png'],
             'email' => ['type' => 'VARCHAR', 'constraint' => 255, 'unique' => true],
+            'banner' => ['type' => 'VARCHAR', 'constraint' => 255, 'default' => 'banner.png'],
+            'link_fb' => ['type' => 'VARCHAR', 'constraint' => 255, 'null' => true],
+            'link_tw' => ['type' => 'VARCHAR', 'constraint' => 255, 'null' => true],
+            'link_ig' => ['type' => 'VARCHAR', 'constraint' => 255, 'null' => true],
+            'link_gh' => ['type' => 'VARCHAR', 'constraint' => 255, 'null' => true],
+            'link_li' => ['type' => 'VARCHAR', 'constraint' => 255, 'null' => true], // LinkedIn
             'email_verified_at' => ['type' => 'datetime', 'null' => true],
             'password' => ['type' => 'VARCHAR', 'constraint' => 255],
             'created_at datetime default current_timestamp',
