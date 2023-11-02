@@ -49,7 +49,7 @@
                         </li>
                         <li>
                             <a href="#" class="news-item">
-                                <img src="<?= base_url('images/avatar.png') ?>">
+                                <img src="https://source.unsplash.com/random/1200x630">
                                 <div class="news-content">
                                     <h6>Sultan Jordy is now officially being gay</h6>
                                     <small>3 Jam yang lalu</small>
