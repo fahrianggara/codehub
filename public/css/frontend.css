@@ -1178,6 +1178,10 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
     background-color: #f1f2f6;
 }
 
+.thread-container .thread-header .btn-more i {
+    font-size: 16px;
+}
+
 .thread-container .thread-tags {
     list-style-type: none;
     padding: 0;
