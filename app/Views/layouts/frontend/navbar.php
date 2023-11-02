@@ -1,7 +1,3 @@
-<?php $this->extend('layouts/frontend') ?>
-
-<?php $this->section('content'); ?>
-
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <div class="logo-nav">
@@ -123,6 +119,4 @@
             </div>
         </div>
     </div>
-
 </nav>
-<?php $this->endSection(); ?>

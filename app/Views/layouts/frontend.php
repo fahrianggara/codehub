@@ -17,13 +17,13 @@
 
 <body>
     <!-- Navbar -->
-    <?php $this->include('layouts/frontend/navbar'); ?>
+    <?= $this->include('layouts/frontend/navbar'); ?>
 
     <!-- Content -->
-    <?php $this->renderSection('content'); ?>
+    <?= $this->renderSection('content'); ?>
 
     <!-- Footer -->
-    <?php $this->include('layouts/frontend/footer'); ?>
+    <?= $this->include('layouts/frontend/footer'); ?>
 
     <!-- JS -->
     <script src="<?= base_url('plugins/bootstrap4/bootstrap.bundle.min.js') ?>"></script>

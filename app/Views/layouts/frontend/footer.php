@@ -1,7 +1,3 @@
-<?php $this->extend('layouts/frontend') ?>
-
-<?php $this->section('content'); ?>
-
 <footer class="footer">
     <div class="footer-top">
         <div class="container">
@@ -79,5 +75,3 @@
         </div>
     </div>
 </footer>
-
-<?php $this->endSection(); ?>
