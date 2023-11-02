@@ -1,6 +1,6 @@
 <footer class="footer">
     <div class="footer-top">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-md-4">
                     <h3>CODEHUB</h3>
@@ -29,7 +29,7 @@
                         </li>
                         <li>
                             <a href="#">
-                                <i class="bi bi-send"></i>
+                                <i class="bi bi-envelope"></i>
                                 codehub@hub.com
                             </a>
                         </li>
@@ -39,24 +39,20 @@
                     <h3>Latest News</h3>
                     <ul class="mb-3 latest-news">
                         <li>
-                            <a href="#">
-                                <div class="news-item">
-                                    <img src="foto/download.jpg" alt="#">
-                                    <div class="news-content">
-                                        <h6>Sultan Jordy is now officially being gay</h6>
-                                        <small>Today,18 minutes ago</small>
-                                    </div>
+                            <a href="#" class="news-item">
+                                <img src="https://source.unsplash.com/random/1200x630">
+                                <div class="news-content">
+                                    <h6>Sultan Jordy is now officially being gay</h6>
+                                    <small>3 Jam yang lalu</small>
                                 </div>
                             </a>
                         </li>
                         <li>
-                            <a href="#">
-                                <div class="news-item">
-                                    <img src="foto/Shirt.jpg" alt="#">
-                                    <div class="news-content">
-                                        <h6>Sultan Jordy is now officially being gay</h6>
-                                        <small>Today,18 minutes ago</small>
-                                    </div>
+                            <a href="#" class="news-item">
+                                <img src="<?= base_url('images/avatar.png') ?>">
+                                <div class="news-content">
+                                    <h6>Sultan Jordy is now officially being gay</h6>
+                                    <small>3 Jam yang lalu</small>
                                 </div>
                             </a>
                         </li>
@@ -68,9 +64,9 @@
     </div>
 
     <div class="footer-bottom">
-        <div class="container">
-            <p>Copyright
-                &copy; 2023 ALL RIGHT RESERVED | COD<span>HUB</span>
+        <div class="container-fluid">
+            <p>
+                CODEHUB &copy; 2023 All Rights Reserved.
             </p>
         </div>
     </div>

@@ -6,13 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= "$title - CodeHUB" ?></title>
 
+    <link rel="apple-touch-icon" href="<?= base_url('favicon/apple-touch-icon.png') ?>" sizes="180x180">
+    <link rel="icon" href="<?= base_url('favicon/favicon-32x32.png') ?>" sizes="32x32" type="image/png">
+    <link rel="icon" href="<?= base_url('favicon/favicon-16x16.png') ?>" sizes="16x16" type="image/png">
+
     <!-- CSS -->
     <link rel="stylesheet" href="<?= base_url('plugins/bootstrap4/bootstrap.min.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('plugins/bootstrap4/icons/bootstrap-icons.css') ?>">
     <link rel="stylesheet" href="<?= base_url('plugins/alertify/css/alerts.css') ?>">
     <link rel="stylesheet" href="<?= base_url('css/frontend.css') ?>">
 
-    <!-- jQuery -->
-    <script src="<?= base_url('plugins/jquery/jquery.min.js') ?>"></script>
 </head>
 
 <body>
@@ -26,9 +29,13 @@
     <?= $this->include('layouts/frontend/footer'); ?>
 
     <!-- JS -->
+    <script src="<?= base_url('plugins/jquery/jquery.min.js') ?>"></script>
     <script src="<?= base_url('plugins/bootstrap4/bootstrap.bundle.min.js') ?>"></script>
     <script src="<?= base_url('plugins/alertify/js/alerts.js') ?>"></script>
     <script src="<?= base_url('js/frontend.js') ?>"></script>
+
+    <!-- Render Js -->
+    <?= $this->renderSection('js'); ?>
 </body>
 
 </html>
