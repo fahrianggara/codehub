@@ -24,15 +24,25 @@ class User extends Entity
     }
 
     /**
-     * Get picture attribute
+     * Get photo attribute
      * 
-     * @param  mixed $picture
      * @return void
      */
-    public function getAvatar()
+    public function getPhoto()
     {
-        $path = base_url('images/avatars/' . $this->attributes['avatar']);
-        return file_exists($path) ? $path : base_url('images/avatar.png');
+        $path = 'images/avatars/' . $this->attributes['avatar'];
+        return file_exists($path) ? base_url($path) : base_url('images/avatar.png');
+    }
+
+    /**
+     * Get banner attribute
+     * 
+     * @return void
+     */
+    public function getPoster()
+    {
+        $path = 'images/banners/'. $this->attributes['banner'];
+        return file_exists($path) ? base_url($path) : base_url('images/banner.png');
     }
 
     /**

@@ -29,7 +29,7 @@ class ProfileController extends BaseController
      */
     public function index($username)
     {
-        $user = $this->userModel->with(['threads'])->where('username', $username)->first();
+        $user = $this->userModel->where('username', $username)->first();
         
         if (!$user) throw PageNotFoundException::forPageNotFound();
         

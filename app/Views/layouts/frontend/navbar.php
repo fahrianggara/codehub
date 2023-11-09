@@ -1,30 +1,40 @@
 <div class="mobile-search-overlay"></div>
+
 <div class="mobile-search">
     <div class="container-fluid d-flex">
+
         <button type="button" class="btn close-search">
             <i class="fas fa-arrow-left"></i>
         </button>
-        <form class="w-100">
+
+        <form class="w-100" action="#" method="post">
+            <?= csrf_field() ?>
             <div class="form-group m-0">
                 <input type="search" class="form-control mobile-search-input" placeholder="Cari Diskusi...">
             </div>
         </form>
+
     </div>
 </div>
 
 <div class="mobile-nav-overlay"></div>
+
 <nav class="mobile-nav">
-    <div class="mobile-nav-top">
-        <div class="text">
-            <h3>Masuk ke akunmu</h3>
-            <p>Agar dapat mengakses semua fitur di CODEHUB.</p>
+
+    <?php if (!session()->get('logged_in')): ?>
+        <div class="mobile-nav-top">
+            <div class="text">
+                <h3>Masuk ke akunmu</h3>
+                <p>Agar dapat mengakses semua fitur di CODEHUB.</p>
+            </div>
+            <div class="action">
+                <a href="javascript:void(0)" class="login">Masuk</a>
+                <a href="javascript:void(0)" class="register">Daftar</a>
+            </div>
         </div>
-        <div class="action">
-            <a href="javascript:void(0)" class="login">Masuk</a>
-            <a href="javascript:void(0)" class="register">Daftar</a>
-        </div>
-    </div>
-    <ul class="mobile-nav-bottom">
+    <?php endif ?>
+
+    <ul class="mobile-nav-bottom <?= auth_check() ? 'logined' : '' ?>">
         <li class="nav-item d-block d-md-none">
             <a href="<?= base_url('/') ?>">
                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -40,7 +50,7 @@
             </a>
         </li>
         <li class="nav-item d-block d-md-none">
-            <a href="javascript:void(0)">
+            <a href="javascript:void(0)" id="make-thread">
                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
                     width="512" height="512" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512"
                     xml:space="preserve" class="">
@@ -55,7 +65,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="#">
+            <a href="javascript:void(0)">
                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
                     width="512" height="512" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512"
                     xml:space="preserve" class="">
@@ -71,7 +81,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="#">
+            <a href="javascript:void(0)">
                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
                     width="512" height="512" x="0" y="0" viewBox="0 0 128 128" style="enable-background:new 0 0 512 512"
                     xml:space="preserve" class="">
@@ -86,7 +96,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="#">
+            <a href="javascript:void(0)">
                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
                     width="512" height="512" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512"
                     xml:space="preserve" fill-rule="evenodd" class="">
@@ -109,13 +119,13 @@
             <div class="container-fluid">
                 <ul>
                     <li class="nav-item">
-                        <a href="#"><span class="nav-text">Tentang</span></a>
+                        <a href="javascript:void(0)"><span class="nav-text">Tentang</span></a>
                     </li>
                     <li class="nav-item">
-                        <a href="#"><span class="nav-text">Kontak</span></a>
+                        <a href="javascript:void(0)"><span class="nav-text">Kontak</span></a>
                     </li>
                     <li class="nav-item">
-                        <a href="#"><span class="nav-text">Bantuan</span></a>
+                        <a href="javascript:void(0)"><span class="nav-text">Bantuan</span></a>
                     </li>
                 </ul>
             </div>
@@ -124,20 +134,25 @@
         <div class="container-fluid">
             <div class="nav-bottom">
                 <div class="navbar-left">
+
                     <button class="mobile-nav-toggle btn">
                         <span></span>
                         <span></span>
                         <span></span>
                     </button>
+
                     <div class="navbar-brand">
-                        <a href="javascript:void(0)">
+                        <a href="<?= base_url('/') ?>">
                             <img src="<?= base_url('images/logo/sm.png') ?>" alt="logo">
                             <span class="logo-text d-none d-lg-block">codehub</span>
                         </a>
                     </div>
+
                 </div>
 
-                <form class="form-search">
+                <form class="form-search" action="#" method="post" autocomplete="off">
+                    <?= csrf_field() ?>
+
                     <div class="form-group m-0">
                         <input type="search" class="form-control" placeholder="Cari Diskusi...">
                         <button type="submit" class="btn btn-search">
@@ -163,8 +178,9 @@
                                 <span class="nav-text">Beranda</span>
                             </a>
                         </li>
+
                         <li class="nav-item">
-                            <a href="javascript:void(0)">
+                            <a href="javascript:void(0)" id="make-thread">
                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
                                     xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0"
                                     viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve"
@@ -179,53 +195,59 @@
                                 <span class="nav-text">Buat Diskusi</span>
                             </a>
                         </li>
-                        <!-- <li class="nav-button mr-0">
-                                <a href="javascript:void(0)" class="login">
+
+                        <?php if (!auth_check()): ?>
+                            <li class="nav-button mr-0">
+                                <a href="<?= route_to('login') ?>" class="login">
                                     <span class="nav-text">Masuk</span>
                                 </a>
-                                <a href="javascript:void(0)" class="register">
+                                <a href="<?= route_to('register') ?>" class="register">
                                     <span class="nav-text">Daftar</span>
                                 </a>
-                            </li> -->
+                            </li>
+                        <?php endif ?>
+
                         <li class="nav-item nav-profile d-block d-md-none">
                             <button type="button" class="btn btn-search" id="btn-search">
                                 <i class="fas fa-search"></i>
                             </button>
                         </li>
-                        <li class="nav-profile nav-item">
-                            <div class="btn-group">
-                                <button type="button" class="btn dropdown-toggle" data-toggle="dropdown"
-                                    aria-expanded="false">
-                                    <figure class="position-relative">
-                                        <img src="https://i.pravatar.cc/500?img=32" alt="avatar"
-                                            class="rounded-circle avatar">
-                                        <span class="badge badge-danger notification-alert"> </span>
-                                    </figure>
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
-                                    <div class="dropdown-header">
-                                        Ilham Ramadan
+
+                        <?php if (auth_check()): ?>
+                            <li class="nav-profile nav-item">
+                                <div class="btn-group">
+                                    
+                                    <button type="button" class="btn dropdown-toggle" data-toggle="dropdown"
+                                        aria-expanded="false">
+                                        <figure class="position-relative">
+                                            <img src="<?= auth()->photo ?>" alt="avatar"
+                                                class="rounded-circle avatar">
+                                            <!-- <span class="badge badge-danger notification-alert"> </span> -->
+                                        </figure>
+                                    </button>
+
+                                    <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
+                                        <div class="dropdown-header">
+                                            <?= auth()->full_name ?>
+                                        </div>
+                                        <a class="dropdown-item" href="<?= base_url(auth()->username) ?>">
+                                            <i class="fas fa-user mr-2"></i>
+                                            Profile
+                                        </a>
+                                        <a class="dropdown-item" href="javascript:void(0);">
+                                            <i class="fas fa-bell mr-2"></i>
+                                            Notifikasi
+                                            <!-- <span class="badge badge-pill badge-danger ml-auto">6</span> -->
+                                        </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="javascript:void(0);">
+                                            <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                                        </a>
                                     </div>
-                                    <a class="dropdown-item" href="javascript:void(0);">
-                                        <i class="fas fa-user mr-2"></i>
-                                        Profile
-                                    </a>
-                                    <a class="dropdown-item" href="javascript:void(0);">
-                                        <i class="fas fa-cog mr-2"></i>
-                                        Settings
-                                    </a>
-                                    <a class="dropdown-item" href="javascript:void(0);">
-                                        <i class="fas fa-bell mr-2"></i>
-                                        Notifications
-                                        <span class="badge badge-pill badge-danger ml-auto">6</span>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="javascript:void(0);">
-                                        <i class="fas fa-sign-out-alt mr-2"></i> Logout
-                                    </a>
                                 </div>
-                            </div>
-                        </li>
+                            </li>
+                        <?php endif ?>
+
                     </ul>
                 </div>
             </div>

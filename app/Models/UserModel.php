@@ -14,6 +14,7 @@ class UserModel extends Model
     protected $table            = 'users';
     protected $returnType       = User::class;
     protected $useTimestamps    = true;
+    protected $with             = ['threads', 'replies', 'likes', 'notifications', 'reports'];
     protected $allowedFields    = [
         'username', 'first_name', 'last_name', 'email', 'avatar', 'password',
         'link_fb', 'link_tw', 'link_ig', 'link_gh', 'link_li', 'role', 'banner'

@@ -57,16 +57,23 @@ class LoginController extends BaseController
             $password = $request->getVar('password');
             
             // check inputan username jika ada @ maka dianggap email
-            strpos($username, '@') === false
-                ? $user = $this->checkUser($username, 'Username tidak ditemukan!')
-                : $user = $this->checkUser($username, 'Email tidak ditemukan!');
+            if (strpos($username, '@') === false) {
+                $user = $this->checkUser($username);
+                if (!$user) 
+                    return response()->setJSON(['status' => 400, 'message' => "Username $username tidak ditemukan!"]);
+            } else {
+                $user = $this->checkUser($username);
+                if (!$user) 
+                    return response()->setJSON(['status' => 400, 'message' => "Email $username tidak ditemukan!"]);
+            }
 
             // check password
-            if (!password_verify($password, $user->password))
+            if (!password_verify($password, $user->password)) {
                 return response()->setJSON([
                     'status' => 400,
                     'message' => 'Password salah!'
                 ]);
+            }
 
             // commit transaction
             $this->db->transCommit(); 
@@ -109,20 +116,10 @@ class LoginController extends BaseController
      * Private function checking user
      * 
      * @param string $username
-     * @param string $message
      * @return object|null
      */
-    public function checkUser($username, $message)
+    public function checkUser($username)
     {
-        $user = $this->userModel->where('username', $username)->first();
-
-        if (!$user) { // jika user tidak ditemukan
-            return response()->setJSON([
-                'status' => 400,
-                'message' => $message
-            ]);
-        }
-
-        return $user;
+        return $this->userModel->where('username', $username)->first();
     }
 }
