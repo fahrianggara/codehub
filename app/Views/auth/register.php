@@ -14,7 +14,8 @@
         <div class="wrapper">
             <p class="wrapper-title">Daftar ke CodeHUB</p>
 
-            <form action="<?= base_url('register') ?>" class="wrapper-form" autocomplete="off" method="POST">
+            <form action="<?= base_url('register') ?>" class="wrapper-form" 
+                autocomplete="off" method="POST">
                 <?= csrf_field(); ?>
                 
                 <div class="form-group input">
@@ -129,13 +130,18 @@
                     },
                     success: function (res) {
                         if (res.status === 400) {
-                            errors = [];
+                            if (res.val === true) {
+                                errors = [];
 
-                            $.each(res.error, function (key, val) {
-                                errors.push(val);
-                            });
+                                $.each(res.message, function (key, val) {
+                                    errors.push(val);
+                                });
 
-                            alertify.alert(errors.join("<br><br>"));
+                                alertify.alert(errors.join("<br><br>"));
+                            } else {
+                                alertify.alert(res.message);
+                            }
+
                             $(document).find(".alertify .msg").addClass("text-danger");
                         } else {
                             alertify.alert(res.message, function () {

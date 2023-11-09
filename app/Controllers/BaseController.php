@@ -2,11 +2,14 @@
 
 namespace App\Controllers;
 
+use App\Models\UserModel;
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\CLIRequest;
 use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
+use Config\Database;
+use Config\Services;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -22,6 +25,13 @@ use Psr\Log\LoggerInterface;
 abstract class BaseController extends Controller
 {
     /**
+     * Custom variable.
+     *
+     * @var mixed
+     */
+    protected $auth, $db, $userModel, $validation;
+
+    /**
      * Instance of the main Request object.
      *
      * @var CLIRequest|IncomingRequest
@@ -35,7 +45,7 @@ abstract class BaseController extends Controller
      *
      * @var array
      */
-    protected $helpers = [];
+    protected $helpers = ['form'];
 
     /**
      * Be sure to declare properties for any property fetch you initialized.
@@ -52,7 +62,9 @@ abstract class BaseController extends Controller
         parent::initController($request, $response, $logger);
 
         // Preload any models, libraries, etc, here.
-
-        // E.g.: $this->session = \Config\Services::session();
+        $this->userModel = new UserModel();
+        $this->auth = $this->userModel->authUser();
+        $this->db = Database::connect();
+        $this->validation = Services::validation();
     }
 }

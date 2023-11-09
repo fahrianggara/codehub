@@ -58,24 +58,4 @@ class User extends Entity
     {
         return Carbon::parse($this->attributes['created_at'])->locale('id')->isoFormat('LL');
     }
-
-    /**
-     * Get role attribute
-     * 
-     * @return string
-     */
-    public function getRole()
-    {
-        $user_id = $this->attributes['id'];
-        
-        $db = \Config\Database::connect();
-        $builder = $db->table('roles');
-
-        $builder->select('roles.*');
-        $builder->join('user_has_roles', 'user_has_roles.role_id = roles.id');
-        $builder->where('user_has_roles.user_id', $user_id);
-        
-        return $builder->get()->getRowObject();
-    }
-
 }

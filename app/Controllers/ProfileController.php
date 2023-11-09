@@ -31,7 +31,7 @@ class ProfileController extends BaseController
     {
         $user = $this->userModel->with(['threads'])->where('username', $username)->first();
         
-        if (!$user) throw PageNotFoundException::forPageNotFound("Oops.. User dengan username $username tidak ditemukan!");
+        if (!$user) throw PageNotFoundException::forPageNotFound();
         
         return view('frontend/profile', [
             'title' => "Profile",
