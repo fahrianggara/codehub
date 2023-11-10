@@ -30,6 +30,10 @@
     <!-- Footer -->
     <?= $this->include('layouts/frontend/footer'); ?>
 
+    <?php if (auth_check()) : ?>
+        <?= $this->include('auth/logout'); ?>
+    <?php endif; ?>
+
     <!-- JS -->
     <script src="<?= base_url('plugins/jquery/jquery.min.js') ?>"></script>
     <script src="<?= base_url('plugins/bootstrap4/bootstrap.bundle.min.js') ?>"></script>

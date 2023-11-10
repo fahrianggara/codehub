@@ -240,8 +240,8 @@
                                             <!-- <span class="badge badge-pill badge-danger ml-auto">6</span> -->
                                         </a>
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="javascript:void(0);">
-                                            <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                                        <a id="logoutButton" class="dropdown-item" href="javascript:void(0);">
+                                            <i class="fas fa-sign-out-alt text-danger mr-2"></i> Logout
                                         </a>
                                     </div>
                                 </div>

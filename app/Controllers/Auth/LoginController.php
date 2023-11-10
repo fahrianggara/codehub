@@ -88,8 +88,8 @@ class LoginController extends BaseController
             // response success
             return response()->setJSON([
                 'status' => 200,
-                'message' => 'Login berhasil! Kamu akan diarahkan ke halaman profile.',
-                'redirect' => base_url("/$user->username"),
+                'message' => 'Login berhasil, kamu akan diarahkan ke halaman profile kamu.',
+                'redirect' => base_url("$user->username"),
             ]);
         } catch (\Exception $th) {
             $this->db->transRollback();
