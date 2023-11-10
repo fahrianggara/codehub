@@ -270,7 +270,7 @@
                                                 <div></div>
                                                 <div class="thread-tengah">
                                                     <button class="btn love text-danger">
-                                                        <i class="fas fa-heart"></i>
+                                                        <i class="fas fa-heart fa-beat"></i>
                                                         <small>23</small>
                                                     </button>
                                                     <button class="btn comment">
