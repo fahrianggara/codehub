@@ -2,7 +2,7 @@
 
 <?= $this->section('content'); ?>
 
-<section class="section-bg section-profile-top <?= !auth_check() ? 'logined' : '' ?>">
+<section class="section-bg section-profile-top first <?= !auth_check() ? 'logined' : '' ?>">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-12">
