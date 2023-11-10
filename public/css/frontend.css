@@ -1451,6 +1451,7 @@ footer .footer-top .social-media {
 	display: flex;
 	align-items: center;
 	margin-top: 20px;
+	padding-bottom: 10px;
 }
 
 footer .footer-top .social-media li {
