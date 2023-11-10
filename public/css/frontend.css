@@ -1557,6 +1557,81 @@ footer .footer-bottom {
 }
 
 /* =======================================================================
+ *  PAGINATION CUSTOM BOOTSTRAP 4
+ * ======================================================================= */
+
+#pagination {
+	margin: 15px 0 0 0;
+	padding: 0;
+}
+
+@media (max-width: 991.98px) {
+	#pagination {
+		margin-bottom: 15px;
+	}
+}
+
+.pagination {
+	margin: 0;
+	flex-wrap: wrap;
+}
+
+.page-link {
+	width: 37px;
+	height: 37px;
+	padding: 8px 14px;
+	border-radius: 6px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: 600;
+	transition: all 0.2s ease-in-out;
+	color: var(--secondary-color) !important;
+}
+.page-item:last-child .page-link,
+.page-item:first-child .page-link {
+	border-radius: 6px;
+}
+
+.page-link:hover {
+	color: var(--primary-color) !important;
+}
+
+.page-item.active .page-link {
+	background-color: var(--primary-color) !important;
+	border-color: var(--primary-color) !important;
+	color: #fff !important;
+}
+
+.page-item.disabled {
+	pointer-events: none;
+}
+
+.page-item.disabled .page-link {
+	background-color: #f1f2f6 !important;
+	color: var(--secondary-color) !important;
+}
+
+.page-item:not(:last-child) {
+	margin-right: 5px;
+}
+
+@media (max-width: 991.98px) {
+	.page-item {
+		display: none;
+	}
+
+	.page-item:first-child,
+	.page-item:nth-child(2),
+	.page-item:nth-last-child(2),
+	.page-item:last-child,
+	.page-item.active,
+	.page-item.disabled {
+		display: inline-block;
+	}
+}
+
+/* =======================================================================
  *  DROPDOWN CUSTOM BOOTSTRAP 4
  * ======================================================================= */
 
