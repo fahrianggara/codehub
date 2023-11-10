@@ -57,12 +57,12 @@ class LoginController extends BaseController
             $password = $request->getVar('password');
             
             // check inputan username jika ada @ maka dianggap email
-            if (strpos($username, '@') === false) {
-                $user = $this->checkUser($username);
+            if (strpos($username, '@') === false) { // <-- Username
+                $user = $this->checkUser('username', $username);
                 if (!$user) 
                     return response()->setJSON(['status' => 400, 'message' => "Username $username tidak ditemukan!"]);
-            } else {
-                $user = $this->checkUser($username);
+            } else { // <-- Email
+                $user = $this->checkUser('email', $username);
                 if (!$user) 
                     return response()->setJSON(['status' => 400, 'message' => "Email $username tidak ditemukan!"]);
             }
@@ -115,11 +115,12 @@ class LoginController extends BaseController
     /**
      * Private function checking user
      * 
+     * @param string $field
      * @param string $username
      * @return object|null
      */
-    public function checkUser($username)
+    public function checkUser($field, $username)
     {
-        return $this->userModel->where('username', $username)->first();
+        return $this->userModel->where($field, $username)->first();
     }
 }
