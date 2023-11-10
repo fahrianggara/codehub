@@ -41,7 +41,7 @@ function hideMobileSearch() {
     $(window).scroll(function () {
         var scrollTop = $(window).scrollTop();
 
-        (scrollTop > 1)
+        (scrollTop > 20)
             ? $('.nav-top').addClass('nav-top-hide')
             : $('.nav-top').removeClass('nav-top-hide');
     });

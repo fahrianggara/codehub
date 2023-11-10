@@ -8,11 +8,14 @@
 
     <section>
         <div class="brand">
-            <img src="<?= base_url('images/logo/lg.png') ?>" alt="CodeHUB Logo">
+            <a href="<?= base_url('/') ?>">
+                <img src="<?= base_url('images/logo/sm.png') ?>" alt="logo">
+                <span class="logo-text d-none d-lg-block">codehub</span>
+            </a>
         </div>
 
         <div class="wrapper">
-            <p class="wrapper-title">Daftar ke CodeHUB</p>
+            <p class="wrapper-title">Daftar ke CODEHUB</p>
 
             <form action="<?= base_url('register') ?>" class="wrapper-form" 
                 autocomplete="off" method="POST">

@@ -15,10 +15,10 @@
 
                                 <div class="action">
                                     <?php if (auth_check() && auth()->id === $user->id): ?>
-                                        <button class="btn btn-sm btn-banner">
-                                            <i class="fas fa-camera"></i>
-                                            <span>Edit Sampul</span>
-                                        </button>
+                                    <button class="btn btn-sm btn-banner">
+                                        <i class="fas fa-camera"></i>
+                                        <span>Edit Sampul</span>
+                                    </button>
                                     <?php endif ?>
                                 </div>
                             </div>
@@ -30,9 +30,9 @@
                                     <img src="<?= $user->photo ?>" alt="avatar" class="bg-white">
 
                                     <?php if (auth_check() && auth()->id === $user->id): ?>
-                                        <button class="btn btn-sm btn-avatar">
-                                            <i class="fas fa-camera"></i>
-                                        </button>
+                                    <button class="btn btn-sm btn-avatar">
+                                        <i class="fas fa-camera"></i>
+                                    </button>
                                     <?php endif ?>
                                 </figure>
 
@@ -42,43 +42,43 @@
 
                                     <ul class="user-sosmed">
                                         <?php if ($user->link_fb): ?>
-                                            <li class="sosmed-item">
-                                                <a href="<?= $user->link_fb ?>" target="_blank" class="sosmed-link">
-                                                    <i class="fab fa-facebook"></i>
-                                                </a>
-                                            </li>
+                                        <li class="sosmed-item">
+                                            <a href="<?= $user->link_fb ?>" target="_blank" class="sosmed-link">
+                                                <i class="fab fa-facebook"></i>
+                                            </a>
+                                        </li>
                                         <?php endif ?>
 
                                         <?php if ($user->link_tw): ?>
-                                            <li class="sosmed-item">
-                                                <a href="<?= $user->link_tw ?>" target="_blank" class="sosmed-link">
-                                                    <i class="fab fa-twitter"></i>
-                                                </a>
-                                            </li>
+                                        <li class="sosmed-item">
+                                            <a href="<?= $user->link_tw ?>" target="_blank" class="sosmed-link">
+                                                <i class="fab fa-twitter"></i>
+                                            </a>
+                                        </li>
                                         <?php endif ?>
 
                                         <?php if ($user->link_ig): ?>
-                                            <li class="sosmed-item">
-                                                <a href="<?= $user->link_ig ?>" target="_blank" class="sosmed-link">
-                                                    <i class="fab fa-instagram"></i>
-                                                </a>
-                                            </li>
+                                        <li class="sosmed-item">
+                                            <a href="<?= $user->link_ig ?>" target="_blank" class="sosmed-link">
+                                                <i class="fab fa-instagram"></i>
+                                            </a>
+                                        </li>
                                         <?php endif ?>
 
                                         <?php if ($user->link_gh): ?>
-                                            <li class="sosmed-item">
-                                                <a href="<?= $user->link_gh ?>" target="_blank" class="sosmed-link">
-                                                    <i class="fab fa-github"></i>
-                                                </a>
-                                            </li>
+                                        <li class="sosmed-item">
+                                            <a href="<?= $user->link_gh ?>" target="_blank" class="sosmed-link">
+                                                <i class="fab fa-github"></i>
+                                            </a>
+                                        </li>
                                         <?php endif ?>
-                                        
+
                                         <?php if ($user->link_li): ?>
-                                            <li class="sosmed-item">
-                                                <a href="<?= $user->link_li ?>" target="_blank" class="sosmed-link">
-                                                    <i class="fab fa-linkedin"></i>
-                                                </a>
-                                            </li>
+                                        <li class="sosmed-item">
+                                            <a href="<?= $user->link_li ?>" target="_blank" class="sosmed-link">
+                                                <i class="fab fa-linkedin"></i>
+                                            </a>
+                                        </li>
                                         <?php endif ?>
                                     </ul>
                                 </div>
@@ -86,10 +86,10 @@
 
                             <div class="action">
                                 <?php if (auth_check() && auth()->id === $user->id): ?>
-                                    <button class="btn btn-sm btn-warning btn-profile">
-                                        <i class="fas fa-pen"></i>
-                                        <span>Edit Profile</span>
-                                    </button>
+                                <button class="btn btn-sm btn-warning btn-profile">
+                                    <i class="fas fa-pen"></i>
+                                    <span>Edit Profile</span>
+                                </button>
                                 <?php endif ?>
                             </div>
                         </div>
@@ -110,18 +110,16 @@
                     <div class="card-body p-2">
                         <ul class="nav nav-pills">
                             <li class="nav-item">
-                                <a class="nav-link active" href="#" data-toggle="tab" 
-                                    data-target="#tab-post">
-                                    Postingan (10)
+                                <a class="nav-link active" href="#" data-toggle="tab" data-target="#tab-post">
+                                    Diskusi (10)
                                 </a>
                             </li>
                             <?php if (auth_check() && auth()->id === $user->id): ?>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#" data-toggle="tab" 
-                                        data-target="#tab-security">
-                                        Keamanan
-                                    </a>
-                                </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" data-toggle="tab" data-target="#tab-security">
+                                    Keamanan
+                                </a>
+                            </li>
                             <?php endif ?>
                         </ul>
                     </div>
@@ -135,7 +133,8 @@
                             <div class="col-lg-4 col-md-5 mb-3">
                                 <?php if (auth_check() && auth()->id === $user->id): ?>
                                     <button class="btn btn-add-post mb-3">
-                                        <span>Buat Diskusi</span>
+                                        <i class="fas fa-plus"></i>
+                                        <span>Diskusi Baru</span>
                                     </button>
                                 <?php endif ?>
 
@@ -146,20 +145,18 @@
                                     <div class="card-body">
                                         <form action="#">
                                             <?php if (auth_check() && auth()->id === $user->id): ?>
-                                                <div class="form-group">
-                                                    <label for="filter-status">Status</label>
-                                                    <select name="filter-status" id="filter-status"
-                                                        class="custom-select">
-                                                        <option value="">Publish</option>
-                                                        <option value="">Draft</option>
-                                                    </select>
-                                                </div>
+                                            <div class="form-group">
+                                                <label for="filter-status">Status</label>
+                                                <select name="filter-status" id="filter-status" class="custom-select">
+                                                    <option value="">Publish</option>
+                                                    <option value="">Draft</option>
+                                                </select>
+                                            </div>
                                             <?php endif ?>
 
                                             <div class="form-group">
                                                 <label for="filter-urutkan">Urutkan</label>
-                                                <select name="filter-urutkan" id="filter-urutkan"
-                                                    class="custom-select">
+                                                <select name="filter-urutkan" id="filter-urutkan" class="custom-select">
                                                     <option value="">Terbaru</option>
                                                     <option value="">Terlama</option>
                                                     <option value="">Populer</option>
@@ -188,34 +185,27 @@
                             </div>
 
                             <div class="col-lg-8 col-md-7">
-                                <div class="thread-container">
-                                    <ul class="thread-list">
-
+                                <div class="thread">
+                                    <ul class="list-group">
                                         <!-- <div class="alert alert-warning">
                                             <i class="fas fa-info-circle mr-2"></i>
                                             <span>Belum ada diskusi</span>
                                         </div> -->
-
-                                        <li class="thread-item">
-                                            <a href="javascript:void(0);" class="thread-category">
-                                                Lorem Ipsum Dolor
-                                            </a>
-                                            <div class="thread-header">
-                                                <div class="thread-author">
-                                                    <figure class="avatar">
-                                                        <img src="https://i.pravatar.cc/500?img=32" alt="avatar"
-                                                            class="rounded-circle">
-                                                    </figure>
-                                                    <div class="info">
-                                                        <h6 class="name">
-                                                            Ilham Ramadan
-                                                        </h6>
-                                                        <time class="date">2 jam yang lalu</time>
+                                        <li class="list-group-item ">
+                                            <div
+                                                class="item-content mb-2 mt-1 d-flex align-items-center justify-content-between">
+                                                <a class="d-flex align-items-center" href="javascript:void(0)">
+                                                    <img class="mr-2 profile-pic-detail"
+                                                        src="<?= base_url('images/avatar.png') ?>">
+                                                    <div class="name-content">
+                                                        fahrianggara
+                                                        <span class="thread-count">2 Jam yang lalu</span>
                                                     </div>
-                                                </div>
+                                                </a>
                                                 <div class="btn-group dropleft">
                                                     <button class="btn btn-sm btn-more dropdown-toggle"
-                                                        data-toggle="dropdown" aria-expanded="false" data-display="static">
+                                                        data-toggle="dropdown" aria-expanded="false"
+                                                        data-display="static">
                                                         <i class="fas fa-ellipsis-h"></i>
                                                     </button>
                                                     <div class="dropdown-menu dropdown-menu-right">
@@ -232,7 +222,7 @@
                                                             <div class="dropdown-divider"></div>
                                                         <?php endif ?>
                                                         <a class="dropdown-item" href="javascript:void(0);">
-                                                            <i class="fas text-info fa-share mr-2"></i> 
+                                                            <i class="fas text-info fa-share mr-2"></i>
                                                             Bagikan
                                                         </a>
                                                         <a class="dropdown-item" href="javascript:void(0);">
@@ -240,65 +230,60 @@
                                                             Lihat
                                                         </a>
                                                         <a class="dropdown-item" href="javascript:void(0);">
-                                                            <i class="fas text-warning fa-exclamation-triangle mr-2"></i>
+                                                            <i
+                                                                class="fas text-warning fa-exclamation-triangle mr-2"></i>
                                                             Laporkan
                                                         </a>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="thread-body">
-                                                <ul class="thread-tags">
-                                                    <li class="tag-item">
-                                                        <a href="javascript:void(0);" class="tag-link">
-                                                            <span class="tag-name">HTML</span>
-                                                        </a>
-                                                    </li>
-                                                    <li class="tag-item">
-                                                        <a href="javascript:void(0);" class="tag-link">
-                                                            <span class="tag-name">Lorem Ipsum</span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-
-                                                <a href="javascript:void(0);" class="thread-title">
-                                                    <h3>
-                                                        Lorem ipsum dolor sit amet
-                                                    </h3>
-                                                    <div class="thread-content">
-                                                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                                        Sint
-                                                        ducimus veritatis
-                                                        atque quo repellat voluptate, necessitatibus sed at animi
-                                                        voluptatibus.
-                                                        Consequuntur architecto molestias at aperiam recusandae
-                                                        repellat
-                                                        reiciendis, enim incidunt!
-                                                    </div>
-                                                </a>
-
-                                                <div class="thread-action">
-                                                    <div></div>
-                                                    <div>
-                                                        <button class="btn btn-sm btn-like"
-                                                            data-toggle="tooltip" title="Suka">
-                                                            <i class="far fa-heart"></i>
-                                                            <span>10</span>
-                                                        </button>
-                                                        <button class="btn btn-sm btn-comment" data-toggle="tooltip"
-                                                            title="Komentar">
-                                                            <i class="far fa-comment"></i>
-                                                            <span>10</span>
-                                                        </button>
-                                                        <button class="btn btn-sm btn-views" data-toggle="tooltip"
-                                                            title="Dilihat">
-                                                            <i class="fas fa-eye"></i>
-                                                            <span>100</span>
-                                                        </button>
-                                                    </div>
+                                            <a href="javascript:void(0)">
+                                                <h3 class="thread-comment-title">
+                                                    Lorem ipsum dolor
+                                                </h3>
+                                                <div class="thread-comment">
+                                                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis
+                                                    adipisci hic
+                                                    tempore dolore illo iste possimus tenetur nesciunt aliquid deserunt
+                                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo
+                                                    voluptatibus numquam, sint, ipsam expedita excepturi iste iusto
+                                                    omnis neque facere qui quam odit esse impedit repellat repudiandae
+                                                    quasi, corrupti accusantium!.
+                                                </div>
+                                            </a>
+                                            <ul class="thread-categories">
+                                                <li>
+                                                    <a href="javascript:void(0)">
+                                                        <i class="fas fa-bookmark"></i>
+                                                        Lorem Ipsum
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:void(0)">python</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:void(0)">python</a>
+                                                </li>
+                                            </ul>
+                                            <div
+                                                class="thread-action d-flex justify-content-between align-items-center">
+                                                <div></div>
+                                                <div class="thread-tengah">
+                                                    <button class="btn love text-danger">
+                                                        <i class="fas fa-heart"></i>
+                                                        <small>23</small>
+                                                    </button>
+                                                    <button class="btn comment">
+                                                        <i class="far fa-comment"></i>
+                                                        <small>5</small>
+                                                    </button>
+                                                    <button class="btn views">
+                                                        <i class="fas fa-eye"></i>
+                                                        <small>100</small>
+                                                    </button>
                                                 </div>
                                             </div>
                                         </li>
-
                                     </ul>
                                 </div>
                             </div>
@@ -306,43 +291,43 @@
                     </div>
 
                     <?php if (auth_check() && auth()->id === $user->id): ?>
-                        <div class="tab-pane fade" id="tab-security" role="tabpanel">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <form class="card">
-                                        <div class="card-header">
-                                            Ganti Password
+                    <div class="tab-pane fade" id="tab-security" role="tabpanel">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <form class="card">
+                                    <div class="card-header">
+                                        Ganti Password
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="old-password">Password Lama</label>
+                                            <input type="password" name="old-password" id="old-password"
+                                                class="form-control" placeholder="Masukkan password sekarang">
                                         </div>
-                                        <div class="card-body">
-                                            <div class="form-group">
-                                                <label for="old-password">Password Lama</label>
-                                                <input type="password" name="old-password" id="old-password"
-                                                    class="form-control" placeholder="Masukkan password sekarang">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="new-password">Password Baru</label>
-                                                <input type="password" name="new-password" id="new-password"
-                                                    class="form-control" placeholder="Masukkan password baru">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="confirm-password">Konfirmasi</label>
-                                                <input type="password" name="confirm-password" id="confirm-password"
-                                                    class="form-control" placeholder="Masukkan password baru lagi">
-                                            </div>
+                                        <div class="form-group">
+                                            <label for="new-password">Password Baru</label>
+                                            <input type="password" name="new-password" id="new-password"
+                                                class="form-control" placeholder="Masukkan password baru">
                                         </div>
-                                        <div class="card-footer p-2">
-                                            <button type="submit" class="btn btn-success">
-                                                <span>Ganti Password</span>
-                                            </button>
-                                            <button type="button" class="btn btn-secondary btn-show-pass">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
+                                        <div class="form-group">
+                                            <label for="confirm-password">Konfirmasi</label>
+                                            <input type="password" name="confirm-password" id="confirm-password"
+                                                class="form-control" placeholder="Masukkan password baru lagi">
                                         </div>
-                                    </form>
-                                </div>
-                                <div class="col-lg-6"></div>
+                                    </div>
+                                    <div class="card-footer p-2">
+                                        <button type="submit" class="btn btn-success">
+                                            <span>Ganti Password</span>
+                                        </button>
+                                        <button type="button" class="btn btn-secondary btn-show-pass">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </form>
                             </div>
+                            <div class="col-lg-6"></div>
                         </div>
+                    </div>
                     <?php endif ?>
                 </div>
             </div>
@@ -353,27 +338,31 @@
 <?= $this->endSection(); ?>
 
 <?= $this->section('js') ?>
-    <script>
-        $(document).ready(function () {
-            $('input[name="filter-date"]').daterangepicker({
-                drops: 'up',
-                locale: { cancelLabel: 'Clear' },
-            });
-
-            $('input[name="filter-date"]').on('cancel.daterangepicker', function (ev, picker) { $(this).val('') });
-            $('input[name="filter-date"]').val('');
-            $('input[name="filter-date"]').attr('placeholder', 'DD/MM/YYYY - DD/MM/YYYY');
-
-
-            $('.btn-show-pass').click(function () {
-                var inputFields = $('#old-password, #new-password, #confirm-password');
-                var icon = $(this).find('i');
-                var isPasswordVisible = (inputFields.attr('type') === 'password');
-
-                inputFields.attr('type', isPasswordVisible ? 'text' : 'password');
-                icon.removeClass(isPasswordVisible ? 'fa-eye' : 'fa-eye-slash')
-                    .addClass(isPasswordVisible ? 'fa-eye-slash' : 'fa-eye');
-            });
+<script>
+    $(document).ready(function () {
+        $('input[name="filter-date"]').daterangepicker({
+            drops: 'up',
+            locale: {
+                cancelLabel: 'Clear'
+            },
         });
-    </script>
+
+        $('input[name="filter-date"]').on('cancel.daterangepicker', function (ev, picker) {
+            $(this).val('')
+        });
+        $('input[name="filter-date"]').val('');
+        $('input[name="filter-date"]').attr('placeholder', 'DD/MM/YYYY - DD/MM/YYYY');
+
+
+        $('.btn-show-pass').click(function () {
+            var inputFields = $('#old-password, #new-password, #confirm-password');
+            var icon = $(this).find('i');
+            var isPasswordVisible = (inputFields.attr('type') === 'password');
+
+            inputFields.attr('type', isPasswordVisible ? 'text' : 'password');
+            icon.removeClass(isPasswordVisible ? 'fa-eye' : 'fa-eye-slash')
+                .addClass(isPasswordVisible ? 'fa-eye-slash' : 'fa-eye');
+        });
+    });
+</script>
 <?= $this->endSection(); ?>

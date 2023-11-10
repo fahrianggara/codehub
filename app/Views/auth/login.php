@@ -13,7 +13,10 @@
 
     <section>
         <div class="brand">
-            <img src="<?= base_url('images/logo/lg.png') ?>" alt="CodeHUB Logo">
+            <a href="<?= base_url('/') ?>">
+                <img src="<?= base_url('images/logo/sm.png') ?>" alt="logo">
+                <span class="logo-text">codehub</span>
+            </a>
         </div>
 
         <div class="wrapper">
@@ -40,12 +43,6 @@
                     <div class="form-icon right" id="show-pass">
                         <i class="fas fa-eye"></i>
                     </div>
-                </div>
-
-                <div class="form-group forgot">
-                    <a href="#" class="forgot-password">
-                        Lupa password?
-                    </a>
                 </div>
 
                 <div class="form-group mb-0">
