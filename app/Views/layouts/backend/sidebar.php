@@ -56,6 +56,15 @@
                     </a>
                 </li>
 
+                <li class="nav-item">
+                    <a href="javascript:void(0)" class="nav-link">
+                        <i class="nav-icon fas fa-bell"></i>
+                        <p>
+                            Notifikasi
+                        </p>
+                    </a>
+                </li>
+
                 <li class="nav-header">Master Data</li>
 
                 <li class="nav-item">
