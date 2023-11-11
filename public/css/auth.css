@@ -39,6 +39,12 @@ a:hover {
     border-radius: 8px;
 }
 
+.disabled {
+	pointer-events: none;
+    cursor: default;
+    opacity: .8;
+}
+
 section {
     position: relative;
     width: 100%;

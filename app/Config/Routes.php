@@ -1,6 +1,7 @@
 <?php
 
 use App\Controllers\Auth;
+use App\Controllers\Backend;
 use CodeIgniter\Router\RouteCollection;
 
 /**
@@ -8,14 +9,16 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'HomeController::index');
 
-// Auth Login & Register
-$routes->group('', ['filter' => 'guest', 'namespace' => Auth::class], function (RouteCollection $routes) {
-    $routes->match(['get', 'post'], 'login', 'LoginController::index', ['as' => 'login']);
-    $routes->match(['get', 'post'], 'register', 'RegisterController::index', ['as' => 'register']);
+// Auth Login, Register and Logout
+$routes->group('', ['namespace' => Auth::class], function (RouteCollection $routes) {
+    $routes->match(['get', 'post'], 'login', 'LoginController::index', ['as' => 'login', 'filter' => 'guest']);
+    $routes->match(['get', 'post'], 'register', 'RegisterController::index', ['as' => 'register', 'filter' => 'guest']);
+    $routes->delete('logout', 'LoginController::logout', ['as'=> 'logout', 'filter' => 'auth']);
 });
 
-$routes->group('', ['filter' => 'auth', 'namespace' => Auth::class], function (RouteCollection $routes) {
-    $routes->delete('logout', 'LoginController::logout', ['as'=> 'logout']);
+// Auth Backend Dashboard
+$routes->group('admin', ['filter' => ['auth', 'is_admin'], 'namespace' => Backend::class], function (RouteCollection $routes) {
+    $routes->get('dash', 'DashController::index', ['as' => 'admin.dash']);
 });
 
-$routes->get('(:segment)', 'ProfileController::index/$1');
+$routes->get('(:any)', 'ProfileController::index/$1');

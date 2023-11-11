@@ -112,10 +112,18 @@
                     beforeSend: function () {
                         submit.attr("disabled", "disabled");
                         submit.html("<i class='fas fa-spinner fa-spin'></i> Loading...");
+
+                        $("a").each(function () {
+                            $(this).addClass("disabled");
+                        });
                     },
                     complete: function () {
                         submit.removeAttr("disabled");
                         submit.html('Masuk');
+
+                        $("a").each(function () {
+                            $(this).removeClass("disabled");
+                        });
                     },
                     success: function (res) {
                         if (res.status === 400) {
@@ -139,7 +147,9 @@
                                 submit.attr("disabled", "disabled");
                                 submit.html("<i class='fas fa-spinner fa-spin'></i> Loading...");
 
-                                form.trigger("reset");
+                                $("a").each(function () {
+                                    $(this).addClass("disabled");
+                                });
                             });
 
                             $(document).find(".alertify .msg").addClass("text-success");

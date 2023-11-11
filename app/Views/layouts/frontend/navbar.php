@@ -230,6 +230,12 @@
                                         <div class="dropdown-header">
                                             <?= auth()->full_name ?>
                                         </div>
+                                        <?php if(auth()->role === 'admin'): ?>
+                                            <a class="dropdown-item" href="<?= route_to('admin.dash') ?>">
+                                                <i class="fas fa-chart-pie mr-2"></i>
+                                                Dashboard
+                                            </a>
+                                        <?php endif ?>
                                         <a class="dropdown-item" href="<?= base_url(auth()->username) ?>">
                                             <i class="fas fa-user mr-2"></i>
                                             Profile

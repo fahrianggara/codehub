@@ -32,18 +32,7 @@ class LoginController extends BaseController
     {
         $request = $this->request;
 
-        $validate = [
-            'username' => [
-                'rules' => 'required',
-                'errors' => ['required' => 'Username/Email tidak boleh kosong!']
-            ],
-            'password' => [
-                'rules' => 'required',
-                'errors' => ['required' => 'Password tidak boleh kosong!']
-            ]
-        ];
-
-        if (!$this->validate($validate)) {
+        if (!$this->validate($this->rules())) {
             return response()->setJSON([
                 'status' => 400,
                 'val' => true,
@@ -81,16 +70,34 @@ class LoginController extends BaseController
             // set session auth
             session()->set([
                 'id' => $user->id,
-                'role' => 'user',
+                'role' => $user->role,
                 'logged_in' => true
             ]);
 
-            // response success
-            return response()->setJSON([
-                'status' => 200,
-                'message' => 'Login berhasil, kamu akan diarahkan ke halaman profile kamu.',
-                'redirect' => base_url("$user->username"),
-            ]);
+            switch ($user->role) {
+                case 'admin':
+                    return response()->setJSON([
+                        'status' => 200,
+                        'message' => "Login berhasil, kamu akan diarahkan ke halaman dashboard admin.",
+                        'redirect' => route_to("admin.dash"),
+                    ]);
+                    break;
+                case "user":
+                    return response()->setJSON([
+                        'status' => 200,
+                        'message' => "Login berhasil, kamu akan diarahkan ke halaman profile kamu.",
+                        'redirect' => base_url("$user->username"),
+                    ]);
+                    break;
+                default:
+                    session()->destroy();
+                    return response()->setJSON([
+                        'status' => 400,
+                        'message' => "Role $user->role tidak ditemukan!",
+                        'redirect' => route_to("login"),
+                    ]);
+                    break;
+            }
         } catch (\Exception $th) {
             $this->db->transRollback();
 
@@ -110,6 +117,25 @@ class LoginController extends BaseController
     {
         session()->destroy(); // destroy session
         return redirect()->back();
+    }
+
+    /**
+     * Rules validation
+     * 
+     * @return array
+     */
+    private function rules()
+    {
+        return [
+            'username' => [
+                'rules' => 'required',
+                'errors' => ['required' => 'Username/Email tidak boleh kosong!']
+            ],
+            'password' => [
+                'rules' => 'required',
+                'errors' => ['required' => 'Password tidak boleh kosong!']
+            ]
+        ];
     }
 
     /**

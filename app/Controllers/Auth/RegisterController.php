@@ -122,9 +122,10 @@ class RegisterController extends BaseController
                 ]
             ],
             'c-password' => [
-                'rules' => 'matches[password]',
+                'rules' => 'required|matches[password]',
                 'errors' => [
-                    'matches' => 'Password tidak sama'
+                    'required' => 'Konfirmasi password tidak boleh kosong',
+                    'matches' => 'Konfirmasi Password tidak sama dengan Password'
                 ]
             ]
         ];

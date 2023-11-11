@@ -40,7 +40,7 @@
                         <li>
                             <a href="javascript:void(0)">
                                 <i class="bi bi-telephone"></i>
-                                02178893140
+                                (021) 78893140
                             </a>
                         </li>
                         <li>
@@ -71,7 +71,7 @@
     <div class="footer-bottom">
         <div class="container-fluid">
             <p>
-                CODEHUB &copy; 2023 All Rights Reserved.
+                CODEHUB &copy; <?= date("Y") ?> All rights reserved.
             </p>
         </div>
     </div>
