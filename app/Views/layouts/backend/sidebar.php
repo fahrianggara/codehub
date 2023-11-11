@@ -39,7 +39,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="<?= base_url('/') ?>" class="nav-link" target="_blank">
+                    <a href="<?= base_url('/') ?>" class="nav-link">
                         <i class="nav-icon fas fa-home"></i>
                         <p>
                             Beranda
@@ -48,7 +48,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="<?= base_url(auth()->username) ?>" class="nav-link" target="_blank">
+                    <a href="<?= base_url(auth()->username) ?>" class="nav-link">
                         <i class="nav-icon fas fa-user"></i>
                         <p>
                             Profile
