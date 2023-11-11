@@ -20,6 +20,21 @@ body {
 	box-shadow: none;
 }
 
+label[required]::after {
+	content: "*";
+	color: red;
+	margin-left: 2px;
+}
+
+.alertify .alert>*, .alertify .dialog>* {
+    border-radius: 12px;
+}
+
+.alertify .alert nav button:not(.btn):not(.pure-button):not(.md-button):not(.mdl-button), 
+.alertify .dialog nav button:not(.btn):not(.pure-button):not(.md-button):not(.mdl-button) {
+    border-radius: 8px;
+}
+
 /* =======================================================================
  *  DASHBOARD CUSTOM BOOTSTRAP 4
  * ======================================================================= */
@@ -218,6 +233,12 @@ body {
 /* =======================================================================
  *  CUSTOM INPUT BOOTSTRAP
  * ======================================================================= */
+
+.form-group label {
+	font-size: 15px;
+	font-weight: 600;
+	color: var(--secondary-color);
+}
 
 .form-control,
 .custom-select {

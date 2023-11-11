@@ -21,4 +21,7 @@ $routes->group('admin', ['filter' => ['auth', 'is_admin'], 'namespace' => Backen
     $routes->get('dash', 'DashController::index', ['as' => 'admin.dash']);
 });
 
-$routes->get('(:any)', 'ProfileController::index/$1');
+// Profile User
+$routes->post('change-password', 'ProfileController::changePassword', ['as' => 'profile.change-password', 'filter' => 'auth']);
+$routes->get('(:any)', 'ProfileController::index/$1', ['as' => 'profile']);
+

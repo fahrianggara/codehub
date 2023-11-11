@@ -291,43 +291,14 @@
                     </div>
 
                     <?php if (auth_check() && auth()->id === $user->id): ?>
-                    <div class="tab-pane fade" id="tab-security" role="tabpanel">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <form class="card">
-                                    <div class="card-header">
-                                        Ganti Password
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="form-group">
-                                            <label for="old-password">Password Lama</label>
-                                            <input type="password" name="old-password" id="old-password"
-                                                class="form-control" placeholder="Masukkan password sekarang">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="new-password">Password Baru</label>
-                                            <input type="password" name="new-password" id="new-password"
-                                                class="form-control" placeholder="Masukkan password baru">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="confirm-password">Konfirmasi</label>
-                                            <input type="password" name="confirm-password" id="confirm-password"
-                                                class="form-control" placeholder="Masukkan password baru lagi">
-                                        </div>
-                                    </div>
-                                    <div class="card-footer p-2">
-                                        <button type="submit" class="btn btn-success">
-                                            <span>Ganti Password</span>
-                                        </button>
-                                        <button type="button" class="btn btn-secondary btn-show-pass">
-                                            <i class="fas fa-eye"></i>
-                                        </button>
-                                    </div>
-                                </form>
+                        <div class="tab-pane fade" id="tab-security" role="tabpanel">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <?= $this->include('frontend/profile/change-password') ?>
+                                </div>
+                                <div class="col-lg-6"></div>
                             </div>
-                            <div class="col-lg-6"></div>
                         </div>
-                    </div>
                     <?php endif ?>
                 </div>
             </div>
@@ -338,6 +309,7 @@
 <?= $this->endSection(); ?>
 
 <?= $this->section('js') ?>
+
 <script>
     $(document).ready(function () {
         $('input[name="filter-date"]').daterangepicker({
@@ -353,16 +325,13 @@
         $('input[name="filter-date"]').val('');
         $('input[name="filter-date"]').attr('placeholder', 'DD/MM/YYYY - DD/MM/YYYY');
 
-
-        $('.btn-show-pass').click(function () {
-            var inputFields = $('#old-password, #new-password, #confirm-password');
-            var icon = $(this).find('i');
-            var isPasswordVisible = (inputFields.attr('type') === 'password');
-
-            inputFields.attr('type', isPasswordVisible ? 'text' : 'password');
-            icon.removeClass(isPasswordVisible ? 'fa-eye' : 'fa-eye-slash')
-                .addClass(isPasswordVisible ? 'fa-eye-slash' : 'fa-eye');
+        // Kasih local storage ke tab
+        const activeTab = localStorage.getItem('activeTab');
+        if (activeTab) $('a[href="' + activeTab + '"]').tab('show');
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+            localStorage.setItem('activeTab', $(e.target).attr('href'));
         });
     });
 </script>
+
 <?= $this->endSection(); ?>

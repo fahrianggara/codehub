@@ -13,7 +13,7 @@
                 <img src="<?= auth()->photo ?>" class="img-circle profile-photo" alt="<?= auth()->username ?> Avatar">
             </div>
             <div class="info">
-                <a href="<?= route_to('profile') ?>" class="d-block">
+                <a href="<?= route_to('profile', auth()->username) ?>" class="d-block">
                     <?= auth()->full_name ?>
                 </a>
                 <small class="text-secondary">
