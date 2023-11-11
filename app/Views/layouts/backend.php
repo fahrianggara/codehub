@@ -14,8 +14,8 @@
     <link rel="stylesheet" href="<?= base_url('plugins/alertify/css/alerts.css') ?>">
     <link rel="stylesheet" href="<?= base_url('plugins/fontawesome-free/css/all.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('plugins/bootstrap4/icons/bootstrap-icons.css') ?>">
-    <link rel="stylesheet" href="<?= base_url('css/custom.css') ?>">
     <link rel="stylesheet" href="<?= base_url('css/backend.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('css/custom.css') ?>">
 </head>
 
 <body class="sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
