@@ -73,7 +73,7 @@
 
             $.ajax({
                 type: "POST",
-                url: `${origin}/change-password`,
+                url: `${origin}/edit-password`,
                 data: new FormData(this),
                 processData: false,
                 contentType: false,
@@ -98,7 +98,7 @@
                         $(document).find(".alertify .msg").addClass("text-danger");
                     } else {
                         alertify.alert(res.message, function () {
-                            location.href = res.redirect;
+                            location.href = res.redirect ?? location.reload;
                         });
 
                         $(document).find(".alertify .msg").addClass("text-success");

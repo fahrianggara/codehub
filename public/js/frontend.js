@@ -17,6 +17,29 @@ function hideMobileSearch() {
     $("body").removeClass("mobile-search-active");
 }
 
+/**
+ * Validate image type
+ */
+function validateImageType(image) {
+    var valid_images = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif'];
+    return valid_images.includes(image.type);
+}
+
+/**
+ * Validate image size
+ */
+function validateImageSize(image) {
+    var max_size = 1 * 1024 * 1024; // 1 MB
+    return image.size <= max_size;
+}
+
+/**
+ * Alertify error
+ */
+function alertError(message) {  
+    alertify.delay(3000).error(message);
+}
+
 !(function($) {
     "use strict";
     

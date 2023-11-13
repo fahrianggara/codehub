@@ -938,7 +938,7 @@ input[type="search"]::-webkit-search-results-decoration {
 	position: absolute;
 	bottom: 10px;
 	right: 10px;
-	z-index: 1;
+	z-index: 10;
 }
 
 .profile-banner .action .btn {
@@ -1008,6 +1008,11 @@ input[type="search"]::-webkit-search-results-decoration {
 	background-color: #f1f2f6;
 }
 
+.btn-avatar:focus {
+	background-color: #f1f2f6;
+	box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+}
+
 .profile-name {
 	position: relative;
 	margin-left: 50px;
@@ -1051,6 +1056,10 @@ input[type="search"]::-webkit-search-results-decoration {
 	color: var(--primary-color);
 }
 
+.profile-user {
+	z-index: 1;
+}
+
 .profile-user .action .btn {
 	border-radius: 0;
 	border-radius: 8px;
@@ -1071,16 +1080,10 @@ input[type="search"]::-webkit-search-results-decoration {
 		padding-bottom: 0;
 	}
 
-	.profile-user {
-		flex-direction: column;
-		height: calc(100px + 160px);
-		bottom: 60px;
-	}
-
 	.profile-info {
 		flex-direction: column;
 		align-items: center;
-		margin-bottom: 45px;
+		margin-bottom: 43px;
 	}
 
 	.profile-avatar {
@@ -1111,11 +1114,6 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 
 @media (max-width: 576.98px) {
-	.profile-user {
-		height: calc(100px + 120px);
-		bottom: 60px;
-	}
-
 	.profile-avatar {
 		margin-bottom: 5px;
 	}
@@ -1175,6 +1173,10 @@ input[type="search"]::-webkit-search-results-decoration {
 	width: 100%;
 	text-transform: uppercase;
 	transition: all 0.2s ease-in-out;
+}
+
+.btn-add-post span {
+	margin-right: 15px;
 }
 
 .btn-add-post:hover {

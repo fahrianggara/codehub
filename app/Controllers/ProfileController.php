@@ -36,15 +36,61 @@ class ProfileController extends BaseController
         return view('frontend/profile', [
             'title' => "Profile",
             'user' => $user,
+            'has_sosial_media' => $user->link_fb || $user->link_tw || $user->link_ig || $user->link_gh || $user->link_li,
         ]);
     }
 
     /**
-     * Change password user.
+     * Edit avatar
      * 
      * @return void
      */
-    public function changePassword()
+    public function editAvatar()
+    {
+        $this->db->transBegin();
+        try {
+            $oldAvatar = auth()->avatar;
+            $path = 'images/avatars/';
+            $blob = $this->request->getVar('base64image');
+
+            $imgParts = explode(";base64,", $blob);
+            $imgTypeAux = explode("image/", $imgParts[0]);
+            $imgType = $imgTypeAux[1];
+            $imgBase64 = base64_decode($imgParts[1]);
+
+            if ($oldAvatar !== 'avatar.png' && file_exists("$path/$oldAvatar")) 
+                unlink("$path/$oldAvatar");
+
+            $avatarName = time() . '.' . $imgType;
+            file_put_contents("$path/$avatarName", $imgBase64);
+            
+            $this->userModel->save([
+                'id' => auth()->id,
+                'avatar' => $avatarName,
+            ]);
+
+            return response()->setJSON([
+                'status'=> 200,
+                'message' => 'Foto profile kamu berhasil diubah!',
+            ]);
+        } catch (\Throwable $th) {
+            $this->db->transRollback();
+
+            return response()->setJSON([
+                'status' => 400,
+                'message' => $th->getMessage()
+            ]);
+        } finally {
+            $this->db->transCommit();
+        }
+    }
+
+    /**
+     * Edit password user.
+     * 
+     * @return void
+     */
+    public function editPassword()
     {
         $request = $this->request;
 
