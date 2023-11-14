@@ -40,7 +40,7 @@
                         <i class="fas fa-camera"></i>
                         <span>Edit Sampul</span>
                     </button>
-                    <?php if (check_photo('banners', auth()->avatar)): ?>
+                    <?php if (check_photo('banners', auth()->banner)): ?>
                         <button id="buttonBannerHapus" class="btn btn-sm float-right">
                             <i class="fas fa-trash"></i>
                         </button>
