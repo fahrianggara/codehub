@@ -23,7 +23,9 @@ $routes->group('admin', ['filter' => ['auth', 'is_admin'], 'namespace' => Backen
 
 // Profile User
 $routes->post('edit-avatar', 'ProfileController::editAvatar', ['as' => 'profile.edit-avatar', 'filter' => 'auth']);
+$routes->delete('destroy-avatar', 'ProfileController::destroyAvatar', ['as' => 'profile.destroy-avatar', 'filter' => 'auth']);
 $routes->post('edit-banner', 'ProfileController::editBanner', ['as' => 'profile.edit-banner', 'filter' => 'auth']);
+$routes->delete('destroy-banner', 'ProfileController::destroyBanner', ['as' => 'profile.destroy-banner', 'filter' => 'auth']);
 $routes->post('edit-password', 'ProfileController::editPassword', ['as' => 'profile.edit-password', 'filter' => 'auth']);
 $routes->post('edit-profile', 'ProfileController::editProfile', ['as' => 'profile.edit-profile', 'filter' => 'auth']);
 $routes->get('(:any)', 'ProfileController::index/$1', ['as' => 'profile']);

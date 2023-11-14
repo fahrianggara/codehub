@@ -31,14 +31,17 @@
 
 <div class="profile-header">
     <div class="profile-banner-container">
-        <div class="profile-banner banner-default">
+        <div class="profile-banner <?= !check_photo('banners', $user->banner) ? 'banner-default' : '' ?>">
             <img src="<?= $user->poster ?>" alt="banner">
 
             <div class="action">
                 <?php if (auth_check() && auth()->id === $user->id): ?>
-                    <button id="buttonBanner" class="btn btn-sm">
+                    <button id="buttonBannerUpload" class="btn btn-sm">
                         <i class="fas fa-camera"></i>
                         <span>Edit Sampul</span>
+                    </button>
+                    <button id="buttonBannerHapus" class="btn btn-sm float-right">
+                        <i class="fas fa-trash"></i>
                     </button>
                 <?php endif ?>
             </div>
@@ -51,9 +54,28 @@
                 <img src="<?= $user->photo ?>" alt="avatar" class="bg-white">
 
                 <?php if (auth_check() && auth()->id === $user->id): ?>
-                    <button id="buttonAvatar" class="btn btn-sm btn-avatar">
-                        <i class="fas fa-camera"></i>
-                    </button>
+                    <?php if (check_photo('avatars', auth()->avatar)): ?>
+                        <div class="btn-group btn-avatar dropleft">
+                            <button class="btn btn-sm btn-more dropdown-toggle" data-toggle="dropdown" aria-expanded="false"
+                                data-display="static">
+                                <i class="fas fa-ellipsis-h"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a id="buttonAvatarUpload" class="dropdown-item" href="javascript:void(0);">
+                                    <i class="fas text-warning fa-sync mr-2"></i>
+                                    Ganti
+                                </a>
+                                <a id="buttonAvatarHapus" class="dropdown-item" href="javascript:void(0);">
+                                    <i class="fas text-danger fa-trash mr-2"></i>
+                                    Hapus
+                                </a>
+                            </div>
+                        </div>
+                    <?php else: ?>
+                        <button id="buttonAvatarUpload" class="btn btn-sm btn-avatar">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                    <?php endif; ?>
                 <?php endif ?>
             </figure>
 
@@ -121,5 +143,6 @@
 <?= $this->section('js') ?>
 
     <?= $this->include('frontend/profile/edit-avatar') ?>
+    <?= $this->include('frontend/profile/edit-banner') ?>
     
 <?= $this->endSection() ?>

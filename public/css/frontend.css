@@ -924,7 +924,7 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 
 .profile-banner:not(.banner-default):after {
-	background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.9));
+	background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.6));
 }
 
 .profile-banner img {
@@ -939,6 +939,11 @@ input[type="search"]::-webkit-search-results-decoration {
 	bottom: 10px;
 	right: 10px;
 	z-index: 10;
+	display: flex;
+}
+
+.profile-banner .action .btn:not(:last-child) {
+	margin-right: 2px;
 }
 
 .profile-banner .action .btn {
@@ -1127,6 +1132,20 @@ input[type="search"]::-webkit-search-results-decoration {
 		width: 35px;
 		height: 35px;
 		right: 5px;
+	}
+
+	.btn-avatar .btn-more {
+		width: 35px;
+		height: 35px;
+	}
+
+	.profile-banner .action {
+		flex-direction: column;
+	}
+
+	.profile-banner .action .btn:not(:last-child) {
+		margin-right: 0;
+		margin-bottom: 2px;
 	}
 
 	.profile-banner .action .btn {

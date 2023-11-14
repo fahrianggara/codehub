@@ -1,4 +1,4 @@
-<div class="modal fade" id="modalEditAvatar" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="modalEditAvatar" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header p-2">
@@ -37,16 +37,48 @@
 
 <script>
     $(document).ready(function () {
+        var btnAvatarHapus = $("#buttonAvatarHapus");
+
+        btnAvatarHapus.on("click", function(e) {
+            e.preventDefault();
+
+            alertify.confirm('Hapus foto profile?', (e) => {
+                e.preventDefault();
+
+                $.ajax({
+                    type: "DELETE",
+                    url: `${origin}/destroy-avatar`,
+                    success: function (res) {
+                        if (res.status === 400) {
+                            alertError(res.message);
+                        } else {
+                            alertify.alert(res.message, () => {
+                                location.reload();
+                            });
+
+                            $(document).find(".alertify .msg").addClass("text-success");
+                        }
+                    }
+                });
+            }, (e) => {
+                e.preventDefault();
+            });
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
         var modal = $("#modalEditAvatar");
         var cropper, cropButton = modal.find('.btn-crop');
         var form = $("#formEditAvatar");
-        var btnAvatar = $("#buttonAvatar");
+        var btnAvatarUpload = $("#buttonAvatarUpload");
         var base64image = form.find('[name="base64image"]');
         var fileInput = form.find('[type="file"');
         var sampleImage = modal.find('.sample-image');
         var imageType = null;
 
-        btnAvatar.on("click", function(e) {
+        btnAvatarUpload.on("click", function(e) {
             e.preventDefault();
 
             fileInput.click(); // Trigger input file
@@ -54,7 +86,7 @@
             fileInput.on('change', function() {
                 var fileChoose = this.files[0];
 
-                if (!validateImageType(fileChoose)) { // Check type
+                if (!validateImageType(fileChoose, true)) { // Check type
                     $(this).val(''); // Hapus file
                     alertError('Format gambar harus berupa: jpeg, jpg dan png.');
                     return;

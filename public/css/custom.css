@@ -128,7 +128,8 @@ label[required]::after {
 
 .dropdown-item.active,
 .dropdown-item:active {
-	background-color: transparent;
+	background-color: #f1f1f1;
+	color: var(--secondary-color);
 }
 
 .dropdown-toggle::after,

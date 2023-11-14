@@ -53,16 +53,7 @@ class ProfileController extends BaseController
             $path = 'images/avatars/';
             $blob = $this->request->getVar('base64image');
 
-            $imgParts = explode(";base64,", $blob);
-            $imgTypeAux = explode("image/", $imgParts[0]);
-            $imgType = $imgTypeAux[1];
-            $imgBase64 = base64_decode($imgParts[1]);
-
-            if ($oldAvatar !== 'avatar.png' && file_exists("$path/$oldAvatar")) 
-                unlink("$path/$oldAvatar");
-
-            $avatarName = time() . '.' . $imgType;
-            file_put_contents("$path/$avatarName", $imgBase64);
+            $avatarName = $blob ? uploadImageBlob($blob, $path, $oldAvatar) : $oldAvatar;
             
             $this->userModel->save([
                 'id' => auth()->id,
@@ -72,6 +63,112 @@ class ProfileController extends BaseController
             return response()->setJSON([
                 'status'=> 200,
                 'message' => 'Foto profile kamu berhasil diubah!',
+            ]);
+        } catch (\Throwable $th) {
+            $this->db->transRollback();
+
+            return response()->setJSON([
+                'status' => 400,
+                'message' => $th->getMessage()
+            ]);
+        } finally {
+            $this->db->transCommit();
+        }
+    }
+
+    /**
+     * Destroy avatar
+     * 
+     * @return void
+     */
+    public function destroyAvatar()
+    {
+        $this->db->transBegin();
+        try {
+            $avatar = auth()->avatar;
+
+            if (check_photo('avatars', $avatar)) 
+                unlink("images/avatars/$avatar");
+
+            $this->userModel->save([
+                'id'=> auth()->id,
+                'avatar' => 'avatar.png',
+            ]);
+
+            return response()->setJSON([
+                'status' => 200,
+                'message' => 'Foto profile kamu berhasil dihapus!',
+            ]);
+        } catch (\Throwable $th) {
+            $this->db->transRollback();
+
+            return response()->setJSON([
+                'status' => 400,
+                'message' => $th->getMessage()
+            ]);
+        } finally {
+            $this->db->transCommit();
+        }
+    }
+
+    /**
+     * Edit banner
+     * 
+     * @return void
+     */
+    public function editBanner()
+    {
+        $this->db->transBegin();
+        try {
+            $oldBanner = auth()->banner;
+            $path = 'images/banners/';
+            $blob = $this->request->getVar('base64image');
+
+            $bannerName = $blob ? uploadImageBlob($blob, $path, $oldBanner) : $oldBanner;
+            
+            $this->userModel->save([
+                'id' => auth()->id,
+                'banner' => $bannerName,
+            ]);
+
+            return response()->setJSON([
+                'status'=> 200,
+                'message' => 'Foto sampul kamu berhasil diubah!',
+            ]);
+        } catch (\Throwable $th) {
+            $this->db->transRollback();
+
+            return response()->setJSON([
+                'status' => 400,
+                'message' => $th->getMessage()
+            ]);
+        } finally {
+            $this->db->transCommit();
+        }
+    }
+
+    /**
+     * Destroy banner
+     * 
+     * @return void
+     */
+    public function destroyBanner()
+    {
+        $this->db->transBegin();
+        try {
+            $banner = auth()->banner;
+
+            if (check_photo('banners', $banner)) 
+                unlink("images/banners/$banner");
+
+            $this->userModel->save([
+                'id'=> auth()->id,
+                'banner' => 'banner.png',
+            ]);
+
+            return response()->setJSON([
+                'status' => 200,
+                'message' => 'Foto sampul kamu berhasil dihapus!',
             ]);
         } catch (\Throwable $th) {
             $this->db->transRollback();
