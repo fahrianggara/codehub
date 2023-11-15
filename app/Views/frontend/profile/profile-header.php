@@ -146,5 +146,9 @@
 
     <?= $this->include('frontend/profile/edit-avatar') ?>
     <?= $this->include('frontend/profile/edit-banner') ?>
+
+    <script src="<?= base_url('js/fe/profile/avatar.js') ?>"></script>
+    <script src="<?= base_url('js/fe/profile/banner.js') ?>"></script>
+    <script src="<?= base_url('js/fe/profile/password.js') ?>"></script>
     
 <?= $this->endSection() ?>
