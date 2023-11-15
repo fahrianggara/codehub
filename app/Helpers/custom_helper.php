@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\UserModel;
+use Carbon\Carbon;
 
 /**
  * Get user session data.
@@ -59,6 +60,17 @@ function uploadImageBlob($blob, $path, $oldImage)
     file_put_contents("$path/$fileName", $imgBase64);
 
     return $fileName;
+}
+
+/**
+ * Waktu format.
+ *
+ * @param string $time
+ * @return string
+ */
+function waktu($time, $format = 'l, d F Y - H:i', $wib = true) {
+    $wib = $wib ? ' WIB' : '';
+    return Carbon::parse($time)->locale('id')->translatedFormat($format) . $wib;
 }
 
 /**

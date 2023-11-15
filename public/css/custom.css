@@ -87,6 +87,43 @@ label[required]::after {
 	color: #fff;
 }
 
+.btn-sm {
+	border-radius: 6px !important;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.user-info img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 12px;
+}
+
+.user-info .user-name {
+    display: flex;
+    flex-direction: column;
+    font-size: 15px;
+}
+
+.user-info .user-name small {
+    font-size: 12px;
+    color: var(--secondary-color);
+}
+
+table th, table td {
+    vertical-align: middle !important;
+    white-space: nowrap;
+}
+
+table.not-wrap th, table.not-wrap td {
+    white-space: normal;
+}
+
 /* =======================================================================
  *  MODAL CUSTOM BOOTSTRAP 4
  * ======================================================================= */
