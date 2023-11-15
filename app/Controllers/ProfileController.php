@@ -41,6 +41,90 @@ class ProfileController extends BaseController
     }
 
     /**
+     * Edit profile
+     * 
+     * @return void
+     */
+    public function editProfile()
+    {
+        $request = $this->request;
+        $user_id = auth()->id;
+        $rules = [
+            'first_name' => [
+                'rules' => 'permit_empty|min_length[3]|max_length[30]|alpha_space|string',
+                'errors' => [
+                    'min_length' => 'Nama depan minimal 3 karakter.',
+                    'max_length' => 'Nama depan maksimal 30 karakter.',
+                    'alpha_space' => 'Nama depan hanya boleh berisi huruf dan spasi.',
+                    'string' => 'Nama depan hanya boleh berisi huruf dan spasi.'
+                ]
+            ],
+            'last_name' => [
+                'rules' => 'permit_empty|min_length[3]|max_length[30]|alpha_space|string',
+                'errors' => [
+                    'min_length' => 'Nama depan minimal 3 karakter.',
+                    'max_length' => 'Nama depan maksimal 30 karakter.',
+                    'alpha_space' => 'Nama depan hanya boleh berisi huruf dan spasi.',
+                    'string' => 'Nama depan hanya boleh berisi huruf dan spasi.'
+                ]
+            ],
+            'username' => [
+                'rules' => "required|min_length[3]|max_length[25]|alpha_numeric|is_unique[users.username,id,{$user_id}]",
+                'errors' => [
+                    'required' => 'Username harus diisi.',
+                    'min_length' => 'Username minimal 3 karakter.',
+                    'max_length' => 'Username maksimal 25 karakter.',
+                    'alpha_numeric' => 'Username hanya boleh berisi huruf dan angka.',
+                    'is_unique' => 'Username sudah digunakan.'
+                ]
+            ],
+            'link_fb' => ['rules' => 'permit_empty|valid_url', 'errors' => ['valid_url' => 'Link tidak valid.']],
+            'link_tw' => ['rules' => 'permit_empty|valid_url', 'errors' => ['valid_url' => 'Link tidak valid.']],
+            'link_ig' => ['rules' => 'permit_empty|valid_url', 'errors' => ['valid_url' => 'Link tidak valid.']],
+            'link_gh' => ['rules' => 'permit_empty|valid_url', 'errors' => ['valid_url' => 'Link tidak valid.']],
+            'link_li' => ['rules' => 'permit_empty|valid_url', 'errors' => ['valid_url' => 'Link tidak valid.']],
+        ];
+
+        if (!$this->validate($rules)) {
+            return response()->setJSON([
+                'status' => 400,
+                'validation' => true,
+                'message' => $this->validator->getErrors()
+            ]);
+        }
+
+        $this->db->transBegin();
+        try {
+
+            $this->userModel->save([
+                'id' => $user_id,
+                'first_name' => $request->getVar('first_name'),
+                'last_name' => $request->getVar('last_name'),
+                'username' => $request->getVar('username'),
+                'link_fb' => $request->getVar('link_fb'),
+                'link_tw' => $request->getVar('link_tw'),
+                'link_ig' => $request->getVar('link_ig'),
+                'link_gh' => $request->getVar('link_gh'),
+                'link_li' => $request->getVar('link_li'),
+            ]);
+
+            return response()->setJSON([
+                'status'=> 200,
+                'message' => 'Profile kamu berhasil diubah!',
+            ]);
+        } catch (\Throwable $th) {
+            $this->db->transRollback();
+
+            return response()->setJSON([
+                'status' => 400,
+                'message' => $th->getMessage()
+            ]);
+        } finally {
+            $this->db->transCommit();
+        }
+    }
+
+    /**
      * Edit avatar
      * 
      * @return void

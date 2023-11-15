@@ -83,7 +83,7 @@
 
             <div class="profile-name" <?= !$has_sosial_media ? "style='top:10px !important'" : '' ?>/>
                 <h3 class="name"><?= $user->full_name ?></h3>
-                <span class="username">@<?= $user->full_name ?></span>
+                <span class="username">@<?= $user->username ?></span>
 
                 <?php if ($has_sosial_media): ?>
                     <ul class="user-sosmed">
@@ -146,9 +146,11 @@
 
     <?= $this->include('frontend/profile/edit-avatar') ?>
     <?= $this->include('frontend/profile/edit-banner') ?>
+    <?= $this->include('frontend/profile/edit-profile') ?>
 
     <script src="<?= base_url('js/fe/profile/avatar.js') ?>"></script>
     <script src="<?= base_url('js/fe/profile/banner.js') ?>"></script>
     <script src="<?= base_url('js/fe/profile/password.js') ?>"></script>
+    <script src="<?= base_url('js/fe/profile/edit.js') ?>"></script>
     
 <?= $this->endSection() ?>

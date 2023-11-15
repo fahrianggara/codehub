@@ -35,6 +35,20 @@ function validateImageSize(image, size = 1) {
 }
 
 /**
+ * Alertify log
+ * 
+ * @param {string} type
+ * @param {string} message
+ * @param {function} callback
+ */
+function alertifyLog(type, message, callback = null) 
+{
+    $('body').css('overflow', 'hidden');
+    alertify.alert(message, callback);
+    $(document).find(".alertify .msg").addClass(`text-${type}`);
+}
+
+/**
  * Alertify error
  */
 function alertError(message) {  

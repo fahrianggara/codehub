@@ -43,16 +43,12 @@ $(document).ready(function () {
                             $(`#${key}`).addClass('is-invalid');
                         });
                     } else {
-                        alertify.alert(res.message);
+                        alertifyLog('danger', res.message);
                     }
-
-                    $(document).find(".alertify .msg").addClass("text-danger");
                 } else {
-                    alertify.alert(res.message, function () {
+                    alertifyLog('success', res.message, () => {
                         location.href = res.redirect ?? location.reload;
                     });
-
-                    $(document).find(".alertify .msg").addClass("text-success");
                 }
             },
             complete: function () {

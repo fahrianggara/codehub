@@ -54,49 +54,57 @@
                                 <?php endif ?>
 
                                 <div class="card">
-                                    <div class="card-header">
-                                        Filter Diskusi
+                                    <div class="card-header accordion">
+                                        <a href="#collapse-filter" class="btn btn-filter text-left p-0 ml-1 w-100" data-toggle="collapse"
+                                            aria-expanded="false" aria-controls="collapse-filter">
+                                            <span>Filter Diskusi</span>
+                                            <i class="fas fa-chevron-down"></i>
+                                        </a>
                                     </div>
-                                    <div class="card-body">
-                                        <form action="#">
-                                            <?php if (auth_check() && auth()->id === $user->id): ?>
-                                            <div class="form-group">
-                                                <label for="filter-status">Status</label>
-                                                <select name="filter-status" id="filter-status" class="custom-select">
-                                                    <option value="">Publish</option>
-                                                    <option value="">Draft</option>
-                                                </select>
-                                            </div>
-                                            <?php endif ?>
 
-                                            <div class="form-group">
-                                                <label for="filter-urutkan">Urutkan</label>
-                                                <select name="filter-urutkan" id="filter-urutkan" class="custom-select">
-                                                    <option value="">Terbaru</option>
-                                                    <option value="">Terlama</option>
-                                                    <option value="">Populer</option>
-                                                </select>
-                                            </div>
+                                    <div class="collapse" id="collapse-filter">
+                                        <div class="card-body">
+                                            <form action="#">
+                                                <?php if (auth_check() && auth()->id === $user->id): ?>
+                                                    <div class="form-group">
+                                                        <label for="filter-status">Status</label>
+                                                        <select name="filter-status" id="filter-status" class="custom-select">
+                                                            <option value="">Publish</option>
+                                                            <option value="">Draft</option>
+                                                        </select>
+                                                    </div>
+                                                <?php endif ?>
 
-                                            <div class="form-group">
-                                                <label for="filter-category">Kategori</label>
-                                                <select name="filter-category" id="filter-category"
-                                                    class="custom-select">
-                                                    <option value="">Semua Kategori</option>
-                                                    <option value="">Kategori 1</option>
-                                                    <option value="">Kategori 2</option>
-                                                    <option value="">Kategori 3</option>
-                                                </select>
-                                            </div>
+                                                <div class="form-group">
+                                                    <label for="filter-urutkan">Urutkan</label>
+                                                    <select name="filter-urutkan" id="filter-urutkan" class="custom-select">
+                                                        <option value="">Terbaru</option>
+                                                        <option value="">Terlama</option>
+                                                        <option value="">Populer</option>
+                                                    </select>
+                                                </div>
 
-                                            <div class="form-group">
-                                                <label for="filter-date">Tanggal</label>
-                                                <input type="text" name="filter-date" id="filter-date"
-                                                    class="custom-select" placeholder="DD/MM/YYYY - DD/MM/YYYY">
-                                            </div>
-                                        </form>
+                                                <div class="form-group">
+                                                    <label for="filter-category">Kategori</label>
+                                                    <select name="filter-category" id="filter-category"
+                                                        class="custom-select">
+                                                        <option value="">Semua Kategori</option>
+                                                        <option value="">Kategori 1</option>
+                                                        <option value="">Kategori 2</option>
+                                                        <option value="">Kategori 3</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="filter-date">Tanggal</label>
+                                                    <input type="text" name="filter-date" id="filter-date"
+                                                        class="custom-select" placeholder="DD/MM/YYYY - DD/MM/YYYY">
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
+                                
                             </div>
 
                             <div class="col-lg-8 col-md-7">

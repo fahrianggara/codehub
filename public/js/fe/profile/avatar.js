@@ -4,6 +4,8 @@ $(document).ready(function () {
     btnAvatarHapus.on("click", function(e) {
         e.preventDefault();
 
+        $('body').addClass('modal-open');
+
         alertify.confirm('Hapus foto profile?', (e) => {
             e.preventDefault();
 
@@ -14,16 +16,15 @@ $(document).ready(function () {
                     if (res.status === 400) {
                         alertError(res.message);
                     } else {
-                        alertify.alert(res.message, () => {
+                        alertifyLog('success', res.message, () => {
                             location.reload();
                         });
-
-                        $(document).find(".alertify .msg").addClass("text-success");
                     }
                 }
             });
         }, (e) => {
             e.preventDefault();
+            $('body').removeClass('modal-open');
         });
     });
 });
@@ -110,11 +111,9 @@ $(document).ready(function () {
                 if (res.status === 400) {
                     cropButton.attr('disabled', false).html('Potong & Simpan');
                 } else {
-                    alertify.alert(res.message, () => {
+                    alertifyLog('success', res.message, () => {
                         location.reload();
                     });
-
-                    $(document).find(".alertify .msg").addClass("text-success");
                 }
             }
         });
@@ -125,8 +124,8 @@ $(document).ready(function () {
      */
     function cropImageWithOutTypeGif() {  
         var canvas = cropper.getCroppedCanvas({
-            width: 1000,
-            height: 1000,
+            width: 500,
+            height: 500,
         });
 
         canvas.toBlob((blob) => {
@@ -159,8 +158,8 @@ $(document).ready(function () {
                 },
                 src: sampleImage[0].src,
                 background: '#fff',
-                maxWidth: 600,
-                maxHeight: 600,
+                maxWidth: 500,
+                maxHeight: 500,
                 onerror: function (code, error) {
                     alertify.alert(error);
                 }

@@ -35,20 +35,14 @@
     <?php endif ?>
 
     <ul class="mobile-nav-bottom <?= auth_check() ? 'logined' : '' ?>">
-        <li class="nav-item d-block d-md-none">
-            <a href="<?= base_url('/') ?>">
-                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
-                    width="512" height="512" x="0" y="0" viewBox="0 0 32 32" style="enable-background:new 0 0 512 512"
-                    xml:space="preserve" class="">
-                    <g>
-                        <path
-                            d="M21.82 30H10.18A5 5 0 0 1 5 25.24V19a1 1 0 0 1 2 0v6.24A3 3 0 0 0 10.18 28h11.64A3 3 0 0 0 25 25.24V19a1 1 0 0 1 2 0v6.24A5 5 0 0 1 21.82 30zm7.89-13.29a1 1 0 0 0 0-1.42l-13-13a1 1 0 0 0-1.42 0l-13 13a1 1 0 0 0 1.42 1.42L16 4.41l12.29 12.3a1 1 0 0 0 1.42 0z"
-                            data-name="9-Home" opacity="1" class=""></path>
-                    </g>
-                </svg>
-                <span class="nav-text">Beranda</span>
-            </a>
-        </li>
+        <?php if (auth_check() && auth()->role === 'admin'): ?>
+            <li class="nav-item d-block d-md-none">
+                <a href="<?= route_to('admin.dash') ?>">
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 32 32" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M27.531 30h-8.062A2.472 2.472 0 0 1 17 27.531V17.469A2.472 2.472 0 0 1 19.469 15h8.062A2.472 2.472 0 0 1 30 17.469v10.062A2.472 2.472 0 0 1 27.531 30zm-8.062-13a.469.469 0 0 0-.469.469v10.062c0 .259.21.469.469.469h8.062c.259 0 .469-.21.469-.469V17.469a.469.469 0 0 0-.469-.469zM27.531 13h-8.062A2.472 2.472 0 0 1 17 10.531V4.469A2.472 2.472 0 0 1 19.469 2h8.062A2.472 2.472 0 0 1 30 4.469v6.062A2.472 2.472 0 0 1 27.531 13zm-8.062-9a.469.469 0 0 0-.469.469v6.062c0 .259.21.469.469.469h8.062c.259 0 .469-.21.469-.469V4.469A.469.469 0 0 0 27.531 4zM12.531 17H4.469A2.472 2.472 0 0 1 2 14.531V4.469A2.472 2.472 0 0 1 4.469 2h8.062A2.472 2.472 0 0 1 15 4.469v10.062A2.472 2.472 0 0 1 12.531 17zM4.469 4A.469.469 0 0 0 4 4.469v10.062c0 .259.21.469.469.469h8.062c.259 0 .469-.21.469-.469V4.469A.469.469 0 0 0 12.531 4zM12.531 30H4.469A2.472 2.472 0 0 1 2 27.531v-6.062A2.472 2.472 0 0 1 4.469 19h8.062A2.472 2.472 0 0 1 15 21.469v6.062A2.472 2.472 0 0 1 12.531 30zm-8.062-9a.469.469 0 0 0-.469.469v6.062c0 .259.21.469.469.469h8.062c.259 0 .469-.21.469-.469v-6.062a.469.469 0 0 0-.469-.469z" opacity="1" class=""></path></g></svg>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+            </li>
+        <?php endif; ?>
         <li class="nav-item d-block d-md-none">
             <a href="javascript:void(0)" id="make-thread">
                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -163,21 +157,14 @@
 
                 <div class="navbar-right">
                     <ul>
-                        <li class="nav-item">
-                            <a href="<?= base_url('/') ?>">
-                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
-                                    xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0"
-                                    viewBox="0 0 32 32" style="enable-background:new 0 0 512 512" xml:space="preserve"
-                                    class="">
-                                    <g>
-                                        <path
-                                            d="M21.82 30H10.18A5 5 0 0 1 5 25.24V19a1 1 0 0 1 2 0v6.24A3 3 0 0 0 10.18 28h11.64A3 3 0 0 0 25 25.24V19a1 1 0 0 1 2 0v6.24A5 5 0 0 1 21.82 30zm7.89-13.29a1 1 0 0 0 0-1.42l-13-13a1 1 0 0 0-1.42 0l-13 13a1 1 0 0 0 1.42 1.42L16 4.41l12.29 12.3a1 1 0 0 0 1.42 0z"
-                                            data-name="9-Home" opacity="1" class=""></path>
-                                    </g>
-                                </svg>
-                                <span class="nav-text">Beranda</span>
-                            </a>
-                        </li>
+                        <?php if (auth_check() && auth()->role === 'admin'): ?>
+                            <li class="nav-item">
+                                <a href="<?= route_to('admin.dash') ?>">
+                                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 32 32" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M27.531 30h-8.062A2.472 2.472 0 0 1 17 27.531V17.469A2.472 2.472 0 0 1 19.469 15h8.062A2.472 2.472 0 0 1 30 17.469v10.062A2.472 2.472 0 0 1 27.531 30zm-8.062-13a.469.469 0 0 0-.469.469v10.062c0 .259.21.469.469.469h8.062c.259 0 .469-.21.469-.469V17.469a.469.469 0 0 0-.469-.469zM27.531 13h-8.062A2.472 2.472 0 0 1 17 10.531V4.469A2.472 2.472 0 0 1 19.469 2h8.062A2.472 2.472 0 0 1 30 4.469v6.062A2.472 2.472 0 0 1 27.531 13zm-8.062-9a.469.469 0 0 0-.469.469v6.062c0 .259.21.469.469.469h8.062c.259 0 .469-.21.469-.469V4.469A.469.469 0 0 0 27.531 4zM12.531 17H4.469A2.472 2.472 0 0 1 2 14.531V4.469A2.472 2.472 0 0 1 4.469 2h8.062A2.472 2.472 0 0 1 15 4.469v10.062A2.472 2.472 0 0 1 12.531 17zM4.469 4A.469.469 0 0 0 4 4.469v10.062c0 .259.21.469.469.469h8.062c.259 0 .469-.21.469-.469V4.469A.469.469 0 0 0 12.531 4zM12.531 30H4.469A2.472 2.472 0 0 1 2 27.531v-6.062A2.472 2.472 0 0 1 4.469 19h8.062A2.472 2.472 0 0 1 15 21.469v6.062A2.472 2.472 0 0 1 12.531 30zm-8.062-9a.469.469 0 0 0-.469.469v6.062c0 .259.21.469.469.469h8.062c.259 0 .469-.21.469-.469v-6.062a.469.469 0 0 0-.469-.469z" opacity="1" class=""></path></g></svg>
+                                    <span class="nav-text">Dashboard</span>
+                                </a>
+                            </li>
+                        <?php endif; ?>
 
                         <li class="nav-item">
                             <a href="javascript:void(0)" id="make-thread">
@@ -230,12 +217,6 @@
                                         <div class="dropdown-header">
                                             <?= auth()->full_name ?>
                                         </div>
-                                        <?php if(auth()->role === 'admin'): ?>
-                                            <a class="dropdown-item" href="<?= route_to('admin.dash') ?>">
-                                                <i class="fas fa-chart-pie mr-2"></i>
-                                                Dashboard
-                                            </a>
-                                        <?php endif ?>
                                         <a class="dropdown-item" href="<?= base_url(auth()->username) ?>">
                                             <i class="fas fa-user mr-2"></i>
                                             Profile

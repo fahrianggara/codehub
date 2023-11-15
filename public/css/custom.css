@@ -26,6 +26,10 @@ label[required]::after {
 	margin-left: 2px;
 }
 
+.alertify,.modal.show {
+	backdrop-filter: blur(3px);
+}
+
 .alertify .alert>*, .alertify .dialog>* {
     border-radius: 12px;
 }
@@ -241,6 +245,32 @@ label[required]::after {
 .card-footer {
 	background-color: var(--header-color);
 	border-top: 1px solid var(--border-color);
+}
+
+.card:not(:has(.card-footer)) .card-header:is(.accordion) {
+	border-radius: 10px;
+	background-color: var(--primary-color);
+	border-color: transparent;
+}
+
+.card:not(:has(.card-footer)) .card-header:is(.accordion) a {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	position: relative;
+	color: #fff;
+	font-weight: 600;
+}
+
+.card:not(:has(.card-footer)) .card-header:is(.accordion) a i {
+	position: absolute;
+	right: 5px;
+	rotate: 0;
+	transition: all 0.3s ease-in-out;
+}
+
+.card:not(:has(.card-footer)) .card-header:is(.accordion) a[aria-expanded="true"] i {
+	rotate: 180deg;
 }
 
 /* =======================================================================

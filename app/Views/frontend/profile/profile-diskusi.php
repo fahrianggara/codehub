@@ -84,7 +84,7 @@
                 <i class="far fa-comment"></i>
                 <small>5</small>
             </button>
-            <button class="btn views">
+            <button class="btn views cursor-default">
                 <i class="fas fa-eye"></i>
                 <small>100</small>
             </button>

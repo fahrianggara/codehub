@@ -397,7 +397,7 @@ input[type="search"]::-webkit-search-results-decoration {
 	opacity: 0;
 	visibility: hidden;
 	background-color: rgba(0, 0, 0, 0.2);
-	backdrop-filter: blur(5px);
+	backdrop-filter: blur(3px);
 	transition: all 0.3s ease-in-out;
 	z-index: 1047;
 }

@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="<?= base_url('plugins/fontawesome-free/css/all.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('plugins/bootstrap4/icons/bootstrap-icons.css') ?>">
     <link rel="stylesheet" href="<?= base_url('css/auth.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('css/custom.css') ?>">
 </head>
 
 <body>
@@ -27,6 +28,8 @@
     <script src="<?= base_url('plugins/bootstrap4/bootstrap.bundle.min.js') ?>"></script>
     <script src="<?= base_url('plugins/alertify/js/alerts.js') ?>"></script>
     <script src="<?= base_url('js/auth.js') ?>"></script>
+    <script src="<?= base_url('js/auth/login.js') ?>"></script>
+    <script src="<?= base_url('js/auth/register.js') ?>"></script>
 
     <?= $this->renderSection('js') ?>
 

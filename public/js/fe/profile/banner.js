@@ -4,6 +4,8 @@ $(document).ready(function () {
     btnBannerHapus.on("click", function(e) {
         e.preventDefault();
 
+        $('body').addClass('modal-open');
+
         alertify.confirm('Hapus foto sampul?', (e) => {
             e.preventDefault();
 
@@ -14,16 +16,15 @@ $(document).ready(function () {
                     if (res.status === 400) {
                         alertError(res.message);
                     } else {
-                        alertify.alert(res.message, () => {
+                        alertifyLog('success', res.message, () => {
                             location.reload();
                         });
-
-                        $(document).find(".alertify .msg").addClass("text-success");
                     }
                 }
             });
         }, (e) => {
             e.preventDefault();
+            $('body').removeClass('modal-open');
         });
     });
 });
@@ -124,11 +125,9 @@ $(document).ready(function () {
                 if (res.status === 400) {
                     cropButton.attr('disabled', false).html('Potong & Simpan');
                 } else {
-                    alertify.alert(res.message, () => {
+                    alertifyLog('success', res.message, () => {
                         location.reload();
                     });
-
-                    $(document).find(".alertify .msg").addClass("text-success");
                 }
             }
         });
