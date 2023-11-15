@@ -7,12 +7,21 @@ $(document).ready(function () {
     modal.on('hidden.bs.modal', function () {
         form.find(".form-control").removeClass("is-invalid");
         form.find(".error-text").html("");
+        form[0].reset();
     });
 
     btnModal.on('click', function (e) {
         e.preventDefault();
 
         modal.modal('show');
+
+        // value show
+        var input = form.find('input');
+        for (let i = 0; i < input.length; i++) {
+            var name = $(input[i]).attr('name');
+            var value = $(input[i]).val();
+            $(`#${name}`).val(value);
+        }
     });
 
     form.on('submit', function (e) {
