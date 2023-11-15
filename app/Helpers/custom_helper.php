@@ -55,8 +55,27 @@ function uploadImageBlob($blob, $path, $oldImage)
 
     if (file_exists("$path/$oldImage")) unlink("$path/$oldImage");
 
-    $fileName = time() . '.' . $imgType;
+    $fileName = randomName() . '.' . $imgType;
     file_put_contents("$path/$fileName", $imgBase64);
 
     return $fileName;
+}
+
+/**
+ * Random name string.
+ * 
+ * @param int $length
+ * @return string
+ */
+function randomName($length = 15)
+{
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomName = '';
+
+    for ($i = 0; $i < $length; $i++) {
+        $randomName .= $characters[rand(0, $charactersLength - 1)];
+    }
+
+    return $randomName;
 }
