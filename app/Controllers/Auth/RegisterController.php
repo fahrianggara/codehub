@@ -88,13 +88,7 @@ class RegisterController extends BaseController
     {
         $username = explode('@', $email); // explode email
         $username = $username[0]; // get username
-
-        $user = $this->userModel->where('username', $username)->first();
-
-        if ($user) 
-            $username = $username . rand(0, 999);
-
-        return $username;
+        return $username . rand(0, 99999);
     }
 
     /**

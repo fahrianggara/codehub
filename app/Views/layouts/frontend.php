@@ -48,6 +48,7 @@
     <script src="<?= base_url('plugins/cropperjs/cropper.js') ?>"></script>
     <script src="<?= base_url('plugins/cropperjs/gif/cropperjs-gif-all.js') ?>"></script>
     <script src="<?= base_url('js/frontend.js') ?>"></script>
+    <script src="<?= base_url('js/custom.js') ?>"></script>
 
     <!-- Render Js -->
     <?= $this->renderSection('js'); ?>

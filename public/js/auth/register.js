@@ -1,15 +1,20 @@
-$(document).ready(function () {
-    $('.form-control:not([type="email"])').on('input', function () {
-        $('#show-pass').show(); // show eye icon
+$(document).ready(function () 
+{
+    const form = $('form#register');
+    const submit = form.find('button[type="submit"]');
+    const showPass = form.find("#show-pass");
 
-        var password = $('#password').val();
-        var cPassword = $('#c-password').val();
+    form.find('.form-control:not([type="email"])').on('input', function () {
+        showPass.show(); // show eye icon
 
-        if (password === '' && cPassword === '') $('#show-pass').hide();
+        var password = form.find('#password').val();
+        var cPassword = form.find('#c-password').val();
+
+        if (password === '' && cPassword === '') showPass.hide();
     });
     
-    $('#show-pass').click(function () {
-        var inputFields = $('#password, #c-password');
+    showPass.click(function () {
+        var inputFields = form.find('#password, #c-password');
         var isPasswordVisible = (inputFields.attr('type') === 'password');
 
         inputFields.attr('type', isPasswordVisible ? 'text' : 'password');
@@ -20,21 +25,14 @@ $(document).ready(function () {
     });
 
     $(document).ready(function () {
-        $('.form-control').on('focus', function () {
+        form.find('.form-control').on('focus', function () {
             $(this).parent().find('label').addClass('active');
         });
 
-        $('.form-control').on('blur', function () {
+        form.find('.form-control').on('blur', function () {
             if ($(this).val() === '') $(this).parent().find('label').removeClass('active');
         });
     });
-
-    // ===============================================
-    // Register form handler
-    // ===============================================
-
-    const form = $('form#register');
-    const submit = form.find('button[type="submit"]');
 
     form.on("submit", function (e) {
         e.preventDefault();

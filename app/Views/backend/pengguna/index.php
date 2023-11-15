@@ -10,7 +10,7 @@
                 <div class="card-header p-2">
                     <div class="d-flex align-items-center justify-content-between">
                         <span class="ml-2">Daftar pengguna di CODEHUB</span>
-                        <a href="<?= route_to('admin.pengguna') ?>" class="btn btn-sm btn-success">
+                        <a href="<?= route_to('admin.pengguna.create') ?>" class="btn btn-sm btn-success">
                             <i class="fas fa-plus mr-1"></i>
                             Tambah
                         </a>
@@ -31,6 +31,7 @@
                         <tbody>
                             <?php $no = 1; ?>
                             <?php foreach($users as $user): ?>
+                                <?php $id = base64_encode($user->id); ?>
                                 <tr>
                                     <td><?= $no++ ?></td>
                                     <td>
@@ -52,12 +53,11 @@
                                                 <i class="fas fa-ellipsis-v"></i>
                                             </button>
                                             <div class="dropdown-menu dropdown-menu-right">
-                                                <a href="<?= base_url("admin/pengguna/edit/" . base64_encode($user->id)) ?>" class="dropdown-item py-1">
+                                                <a href="<?= route_to('admin.pengguna.edit', $id) ?>" class="dropdown-item py-1">
                                                     <i class="fas text-warning fa-pen mr-2"></i> Edit
                                                 </a>
-                                                <button type="button" value="<?= base64_encode($user->id) ?>" class="dropdown-item py-1 btn-delete"
-                                                    data-name="<?= $user->full_name ?>" data-username="<?= $user->username ?>" 
-                                                    data-action="<?= route_to('admin.pengguna.destroy') ?>">
+                                                <button type="button" value="<?= $id ?>" class="dropdown-item py-1 btn-delete"
+                                                    data-username="<?= $user->username ?>" data-action="<?= route_to('admin.pengguna.destroy') ?>">
                                                     <i class="fas text-danger fa-trash mr-2"></i> Hapus
                                                 </button>
                                             </div>
@@ -79,7 +79,47 @@
 <?= $this->section('js') ?>
 
 <script>
-    const table = $("#tablePengguna").DataTable();
+    const btnDelete = $(".btn-delete");
+    const table = $("#tablePengguna").DataTable({
+        language: {
+            url: `${origin}/plugins/datatables/datatables-language/idn.json`
+        },
+    });
+
+    btnDelete.on("click", function (e) {
+        e.preventDefault();
+
+        const id = $(this).val();
+        const username = $(this).data("username");
+        const message = `Apakah kamu yakin ingin menghapus pengguna <strong>${username}</strong>?`;
+        const confirm = (e) => {
+            e.preventDefault();
+
+            $.ajax({
+                url: $(this).data("action"),
+                type: "POST",
+                data: {id},
+                dataType: "JSON",
+                success: (res) => {
+                    if (res.status === 400) {
+                        alertError(res.message);
+                    } else {
+                        alertifyLog('success', res.message, () => {
+                            location.reload();
+                        });
+                    }
+                },
+                error: (xhr, status, error) => {
+                    alertError("Maaf, terjadi kesalahan pada server. Lihat di console untuk detailnya.");
+                    console.log(xhr.responseText);
+                }
+            });
+        }
+
+        alertifyConfirm(message, confirm, (e) => {
+            $('body').removeClass('modal-open');
+        });
+    });
 </script>
 
 <?= $this->endSection() ?>

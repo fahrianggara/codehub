@@ -15,6 +15,12 @@ function auth()
         $user = $userModel->where('id', session()->get('id'))->first();
     }
 
+    if (!$user) {
+        session()->destroy();
+        header('Location: ' . base_url('login'));
+        die;
+    }
+
     return $user ?? null;
 }
 
@@ -40,26 +46,53 @@ function check_photo($pathImage, $photo)
 }
 
 /**
- * Upload image blog.
+ * Selected option for form select.
+ *
+ * @param  mixed $oldval
+ * @param  mixed $value
+ * @return void
+ */
+function selected_option($oldval, $value)
+{
+    if ($oldval == $value) {
+        return 'selected';
+    }
+}
+
+/**
+ * Upload image blob.
  *
  * @param  mixed $blob
  * @param  mixed $path
  * @param  mixed $oldImage
  * @return void
  */
-function uploadImageBlob($blob, $path, $oldImage)
+function uploadImageBlob($blob, $path, $oldImage = null)
 {
     $imgParts = explode(";base64,", $blob);
     $imgTypeAux = explode("image/", $imgParts[0]);
     $imgType = $imgTypeAux[1];
     $imgBase64 = base64_decode($imgParts[1]);
 
-    if (file_exists("$path/$oldImage")) unlink("$path/$oldImage");
+    if ($oldImage && file_exists("$path/$oldImage")) unlink("$path/$oldImage");
 
     $fileName = randomName() . '.' . $imgType;
     file_put_contents("$path/$fileName", $imgBase64);
 
     return $fileName;
+}
+
+/**
+ * Delete image
+ * 
+ * @param string $path
+ * @param string $filename
+ * @return void
+ */
+function deleteImage($path, $filename) 
+{
+    $pathUrl = "$path/$filename";
+    if (file_exists($pathUrl)) unlink($pathUrl);
 }
 
 /**

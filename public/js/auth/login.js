@@ -1,12 +1,17 @@
-$(document).ready(function () {
-    $('[type="password"]').on('input', function () {
-        $('#show-pass').show(); // show eye icon
-        if ($(this).val() === '') $('#show-pass').hide(); // hide eye icon
+$(document).ready(function () 
+{
+    const form = $("form#login");
+    const submit = form.find("button[type=submit]");
+    const showPass = form.find("#show-pass");
+
+    form.find('[type="password"]').on('input', function () {
+        showPass.show(); // show eye icon
+        if ($(this).val() === '') showPass.hide(); // hide eye icon
     });
 
-    $("#show-pass").on('click', function() 
+    showPass.on('click', function() 
     {
-        var input = $(".password");
+        var input = form.find(".password");
 
         input.attr('type') === 'password'
             ? input.attr('type','text') 
@@ -16,21 +21,14 @@ $(document).ready(function () {
     });
 
     $(document).ready(function () {
-        $('.form-control').on('focus', function () {
+        form.find('.form-control').on('focus', function () {
             $(this).parent().find('label').addClass('active');
         });
 
-        $('.form-control').on('blur', function () {
+        form.find('.form-control').on('blur', function () {
             if ($(this).val() === '') $(this).parent().find('label').removeClass('active');
         });
     });
-
-    // ===============================================
-    // Login form handler
-    // ===============================================
-
-    const form = $("form#login");
-    const submit = form.find("button[type=submit]");
 
     form.on("submit", function (e) {
         e.preventDefault();

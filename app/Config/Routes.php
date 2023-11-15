@@ -23,6 +23,11 @@ $routes->group('admin', ['filter' => ['auth', 'is_admin'], 'namespace' => Backen
     // Pengguna
     $routes->group('pengguna', function (RouteCollection $routes) {
         $routes->get('/', 'PenggunaController::index', ['as' => 'admin.pengguna']);
+        $routes->get('create', 'PenggunaController::create', ['as' => 'admin.pengguna.create']);
+        $routes->post('store', 'PenggunaController::store', ['as' => 'admin.pengguna.store']);
+        $routes->post('destroy', 'PenggunaController::destroy', ['as' => 'admin.pengguna.destroy']);
+        $routes->post('update', 'PenggunaController::update', ['as' => 'admin.pengguna.update']);
+        $routes->get('(:segment)/edit', 'PenggunaController::edit/$1', ['as' => 'admin.pengguna.edit']);
     });
 });
 

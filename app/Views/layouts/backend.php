@@ -11,16 +11,20 @@
     <link rel="icon" href="<?= base_url('favicon/favicon-16x16.png') ?>" sizes="16x16" type="image/png">
     <link rel="shortcut icon" href="<?= base_url('favicon/favicon.ico') ?>" type="image/x-icon">
 
+    <link rel="stylesheet" href="<?= base_url('plugins/sweetalert2/sweetalert2.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('plugins/alertify/css/alerts.css') ?>">
     <link rel="stylesheet" href="<?= base_url('plugins/fontawesome-free/css/all.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('plugins/bootstrap4/icons/bootstrap-icons.css') ?>">
     <link rel="stylesheet" href="<?= base_url('plugins/datatables/datatables-bs4/css/dataTables.bootstrap4.min.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('plugins/cropperjs/cropper.css') ?>">
     <link rel="stylesheet" href="<?= base_url('css/backend.css') ?>">
     <link rel="stylesheet" href="<?= base_url('css/custom.css') ?>">
 </head>
 
 <body class="sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
     <div class="wrapper">
+        <?= $this->include('component/flash-message') ?>
+
         <?= $this->include('layouts/backend/navbar') ?>
 
         <?= $this->include('layouts/backend/sidebar') ?>
@@ -53,9 +57,12 @@
     <script src="<?= base_url('plugins/datatables/datatables-buttons/js/dataTables.buttons.min.js') ?>"></script>
     <script src="<?= base_url('plugins/datatables/datatables-buttons/js/buttons.print.min.js') ?>"></script>
     <script src="<?= base_url('plugins/alertify/js/alerts.js') ?>"></script>
+    <script src="<?= base_url('plugins/sweetalert2/sweetalert2.min.js') ?>"></script>
     <script src="<?= base_url('plugins/moment/moment.min.js') ?>"></script>
     <script src="<?= base_url('plugins/moment/locale/id.js') ?>"></script>
+    <script src="<?= base_url('plugins/cropperjs/cropper.js') ?>"></script>
     <script src="<?= base_url('js/backend.js') ?>"></script>
+    <script src="<?= base_url('js/custom.js') ?>"></script>
 
     <?= $this->renderSection('js') ?>
 </body>

@@ -58,7 +58,7 @@ $(document).ready(function () {
                     modal.modal('hide');
 
                     alertifyLog('success', res.message, () => {
-                        location.reload();
+                        location.href = res.redirect;
                     });
                 }
             },

@@ -31,7 +31,7 @@ class ProfileController extends BaseController
     {
         $user = $this->userModel->where('username', $username)->first();
         
-        if (!$user) throw PageNotFoundException::forPageNotFound();
+        if (!$user) return redirect()->to('/'); // redirect to home if user not found
         
         return view('frontend/profile', [
             'title' => "Profile",
@@ -62,10 +62,10 @@ class ProfileController extends BaseController
             'last_name' => [
                 'rules' => 'permit_empty|min_length[3]|max_length[30]|alpha_space|string',
                 'errors' => [
-                    'min_length' => 'Nama depan minimal 3 karakter.',
-                    'max_length' => 'Nama depan maksimal 30 karakter.',
-                    'alpha_space' => 'Nama depan hanya boleh berisi huruf dan spasi.',
-                    'string' => 'Nama depan hanya boleh berisi huruf dan spasi.'
+                    'min_length' => 'Nama belakang minimal 3 karakter.',
+                    'max_length' => 'Nama belakang maksimal 30 karakter.',
+                    'alpha_space' => 'Nama belakang hanya boleh berisi huruf dan spasi.',
+                    'string' => 'Nama belakang hanya boleh berisi huruf dan spasi.'
                 ]
             ],
             'username' => [
@@ -96,11 +96,13 @@ class ProfileController extends BaseController
         $this->db->transBegin();
         try {
 
+            $username = $request->getVar('username');
+
             $this->userModel->save([
                 'id' => $user_id,
                 'first_name' => $request->getVar('first_name'),
                 'last_name' => $request->getVar('last_name'),
-                'username' => $request->getVar('username'),
+                'username' => $username,
                 'link_fb' => $request->getVar('link_fb'),
                 'link_tw' => $request->getVar('link_tw'),
                 'link_ig' => $request->getVar('link_ig'),
@@ -111,6 +113,7 @@ class ProfileController extends BaseController
             return response()->setJSON([
                 'status'=> 200,
                 'message' => 'Profile kamu berhasil diubah!',
+                'redirect' => base_url($username)
             ]);
         } catch (\Throwable $th) {
             $this->db->transRollback();
