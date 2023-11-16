@@ -29,6 +29,14 @@ $routes->group('admin', ['filter' => ['auth', 'is_admin'], 'namespace' => Backen
         $routes->post('update', 'PenggunaController::update', ['as' => 'admin.pengguna.update']);
         $routes->get('(:segment)/edit', 'PenggunaController::edit/$1', ['as' => 'admin.pengguna.edit']);
     });
+    $routes->group('laporan', function (RouteCollection $routes) {
+        $routes->get('/', 'LaporanController::index', ['as' => 'admin.laporan']);
+        $routes->get('create', 'LaporanController::create', ['as' => 'admin.laporan.create']);
+        $routes->post('store', 'LaporanController::store', ['as' => 'admin.laporan.store']);
+        $routes->post('destroy', 'LaporanController::destroy', ['as' => 'admin.laporan.destroy']);
+        $routes->post('update', 'LaporanController::update', ['as' => 'admin.laporan.update']);
+        $routes->get('(:segment)/edit', 'LaporanController::edit/$1', ['as' => 'admin.laporan.edit']);
+    });
 });
 
 // Profile User

@@ -11,6 +11,16 @@ class ReportModel extends Model
     protected $returnType       = Report::class;
     protected $useTimestamps    = true;
     protected $allowedFields    = [
-        'message', 'model_id', 'model_class', 'user_id'
+        'message', 'model_id', 'model_class', 'user_id', 'created_at'
     ];
+
+    public function getReports()
+    {
+        $query = $this->db->table('reports')
+            ->select('reports.*, COUNT(reports.id) as total_reports')
+            ->groupBy('reports.id')
+            ->get();
+
+        return $query->getResult();
+    }
 }
