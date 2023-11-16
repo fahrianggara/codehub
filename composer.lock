@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b7991e4ad169519f6c9b1a5000ed88b9",
+    "content-hash": "9b51bdd4685d6b4247a77629f34ba078",
     "packages": [
         {
             "name": "codeigniter4/framework",
-            "version": "v4.4.1",
+            "version": "v4.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/codeigniter4/framework.git",
-                "reference": "844616ef291ca07b726c1aaca552e16aadc3ceeb"
+                "reference": "a0339851ed3fa122a4a0e7930c62a1463e0cb257"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codeigniter4/framework/zipball/844616ef291ca07b726c1aaca552e16aadc3ceeb",
-                "reference": "844616ef291ca07b726c1aaca552e16aadc3ceeb",
+                "url": "https://api.github.com/repos/codeigniter4/framework/zipball/a0339851ed3fa122a4a0e7930c62a1463e0cb257",
+                "reference": "a0339851ed3fa122a4a0e7930c62a1463e0cb257",
                 "shasum": ""
             },
             "require": {
@@ -78,7 +78,7 @@
                 "slack": "https://codeigniterchat.slack.com",
                 "source": "https://github.com/codeigniter4/CodeIgniter4"
             },
-            "time": "2023-09-05T00:46:08+00:00"
+            "time": "2023-10-26T22:45:01+00:00"
         },
         {
             "name": "laminas/laminas-escaper",
@@ -581,16 +581,16 @@
         },
         {
             "name": "symfony/translation",
-            "version": "v6.3.3",
+            "version": "v6.3.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
-                "reference": "3ed078c54bc98bbe4414e1e9b2d5e85ed5a5c8bd"
+                "reference": "869b26c7a9d4b8a48afdd77ab36031909c87e3a2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/3ed078c54bc98bbe4414e1e9b2d5e85ed5a5c8bd",
-                "reference": "3ed078c54bc98bbe4414e1e9b2d5e85ed5a5c8bd",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/869b26c7a9d4b8a48afdd77ab36031909c87e3a2",
+                "reference": "869b26c7a9d4b8a48afdd77ab36031909c87e3a2",
                 "shasum": ""
             },
             "require": {
@@ -656,7 +656,7 @@
             "description": "Provides tools to internationalize your application",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/translation/tree/v6.3.3"
+                "source": "https://github.com/symfony/translation/tree/v6.3.6"
             },
             "funding": [
                 {
@@ -672,7 +672,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-07-31T07:08:24+00:00"
+            "time": "2023-10-17T11:32:53+00:00"
         },
         {
             "name": "symfony/translation-contracts",
@@ -751,6 +751,145 @@
                 }
             ],
             "time": "2023-05-30T17:17:10+00:00"
+        },
+        {
+            "name": "tatter/relations",
+            "version": "v2.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tattersoftware/codeigniter4-relations.git",
+                "reference": "7d96b9f8e825d09f3c7c7a821d142b08fbf4dd07"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tattersoftware/codeigniter4-relations/zipball/7d96b9f8e825d09f3c7c7a821d142b08fbf4dd07",
+                "reference": "7d96b9f8e825d09f3c7c7a821d142b08fbf4dd07",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.4 || ^8.0",
+                "tatter/schemas": "^2.0"
+            },
+            "require-dev": {
+                "codeigniter4/framework": "^4.1",
+                "tatter/tools": "^2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Tatter\\Relations\\": "src"
+                },
+                "exclude-from-classmap": [
+                    "**/Database/Migrations/**"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Matthew Gatner",
+                    "email": "mgatner@tattersoftware.com",
+                    "homepage": "https://tattersoftware.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Entity relationships for CodeIgniter 4",
+            "homepage": "https://github.com/tattersoftware/codeigniter4-relations",
+            "keywords": [
+                "Relationships",
+                "codeigniter",
+                "codeigniter4",
+                "database",
+                "entity",
+                "mapping",
+                "relations"
+            ],
+            "support": {
+                "issues": "https://github.com/tattersoftware/codeigniter4-relations/issues",
+                "source": "https://github.com/tattersoftware/codeigniter4-relations/tree/v2.1.1"
+            },
+            "funding": [
+                {
+                    "url": "https://paypal.me/tatter",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/tattersoftware",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-07-14T20:12:37+00:00"
+        },
+        {
+            "name": "tatter/schemas",
+            "version": "v2.0.14",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tattersoftware/codeigniter4-schemas.git",
+                "reference": "cee97dbe49fe5d7ce57b756bc1f61500017db13d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tattersoftware/codeigniter4-schemas/zipball/cee97dbe49fe5d7ce57b756bc1f61500017db13d",
+                "reference": "cee97dbe49fe5d7ce57b756bc1f61500017db13d",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.4 || ^8.0"
+            },
+            "require-dev": {
+                "codeigniter4/framework": "^4.1",
+                "tatter/agents": "^1.2",
+                "tatter/tools": "^2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Tatter\\Schemas\\": "src"
+                },
+                "exclude-from-classmap": [
+                    "**/Database/Migrations/**"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Matthew Gatner",
+                    "email": "mgatner@tattersoftware.com",
+                    "homepage": "https://tattersoftware.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Database schema management, for CodeIgniter 4",
+            "homepage": "https://github.com/tattersoftware/codeigniter4-schemas",
+            "keywords": [
+                "codeigniter",
+                "codeigniter4",
+                "database",
+                "mapping",
+                "schemas",
+                "structure"
+            ],
+            "support": {
+                "issues": "https://github.com/tattersoftware/codeigniter4-schemas/issues",
+                "source": "https://github.com/tattersoftware/codeigniter4-schemas/tree/v2.0.14"
+            },
+            "funding": [
+                {
+                    "url": "https://paypal.me/tatter",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/tattersoftware",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-05-12T13:27:50+00:00"
         }
     ],
     "packages-dev": [
