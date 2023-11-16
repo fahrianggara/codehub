@@ -19,7 +19,8 @@ class RegisterController extends BaseController
      */
     public function index()
     {       
-        if ($this->request->isAJAX()) { // Check if request is AJAX
+        // jika ada request ajax
+        if ($this->request->isAJAX()) {
             return $this->register();
         }
 
@@ -35,43 +36,44 @@ class RegisterController extends BaseController
      */
     private function register()
     {
-        $validation = Services::validation(); // Load validation library
-        $validate = $this->validateRegisterForm(); // Load validation rules
         $request = $this->request; // Load request..
-        $db = db_connect(); // Load db connection..
 
-        if (!$this->validate($validate)) {
+        if (!$this->validate($this->rules())) {
             return response()->setJSON([
                 'status' => 400, // Bad request
-                'error' => $validation->getErrors(),
+                'val' => true,
+                'message' => $this->validation->getErrors(),
             ]);
         }
 
-        $db->transBegin(); // Begin transaction..
+        $this->db->transBegin(); // Begin transaction..
         try {
-            $userModel = new UserModel();
-            $user = new User();
+            $email = $request->getPost('email');
 
-            $user->username = $this->generateUsername($request->getPost('email'));
-            $user->email = $request->getPost('email');
-            $user->password = $request->getPost('password');
-            $user->email_verified_at = date('Y-m-d H:i:s');
+            // Insert user..
+            $this->userModel->insert([
+                'username' => $this->generateUsername($email),
+                'email' => $email,
+                'password' => password_hash($request->getVar('password'), PASSWORD_BCRYPT),
+                'role' => 'user'
+            ]);
 
-            $userModel->save($user);
-            $userModel->assignRole('user');
+            // Commit transaction..
+            $this->db->transCommit();
 
-            $db->transCommit();
-
+            // return response success..
             return response()->setJSON([
-                'status' => 200, // OK
-                'message' => 'Register berhasil, silahkan login.'
+                'status' => 200,
+                'message' => 'Register berhasil, silahkan login.',
+                'redirect' => base_url('login'),
             ]);
         } catch (\Exception $e) { // Catch exception
-            $db->transRollback();  // Rollback transaction..
+            $this->db->transRollback();  // Rollback transaction..
 
+            // return response error..
             return response()->setJSON([
-                'status' => 400, // Internal server error
-                'error' => $e->getMessage()
+                'status' => 400,
+                'message' => $e->getMessage()
             ]);
         }
     }
@@ -84,15 +86,9 @@ class RegisterController extends BaseController
      */
     public function generateUsername($email)
     {
-        $username = explode('@', $email);
-        $username = $username[0];
-
-        $userModel = new UserModel();
-        $user = $userModel->where('username', $username)->first();
-
-        if ($user) $username = $username . rand(0, 999);
-
-        return $username;
+        $username = explode('@', $email); // explode email
+        $username = $username[0]; // get username
+        return $username . rand(0, 99999);
     }
 
     /**
@@ -100,7 +96,7 @@ class RegisterController extends BaseController
      * 
      * @return array
      */
-    private function validateRegisterForm()
+    private function rules()
     {
         return [
             'email' => [
@@ -119,10 +115,11 @@ class RegisterController extends BaseController
                     'max_length' => 'Password maksimal 16 karakter'
                 ]
             ],
-            'confirmpass' => [
-                'rules' => 'matches[password]',
+            'c-password' => [
+                'rules' => 'required|matches[password]',
                 'errors' => [
-                    'matches' => 'Password tidak sama'
+                    'required' => 'Konfirmasi password tidak boleh kosong',
+                    'matches' => 'Konfirmasi Password tidak sama dengan Password'
                 ]
             ]
         ];

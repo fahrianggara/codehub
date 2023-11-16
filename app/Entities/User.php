@@ -24,15 +24,25 @@ class User extends Entity
     }
 
     /**
-     * Get picture attribute
+     * Get photo attribute
      * 
-     * @param  mixed $picture
      * @return void
      */
-    public function getAvatar()
+    public function getPhoto()
     {
-        $path = base_url('images/avatars/' . $this->attributes['avatar']);
-        return file_exists($path) ? $path : base_url('images/avatar.png');
+        $path = 'images/avatars/' . $this->attributes['avatar'];
+        return file_exists($path) ? base_url($path) : base_url('images/avatar.png');
+    }
+
+    /**
+     * Get banner attribute
+     * 
+     * @return void
+     */
+    public function getPoster()
+    {
+        $path = 'images/banners/'. $this->attributes['banner'];
+        return file_exists($path) ? base_url($path) : base_url('images/banner.png');
     }
 
     /**
@@ -58,24 +68,4 @@ class User extends Entity
     {
         return Carbon::parse($this->attributes['created_at'])->locale('id')->isoFormat('LL');
     }
-
-    /**
-     * Get role attribute
-     * 
-     * @return string
-     */
-    public function getRole()
-    {
-        $user_id = $this->attributes['id'];
-        
-        $db = \Config\Database::connect();
-        $builder = $db->table('roles');
-
-        $builder->select('roles.*');
-        $builder->join('user_has_roles', 'user_has_roles.role_id = roles.id');
-        $builder->where('user_has_roles.user_id', $user_id);
-        
-        return $builder->get()->getRowObject();
-    }
-
 }

@@ -11,6 +11,8 @@ class CreateCategoriesTable extends Migration
         $this->forge->addField([
             'id' => ['type' => 'INT', 'constraint' => 11, 'auto_increment' => true],
             'name' => ['type' => 'VARCHAR', 'constraint' => 255],
+            'slug' => ['type' => 'VARCHAR', 'constraint' => 255, 'unique' => true],
+            'cover' => ['type' => 'VARCHAR', 'constraint' => 255, 'default' => 'empty.png'],
             'created_at datetime default current_timestamp',
             'updated_at datetime default current_timestamp on update current_timestamp',
         ]);

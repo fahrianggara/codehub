@@ -2,6 +2,7 @@
 
 namespace App\Filters;
 
+use App\Models\UserModel;
 use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
@@ -25,8 +26,9 @@ class Auth implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
-        if (!session()->get('logged_in')) return redirect()->to('login');
-        
+        if (!session()->get('logged_in')) {
+            return redirect()->to('login');
+        }
     }
 
     /**
@@ -43,6 +45,6 @@ class Auth implements FilterInterface
      */
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
     {
-        //
+        
     }
 }

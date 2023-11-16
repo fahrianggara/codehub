@@ -4,6 +4,7 @@ namespace Config;
 
 use App\Filters\Auth;
 use App\Filters\Guest;
+use App\Filters\IsAdmin;
 use CodeIgniter\Config\BaseConfig;
 use CodeIgniter\Filters\CSRF;
 use CodeIgniter\Filters\DebugToolbar;
@@ -28,6 +29,7 @@ class Filters extends BaseConfig
         'secureheaders' => SecureHeaders::class,
         'guest'         => Guest::class,
         'auth'          => Auth::class,
+        'is_admin'      => IsAdmin::class,
     ];
 
     /**

@@ -1,140 +1,61 @@
 <?= $this->extend('layouts/auth'); ?>
 
+<!-- =============================================== 
+# Content
+=============================================== -->
+
 <?= $this->section('content'); ?>
 
-<?php
-    $flashDataUsername = session()->getFlashdata('errUsername');
-    $flashDataPassword = session()->getFlashdata('errPassword');
-?>
+    <?php
+        $flashDataUsername = session()->getFlashdata('errUsername');
+        $flashDataPassword = session()->getFlashdata('errPassword');
+    ?>
 
-<!-- <div class="logo">
-    <img src="<?= base_url('images/logo/codehub.png') ?>" alt="Logo">
-</div> -->
-
-<div class="wrapper">
-
-    <form action="<?= base_url('login') ?>" method="post">
-        <?php csrf_field(); ?>
-
-        <div class="header">
-            <h1>Login</h1>
+    <section>
+        <div class="brand">
+            <a href="<?= base_url('/') ?>">
+                <img src="<?= base_url('images/logo/sm.png') ?>" alt="logo">
+                <span class="logo-text">codehub</span>
+            </a>
         </div>
 
-        <div class="input-box">
-            <input type="text" class="" placeholder="Username atau Email" name="username" id="username"
-                value="<?= old('username'); ?>">
-            <i class="bi bi-person-fill"></i>
+        <div class="wrapper">
+            <p class="wrapper-title">Masuk ke akun kamu</p>
+
+            <form id="login" action="<?= base_url('login') ?>" class="wrapper-form" autocomplete="off" method="POST">
+                <?= csrf_field(); ?>
+
+                <div class="form-group input">
+                    <div class="form-icon left"><i class="fas fa-user"></i></div>
+
+                    <input type="text" class="form-control" name="username" id="username">
+
+                    <label class="font-weight-normal" for="username">Username atau Email</label>
+                </div>
+
+                <div class="form-group input">
+                    <div class="form-icon left"><i class="fas fa-lock"></i></div>
+
+                    <input type="password" id="password" name="password" class="form-control password">
+
+                    <label class="font-weight-normal" for="password">Password</label>
+
+                    <div class="form-icon right" id="show-pass">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                </div>
+
+                <div class="form-group mb-0">
+                    <button type="submit" class="btn btn-block">
+                        Masuk
+                    </button>
+                </div>
+            </form>
         </div>
 
-        <div class="input-box">
-            <input type="password" class="" id="password" placeholder="Password" name="password">
-            <i class="bi bi-lock-fill"></i>
-
-            <div class="hide-pw">
-                <span id="show-password" class="show-password" style="display:none;"
-                    onclick="togglePasswordVisibility()">
-                    <i class="bi bi-eye-slash"></i>
-                </span>
-            </div>
+        <div class="footer">
+            <p>Belum punya akun? <a href="<?= base_url('register') ?>">Daftar</a></p>
         </div>
-
-        <div class="remember-forgot">
-            <a href="#">Lupa Password?</a>
-        </div>
-
-        <button type="submit" class="button">Submit</button>
-
-        <div class="register-link">
-            <p>Belum punya akun? <a href="/register">Register</a></p>
-        </div>
-
-    </form>
-</div>
-
-<?= $this->endSection(); ?>
-
-<?= $this->section('js'); ?>
-
-<script>
-    $(document).ready(function () {
-        // ===============================================
-        // Login form handler
-        // ===============================================
-
-        const form = $("form");
-        const submit = form.find("button[type=submit]");
-
-        form.on("submit", function (e) {
-            e.preventDefault();
-
-            $.ajax({
-                type: $(this).attr("method"),
-                url: $(this).attr("action"),
-                data: $(this).serialize(),
-                dataType: "JSON",
-                beforeSend: function () {
-                    submit.attr("disabled", "disabled");
-                    submit.html('Loading..');
-                },
-                complete: function () {
-                    submit.removeAttr("disabled");
-                    submit.html('Submit');
-                },
-                success: function (res) {
-                    if (res.status === 400) {
-                        if (res.val === true) {
-                            errors = [];
-
-                            $.each(res.errors, function (key, val) {
-                                errors.push(val);
-                            });
-
-                            alertify.alert(errors.join("<br><br>"));
-                        } else {
-                            alertify.alert(res.message);
-                        }
-
-                        $(document).find(".alertify .msg").addClass("text-danger");
-                    } else {
-                        alertify.alert(res.message, function () {
-                            location.href = res.redirect; // Redirect to profile page
-
-                            submit.attr("disabled", "disabled");
-                            submit.html('Loading...');
-                        });
-
-                        $(document).find(".alertify .msg").addClass("text-success");
-                    }
-                },
-                error: function (err) {
-                    alert("Error: " + err.responseText);
-                }
-            });
-        });
-
-        // ===============================================
-        // Show password icon
-        // ===============================================
-
-        $("#password").on("input", function () {
-            var passwordField = $("#password");
-            var showPasswordIcon = $("#show-password");
-            passwordField.val() !== "" ? showPasswordIcon.show() : showPasswordIcon.hide();
-        });
-
-        $("#show-password").on("click", function () {
-            var passwordField = $("#password");
-            var showPasswordIcon = $("#show-password i");
-
-            if (passwordField.attr("type") === "password") {
-                passwordField.attr("type", "text");
-                showPasswordIcon.removeClass("bi-eye-slash").addClass("bi-eye");
-            } else {
-                passwordField.attr("type", "password");
-                showPasswordIcon.removeClass("bi-eye").addClass("bi-eye-slash");
-            }
-        });
-    });
-</script>
+    </section>
 
 <?= $this->endSection(); ?>

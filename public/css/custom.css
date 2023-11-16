@@ -1,0 +1,387 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+body {
+	font-family: "Inter", sans-serif;
+}
+
+:root {
+	--primary-color: #14b8a6;
+	--hover-color: #0f9d8b;
+	--secondary-color: #636c72;
+	--border-color: rgba(4, 32, 69, 0.14);
+	--header-color: #efefef;
+}
+
+.btn {
+	border-radius: 8px;
+}
+
+.btn:focus {
+	box-shadow: none;
+}
+
+label[required]::after {
+	content: "*";
+	color: red;
+	margin-left: 2px;
+}
+
+.alertify,.modal.show {
+	backdrop-filter: blur(3px);
+}
+
+.alertify .alert>*, .alertify .dialog>* {
+    border-radius: 12px;
+}
+
+.alertify .alert nav button:not(.btn):not(.pure-button):not(.md-button):not(.mdl-button), 
+.alertify .dialog nav button:not(.btn):not(.pure-button):not(.md-button):not(.mdl-button) {
+    border-radius: 8px;
+}
+
+.cropper-wrap-box,
+.cropper-crop {
+    border-radius: 10px;
+}
+
+.sample-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.swal2-popup {
+    border-radius: 15px !important;
+}
+
+.swal2-popup:not(.swal2-toast) .swal2-title {
+    font-size: 22px !important;
+}
+
+.swal2-content {
+    font-size: 18px !important;
+}
+
+.swal2-styled {
+    border-radius: 8px !important;
+}
+
+/* =======================================================================
+ *  DASHBOARD CUSTOM BOOTSTRAP 4
+ * ======================================================================= */
+
+.brand-image {
+    height: 40px;
+    width: 40px;
+    object-fit: cover;
+}
+
+.main-sidebar .nav-link {
+    border-radius: 10px;
+}
+
+.profile-photo {
+	height: 40px;
+	width: 40px;
+	border-radius: 50%;
+    object-fit: cover;
+    background-position: center;
+}
+
+.user-panel .info {
+	line-height: 1.3;
+}
+
+.nav-sidebar .nav-header {
+	font-weight: 500;
+}
+
+.sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link.active, 
+.sidebar-light-primary .nav-sidebar > .nav-item > .nav-link.active {
+	background-color: var(--primary-color);
+	color: #fff;
+}
+
+.btn-sm {
+	border-radius: 6px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.user-info img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 12px;
+}
+
+.user-info .user-name {
+    display: flex;
+    flex-direction: column;
+    font-size: 15px;
+}
+
+.user-info .user-name small {
+    font-size: 12px;
+    color: var(--secondary-color);
+}
+
+table th, table td {
+    vertical-align: middle !important;
+    white-space: nowrap;
+}
+
+table.not-wrap th, table.not-wrap td {
+    white-space: normal;
+}
+
+/* =======================================================================
+ *  MODAL CUSTOM BOOTSTRAP 4
+ * ======================================================================= */
+
+.modal-content {
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.11);
+}
+
+.modal-footer,
+.modal-header {
+    background-color: #f1f1f1;
+    border-color: var(--border-color);
+}
+
+.modal-footer {
+    border-radius: 0 0 10px 10px;
+}
+
+.modal-header {
+    border-radius: 10px 10px 0 0;
+    display: flex;
+    align-items: center;
+}
+
+.modal-info {
+    line-height: 1;
+    margin-left: 8px;
+}
+
+.modal-footer > * {
+    margin-right: 0.1rem;
+    margin-left: 0.1rem;
+}
+
+.modal-backdrop {
+    z-index: 1048;
+}
+
+/* =======================================================================
+ *  DROPDOWN CUSTOM BOOTSTRAP 4
+ * ======================================================================= */
+
+.dropdown-item.active,
+.dropdown-item:active {
+	background-color: #f1f1f1;
+	color: var(--secondary-color);
+}
+
+.dropdown-toggle::after,
+.dropleft .dropdown-toggle::before {
+	display: none;
+}
+
+.dropdown-menu-lg {
+	min-width: 280px;
+}
+
+.dropdown-menu-md {
+	min-width: 240px;
+}
+
+.dropdown-menu {
+	border-radius: 14px;
+	top: 45px;
+	overflow: hidden;
+}
+
+.dropdown-header {
+	background: var(--header-color);
+	position: relative;
+	bottom: 8px;
+	font-weight: 500;
+}
+
+.dropdown-toggle figure {
+	margin: 0;
+}
+
+/* =======================================================================
+ *  CUSTOM CARD BOOTSTRAP
+ * ======================================================================= */
+
+.card {
+	background-color: #f1f2f6;
+	border-radius: 10px;
+	box-shadow: none;
+	border: 1px solid var(--border-color);
+}
+
+.card.section-bg {
+	background-color: #fefeff;
+	border-radius: 12px;
+}
+
+.card:not(:has(.card-footer)).notif {
+	box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.15);
+}
+
+.card:has(.card-header):has(.card-body):has(.card-footer) .card-header {
+	border-radius: 10px 10px 0 0;
+}
+
+.card:not(:has(.card-footer)) .card-header {
+	border-radius: 10px 10px 0 0;
+}
+
+.card:not(:has(.card-body)) .card-header {
+	border-bottom: none;
+	border-radius: 10px;
+}
+
+.card:not(:has(.card-body)) .card-footer {
+	border-top: none;
+	border-radius: 10px;
+}
+
+.card:not(:has(.card-footer)) .card-body {
+	border-radius: 0 0 10px 10px;
+}
+
+.card:not(:has(.card-header)) .card-body {
+	border-radius: 10px 10px 0 0;
+}
+
+.card:not(:has(.card-header)):not(:has(.card-footer)) .card-body {
+	border-radius: 10px;
+}
+
+.card:not(:has(.card-body)):not(:has(.card-footer)) .card-header {
+	border-radius: 10px;
+	background-color: #fff;
+}
+
+.card:not(:has(.card-header)):not(:has(.card-body)) .card-footer {
+	border-radius: 10px;
+	background-color: #fff;
+}
+
+.card:has(.card-header):has(.card-body) .card-footer,
+.card:not(:has(.card-header)):has(.card-body) .card-footer {
+	border-radius: 0 0 10px 10px;
+}
+
+.card-header {
+	background-color: var(--header-color);
+	border-bottom: 1px solid var(--border-color);
+	font-weight: 500;
+	color: var(--secondary-color);
+}
+
+.card-body {
+	background-color: #fff;
+}
+
+.card-footer {
+	background-color: var(--header-color);
+	border-top: 1px solid var(--border-color);
+}
+
+.card:not(:has(.card-footer)) .card-header:is(.accordion) {
+	border-radius: 10px;
+	background-color: var(--primary-color);
+	border-color: transparent;
+}
+
+.card:not(:has(.card-footer)) .card-header:is(.accordion) a {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	position: relative;
+	color: #fff;
+	font-weight: 600;
+}
+
+.card:not(:has(.card-footer)) .card-header:is(.accordion) a i {
+	position: absolute;
+	right: 5px;
+	rotate: 0;
+	transition: all 0.3s ease-in-out;
+}
+
+.card:not(:has(.card-footer)) .card-header:is(.accordion) a[aria-expanded="true"] i {
+	rotate: 180deg;
+}
+
+/* =======================================================================
+ *  CUSTOM INPUT BOOTSTRAP
+ * ======================================================================= */
+
+.form-group label {
+	font-size: 15px;
+	font-weight: 600;
+	color: var(--secondary-color);
+}
+
+.form-control,
+.custom-select,
+.custom-file-label {
+	border-radius: 8px;
+	border: 1px solid var(--border-color);
+	box-shadow: none;
+	font-size: 16px;
+	color: var(--secondary-color);
+	transition: all 0.1s ease-in-out;
+}
+
+.form-control:focus,
+.custom-select:focus {
+	border-color: var(--primary-color);
+	box-shadow: 0 0 0 0.2rem rgba(20, 184, 166, 0.25);
+}
+
+.custom-file-label, .custom-file-label::after {
+    padding: 0.475rem 0.75rem;
+    font-weight: 400 !important;
+}
+
+/* =======================================================================
+*  NAV PILLS CUSTOM BOOTSTRAP
+* ======================================================================= */
+
+.nav-pills:not(.nav-sidebar) {
+	overflow-x: auto;
+	overflow-y: hidden;
+	flex-wrap: nowrap;
+}
+
+.nav-pills:not(.nav-sidebar) .nav-link {
+	border-radius: 8px;
+	padding: 10px 20px;
+	font-size: 16px;
+	font-weight: 500;
+	color: var(--secondary-color);
+	transition: all 0.1s ease-in-out;
+	white-space: nowrap;
+}
+
+.nav-pills:not(.nav-sidebar) .nav-link:hover {
+	color: var(--primary-color);
+}
+.nav-pills:not(.nav-sidebar) .nav-link.active {
+	background-color: var(--primary-color);
+	color: #fff;
+}
