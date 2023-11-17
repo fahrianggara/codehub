@@ -11,6 +11,6 @@ class TagModel extends Model
     protected $returnType       = Tag::class;
     protected $useTimestamps    = true;
     protected $allowedFields    = [
-        'name'
+        'name', 'slug'
     ];
 }

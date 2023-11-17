@@ -8,6 +8,8 @@ class Run extends Seeder
 {
     public function run()
     {
-        $this->call('RoleSeeder');
+        $this->call('CategorySeeder');
+        $this->call('TagSeeder');
+        $this->call('AdminSeeder');
     }
 }

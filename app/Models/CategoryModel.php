@@ -11,6 +11,6 @@ class CategoryModel extends Model
     protected $returnType       = Category::class;
     protected $useTimestamps    = true;
     protected $allowedFields    = [
-        'name'
+        'name', 'slug', 'cover'
     ];
 }
