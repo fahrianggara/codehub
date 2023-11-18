@@ -126,7 +126,7 @@
 <?php else: ?>
     <div class="alert alert-warning">
         <i class="fas fa-info-circle mr-2"></i>
-        <span>Belum ada diskusi yang di <?= $status_selected ?>.</span>
+        <span>Belum ada diskusi yang di <?= $displayStatus = ($status_selected === 'draft') ? 'arsip' : (($status_selected === 'published') ? 'publikasikan' : ''); ?>.</span>
     </div>
 <?php endif ?>
 

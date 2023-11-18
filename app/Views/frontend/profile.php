@@ -70,7 +70,7 @@
                                                     <?php if (auth_check() && auth()->id === $user->id): ?>
                                                         <div class="form-group">
                                                             <label for="filter-status">Status</label>
-                                                            <select name="status" id="filter-status" class="custom-select">
+                                                            <select name="status" id="filter-status" <?= !$user->threads ? 'disabled' : '' ?> class="custom-select">
                                                                 <option <?= selected_option($status_selected, 'published') ?> value="published">Publish</option>
                                                                 <option <?= selected_option($status_selected, 'draft') ?> value="draft">Draft</option>
                                                             </select>
@@ -79,7 +79,7 @@
 
                                                     <div class="form-group">
                                                         <label for="filter-order">Urutkan</label>
-                                                        <select name="order" id="filter-order" class="custom-select">
+                                                        <select name="order" id="filter-order" <?= !$user->threads ? 'disabled' : '' ?> class="custom-select">
                                                             <option <?= selected_option($order_selected, 'desc') ?> value="desc">Terbaru</option>
                                                             <option <?= selected_option($order_selected, 'asc') ?> value="asc">Terlama</option>
                                                             <option <?= selected_option($order_selected, 'popular') ?> value="popular">Populer</option>
@@ -88,7 +88,7 @@
 
                                                     <div class="form-group">
                                                         <label for="filter-category">Kategori</label>
-                                                        <select name="category" id="filter-category" class="custom-select">
+                                                        <select name="category" id="filter-category" <?= !$user->threads ? 'disabled' : '' ?> class="custom-select">
                                                             <option value="all" selected>Semua Kategori</option>
                                                             <?php foreach ($categories as $category): ?>
                                                                 <option <?= selected_option($category_selected, $category['slug']) ?> 
