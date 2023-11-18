@@ -31,15 +31,59 @@ class ProfileController extends BaseController
      */
     public function index($username)
     {
+        $get = $this->request->getVar();
         $user = $this->userModel->where('username', $username)->first();
 
-        if (!$user) // redirect to home if user not found
-            return redirect()->to('/'); 
+        if (!$user) return redirect()->to('/');  // Jika user tidak ditemukan, redirect ke home
+                    
+        $query = $this->threadModel->where('user_id', $user->id);
+        $statusSelected = (isset($get['status']) && in_array($get['status'], ['published', 'draft'])) ? $get['status'] : 'published';
+        $orderSelected = (isset($get['order']) && in_array($get['order'], ['desc', 'asc', 'popular'])) ? $get['order'] : 'desc';
+        $categorySelected = (isset($get['category']) && $get['category'] !== 'all') ? $get['category'] : 'all';
 
-        $threads = $this->threadModel->where('user_id', $user->id)->where('status', 'published')
-            ->with(['users', 'thread_categories', 'thread_tags', 'replies'])
-            ->orderBy('created_at','desc')
-            ->paginate(10, 'user-thread');
+        if ($statusSelected === 'published') // Jika status published
+        { 
+            if ($orderSelected === 'popular')  // Jika order popular
+            {
+                $threads = $query->with(['users', 'thread_categories', 'thread_tags', 'replies'])
+                    ->where('status', 'published')
+                    ->orderBy('(SELECT COUNT(*) FROM likes WHERE model_id = threads.id AND model_class = "App\Models\Thread")', $orderSelected)
+                    ->paginate(10, 'user-thread');
+            }
+
+            if ($categorySelected !== 'all') // Jika category bukan all
+            {
+                if ($orderSelected === 'popular') { // Jika order popular
+                    $orderBy = '(SELECT COUNT(*) FROM likes WHERE model_id = threads.id AND model_class = "App\Models\Thread")';
+                    $direct = 'desc';
+                } else { // Jika order bukan popular
+                    $orderBy = 'threads.created_at';
+                    $direct = $orderSelected;
+                }
+
+                $threads = $query->with(['users', 'thread_categories', 'thread_tags', 'replies']) // Ambil semua relasi
+                    ->join('thread_categories', 'thread_categories.thread_id = threads.id')
+                    ->join('categories', 'categories.id = thread_categories.category_id')
+                    ->where('status', 'published')
+                    ->where('categories.slug', strtolower($categorySelected)) // Dijadikan lowercase agar slug tidak case sensitive
+                    ->groupBy('threads.id') // Group by agar tidak ada thread yang sama
+                    ->select('threads.*, MAX(thread_categories.id) as category_id, MAX(categories.slug) as category_slug') // Ambil category terakhir
+                    ->orderBy($orderBy, $direct)
+                    ->paginate(10, 'user-thread');
+            }
+
+            if ($orderSelected !== 'popular' && $categorySelected === 'all') { // Jika order bukan popular dan category all
+                $threads = $query->with(['users', 'thread_categories', 'thread_tags', 'replies'])
+                    ->where('status', 'published')->orderBy('created_at', $orderSelected)
+                    ->paginate(10, 'user-thread');
+            }
+        } else { // Jika status draft
+            if (auth_check() && auth()->id !== $user->id) { // Jika bukan pemilik akun
+                throw PageNotFoundException::forPageNotFound();
+            } 
+
+            $threads = $query->where('status', 'draft')->orderBy('id','desc')->paginate(10, 'user-thread');
+        }
         
         return view('frontend/profile', [
             'title' => "Profile",
@@ -47,7 +91,43 @@ class ProfileController extends BaseController
             'has_sosial_media' => $user->link_fb || $user->link_tw || $user->link_ig || $user->link_gh || $user->link_li,
             'threads' => $threads,
             'pager' => $this->threadModel->pager,
+            'status_selected' => $statusSelected,
+            'order_selected' => $orderSelected,
+            'category_selected' => $categorySelected,
+            'selected_true' => $statusSelected !== 'published' || $orderSelected !== 'desc' || $categorySelected !== 'all',
+            'categories' => $this->filteringCategories($user),
         ]);
+    }
+    
+    /**
+     * Filtering categories
+     *
+     * @param  mixed $user
+     * @return void
+     */
+    private function filteringCategories($user) {
+        $categories = [];
+        $categorySlugs = [];  // Untuk tracking slug agar tidak ada slug yang sama
+        $threads = $this->threadModel->where('user_id', $user->id)
+            ->where('status', 'published')
+            ->findAll();
+
+        foreach ($threads as $thread) {
+            $categorySlug = $thread->category->slug;
+
+            // Jika slug belum ada di array, maka tambahkan
+            if (!in_array($categorySlug, $categorySlugs)) {
+                $categories[] = [
+                    'slug' => $categorySlug,
+                    'name' => $thread->category->name,
+                ];
+
+                // Tambahkan slug ke array agar tidak ada slug yang sama
+                $categorySlugs[] = $categorySlug;
+            }
+        }
+
+        return $categories;
     }
 
     /**

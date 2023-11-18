@@ -37,7 +37,7 @@
                                     <i class="fas text-danger fa-trash mr-2"></i> Hapus
                                 </a>
 
-                                <!-- JANGAN DIHAPUS <?php if ($thread->status === 'published'): ?> 
+                                <?php if ($thread->status === 'published'): ?> 
                                     <a class="dropdown-item btn-draft-diskusi" href="javascript:void(0);"
                                         data-id="<?= $thread_id ?>">
                                         <i class="fas text-secondary fa-archive mr-2"></i> Arsipkan
@@ -47,7 +47,7 @@
                                         data-id="<?= $thread_id ?>">
                                         <i class="fas text-success fa-upload mr-2"></i> Publikasikan
                                     </a>
-                                <?php endif ?> -->
+                                <?php endif ?>
 
                                 <div class="dropdown-divider"></div>
                             <?php endif ?>
@@ -122,11 +122,11 @@
         <?php endforeach ?>                   
     </ul>
 
-    <?= $pager->links('user-thread', 'pg_profile') ?>
+    <?= $pager->only(['status', 'order', 'category'])->links('user-thread', 'pg_profile') ?>
 <?php else: ?>
     <div class="alert alert-warning">
         <i class="fas fa-info-circle mr-2"></i>
-        <span>Belum ada diskusi</span>
+        <span>Belum ada diskusi yang di <?= $status_selected ?>.</span>
     </div>
 <?php endif ?>
 
@@ -134,7 +134,7 @@
     <?php if(auth_check()): ?>
 
         <script src="<?= base_url('js/fe/diskusi/delete.js') ?>"></script>
-        <!-- <script src="<?= base_url('js/fe/diskusi/status.js') ?>"></script> JANGAN DIHAPUS -->
+        <script src="<?= base_url('js/fe/diskusi/status.js') ?>"></script>
 
     <?php endif ?>
 <?= $this->endSection() ?>
