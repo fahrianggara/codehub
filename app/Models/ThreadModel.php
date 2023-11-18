@@ -4,14 +4,115 @@ namespace App\Models;
 
 use App\Entities\Thread;
 use CodeIgniter\Model;
+use Tatter\Relations\Traits\ModelTrait;
 
 class ThreadModel extends Model
 {
+    use ModelTrait;
+
     protected $table            = 'threads';
+    // protected $with             = ['users', 'thread_categories', 'thread_tags', 'replies'];
     protected $returnType       = Thread::class;
     protected $useTimestamps    = true;
-    protected $allowedFields    = [
-        'title', 'content', 'views', 'status', 'user_id'
-    ];
+    protected $allowedFields    = ['title', 'slug', 'content', 'views', 'status', 'user_id'];
+    
+    /**
+     * Sync related category
+     *
+     * @param  mixed $thread_id
+     * @param  mixed $category_id
+     * @return void
+     */
+    public function syncCategories($thread_id, $category_id)
+    {
+        $this->db->table('thread_categories')->where('thread_id', $thread_id)->delete();
 
+        $this->db->table('thread_categories')->insert([
+            'thread_id' => $thread_id,
+            'category_id' => $category_id
+        ]);
+    }
+    
+    /**
+     * If tag not exist, insert new tag
+     *
+     * @param  mixed $name
+     * @return void
+     */
+    public function tagNotExist($name)
+    {
+        $name = trim($name);
+        $check = $this->db->table('tags')->where('name', $name)->get()->getRow();
+
+        if (!$check) {
+            $this->db->table('tags')->insert([
+                'name' => $name,
+                'slug' => slug($name)
+            ]);
+        }
+    }
+    
+    /**
+     * Sync related tags
+     *
+     * @param  mixed $thread_id
+     * @param  mixed $tags
+     * @return void
+     */
+    public function syncTags($thread_id, $tags)
+    {
+        $this->db->table('thread_tags')->where('thread_id', $thread_id)->delete();
+
+        $dataTags = [];
+        foreach ($tags as $tag) {
+            $dataTags[] = [
+                'thread_id' => $thread_id,
+                'tag_id' => $tag
+            ];
+        }
+
+        $this->db->table('thread_tags')->insertBatch($dataTags);
+    }
+
+    /**
+     * Delete likes
+     * 
+     * @param  mixed $thread
+     * @return void
+     */
+    public function deleteLikes($thread)
+    {
+        $this->db->table('likes')
+            ->where('model_id', $thread->id)
+            ->where('model_class', "App\Models\Thread")
+            ->delete();
+    }
+
+    /**
+     * Delete notifications
+     * 
+     * @param  mixed $thread
+     * @return void
+     */
+    public function deleteNotifications($thread_id)
+    {
+        $this->db->table("notifications")
+            ->where('model_id', $thread_id)
+            ->where('model_class', "App\Models\Thread")
+            ->delete();
+    }
+
+    /**
+     * Delete reports
+     * 
+     * @param  mixed $thread
+     * @return void
+     */
+    public function deleteReports($thread_id)
+    {
+        $this->db->table("reports")
+            ->where('model_id', $thread_id)
+            ->where('model_class', "App\Models\Thread")
+            ->delete();
+    }
 }

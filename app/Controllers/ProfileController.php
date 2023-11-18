@@ -4,11 +4,12 @@ namespace App\Controllers;
 
 use App\Models\UserModel;
 use App\Controllers\BaseController;
+use App\Models\ThreadModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
 
 class ProfileController extends BaseController
 {
-    protected $db, $userModel;
+    protected $db, $userModel, $threadModel;
     
     /**
      * ProfileController constructor.
@@ -19,6 +20,7 @@ class ProfileController extends BaseController
     {
         $this->userModel = new UserModel();
         $this->db = \Config\Database::connect();
+        $this->threadModel = new ThreadModel();
     }
     
     /**
@@ -30,13 +32,21 @@ class ProfileController extends BaseController
     public function index($username)
     {
         $user = $this->userModel->where('username', $username)->first();
-        
-        if (!$user) return redirect()->to('/'); // redirect to home if user not found
+
+        if (!$user) // redirect to home if user not found
+            return redirect()->to('/'); 
+
+        $threads = $this->threadModel->where('user_id', $user->id)->where('status', 'published')
+            ->with(['users', 'thread_categories', 'thread_tags', 'replies'])
+            ->orderBy('created_at','desc')
+            ->paginate(10, 'user-thread');
         
         return view('frontend/profile', [
             'title' => "Profile",
             'user' => $user,
             'has_sosial_media' => $user->link_fb || $user->link_tw || $user->link_ig || $user->link_gh || $user->link_li,
+            'threads' => $threads,
+            'pager' => $this->threadModel->pager,
         ]);
     }
 

@@ -616,6 +616,13 @@ input[type="search"]::-webkit-search-results-decoration {
 	color: #000;
 }
 
+.thread .author-name {
+	transition: 0.2s all ease-in-out;
+}
+.thread .thread-author:hover .author-name {
+	color: var(--primary-color);
+}
+
 .thread .profile-pic-detail {
 	width: 40px !important;
 	height: 40px !important;
@@ -724,10 +731,15 @@ input[type="search"]::-webkit-search-results-decoration {
 	font-weight: 500;
 }
 
+.thread .thread-link:hover .thread-comment-title {
+	color: var(--primary-color);
+}
+
 .thread .thread-comment-title {
 	font-weight: 600;
 	font-size: 16px;
 	margin: 15px 0 5px 0;
+	transition: .2s all ease-in-out;
 }
 
 .thread .thread-categories {
@@ -1179,7 +1191,7 @@ input[type="search"]::-webkit-search-results-decoration {
  *  POST CSS
  * ======================================================================= */
 
-.btn-add-post {
+.btn-buat-diskusi:not(.in-navbar) {
 	border-radius: 12px;
 	padding: 15px 20px;
 	font-size: 16px;
@@ -1194,23 +1206,23 @@ input[type="search"]::-webkit-search-results-decoration {
 	transition: all 0.2s ease-in-out;
 }
 
-.btn-add-post span {
+.btn-buat-diskusi:not(.in-navbar) span {
 	margin-right: 15px;
 }
 
-.btn-add-post:hover {
+.btn-buat-diskusi:not(.in-navbar):hover {
 	color: #fff;
 	background-color: #1f8335;
 }
 
-.btn-add-post i {
+.btn-buat-diskusi:not(.in-navbar) i {
 	transform: translateX(0);
 	transition: all 0.2s ease-in-out;
 	opacity: 0;
 	visibility: hidden;
 }
 
-.btn-add-post:hover i {
+.btn-buat-diskusi:not(.in-navbar):hover i {
 	transform: translateX(-8px);
 	opacity: 1;
 	visibility: visible;
@@ -1613,7 +1625,7 @@ footer .footer-bottom {
 	margin-right: 5px;
 }
 
-@media (max-width: 991.98px) {
+/* @media (max-width: 991.98px) {
 	.page-item {
 		display: none;
 	}
@@ -1626,4 +1638,4 @@ footer .footer-bottom {
 	.page-item.disabled {
 		display: inline-block;
 	}
-}
+} */

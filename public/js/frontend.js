@@ -1,7 +1,7 @@
 /**
  * Hide mobile nav
  */
-function hideMobile() {  
+function hideMobileMenu() {  
     $(".mobile-nav-toggle").removeClass("active");
     $(".mobile-nav").removeClass("active");
     $(".mobile-nav-overlay").removeClass("active");
@@ -36,12 +36,12 @@ function hideMobileSearch() {
         $("body").toggleClass("mobile-nav-active");
     });
 
-    $(".mobile-nav-overlay").click(function () {
-        hideMobile();
+    $(".mobile-nav-overlay, .btn-buat-diskusi").click(function () {
+        hideMobileMenu();
     });
 
     $("#btn-search").on("click", function() {
-        hideMobile();
+        hideMobileMenu();
 
         $("body").addClass("mobile-search-active");
         $(".mobile-search-overlay").addClass("active");
@@ -57,7 +57,7 @@ function hideMobileSearch() {
     });
 
     $(window).resize(function () {
-        if ($(window).width() > 991.98) hideMobile();
+        if ($(window).width() > 991.98) hideMobileMenu();
         if ($(window).width() > 768.98) hideMobileSearch();
     });
 

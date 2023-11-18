@@ -29,6 +29,8 @@ $routes->group('admin', ['filter' => ['auth', 'is_admin'], 'namespace' => Backen
         $routes->post('update', 'PenggunaController::update', ['as' => 'admin.pengguna.update']);
         $routes->get('(:segment)/edit', 'PenggunaController::edit/$1', ['as' => 'admin.pengguna.edit']);
     });
+
+    // Laporan
     $routes->group('laporan', function (RouteCollection $routes) {
         $routes->get('/', 'LaporanController::index', ['as' => 'admin.laporan']);
         $routes->get('create', 'LaporanController::create', ['as' => 'admin.laporan.create']);
@@ -38,6 +40,16 @@ $routes->group('admin', ['filter' => ['auth', 'is_admin'], 'namespace' => Backen
         $routes->get('(:segment)/edit', 'LaporanController::edit/$1', ['as' => 'admin.laporan.edit']);
     });
 });
+
+// Diskusi
+$routes->post('get-categories', 'DiskusiController::getCategories', ['as' => 'diskusi.categories', 'filter' => 'auth']);
+$routes->post('get-tags', 'DiskusiController::getTags', ['as' => 'diskusi.tags', 'filter' => 'auth']);
+$routes->post('store-thread', 'DiskusiController::store', ['as' => 'diskusi.store', 'filter' => 'auth']);
+$routes->post('destroy-thread', 'DiskusiController::destroy', ['as' => 'diskusi.destroy', 'filter' => 'auth']);
+$routes->post('draft-thread', 'DiskusiController::draft', ['as' => 'diskusi.draft', 'filter' => 'auth']);
+$routes->post('publish-thread', 'DiskusiController::publish', ['as' => 'diskusi.publish', 'filter' => 'auth']);
+$routes->post('edit-thread', 'DiskusiController::edit', ['as' => 'diskusi.edit', 'filter' => 'auth']);
+$routes->post('update-thread', 'DiskusiController::update', ['as' => 'diskusi.update', 'filter' => 'auth']);
 
 // Profile User
 $routes->post('edit-avatar', 'ProfileController::editAvatar', ['as' => 'profile.edit-avatar', 'filter' => 'auth']);

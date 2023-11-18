@@ -107,6 +107,16 @@ function waktu($time, $format = 'l, d F Y - H:i', $wib = true) {
 }
 
 /**
+ * Ago
+ * 
+ * @param string $time
+ * @return string
+ */
+function ago($time) {
+    return Carbon::parse($time)->locale('id')->diffForHumans();
+}
+
+/**
  * Random name string.
  * 
  * @param int $length
@@ -123,4 +133,37 @@ function randomName($length = 15)
     }
 
     return $randomName;
+}
+
+/**
+ * Slug generator.
+ * 
+ * @param string $string
+ * @return string
+ */
+function slug($string)
+{
+    $slug = strtolower($string);
+    $slug = preg_replace('/\s+/', '-', $slug);   
+    $slug = preg_replace('/[^\w-]+/', '', $slug);
+    $slug = preg_replace('/-+/', '-', $slug);     
+    $slug = trim($slug, '-');                     
+
+    return $slug;
+}
+
+/**
+ * Text limit.
+ * 
+ * @param string $text
+ * @param int $limit
+ * @return string
+ */
+function text_limit($text, $limit = 230)
+{
+    if (strlen($text) > $limit) {
+        $text = substr($text, 0, $limit);
+    }
+
+    return strip_tags($text);
 }

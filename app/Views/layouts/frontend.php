@@ -15,9 +15,12 @@
     <link rel="stylesheet" href="<?= base_url('plugins/bootstrap4/bootstrap.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('plugins/bootstrap4/icons/bootstrap-icons.css') ?>">
     <link rel="stylesheet" href="<?= base_url('plugins/fontawesome-free/css/all.min.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('plugins/sweetalert2/sweetalert2.min.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('plugins/select2/css/select2.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('plugins/alertify/css/alerts.css') ?>">
     <link rel="stylesheet" href="<?= base_url('plugins/cropperjs/cropper.css') ?>">
     <link rel="stylesheet" href="<?= base_url('plugins/daterangepicker/daterangepicker.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('plugins/prism/prism.css') ?>">
     <link rel="stylesheet" href="<?= base_url('css/custom.css') ?>">
     <link rel="stylesheet" href="<?= base_url('css/frontend.css') ?>">
 
@@ -41,12 +44,17 @@
     <!-- JS -->
     <script src="<?= base_url('plugins/jquery/jquery.min.js') ?>"></script>
     <script src="<?= base_url('plugins/bootstrap4/bootstrap.bundle.min.js') ?>"></script>
+    <script src="<?= base_url('plugins/tinymce5/jquery.tinymce.min.js') ?>"></script>
+    <script src="<?= base_url('plugins/tinymce5/tinymce.min.js') ?>"></script>
     <script src="<?= base_url('plugins/alertify/js/alerts.js') ?>"></script>
+    <script src="<?= base_url('plugins/sweetalert2/sweetalert2.min.js') ?>"></script>
+    <script src="<?= base_url('plugins/select2/js/select2.min.js') ?>"></script>
     <script src="<?= base_url('plugins/moment/moment.min.js') ?>"></script>
     <script src="<?= base_url('plugins/moment/locale/id.js') ?>"></script>
     <script src="<?= base_url('plugins/daterangepicker/daterangepicker.js') ?>"></script>
     <script src="<?= base_url('plugins/cropperjs/cropper.js') ?>"></script>
     <script src="<?= base_url('plugins/cropperjs/gif/cropperjs-gif-all.js') ?>"></script>
+    <script src="<?= base_url('plugins/prism/prism.js') ?>"></script>
     <script src="<?= base_url('js/frontend.js') ?>"></script>
     <script src="<?= base_url('js/custom.js') ?>"></script>
 

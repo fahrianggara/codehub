@@ -4,12 +4,24 @@ namespace App\Entities;
 
 use Carbon\Carbon;
 use CodeIgniter\Entity\Entity;
+use Config\Database;
 
 class User extends Entity
 {
     protected $datamap = [];
     protected $dates   = ['created_at', 'updated_at', 'email_verified_at'];
     protected $casts   = [];
+    protected $db;
+    
+    /**
+     * __construct
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->db = Database::connect();
+    }
     
     /**
      * Set password attribute
@@ -67,5 +79,19 @@ class User extends Entity
     public function getJoinedAt()
     {
         return Carbon::parse($this->attributes['created_at'])->locale('id')->isoFormat('LL');
+    }
+
+    /**
+     * Get threads attribute
+     * 
+     * @return object
+     */
+    public function getThreads()
+    {
+        return $this->db->table('threads')
+            ->where('user_id', $this->attributes['id'])
+            ->where('status', 'published')
+            ->select('id, title, slug, content, status, user_id, views')
+            ->get()->getResult();
     }
 }

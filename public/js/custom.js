@@ -45,8 +45,7 @@ function validateImageSize(image, size = 1) {
  * @param {string} message
  * @param {function} callback
  */
-function alertifyLog(type, message, callback = null) 
-{
+function alertifyLog(type, message, callback = null) {
     $('body').css('overflow', 'hidden');
     alertify.okBtn("Ok").alert(message, callback);
     $(document).find(".alertify .msg").addClass(`text-${type}`);
@@ -59,16 +58,15 @@ function alertifyLog(type, message, callback = null)
  * @param {function} confirmCallback
  * @param {function} cancelCallback
  */
-function alertifyConfirm(message, confirmCallback, cancelCallback = null)
-{
+function alertifyConfirm(message, confirmCallback, cancelCallback = null, btnOk = 'IYA', btnCancel = 'BATAL') {
     $('body').addClass('modal-open');
-    alertify.okBtn("Iya").cancelBtn("Batal").confirm(message, confirmCallback, cancelCallback);
+    alertify.okBtn(btnOk).cancelBtn(btnCancel).confirm(message, confirmCallback, cancelCallback);
 }
 
 /**
  * Alertify error
  */
-function alertError(message) {  
+function alertError(message) {
     alertify.delay(3000).error(message);
 }
 
@@ -87,8 +85,7 @@ function ucfirst(string) {
  * @param {string} sampleImage
  * @param {object} formInput
  */
-function handleImageChange(e, modalCrop, sampleImage, formInput)
-{
+function handleImageChange(e, modalCrop, sampleImage, formInput) {
     var fileChoose = e.target.files[0];
 
     if (!validateImageType(fileChoose, false)) { // Check type
@@ -122,8 +119,9 @@ function handleImageChange(e, modalCrop, sampleImage, formInput)
  * @param imageField // avatar or banner
  * @param {object} input
  */
-function handleCropImage(modalCrop, btnCrop, cropper, sampleImage, imageField, input)
-{
+function handleCropImage(modalCrop, btnCrop, cropper, sampleImage, imageField, input) {
+    modalCrop.find(".modal-title span").html(ucfirst(imageField));
+
     var aspectRatio, width, height;
 
     if (imageField == 'avatar') {
@@ -147,10 +145,8 @@ function handleCropImage(modalCrop, btnCrop, cropper, sampleImage, imageField, i
             aspectRatio: aspectRatio,
             viewMode: 1,
         });
-
-        modalCrop.find(".modal-title span").html(ucfirst(imageField));
     }).on('hidden.bs.modal', function () {
-        if (cropper) { 
+        if (cropper) {
             cropper.destroy();
             cropper = null;
             $(document).find(".cropper-container").remove();
@@ -185,10 +181,114 @@ function handleCropImage(modalCrop, btnCrop, cropper, sampleImage, imageField, i
     });
 }
 
-!(function($) 
-{
+/**
+ * Initialize TinyMCE 5
+ * 
+ * @param {object} textarea
+ * @param {boolean} menubar
+ * @param {integer} height
+ */
+function initTinyMce(textarea, menubar = false, height = 200) {
+    tinyMCE.init({
+        selector: textarea,
+        convert_urls: false,
+        height: height,
+        width: '100%',
+        menubar: menubar,
+        plugins: [
+            "codemirror", "link", "lists", "codesample", "paste", "wordcount"
+        ],
+        codesample_global_prismjs: true,
+        codesample_content_css: `${origin}/plugins/prism/prism.css`,
+        codesample_languages: [
+            { text: 'HTML/XML', value: 'markup' },
+            { text: 'JavaScript', value: 'javascript' },
+            { text: 'CSS', value: 'css' },
+            { text: 'PHP', value: 'php' },
+            { text: 'Ruby', value: 'ruby' },
+            { text: 'Python', value: 'python' },
+            { text: 'Java', value: 'java' },
+            { text: 'C', value: 'c' },
+            { text: 'C#', value: 'csharp' },
+            { text: 'C++', value: 'cpp' },
+            { text: 'SQL', value: 'sql' },
+            { text: 'Go', value: 'go' },
+            { text: 'TypeScript', value: 'typescript' },
+            { text: 'Scala', value: 'scala' },
+            { text: 'Swift', value: 'swift' },
+            { text: 'Kotlin', value: 'kotlin' },
+            { text: 'Dart', value: 'dart' },
+            { text: 'Bash/Shell', value: 'bash' },
+        ],
+        toolbar: "bold italic underline blockquote | bullist numlist | link codesample",
+        noneditable_noneditable_class: "mceNonEditable",
+        codemirror: {
+            indentOnInit: true, // Whether or not to indent code on init.
+            saveCursorPosition: true, // Insert caret marker
+        },
+        init_instance_callback: function (editor) {
+            $(editor.getContainer()).find('button.tox-statusbar__wordcount').click();  // if you use jQuery
+        }
+    });
+}
+
+/**
+ * Init select2 single
+ *
+ * @param {object} select example: $('#select')
+ * @param {object} dropdown example: $('#modal')
+ * @param {object} ajax
+ */
+function initSelect2S(select, dropdownParent, ajax = null) {
+    let dropdownVal = null
+
+    if (dropdownParent) dropdownVal = dropdownParent;
+
+    select.select2({
+        placeholder: select.attr('placeholder') ? select.attr('placeholder') : 'Silahkan pilih..',
+        allowClear: true,
+        width: '100%',
+        dropdownParent: dropdownVal,
+        ajax: ajax
+    });
+}
+
+/**
+ * Init select2 multiple
+ *
+ * @param {object} select example: $('#select')
+ * @param {object} dropdown example: $('#modal')
+ * @param {object} ajax
+ */
+function initSelect2M(select, dropdownParent, ajax = null) {
+    let dropdownVal = null
+
+    if (dropdownParent) dropdownVal = dropdownParent;
+
+    select.select2({
+        placeholder: select.attr('placeholder') ? select.attr('placeholder') : 'Silahkan pilih..',
+        allowClear: true,
+        width: '100%',
+        dropdownParent: dropdownVal,
+        tags: true,
+        createTag: function (params) {
+            var term = $.trim(params.term);
+
+            if (term === '') return null;
+
+            return {
+                id: term,
+                text: term,
+                newTag: true
+            }
+        },
+        ajax: ajax
+    });
+}
+
+!(function ($) {
     "use strict";
-    
+
     moment.locale('id');
 
     $(".modal").on('shown.bs.modal', function () {
@@ -200,4 +300,10 @@ function handleCropImage(modalCrop, btnCrop, cropper, sampleImage, imageField, i
     }).on('click', function () {
         $(this).tooltip('hide');
     });
+
+    setTimeout(() => {
+        history.replaceState('', document.title, window.location.origin + window
+            .location.pathname + window
+                .location.search);
+    }, 500);
 })(jQuery);

@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 body {
 	font-family: "Inter", sans-serif;
@@ -37,6 +37,7 @@ label[required]::after {
 .alertify .alert nav button:not(.btn):not(.pure-button):not(.md-button):not(.mdl-button), 
 .alertify .dialog nav button:not(.btn):not(.pure-button):not(.md-button):not(.mdl-button) {
     border-radius: 8px;
+	text-transform: none;
 }
 
 .cropper-wrap-box,
@@ -65,6 +66,12 @@ label[required]::after {
 
 .swal2-styled {
     border-radius: 8px !important;
+}
+
+@media (max-width: 767.98px) {
+	.mb3 {
+		margin-bottom: 1.2rem !important;
+	}
 }
 
 /* =======================================================================
@@ -138,6 +145,214 @@ table th, table td {
 
 table.not-wrap th, table.not-wrap td {
     white-space: normal;
+}
+
+/* =======================================================================
+ *  MODAL CUSTOM BOOTSTRAP 4
+ * ======================================================================= */
+
+.tox-tinymce {
+	border-radius: 8px !important;
+}
+.tox .tox-dialog,
+.tox .tox-dialog__body-nav-item[aria-selected="true"] {
+	border-radius: 12px !important;
+}
+
+.tox .tox-tbtn {
+	border-radius: 6px !important;
+}
+
+.tox-statusbar__branding {
+	display: none !important;
+}
+
+.tox .tox-label, .tox .tox-toolbar-label {
+	margin-bottom: 8px !important;
+}
+
+.tox .tox-selectfield {
+	margin-bottom: 10px;
+}
+
+.tox .tox-selectfield select,
+.tox .tox-textarea {
+	border-radius: 8px !important;
+}
+
+.tox .tox-selectfield select {
+	padding-left: 12px !important;
+    padding-bottom: 7px !important;
+}
+
+.tox .tox-textarea {
+	font-family: Monospace !important;
+}
+
+.tox .tox-button {
+	border-radius: 8px !important;
+}
+
+.tox .tox-dialog-wrap__backdrop {
+	background-color: transparent !important;
+	backdrop-filter: blur(3px);
+}
+
+.tox-tinymce-aux,
+.tox .tox-dialog__title,
+.tox .tox-button {
+	font-family: "Inter", sans-serif !important;
+}
+
+.tox .tox-listboxfield .tox-listbox--select, .tox .tox-textarea, .tox .tox-textfield, .tox .tox-toolbar-textfield {
+	border-radius: 8px !important;
+}
+
+.tox .tox-form__group {
+	margin-bottom: 10px !important;
+}
+
+.tox .tox-label, .tox .tox-toolbar-label {
+	font-weight: 600 !important;
+}
+
+/* =======================================================================
+ *  SELECT 2 CUSTOM
+ * ======================================================================= */
+
+.select2-container .select2-selection--single {
+    height: 38px !important;
+	border-radius: 8px;
+	border: 1px solid var(--border-color) !important;
+}
+
+.select2-container--default .select2-selection--single {
+    height: 38px;
+}
+
+.select2-container--default .select2-selection--single:focus {
+    outline: none;
+}
+
+.select2-container .select2-selection--multiple {
+    height: 38px;
+	border-radius: 8px;
+	border: 1px solid var(--border-color) !important;
+}
+
+.select2-container .select2-search--inline .select2-search__field {
+    margin-left: 8px !important;
+	margin-top: 6px !important;
+	width: 100% !important;
+}
+
+.select2-container--default
+    .select2-selection--multiple
+    .select2-selection__choice {
+    position: relative;
+    border-radius: 8px !important;
+}
+
+.select2-container--default.select2-container--focus
+    .select2-selection--multiple {
+    border: solid var(--border-color) 1px !important;
+    outline: 0;
+}
+
+.select2-container .select2-selection--single .select2-selection__rendered {
+	line-height: 36px !important;
+	margin-left: 13px;
+}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+	background-color: var(--hover-color) !important;
+	color: #fff !important;
+}
+
+input.select2-search__field.mousetrap::placeholder,
+.select2-container--default
+    .select2-selection--single
+    .select2-selection__placeholder {
+    color: #636c72;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    color: #fff !important;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__clear {
+    margin-top: 4px;
+}
+
+span.select2-dropdown.select2-dropdown--below {
+    border-top: 0 !important;
+}
+
+.select2-container--below {
+    border: none !important;
+    border-radius: 8px !important;
+}
+
+.select2-container--bootstrap4.select2-container--focus .select2-selection {
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+.select2-container--bootstrap4.select2-container--open.select2-container--above
+    .select2-selection {
+    border-radius: 0 0 8px 8px !important;
+}
+
+.select2-container--default .select2-dropdown.select2-dropdown--above {
+    border-bottom: 0 !important;
+    overflow: hidden;
+}
+
+.select2-container--default .select2-dropdown.select2-dropdown--below {
+    overflow: hidden;
+	border-color: var(--border-color);
+}
+
+.select2-container--default .select2-search--dropdown .select2-search__field {
+	border-color: var(--border-color);
+	outline: none;
+}
+
+.select2-container--default .select2-results__group {
+    text-transform: uppercase !important;
+    font-weight: bold;
+}
+
+.select2 {
+    outline: none !important;
+}
+
+span.select2-selection__rendered {
+    outline: none !important;
+}
+
+.select2-container--bootstrap4
+    .select2-selection--multiple
+    .select2-search__field {
+    border: none !important;
+}
+
+.select2-container--default
+    .select2-selection--single
+    .select2-selection__clear {
+    bottom: 0.5px;
+    right: 10px;
+}
+
+.select2-container--default
+    .select2-selection--single
+    .select2-selection__arrow {
+    height: 35px !important;
+    right: 10px !important;
+}
+
+.select2-container .select2-selection--single .select2-selection__rendered {
+    padding-left: 0 !important;
 }
 
 /* =======================================================================
