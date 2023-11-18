@@ -43,46 +43,33 @@ class ProfileController extends BaseController
 
         if ($statusSelected === 'published') // Jika status published
         { 
-            if ($orderSelected === 'popular')  // Jika order popular
-            {
-                $threads = $query->with(['users', 'thread_categories', 'thread_tags', 'replies'])
-                    ->where('status', 'published')
-                    ->orderBy('(SELECT COUNT(*) FROM likes WHERE model_id = threads.id AND model_class = "App\Models\Thread")', $orderSelected)
-                    ->paginate(10, 'user-thread');
+            if ($orderSelected === 'popular') { // Jika order popular
+                $threads = $this->threadPopular($query, $orderSelected);
             }
 
-            if ($categorySelected !== 'all') // Jika category bukan all
-            {
-                if ($orderSelected === 'popular') { // Jika order popular
-                    $orderBy = '(SELECT COUNT(*) FROM likes WHERE model_id = threads.id AND model_class = "App\Models\Thread")';
-                    $direct = 'desc';
-                } else { // Jika order bukan popular
-                    $orderBy = 'threads.created_at';
-                    $direct = $orderSelected;
-                }
-
-                $threads = $query->with(['users', 'thread_categories', 'thread_tags', 'replies']) // Ambil semua relasi
-                    ->join('thread_categories', 'thread_categories.thread_id = threads.id')
-                    ->join('categories', 'categories.id = thread_categories.category_id')
-                    ->where('status', 'published')
-                    ->where('categories.slug', strtolower($categorySelected)) // Dijadikan lowercase agar slug tidak case sensitive
-                    ->groupBy('threads.id') // Group by agar tidak ada thread yang sama
-                    ->select('threads.*, MAX(thread_categories.id) as category_id, MAX(categories.slug) as category_slug') // Ambil category terakhir
-                    ->orderBy($orderBy, $direct)
-                    ->paginate(10, 'user-thread');
+            if ($categorySelected !== 'all') { // Jika category bukan all
+                $threads = $this->threadCategory($query, $orderSelected, $categorySelected);
             }
 
             if ($orderSelected !== 'popular' && $categorySelected === 'all') { // Jika order bukan popular dan category all
-                $threads = $query->with(['users', 'thread_categories', 'thread_tags', 'replies'])
-                    ->where('status', 'published')->orderBy('created_at', $orderSelected)
-                    ->paginate(10, 'user-thread');
+                $threads = $this->threadDefault($query, $orderSelected);
             }
         } else { // Jika status draft
             if (auth_check() && auth()->id !== $user->id) { // Jika bukan pemilik akun
                 throw PageNotFoundException::forPageNotFound();
             } 
 
-            $threads = $query->where('status', 'draft')->orderBy('id','desc')->paginate(10, 'user-thread');
+            if ($orderSelected === 'popular') { // Jika order popular
+                $threads = $this->threadPopular($query, $orderSelected, 'draft');
+            }
+
+            if ($categorySelected !== 'all') { // Jika category bukan all
+                $threads = $this->threadCategory($query, $orderSelected, $categorySelected, 'draft');
+            }
+
+            if ($orderSelected !== 'popular' && $categorySelected === 'all') { // Jika order bukan popular dan category all
+                $threads = $this->threadDefault($query, $orderSelected, 'draft');
+            }
         }
         
         return view('frontend/profile', [
@@ -95,39 +82,8 @@ class ProfileController extends BaseController
             'order_selected' => $orderSelected,
             'category_selected' => $categorySelected,
             'selected_true' => $statusSelected !== 'published' || $orderSelected !== 'desc' || $categorySelected !== 'all',
-            'categories' => $this->filteringCategories($user),
+            'categories' => $this->filteringCategories($user, $statusSelected),
         ]);
-    }
-    
-    /**
-     * Filtering categories
-     *
-     * @param  mixed $user
-     * @return void
-     */
-    private function filteringCategories($user) {
-        $categories = [];
-        $categorySlugs = [];  // Untuk tracking slug agar tidak ada slug yang sama
-        $threads = $this->threadModel->where('user_id', $user->id)
-            ->where('status', 'published')
-            ->findAll();
-
-        foreach ($threads as $thread) {
-            $categorySlug = $thread->category->slug;
-
-            // Jika slug belum ada di array, maka tambahkan
-            if (!in_array($categorySlug, $categorySlugs)) {
-                $categories[] = [
-                    'slug' => $categorySlug,
-                    'name' => $thread->category->name,
-                ];
-
-                // Tambahkan slug ke array agar tidak ada slug yang sama
-                $categorySlugs[] = $categorySlug;
-            }
-        }
-
-        return $categories;
     }
 
     /**
@@ -139,43 +95,8 @@ class ProfileController extends BaseController
     {
         $request = $this->request;
         $user_id = auth()->id;
-        $rules = [
-            'first_name' => [
-                'rules' => 'permit_empty|min_length[3]|max_length[30]|alpha_space|string',
-                'errors' => [
-                    'min_length' => 'Nama depan minimal 3 karakter.',
-                    'max_length' => 'Nama depan maksimal 30 karakter.',
-                    'alpha_space' => 'Nama depan hanya boleh berisi huruf dan spasi.',
-                    'string' => 'Nama depan hanya boleh berisi huruf dan spasi.'
-                ]
-            ],
-            'last_name' => [
-                'rules' => 'permit_empty|min_length[3]|max_length[30]|alpha_space|string',
-                'errors' => [
-                    'min_length' => 'Nama belakang minimal 3 karakter.',
-                    'max_length' => 'Nama belakang maksimal 30 karakter.',
-                    'alpha_space' => 'Nama belakang hanya boleh berisi huruf dan spasi.',
-                    'string' => 'Nama belakang hanya boleh berisi huruf dan spasi.'
-                ]
-            ],
-            'username' => [
-                'rules' => "required|min_length[3]|max_length[25]|alpha_numeric|is_unique[users.username,id,{$user_id}]",
-                'errors' => [
-                    'required' => 'Username harus diisi.',
-                    'min_length' => 'Username minimal 3 karakter.',
-                    'max_length' => 'Username maksimal 25 karakter.',
-                    'alpha_numeric' => 'Username hanya boleh berisi huruf dan angka.',
-                    'is_unique' => 'Username sudah digunakan.'
-                ]
-            ],
-            'link_fb' => ['rules' => 'permit_empty|valid_url', 'errors' => ['valid_url' => 'Link tidak valid.']],
-            'link_tw' => ['rules' => 'permit_empty|valid_url', 'errors' => ['valid_url' => 'Link tidak valid.']],
-            'link_ig' => ['rules' => 'permit_empty|valid_url', 'errors' => ['valid_url' => 'Link tidak valid.']],
-            'link_gh' => ['rules' => 'permit_empty|valid_url', 'errors' => ['valid_url' => 'Link tidak valid.']],
-            'link_li' => ['rules' => 'permit_empty|valid_url', 'errors' => ['valid_url' => 'Link tidak valid.']],
-        ];
 
-        if (!$this->validate($rules)) {
+        if (!$this->validate($this->rulesProfile($user_id))) {
             return response()->setJSON([
                 'status' => 400,
                 'validation' => true,
@@ -437,5 +358,142 @@ class ProfileController extends BaseController
         } finally {
             $this->db->transCommit();
         }
+    }
+    
+    /**
+     * Rules profile
+     *
+     * @param  mixed $user_id
+     * @return array
+     */
+    private function rulesProfile($user_id)
+    {
+        return [
+            'first_name' => [
+                'rules' => 'permit_empty|min_length[3]|max_length[30]|alpha_space|string',
+                'errors' => [
+                    'min_length' => 'Nama depan minimal 3 karakter.',
+                    'max_length' => 'Nama depan maksimal 30 karakter.',
+                    'alpha_space' => 'Nama depan hanya boleh berisi huruf dan spasi.',
+                    'string' => 'Nama depan hanya boleh berisi huruf dan spasi.'
+                ]
+            ],
+            'last_name' => [
+                'rules' => 'permit_empty|min_length[3]|max_length[30]|alpha_space|string',
+                'errors' => [
+                    'min_length' => 'Nama belakang minimal 3 karakter.',
+                    'max_length' => 'Nama belakang maksimal 30 karakter.',
+                    'alpha_space' => 'Nama belakang hanya boleh berisi huruf dan spasi.',
+                    'string' => 'Nama belakang hanya boleh berisi huruf dan spasi.'
+                ]
+            ],
+            'username' => [
+                'rules' => "required|min_length[3]|max_length[25]|alpha_numeric|is_unique[users.username,id,{$user_id}]",
+                'errors' => [
+                    'required' => 'Username harus diisi.',
+                    'min_length' => 'Username minimal 3 karakter.',
+                    'max_length' => 'Username maksimal 25 karakter.',
+                    'alpha_numeric' => 'Username hanya boleh berisi huruf dan angka.',
+                    'is_unique' => 'Username sudah digunakan.'
+                ]
+            ],
+            'link_fb' => ['rules' => 'permit_empty|valid_url', 'errors' => ['valid_url' => 'Link tidak valid.']],
+            'link_tw' => ['rules' => 'permit_empty|valid_url', 'errors' => ['valid_url' => 'Link tidak valid.']],
+            'link_ig' => ['rules' => 'permit_empty|valid_url', 'errors' => ['valid_url' => 'Link tidak valid.']],
+            'link_gh' => ['rules' => 'permit_empty|valid_url', 'errors' => ['valid_url' => 'Link tidak valid.']],
+            'link_li' => ['rules' => 'permit_empty|valid_url', 'errors' => ['valid_url' => 'Link tidak valid.']],
+        ];
+    }
+
+    /**
+     * Filtering categories
+     *
+     * @param  mixed $user
+     * @return void
+     */
+    private function filteringCategories($user, $statusSelected) {
+        $categories = [];
+        $categorySlugs = [];  // Untuk tracking slug agar tidak ada slug yang sama
+        $threads = $this->threadModel->where('user_id', $user->id)
+            ->where('status', $statusSelected)
+            ->findAll();
+
+        foreach ($threads as $thread) {
+            $categorySlug = $thread->category->slug;
+
+            // Jika slug belum ada di array, maka tambahkan
+            if (!in_array($categorySlug, $categorySlugs)) {
+                $categories[] = [
+                    'slug' => $categorySlug,
+                    'name' => $thread->category->name,
+                ];
+
+                // Tambahkan slug ke array agar tidak ada slug yang sama
+                $categorySlugs[] = $categorySlug;
+            }
+        }
+
+        return $categories;
+    }
+
+    /**
+     * threadDefault
+     *
+     * @param  mixed $query
+     * @param  mixed $orderSelected
+     * @param  mixed $status
+     * @return void
+     */
+    private function threadDefault($query, $orderSelected, $status = 'published') 
+    {
+        return $query->with(['users', 'thread_categories', 'thread_tags', 'replies'])
+            ->where('status', $status)->orderBy('created_at', $orderSelected)
+            ->paginate(10, 'user-thread');
+    }
+    
+    /**
+     * threadPopular
+     *
+     * @param  mixed $query
+     * @param  mixed $orderSelected
+     * @param  mixed $status
+     * @return void
+     */
+    private function threadPopular($query, $orderSelected, $status = 'published') 
+    {
+        return $query->with(['users', 'thread_categories', 'thread_tags', 'replies'])
+            ->where('status', $status)
+            ->orderBy('(SELECT COUNT(*) FROM likes WHERE model_id = threads.id AND model_class = "App\Models\Thread")', $orderSelected)
+            ->paginate(10, 'user-thread');
+    }
+    
+    /**
+     * threadCategory
+     *
+     * @param  mixed $query
+     * @param  mixed $orderSelected
+     * @param  mixed $categorySelected
+     * @param  mixed $status
+     * @return void
+     */
+    private function threadCategory($query, $orderSelected, $categorySelected, $status = 'published')
+    {
+        if ($orderSelected === 'popular') { // Jika order popular
+            $orderBy = '(SELECT COUNT(*) FROM likes WHERE model_id = threads.id AND model_class = "App\Models\Thread")';
+            $direct = 'desc';
+        } else { // Jika order bukan popular
+            $orderBy = 'threads.created_at';
+            $direct = $orderSelected;
+        }
+
+        return $query->with(['users', 'thread_categories', 'thread_tags', 'replies']) // Ambil semua relasi
+            ->join('thread_categories', 'thread_categories.thread_id = threads.id')
+            ->join('categories', 'categories.id = thread_categories.category_id')
+            ->where('status',  $status)
+            ->where('categories.slug', strtolower($categorySelected)) // Dijadikan lowercase agar slug tidak case sensitive
+            ->groupBy('threads.id') // Group by agar tidak ada thread yang sama
+            ->select('threads.*, MAX(thread_categories.id) as category_id, MAX(categories.slug) as category_slug') // Ambil category terakhir
+            ->orderBy($orderBy, $direct)
+            ->paginate(10, 'user-thread');
     }
 }
