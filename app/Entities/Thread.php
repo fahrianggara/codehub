@@ -60,7 +60,6 @@ class Thread extends Entity
         return $this->db->table('likes')
             ->where('model_id', $this->attributes['id'])
             ->where('model_class', "App\Models\Thread")
-            ->select('likes.id, likes.user_id, likes.model_id, likes.model_class')
             ->get()->getResult();
     }
 
@@ -74,7 +73,6 @@ class Thread extends Entity
         return $this->db->table('notifications')
             ->where('model_id', $this->attributes['id'])
             ->where('model_class', "App\Models\Thread")
-            ->select("notifications.id, notifications.user_id, notifications.model_id, notifications.model_class, notifications.type, notifications.read_at")
             ->get()->getResult();
     }
 

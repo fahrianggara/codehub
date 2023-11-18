@@ -174,7 +174,7 @@ class DiskusiController extends BaseController
         $this->db->transBegin();
         try {
             $id = base64_decode($post['id']);
-            $thread = $this->threadModel->with(['likes', 'notifications', 'reports'])->find($id);
+            $thread = $this->threadModel->find($id);
 
             if ($thread->likes) {
                 $this->threadModel->deleteLikes($thread);
