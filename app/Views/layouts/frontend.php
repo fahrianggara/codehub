@@ -39,6 +39,8 @@
 
     <?php if (auth_check()) : ?>
         <?= $this->include('auth/logout'); ?>
+        <?= $this->include('frontend/diskusi/create') ?>
+        <?= $this->include('frontend/diskusi/edit') ?>
     <?php endif; ?>
 
     <!-- JS -->

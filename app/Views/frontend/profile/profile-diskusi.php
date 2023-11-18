@@ -132,9 +132,6 @@
 
 <?= $this->section('js') ?>
     <?php if(auth_check()): ?>
-    
-        <?= $this->include('frontend/diskusi/create') ?>
-        <?= $this->include('frontend/diskusi/edit') ?>
 
         <script src="<?= base_url('js/fe/diskusi/delete.js') ?>"></script>
         <!-- <script src="<?= base_url('js/fe/diskusi/status.js') ?>"></script> JANGAN DIHAPUS -->
