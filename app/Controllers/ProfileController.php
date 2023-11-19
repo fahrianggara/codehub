@@ -55,9 +55,9 @@ class ProfileController extends BaseController
                 $threads = $this->threadDefault($query, $orderSelected);
             }
         } else { // Jika status draft
-            if (auth_check() && auth()->id !== $user->id) { // Jika bukan pemilik akun
+            if ((auth_check() && auth()->id !== $user->id) || !auth_check()) { // Jika bukan pemilik akun
                 throw PageNotFoundException::forPageNotFound();
-            } 
+            }
 
             if ($orderSelected === 'popular') { // Jika order popular
                 $threads = $this->threadPopular($query, $orderSelected, 'draft');
