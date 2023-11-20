@@ -36,7 +36,7 @@ class ProfileController extends BaseController
 
         if (!$user) return redirect()->to('/');  // Jika user tidak ditemukan, redirect ke home
                     
-        $query = $this->threadModel->where('user_id', $user->id);
+        $query = $this->threadModel->where('threads.user_id', $user->id);
         $statusSelected = (isset($get['status']) && in_array($get['status'], ['published', 'draft'])) ? $get['status'] : 'published';
         $orderSelected = (isset($get['order']) && in_array($get['order'], ['desc', 'asc', 'popular'])) ? $get['order'] : 'desc';
         $categorySelected = (isset($get['category']) && $get['category'] !== 'all') ? $get['category'] : 'all';
@@ -461,9 +461,9 @@ class ProfileController extends BaseController
      */
     private function threadPopular($query, $orderSelected, $status = 'published') 
     {
-        return $query->with(['users', 'replies'])
+        return $query->with(['users', 'thread_categories', 'thread_tags', 'replies'])
             ->where('status', $status)
-            ->orderBy('(SELECT COUNT(*) FROM likes WHERE model_id = threads.id AND model_class = "App\Models\Thread")', $orderSelected)
+            ->orderBy('(SELECT COUNT(*) FROM likes WHERE model_id = threads.id)', 'desc')
             ->paginate(10, 'user-thread');
     }
     
@@ -478,13 +478,8 @@ class ProfileController extends BaseController
      */
     private function threadCategory($query, $orderSelected, $categorySelected, $status = 'published')
     {
-        if ($orderSelected === 'popular') { // Jika order popular
-            $orderBy = '(SELECT COUNT(*) FROM likes WHERE model_id = threads.id AND model_class = "App\Models\Thread")';
-            $direct = 'desc';
-        } else { // Jika order bukan popular
-            $orderBy = 'threads.created_at';
-            $direct = $orderSelected;
-        }
+        $orderBy = ($orderSelected === 'popular') ? '(SELECT COUNT(*) FROM likes WHERE model_id = threads.id)' : 'threads.created_at';
+        $direct = ($orderSelected === 'popular') ? 'desc' : $orderSelected;
 
         return $query->with(['users', 'replies']) // Ambil semua relasi
             ->join('thread_categories', 'thread_categories.thread_id = threads.id')
