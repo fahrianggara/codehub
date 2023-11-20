@@ -39,16 +39,10 @@
                                     <td>
                                         <div class="btn-group dropleft">
                                             <button class="btn btn-sm btn-more dropdown-toggle" data-toggle="dropdown" aria-expanded="false" data-display="static">
-                                                <i class="fas fa-ellipsis-v"></i>
-                                            </button>
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                <a href="<?= route_to('admin.Tags.edit', $id) ?>" class="dropdown-item py-1">
-                                                    <i class="fas text-warning fa-pen mr-2"></i> Edit
-                                                </a>
                                                 <button type="button" value="<?= $id ?>" class="dropdown-item py-1 btn-delete" data-id="<?= $tag->id ?>" data-action="<?= route_to('admin.Tags.destroy') ?>">
                                                     <i class="fas text-danger fa-trash mr-2"></i> Hapus
                                                 </button>
-                                            </div>
+                                            </button>
                                         </div>
                                     </td>
                                 </tr>

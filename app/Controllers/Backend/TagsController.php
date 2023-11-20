@@ -72,17 +72,6 @@ class TagsController extends BaseController
         ];
     }
 
-    public function edit($id)
-    {
-        $tag = $this->tagModel->find(base64_decode($id));
-
-        return view('backend/tags/edit', [
-            'title' => 'Edit Tag',
-            'menu' => 'tags',
-            'tag' => $tag,
-        ]);
-    }
-
     public function destroy()
     {
         $this->db->transBegin();
