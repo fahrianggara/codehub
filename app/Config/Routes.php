@@ -39,6 +39,16 @@ $routes->group('admin', ['filter' => ['auth', 'is_admin'], 'namespace' => Backen
         $routes->post('update', 'LaporanController::update', ['as' => 'admin.laporan.update']);
         $routes->get('(:segment)/edit', 'LaporanController::edit/$1', ['as' => 'admin.laporan.edit']);
     });
+
+    // Tags
+    $routes->group('tags', function (RouteCollection $routes) {
+        $routes->get('/', 'TagsController::index', ['as' => 'admin.Tags']);
+        $routes->get('create', 'TagsController::create', ['as' => 'admin.Tags.create']);
+        $routes->post('store', 'TagsController::store', ['as' => 'admin.Tags.store']);
+        $routes->post('destroy', 'TagsController::destroy', ['as' => 'admin.Tags.destroy']);
+        $routes->post('update', 'TagsController::update', ['as' => 'admin.Tags.update']);
+        $routes->get('(:segment)/edit', 'TagsController::edit/$1', ['as' => 'admin.Tags.edit']);
+    });
 });
 
 // Diskusi

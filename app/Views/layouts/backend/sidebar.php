@@ -98,8 +98,8 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="<?= route_to('admin.tag') ?>"
-                        class="nav-link <?= $menu === 'tag' ? 'active' : '' ?>">
+                    <a href="<?= route_to('admin.Tags') ?>"
+                        class="nav-link <?= $menu === 'tags' ? 'active' : '' ?>">
                         <i class="nav-icon fas fa-tags"></i>
                         <p>
                             Tag Diskusi

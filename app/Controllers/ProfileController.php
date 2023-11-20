@@ -446,7 +446,7 @@ class ProfileController extends BaseController
      */
     private function threadDefault($query, $orderSelected, $status = 'published') 
     {
-        return $query->with(['users', 'thread_categories', 'thread_tags', 'replies'])
+        return $query->with(['users', 'replies'])
             ->where('status', $status)->orderBy('created_at', $orderSelected)
             ->paginate(10, 'user-thread');
     }
@@ -461,7 +461,7 @@ class ProfileController extends BaseController
      */
     private function threadPopular($query, $orderSelected, $status = 'published') 
     {
-        return $query->with(['users', 'thread_categories', 'thread_tags', 'replies'])
+        return $query->with(['users', 'replies'])
             ->where('status', $status)
             ->orderBy('(SELECT COUNT(*) FROM likes WHERE model_id = threads.id AND model_class = "App\Models\Thread")', $orderSelected)
             ->paginate(10, 'user-thread');
@@ -486,7 +486,7 @@ class ProfileController extends BaseController
             $direct = $orderSelected;
         }
 
-        return $query->with(['users', 'thread_categories', 'thread_tags', 'replies']) // Ambil semua relasi
+        return $query->with(['users', 'replies']) // Ambil semua relasi
             ->join('thread_categories', 'thread_categories.thread_id = threads.id')
             ->join('categories', 'categories.id = thread_categories.category_id')
             ->where('status',  $status)
