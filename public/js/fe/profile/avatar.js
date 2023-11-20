@@ -4,9 +4,12 @@ $(document).ready(function () {
     btnAvatarHapus.on("click", function(e) {
         e.preventDefault();
 
-        $('body').addClass('modal-open');
+        var cancel = (e) => {
+            e.preventDefault();
+            $('body').removeClass('modal-open');
+        };
 
-        alertify.confirm('Hapus foto profile?', (e) => {
+        var confirm = (e) => {
             e.preventDefault();
 
             $.ajax({
@@ -22,10 +25,9 @@ $(document).ready(function () {
                     }
                 }
             });
-        }, (e) => {
-            e.preventDefault();
-            $('body').removeClass('modal-open');
-        });
+        };
+
+        alertifyConfirm('Hapus foto profile?', confirm, cancel, 'IYA HAPUS');
     });
 });
 

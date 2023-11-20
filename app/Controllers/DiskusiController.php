@@ -203,6 +203,46 @@ class DiskusiController extends BaseController
     }
 
     /**
+     * Like the specified resource from storage.
+     * 
+     * @return void
+     */
+    public function like()
+    {
+        $post = $this->request->getPost();
+        $idModel = base64_decode($post['id']);
+        $classModel = base64_decode($post['class']); // value: App\Models\ThreadModel
+
+        $this->db->transBegin();
+        try {
+            $model = new $classModel; 
+            $likeStatus = $model->likeOrUnlikeThread($idModel, $classModel);
+
+            if ($likeStatus === 'unlike') {
+                $array = ['btnClassAttr' => 'btn-suka-diskusi btn love', 'iconClassAttr' => 'far fa-heart'];
+            } else {
+                $array = ['btnClassAttr' => 'btn-suka-diskusi btn love text-danger', 'iconClassAttr' => 'fas fa-heart fa-beat'];
+            }
+
+            return response()->setJSON([
+                'status' => 200,
+                'btnClassAttr' => $array['btnClassAttr'],
+                'iconClassAttr' => $array['iconClassAttr'],
+                'likeStatus' => $likeStatus
+            ]);
+        } catch (\Throwable $th) {
+            $this->db->transRollback();
+
+            return response()->setJSON([
+                'status' => 400,
+                'message' => $th->getMessage()
+            ]);
+        } finally {
+            $this->db->transCommit();
+        }
+    }
+
+    /**
      * Draft the specified resource from storage.
      * 
      * @return void

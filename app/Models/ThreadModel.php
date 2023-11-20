@@ -115,4 +115,51 @@ class ThreadModel extends Model
             ->where('model_class', "App\Models\Thread")
             ->delete();
     }
+
+    /**
+     * Get Likes
+     * 
+     * @return object
+     */
+    public function getLikes($id_model, $class_model)
+    {
+        return $this->db->table('likes')
+            ->where('model_id', $id_model)
+            ->where('model_class', $class_model)
+            ->get()->getResult();
+    }
+
+    /**
+     * like or unlike thread
+     * 
+     * @param int $id_model
+     * @param string $class_model
+     * @return string
+     */
+    public function likeOrUnlikeThread($id_model, $class_model)
+    {
+        $likeRecord = $this->db->table('likes')
+            ->where('model_id', $id_model)
+            ->where('model_class', $class_model)
+            ->where('user_id', auth()->id)
+            ->get()->getRow();
+
+        if ($likeRecord) {
+            $this->db->table('likes')
+                ->where('model_id', $id_model)
+                ->where('model_class', $class_model)
+                ->where('user_id', auth()->id)
+                ->delete();
+
+            return "unlike";
+        } else {
+            $this->db->table('likes')->insert([
+                'user_id' => auth()->id,
+                'model_id' => $id_model,
+                'model_class' => $class_model,
+            ]);
+
+            return "like";
+        }
+    }
 }

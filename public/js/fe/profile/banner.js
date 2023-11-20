@@ -6,7 +6,12 @@ $(document).ready(function () {
 
         $('body').addClass('modal-open');
 
-        alertify.confirm('Hapus foto sampul?', (e) => {
+        var cancel = (e) => {
+            e.preventDefault();
+            $('body').removeClass('modal-open');
+        };
+
+        var confirm = (e) => {
             e.preventDefault();
 
             $.ajax({
@@ -22,10 +27,9 @@ $(document).ready(function () {
                     }
                 }
             });
-        }, (e) => {
-            e.preventDefault();
-            $('body').removeClass('modal-open');
-        });
+        };
+
+        alertifyConfirm('Hapus foto sampul?', confirm, cancel, 'IYA HAPUS');
     });
 });
 

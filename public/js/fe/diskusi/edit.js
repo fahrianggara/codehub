@@ -43,7 +43,7 @@ $(document).ready(function () {
         $('#title-edit').val(title);
         $("#content-edit").val(content);
         
-        initTinyMce(textarea);
+        initTinyMce(textarea, false, 380);
         tinymce.get('content-edit').setContent(content);
 
         initSelect2S(formDiskusi.find('#category-edit'), modalDiskusi, {

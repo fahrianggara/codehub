@@ -18,7 +18,9 @@ $(document).ready(function () {
                 dataType: "json",
                 success: function (res) {
                     if (res.status === 400) {
-                        alertifyLog('error', res.message);
+                        alertifyLog('error', res.message, (e) => {
+                            $(".body").css("overflow", "auto");
+                        });
                     } else {
                         alertifyLog('success', res.message, (e) => {
                             location.reload();
@@ -28,7 +30,7 @@ $(document).ready(function () {
             });
         };
 
-        alertifyConfirm('Apakah kamu ingin arsip diskusi ini?', confirm, cancel, 'Iya, arsip', 'Gak, jangan');
+        alertifyConfirm('Apakah kamu ingin arsip diskusi ini?', confirm, cancel, 'IYA ARSIPKAN');
     });
 
     buttonPublish.on("click", function(e) {
@@ -47,7 +49,9 @@ $(document).ready(function () {
                 dataType: "json",
                 success: function (res) {
                     if (res.status === 400) {
-                        alertifyLog('error', res.message);
+                        alertifyLog('error', res.message, (e) => {
+                            $(".body").css("overflow", "auto");
+                        });
                     } else {
                         alertifyLog('success', res.message, (e) => {
                             location.reload();
@@ -57,6 +61,6 @@ $(document).ready(function () {
             });
         };
 
-        alertifyConfirm('Apakah kamu ingin mempublish diskusi ini?', confirm, cancel, 'Iya, publish', 'Gak, jangan');
+        alertifyConfirm('Apakah kamu ingin mempublish diskusi ini?', confirm, cancel, 'IYA PUBLISH');
     });
 });
