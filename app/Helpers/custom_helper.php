@@ -167,3 +167,15 @@ function text_limit($text, $limit = 230)
 
     return strip_tags($text);
 }
+
+/**
+ * Get class name
+ * 
+ * @param object $object
+ * @return string
+ */
+function getClass($object, $prefix = true)
+{
+    $prefix = $prefix ? 'Model' : '';
+    return str_replace('Entities', 'Models', get_class($object)) . $prefix;
+}

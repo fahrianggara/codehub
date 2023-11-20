@@ -58,6 +58,7 @@ $routes->post('draft-thread', 'DiskusiController::draft', ['as' => 'diskusi.draf
 $routes->post('publish-thread', 'DiskusiController::publish', ['as' => 'diskusi.publish', 'filter' => 'auth']);
 $routes->post('edit-thread', 'DiskusiController::edit', ['as' => 'diskusi.edit', 'filter' => 'auth']);
 $routes->post('update-thread', 'DiskusiController::update', ['as' => 'diskusi.update', 'filter' => 'auth']);
+$routes->post('like-thread', 'DiskusiController::like', ['as' => 'diskusi.like', 'filter' => 'auth']);
 
 // Profile User
 $routes->post('edit-avatar', 'ProfileController::editAvatar', ['as' => 'profile.edit-avatar', 'filter' => 'auth']);

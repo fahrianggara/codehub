@@ -17,7 +17,9 @@ $(document).ready(function () {
                 dataType: "json",
                 success: function (res) {
                     if (res.status === 400) {
-                        alertifyLog('error', res.message);
+                        alertifyLog('error', res.message, (e) => {
+                            $(".body").css("overflow", "auto");
+                        });
                     } else {
                         alertifyLog('success', res.message, (e) => {
                             location.reload();
@@ -27,6 +29,6 @@ $(document).ready(function () {
             });
         };
 
-        alertifyConfirm('Apakah kamu ingin menghapus diskusi ini?', confirm, cancel, 'Iya, hapus', 'Gak, jangan');
+        alertifyConfirm('Apakah kamu ingin menghapus diskusi ini?', confirm, cancel, 'IYA HAPUS');
     })
 });

@@ -59,7 +59,7 @@ class Thread extends Entity
     {
         return $this->db->table('likes')
             ->where('model_id', $this->attributes['id'])
-            ->where('model_class', "App\Models\Thread")
+            ->where('model_class', "App\Models\ThreadModel")
             ->get()->getResult();
     }
 
@@ -72,7 +72,7 @@ class Thread extends Entity
     {
         return $this->db->table('notifications')
             ->where('model_id', $this->attributes['id'])
-            ->where('model_class', "App\Models\Thread")
+            ->where('model_class', "App\Models\ThreadModel")
             ->get()->getResult();
     }
 
@@ -85,7 +85,7 @@ class Thread extends Entity
     {
         return $this->db->table('reports')
             ->where('model_id', $this->attributes['id'])
-            ->where('model_class', "App\Models\Thread")
+            ->where('model_class', "App\Models\ThreadModel")
             ->get()->getResult();
     }
 
@@ -99,7 +99,7 @@ class Thread extends Entity
         if (auth_check()) {
             return $this->db->table('likes')
                 ->where('model_id', $this->attributes['id'])
-                ->where('model_class', "App\Models\Thread")
+                ->where('model_class', "App\Models\ThreadModel")
                 ->where('user_id', auth()->id)
                 ->select('likes.id, likes.user_id, likes.model_id, likes.model_class')
                 ->get()->getRow();

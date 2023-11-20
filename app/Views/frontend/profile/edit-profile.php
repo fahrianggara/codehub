@@ -1,5 +1,5 @@
 <div class="modal fade" id="modalEditProfile" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
         <form action="#" class="modal-content" autocomplete="off" method="POST">
             <?= csrf_field(); ?>
 

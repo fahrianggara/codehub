@@ -102,12 +102,13 @@
                     <div></div>
                     
                     <div class="thread-tengah">
-                        <button class="btn love <?= $thread->like ? 'text-danger' : '' ?>"> <!-- if liked add class: .text-danger -->
-                            <i class="fa<?= $thread->like ? 's fa-beat' : 'r' ?> fa-heart"></i> <!-- if liked add class: .fas.fa-beat -->
+                        <button class="btn-suka-diskusi btn love <?= $thread->like ? 'text-danger' : '' ?>"
+                            data-id="<?= base64_encode($thread->id) ?>" data-class="<?= base64_encode(getClass($thread)) ?>">
+                            <i class="fa<?= $thread->like ? 's fa-beat' : 'r' ?> fa-heart"></i>
                             <small><?= count($thread->likes) ?></small>
                         </button>
 
-                        <button class="btn comment">
+                        <button class="btn btn-komen-diskusi comment">
                             <i class="far fa-comment"></i>
                             <small><?= count($thread->replies) ?></small>
                         </button>
@@ -135,6 +136,7 @@
 
         <script src="<?= base_url('js/fe/diskusi/delete.js') ?>"></script>
         <script src="<?= base_url('js/fe/diskusi/status.js') ?>"></script>
+        <script src="<?= base_url('js/fe/diskusi/like.js') ?>"></script>
 
     <?php endif ?>
 <?= $this->endSection() ?>
