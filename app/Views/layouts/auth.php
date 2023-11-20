@@ -27,6 +27,7 @@
     <script src="<?= base_url('plugins/jquery/jquery.min.js') ?>"></script>
     <script src="<?= base_url('plugins/bootstrap4/bootstrap.bundle.min.js') ?>"></script>
     <script src="<?= base_url('plugins/alertify/js/alerts.js') ?>"></script>
+    <script src="<?= base_url('js/custom.js') ?>"></script>
     <script src="<?= base_url('js/auth.js') ?>"></script>
     <script src="<?= base_url('js/auth/login.js') ?>"></script>
     <script src="<?= base_url('js/auth/register.js') ?>"></script>

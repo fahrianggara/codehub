@@ -60,31 +60,26 @@ $(document).ready(function ()
             },
             success: function (res) {
                 if (res.status === 400) {
-                    if (res.val === true) {
-                        errors = [];
+                    var message = res.message;
 
-                        $.each(res.message, function (key, val) {
-                            errors.push(val);
-                        });
-
-                        alertify.alert(errors.join("<br><br>"));
-                    } else {
-                        alertify.alert(res.message);
+                    if (res.validate) {
+                        errors = Object.values(res.errors);
+                        message = errors.join("<br><br>");
                     }
 
-                    $(document).find(".alertify .msg").addClass("text-danger");
+                    alertifyLog('danger', message, () => {
+                        $("body").css('overflow', 'auto');
+                    });
                 } else {
-                    alertify.alert(res.message, function () {
+                    alertifyLog('success', res.message, () => {
                         window.location.href = res.redirect;
 
-                        submit.attr("disabled", "disabled");
-                        submit.html("<i class='fas fa-spinner fa-spin'></i> Loading...");
+                        submit.attr("disabled", "disabled").html("<i class='fas fa-spinner fa-spin'></i> Loading...");
 
                         $("a").each(function () {
                             $(this).addClass("disabled");
                         });
                     });
-                    $(document).find(".alertify .msg").addClass("text-success");
                 }
             },
             error: function (err) {

@@ -41,8 +41,7 @@ class ThreadModel extends Model
      */
     public function tagNotExist($name)
     {
-        $name = trim($name);
-        $check = $this->db->table('tags')->where('name', $name)->get()->getRow();
+        $check = $this->db->table('tags')->where('slug', slug($name))->get()->getRow();
 
         if (!$check) {
             $this->db->table('tags')->insert([

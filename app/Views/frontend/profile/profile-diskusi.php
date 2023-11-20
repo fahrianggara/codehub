@@ -132,11 +132,11 @@
 <?php endif ?>
 
 <?= $this->section('js') ?>
-    <?php if(auth_check()): ?>
+    <script src="<?= base_url('js/fe/diskusi/like.js') ?>"></script>
 
+    <?php if(auth_check()): ?>
         <script src="<?= base_url('js/fe/diskusi/delete.js') ?>"></script>
         <script src="<?= base_url('js/fe/diskusi/status.js') ?>"></script>
-        <script src="<?= base_url('js/fe/diskusi/like.js') ?>"></script>
-
     <?php endif ?>
+
 <?= $this->endSection() ?>

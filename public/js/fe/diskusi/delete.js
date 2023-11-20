@@ -18,7 +18,7 @@ $(document).ready(function () {
                 success: function (res) {
                     if (res.status === 400) {
                         alertifyLog('error', res.message, (e) => {
-                            $(".body").css("overflow", "auto");
+                            $("body").css("overflow", "auto");
                         });
                     } else {
                         alertifyLog('success', res.message, (e) => {

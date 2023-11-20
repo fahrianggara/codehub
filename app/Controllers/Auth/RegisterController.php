@@ -41,8 +41,8 @@ class RegisterController extends BaseController
         if (!$this->validate($this->rules())) {
             return response()->setJSON([
                 'status' => 400, // Bad request
-                'val' => true,
-                'message' => $this->validation->getErrors(),
+                'validate' => true,
+                'errors' => $this->validation->getErrors(),
             ]);
         }
 
@@ -102,24 +102,24 @@ class RegisterController extends BaseController
             'email' => [
                 'rules' => 'required|valid_email|is_unique[users.email]',
                 'errors' => [
-                    'required' => 'Email tidak boleh kosong',
-                    'valid_email' => 'Email tidak valid',
-                    'is_unique' => 'Email sudah terdaftar'
+                    'required' => 'Email tidak boleh kosong.',
+                    'valid_email' => 'Email tidak valid.',
+                    'is_unique' => 'Email sudah terdaftar.'
                 ]
             ],
             'password' => [
                 'rules' => 'required|min_length[8]|max_length[16]',
                 'errors' => [
-                    'required' => 'Password tidak boleh kosong',
-                    'min_length' => 'Password minimal 8 karakter',
-                    'max_length' => 'Password maksimal 16 karakter'
+                    'required' => 'Password tidak boleh kosong.',
+                    'min_length' => 'Password minimal 8 karakter.',
+                    'max_length' => 'Password maksimal 16 karakter.'
                 ]
             ],
             'c-password' => [
                 'rules' => 'required|matches[password]',
                 'errors' => [
-                    'required' => 'Konfirmasi password tidak boleh kosong',
-                    'matches' => 'Konfirmasi Password tidak sama dengan Password'
+                    'required' => 'Konfirmasi password tidak boleh kosong.',
+                    'matches' => 'Konfirmasi Password tidak sama dengan Password.'
                 ]
             ]
         ];

@@ -102,6 +102,8 @@ $(document).ready(function () {
                     
                     $(document).find(".alertify .msg").addClass("text-danger");
                 } else {
+                    modalDiskusi.modal('hide');
+
                     alertifyLog('success', res.message, () => {
                         location.reload();
                     });

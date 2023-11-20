@@ -32,6 +32,7 @@ class DiskusiController extends BaseController
     public function store()
     {
         $post = $this->request->getPost();
+        // print_r($post); die;
 
         if (!$this->validate($this->rules())) {
             return response()->setJSON([
@@ -60,12 +61,20 @@ class DiskusiController extends BaseController
 
             $tags = [];
             foreach ($post['tag_ids'] as $tag) {
+                $slug = slug($tag);
+                $pattern = '/[#@$%^*()+=\-[\]\';,.\/{}|":<>?~\\_\\\\]/';
+
+                if (empty($slug)) continue; // skip if tag empty (only symbol)
+                $tag = preg_replace($pattern, '', $tag); // remove symbol
+
                 $this->threadModel->tagNotExist($tag);
-                $tags[] = $this->tagModel->where('slug', slug($tag))->first()->id;
+                $tagModel = $this->tagModel->where('slug', $slug)->first();
+
+                if ($tagModel) $tags[] = $tagModel->id;
             }
 
             $this->threadModel->syncCategories($insertId, $post['category_id']);
-            $this->threadModel->syncTags($insertId, $tags);
+            if (!empty($tags)) $this->threadModel->syncTags($insertId, $tags);
             
             return response()->setJSON([
                 'status' => 200,
@@ -139,12 +148,20 @@ class DiskusiController extends BaseController
 
             $tags = [];
             foreach ($post['tag_ids'] as $tag) {
+                $slug = slug($tag);
+                $pattern = '/[#@$%^*()+=\-[\]\';,.\/{}|":<>?~\\_\\\\]/';
+
+                if (empty($slug)) continue; // skip if tag empty (only symbol)
+                $tag = preg_replace($pattern, '', $tag); // remove symbol
+
                 $this->threadModel->tagNotExist($tag);
-                $tags[] = $this->tagModel->where('slug', slug($tag))->first()->id;
+                $tagModel = $this->tagModel->where('slug', slug($tag))->first();
+
+                if ($tagModel) $tags[] = $tagModel->id;
             }
 
             $this->threadModel->syncCategories($id, $post['category_id']);
-            $this->threadModel->syncTags($id, $tags);
+            if (!empty($tags)) $this->threadModel->syncTags($id, $tags);
 
             return response()->setJSON([
                 'status' => 200,
@@ -355,7 +372,7 @@ class DiskusiController extends BaseController
 
         foreach ($tags as $tag) {
             $data[] = [
-                'id' => $tag->slug,
+                'id' => $tag->name,
                 'text'=> $tag->name,
             ];
         }

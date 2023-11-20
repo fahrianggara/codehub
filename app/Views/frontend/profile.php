@@ -70,7 +70,7 @@
                                                     <?php if (auth_check() && auth()->id === $user->id): ?>
                                                         <div class="form-group">
                                                             <label for="filter-status">Status</label>
-                                                            <select name="status" id="filter-status" <?= !$user->threads ? 'disabled' : '' ?> class="custom-select">
+                                                            <select name="status" id="filter-status" class="custom-select">
                                                                 <option <?= selected_option($status_selected, 'published') ?> value="published">Publish</option>
                                                                 <option <?= selected_option($status_selected, 'draft') ?> value="draft">Draft</option>
                                                             </select>

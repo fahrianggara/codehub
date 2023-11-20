@@ -35,7 +35,8 @@ class LoginController extends BaseController
         if (!$this->validate($this->rules())) {
             return response()->setJSON([
                 'status' => 400,
-                'val' => true,
+                'validate' => true,
+                'message' => 'Silahkan login terlebih dahulu!',
                 'errors' => $this->validation->getErrors(),
             ]);
         }
@@ -129,11 +130,11 @@ class LoginController extends BaseController
         return [
             'username' => [
                 'rules' => 'required',
-                'errors' => ['required' => 'Username/Email tidak boleh kosong!']
+                'errors' => ['required' => 'Username atau Email tidak boleh kosong.']
             ],
             'password' => [
                 'rules' => 'required',
-                'errors' => ['required' => 'Password tidak boleh kosong!']
+                'errors' => ['required' => 'Password tidak boleh kosong.']
             ]
         ];
     }

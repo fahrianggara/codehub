@@ -8,6 +8,7 @@ $(document).ready(function () {
     modalDiskusi.on('hidden.bs.modal', function () {
         tinymce.get('content-edit').setContent('');
         formDiskusi.find('select.form-control').val(null).trigger('change');
+        formDiskusi.find('#tags-edit').empty().trigger('change');
     });
 
     buttonDiskusi.on("click", function (e) {   
@@ -83,13 +84,12 @@ $(document).ready(function () {
                     results: res.data,
                 };
             },
-            cache: true,
         });
 
         // Set selected tags
         if (tags.length > 0) {
             tags.forEach(function (tag) {
-                const selected = new Option(tag.name, tag.slug, true, true);
+                const selected = new Option(tag.name, tag.name, true, true);
                 formDiskusi.find('#tags-edit').append(selected).trigger('change');
             });
         }
@@ -130,6 +130,8 @@ $(document).ready(function () {
                     
                     $(document).find(".alertify .msg").addClass("text-danger");
                 } else {
+                    modalDiskusi.modal('hide');
+                    
                     alertifyLog('success', res.message, () => {
                         location.reload();
                     });
