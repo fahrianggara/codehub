@@ -108,7 +108,8 @@
                             <small><?= count($thread->likes) ?></small>
                         </button>
 
-                        <button class="btn btn-komen-diskusi comment">
+                        <button class="btn btn-komen-diskusi comment" data-id="<?= base64_encode($thread->id) ?>"
+                            data-url="<?= route_to('diskusi.reply-show') ?>">
                             <i class="far fa-comment"></i>
                             <small><?= count($thread->replies) ?></small>
                         </button>
@@ -135,6 +136,8 @@
     <script src="<?= base_url('js/fe/diskusi/like.js') ?>"></script>
 
     <?php if(auth_check()): ?>
+        <?= view('frontend/diskusi/reply', ['view_thread' => true]) ?>
+
         <script src="<?= base_url('js/fe/diskusi/delete.js') ?>"></script>
         <script src="<?= base_url('js/fe/diskusi/status.js') ?>"></script>
     <?php endif ?>

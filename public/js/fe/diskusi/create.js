@@ -51,13 +51,13 @@ $(document).ready(function () {
         });
     });
 
-    $(document).on("click", '.modal-close', function (e) {
+    $(document).on("click", '.modal-close-create', function (e) {
         e.preventDefault();
 
         if (tinymce.get('content-create').getContent() !== '') {
             alertifyConfirm('Diskusi yang kamu buat akan hilang, yakin ingin menutup modal ini?', function () {
                 modalDiskusi.modal('hide');
-            }, null, 'Iya, tutup', 'Lanjutkan mengisi');
+            }, null, 'IYA TUTUP', 'BATAL');
         } else {
             modalDiskusi.modal('hide');
         }

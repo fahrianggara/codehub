@@ -179,3 +179,19 @@ function getClass($object, $prefix = true)
     $prefix = $prefix ? 'Model' : '';
     return str_replace('Entities', 'Models', get_class($object)) . $prefix;
 }
+
+/**
+ * print
+ * 
+ * @param mixed $data
+ * @return string
+ */
+function print_data($data)
+{
+    // alert
+    echo '<pre>';
+        print_r($data);
+    echo '</pre>';
+
+    die;
+}

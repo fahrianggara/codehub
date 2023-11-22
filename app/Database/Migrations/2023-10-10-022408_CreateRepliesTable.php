@@ -14,7 +14,7 @@ class CreateRepliesTable extends Migration
             'approved' => ['type' => 'BOOLEAN', 'default' => 1],
             'thread_id' => ['type' => 'INT', 'constraint' => 11],
             'user_id' => ['type' => 'INT', 'constraint' => 11],
-            'parent_id' => ['type' => 'INT', 'constraint' => 11],
+            'parent_id' => ['type' => 'INT', 'constraint' => 11, 'null' => true],
             'created_at datetime default current_timestamp',
             'updated_at datetime default current_timestamp on update current_timestamp',
         ]);

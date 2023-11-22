@@ -25,6 +25,8 @@
     <link rel="stylesheet" href="<?= base_url('css/frontend.css') ?>">
 
     <?= $this->renderSection('css'); ?>
+
+    <script src="<?= base_url('plugins/prism/prism.js') ?>"></script>
 </head>
 
 <body>
@@ -56,7 +58,6 @@
     <script src="<?= base_url('plugins/daterangepicker/daterangepicker.js') ?>"></script>
     <script src="<?= base_url('plugins/cropperjs/cropper.js') ?>"></script>
     <script src="<?= base_url('plugins/cropperjs/gif/cropperjs-gif-all.js') ?>"></script>
-    <script src="<?= base_url('plugins/prism/prism.js') ?>"></script>
     <script src="<?= base_url('js/frontend.js') ?>"></script>
     <script src="<?= base_url('js/custom.js') ?>"></script>
 

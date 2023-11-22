@@ -12,7 +12,7 @@
                     <i class="fas fa-comment text-primary mr-1"></i>
                     Diskusi Baru
                 </p>
-                <button type="button" class="btn btn-primary modal-close">
+                <button type="button" class="btn btn-primary modal-close-create">
                     <i class="fas fa-times"></i>
                 </button>
             </div>

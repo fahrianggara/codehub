@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\ReplyModel;
 use App\Entities\Thread;
 use CodeIgniter\Model;
 use Tatter\Relations\Traits\ModelTrait;
@@ -160,5 +161,24 @@ class ThreadModel extends Model
 
             return "like";
         }
+    }
+
+    /**
+     * Reply main thread
+     * 
+     * @param object $post
+     * @param bool $isSub
+     */
+    public function reply($post, $isSub = false)
+    {
+        $replyModel = new ReplyModel();
+        
+        $replyModel->save([
+            'content' => $post['content'],
+            'approved' => 1,
+            'thread_id' => base64_decode($post['thread_id']),
+            'user_id' => auth()->id,
+            'parent_id' => $isSub ? $post['parent_id'] : null,
+        ]);
     }
 }

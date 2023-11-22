@@ -220,6 +220,86 @@ class DiskusiController extends BaseController
     }
 
     /**
+     * Show reply the specified resource from storage.
+     * 
+     * @return void
+     */
+    public function replyShow()
+    {
+        $post = $this->request->getPost();
+
+        if (isset($post['id'])) {
+            $id = base64_decode($post['id']);
+            $thread = $this->threadModel->with(['users', 'replies'])->find($id);
+
+            $data = [
+                'title' => $thread->title,
+                'slug' => $thread->slug,
+                'content' => $thread->content,
+                'author' => $thread->user->username,
+                'date' => ago($thread->created_at),
+            ];
+
+            return response()->setJSON([
+                'status' => 200,
+                'data' => $data
+            ]);
+        }
+        
+        return false;
+    }
+
+    /**
+     * Reply the specified resource from storage.
+     * 
+     * @return void
+     */
+    public function reply()
+    {
+        $post = $this->request->getPost();
+        $rule = [
+            'content' => [
+                'rules' => "required|min_length[10]|max_length[10000]|string",
+                'errors' => [
+                    'required' => 'Konten diskusi harus diisi.',
+                    'min_length' => 'Konten diskusi minimal 10 karakter.',
+                    'max_length' => 'Konten diskusi maksimal 10000 karakter.',
+                    'string' => 'Konten diskusi hanya boleh berisi huruf dan spasi.',
+                ]
+            ]
+        ];
+
+        if (!$this->validate($rule)) {
+            return response()->setJSON([
+                'status' => 400,
+                'validate' => true,
+                'errors' => $this->validation->getErrors(),
+            ]);
+        }
+
+        $this->db->transBegin();
+        try {
+            empty($post['reply_id']) 
+                ? $this->threadModel->reply($post)
+                : $this->threadModel->reply($post, true);
+
+            return response()->setJSON([
+                'status' => 200,
+                'message' => 'Balasan berhasil dikirim.'
+            ]);
+        } catch (\Throwable $th) {
+            $this->db->transRollback();
+
+            return response()->setJSON([
+                'status' => 400,
+                'message' => $th->getMessage()
+            ]);
+        } finally {
+            $this->db->transCommit();
+        }
+    }
+
+    /**
      * Like the specified resource from storage.
      * 
      * @return void

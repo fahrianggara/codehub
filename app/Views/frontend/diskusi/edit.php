@@ -14,7 +14,7 @@
                     <i class="fas fa-comment text-primary mr-1"></i>
                     Diskusi Edit
                 </p>
-                <button type="button" class="btn btn-primary modal-close" data-dismiss="modal">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">
                     <i class="fas fa-times"></i>
                 </button>
             </div>

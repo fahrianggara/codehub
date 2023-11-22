@@ -194,7 +194,7 @@ function initTinyMce(textarea, menubar = false, height = 200) {
         convert_urls: false,
         height: height,
         width: '100%',
-        menubar: menubar,
+        menubar: false,
         plugins: [
             "codemirror", "link", "lists", "codesample", "paste", "wordcount"
         ],
@@ -220,7 +220,7 @@ function initTinyMce(textarea, menubar = false, height = 200) {
             { text: 'Dart', value: 'dart' },
             { text: 'Bash/Shell', value: 'bash' },
         ],
-        toolbar: "bold italic underline blockquote | bullist numlist | link codesample",
+        toolbar: "bold italic underline strikeout blockquote | bullist numlist | link codesample",
         noneditable_noneditable_class: "mceNonEditable",
         codemirror: {
             indentOnInit: true, // Whether or not to indent code on init.
@@ -228,6 +228,15 @@ function initTinyMce(textarea, menubar = false, height = 200) {
         },
         init_instance_callback: function (editor) {
             $(editor.getContainer()).find('button.tox-statusbar__wordcount').click();  // if you use jQuery
+        },
+        setup: function (editor) {
+            editor.ui.registry.addButton('strikeout', {
+                icon: 'sourcecode',
+                tooltip: "Format as code",
+                onAction: function () {
+                    editor.execCommand('mceToggleFormat', false, 'code');
+                }
+            });
         }
     });
 }
