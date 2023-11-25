@@ -49,7 +49,7 @@
                             <div class="col-lg-4 col-md-5 mb3">
                                 <div class="sticky">
                                     <?php if (auth_check() && auth()->id === $user->id): ?>
-                                        <button class="btn btn-buat-diskusi mb-3">
+                                        <button class="btn btn-buat-diskusi mb-3" data-logined="<?= auth_check() ?>">
                                             <i class="fas fa-plus"></i>
                                             <span>Diskusi Baru</span>
                                         </button>

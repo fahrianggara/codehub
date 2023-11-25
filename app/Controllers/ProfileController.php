@@ -463,8 +463,8 @@ class ProfileController extends BaseController
     {
         return $query->with(['users', 'thread_categories', 'thread_tags', 'replies'])
             ->where('status', $status)
-            ->orderBy('(SELECT COUNT(*) FROM likes WHERE model_id = threads.id)', 'desc')
             ->orderBy('(SELECT COUNT(*) FROM replies WHERE thread_id = threads.id)', 'desc')
+            ->orderBy('(SELECT COUNT(*) FROM likes WHERE model_id = threads.id)', 'desc')
             ->orderBy('views', 'desc')
             ->paginate(10, 'user-thread');
     }
@@ -480,17 +480,22 @@ class ProfileController extends BaseController
      */
     private function threadCategory($query, $orderSelected, $categorySelected, $status = 'published')
     {
-        $orderBy = ($orderSelected === 'popular') ? '(SELECT COUNT(*) FROM likes WHERE model_id = threads.id)' : 'threads.created_at';
-        $direct = ($orderSelected === 'popular') ? 'desc' : $orderSelected;
-
-        return $query->with(['users', 'replies']) // Ambil semua relasi
+        $builder = $query->with(['users', 'replies']) // Ambil semua relasi
             ->join('thread_categories', 'thread_categories.thread_id = threads.id')
             ->join('categories', 'categories.id = thread_categories.category_id')
             ->where('status',  $status)
             ->where('categories.slug', strtolower($categorySelected)) // Dijadikan lowercase agar slug tidak case sensitive
             ->groupBy('threads.id') // Group by agar tidak ada thread yang sama
-            ->select('threads.*, MAX(thread_categories.id) as category_id, MAX(categories.slug) as category_slug') // Ambil category terakhir
-            ->orderBy($orderBy, $direct)
-            ->paginate(10, 'user-thread');
+            ->select('threads.*, MAX(thread_categories.id) as category_id, MAX(categories.slug) as category_slug'); // Ambil category terakhir
+
+        if ($orderSelected === 'popular') {
+            $builder->orderBy('(SELECT COUNT(*) FROM replies WHERE thread_id = threads.id)', 'desc')
+                ->orderBy('(SELECT COUNT(*) FROM likes WHERE model_id = threads.id)', 'desc')
+                ->orderBy('views', 'desc');
+        } else {
+            $builder->orderBy('threads.created_at', $orderSelected);
+        }
+
+        return $builder->paginate(10, 'user-thread');
     }
 }
