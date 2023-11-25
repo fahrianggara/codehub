@@ -9,7 +9,7 @@
             <div class="card">
                 <div class="card-header p-2">
                     <div class="d-flex align-items-center justify-content-between">
-                        <span class="ml-2">Daftar Tag pada CODEHUB</span>
+                        <span class="ml-2">Daftar Taggar Diskusi pada CODEHUB</span>
                         <a href="<?= route_to('admin.Tags.create') ?>" class="btn btn-sm btn-success">
                             <i class="fas fa-plus mr-1"></i>
                             Tambah
@@ -21,8 +21,8 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Nama Tags</th>
-                                <th>Tags Slug</th>
+                                <th>Taggar</th>
+                                <th>Taggar URL</th>
                                 <th>Jumlah Dipakai</th>
                                 <th>&nbsp;</th>
                             </tr>
@@ -35,11 +35,12 @@
                                     <td><?= $no++ ?></td>
                                     <td><?= $tag->name ?></td>
                                     <td><?= $tag->slug ?></td>
-                                    <td>0</td>
+                                    <td><?= count($tag->threads) ?></td>
                                     <td>
                                         <div class="btn-group dropleft">
                                             <button class="btn btn-sm btn-more dropdown-toggle" data-toggle="dropdown" aria-expanded="false" data-display="static">
-                                                <button type="button" value="<?= $id ?>" class="dropdown-item py-1 btn-delete" data-id="<?= $tag->id ?>" data-action="<?= route_to('admin.Tags.destroy') ?>">
+                                                <button type="button" value="<?= $id ?>" class="dropdown-item py-1 btn-delete" data-id="<?= $tag->id ?>" 
+                                                    data-action="<?= route_to('admin.Tags.destroy') ?>" data-tag-name="<?= $tag->name ?>">
                                                     <i class="fas text-danger fa-trash mr-2"></i> Hapus
                                                 </button>
                                             </button>
@@ -88,9 +89,7 @@
                     if (res.status === 400) {
                         alertError(res.message);
                     } else {
-                        alertifyLog('success', res.message, () => {
-                            location.reload();
-                        });
+                        location.reload();
                     }
                 },
                 error: (xhr, status, error) => {

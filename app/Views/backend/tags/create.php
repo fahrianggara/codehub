@@ -4,7 +4,7 @@
 
 <div class="container-fluid">
     <div class="row align-items-center justify-content-center">
-        <div class="col-xl-9 col-lg-12">
+        <div class="col-xl-6 col-lg-12">
 
             <form id="formCreate" action="<?= route_to('admin.Tags.store') ?>" class="card" autocomplete="off" method="post">
 
@@ -20,7 +20,7 @@
                 <div class="card-body">
 
                     <div class="row">
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-12 mb-2">
                             <label for="name">Nama Tag</label>
 
                             <input type="text" name="name" id="name" class="form-control <?= validation_show_error('name') ? 'is-invalid' : '' ?>" value="<?= old('name') ?>" placeholder="Masukkan Nama Tag">
