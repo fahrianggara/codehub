@@ -4,22 +4,24 @@ $(document).ready(function () {
     var textarea = "#content-edit";
     var buttonSubmit = formDiskusi.find('button[type="submit"]');
     var buttonDiskusi = $(".btn-edit-diskusi");
+    var categoryInput = formDiskusi.find('#category-edit');
+    var tagsInput = formDiskusi.find('#tags-edit');
+    var urlEdit = `${origin}/edit-thread`;
 
     modalDiskusi.on('hidden.bs.modal', function () {
         tinymce.get('content-edit').setContent('');
         formDiskusi.find('select.form-control').val(null).trigger('change');
-        formDiskusi.find('#tags-edit').empty().trigger('change');
+        tagsInput.empty().trigger('change');
     });
 
     buttonDiskusi.on("click", function (e) {   
         e.preventDefault();
 
         var id = $(this).data('id');
-        var url = `${origin}/edit-thread`;
 
         $.ajax({
             type: "POST",
-            url: url,
+            url: urlEdit,
             data: {id: id},
             dataType: "json",
             success: function (res) {
@@ -47,7 +49,7 @@ $(document).ready(function () {
         initTinyMce(textarea, false, 380);
         tinymce.get('content-edit').setContent(content);
 
-        initSelect2S(formDiskusi.find('#category-edit'), modalDiskusi, {
+        initSelect2S(categoryInput, modalDiskusi, {
             url: `${origin}/get-categories`,
             type: 'POST',
             dataType: 'json',
@@ -67,9 +69,9 @@ $(document).ready(function () {
 
         // Set selected category
         var option = new Option(category.name, category.id, true, true);
-        formDiskusi.find('#category-edit').append(option).trigger('change');
+        categoryInput.append(option).trigger('change');
 
-        initSelect2M(formDiskusi.find('#tags-edit'), modalDiskusi, {
+        initSelect2M(tagsInput, modalDiskusi, {
             url: `${origin}/get-tags`,
             type: 'POST',
             dataType: 'json',
@@ -90,7 +92,7 @@ $(document).ready(function () {
         if (tags.length > 0) {
             tags.forEach(function (tag) {
                 const selected = new Option(tag.name, tag.name, true, true);
-                formDiskusi.find('#tags-edit').append(selected).trigger('change');
+                tagsInput.append(selected).trigger('change');
             });
         }
 
@@ -121,20 +123,19 @@ $(document).ready(function () {
             },
             success: function (res) {
                 if (res.status === 400) {
+                    var message = res.message;
+
                     if (res.validate) {
                         errors = Object.values(res.message);
-                        alertify.alert(errors.join("<br><br>"));
-                    } else {
-                        alertify.alert(res.message);
+                        message = errors.join("<br><br>");
                     }
-                    
-                    $(document).find(".alertify .msg").addClass("text-danger");
+
+                    alertifyLog('danger', message, () => {
+                        $("body").css('overflow', 'auto');
+                    });
                 } else {
                     modalDiskusi.modal('hide');
-                    
-                    alertifyLog('success', res.message, () => {
-                        location.reload();
-                    });
+                    location.reload();
                 }
             }
         });

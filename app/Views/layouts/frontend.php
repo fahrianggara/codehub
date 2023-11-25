@@ -41,8 +41,6 @@
 
     <?php if (auth_check()) : ?>
         <?= $this->include('auth/logout'); ?>
-        <?= $this->include('frontend/diskusi/create') ?>
-        <?= $this->include('frontend/diskusi/edit') ?>
     <?php endif; ?>
 
     <!-- JS -->
@@ -60,6 +58,9 @@
     <script src="<?= base_url('plugins/cropperjs/gif/cropperjs-gif-all.js') ?>"></script>
     <script src="<?= base_url('js/frontend.js') ?>"></script>
     <script src="<?= base_url('js/custom.js') ?>"></script>
+
+    <script src="<?= base_url('js/fe/diskusi/like.js') ?>"></script>
+    <?= $this->include('frontend/diskusi/create') ?>
 
     <!-- Render Js -->
     <?= $this->renderSection('js'); ?>

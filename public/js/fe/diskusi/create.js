@@ -4,9 +4,17 @@ $(document).ready(function () {
     var textarea = "#content-create";
     var buttonSubmit = formDiskusi.find('button[type="submit"]');
     var buttonDiskusi = $(".btn-buat-diskusi");
+    var logined = buttonDiskusi.data("logined");
 
     buttonDiskusi.on("click", function (e) {   
         e.preventDefault();
+
+        if (!logined) {
+            alertifyLog('default', 'Kamu harus login terlebih dahulu untuk membuat diskusi.', () => {
+                $("body").css('overflow', 'auto');
+            });
+            return;
+        }
 
         setTimeout(function () {
             modalDiskusi.modal('show');

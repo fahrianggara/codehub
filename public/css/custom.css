@@ -216,6 +216,11 @@ table.not-wrap th, table.not-wrap td {
 	font-weight: 600 !important;
 }
 
+.tox-textarea {
+	font-family: "Fira Code", monospace !important;
+	font-size: 14px !important;
+}
+
 /* =======================================================================
  *  SELECT 2 CUSTOM
  * ======================================================================= */

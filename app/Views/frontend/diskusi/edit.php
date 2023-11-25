@@ -20,10 +20,15 @@
             </div>
 
             <div class="modal-body">
-                <div class="form-group mb-2">
-                    <input type="text" name="title" class="form-control text-dark" id="title-edit"
-                        placeholder="Judul diskusi">
-                </div>
+                <?php if ($detail): ?>
+                    <input type="hidden" name="title" id="title-edit">    
+                <?php else: ?>
+                    <div class="form-group mb-2">
+                        <input type="text" name="title" class="form-control text-dark" id="title-edit"
+                            placeholder="Judul diskusi">
+                    </div>
+                <?php endif; ?>
+
                 <div class="form-group mb-2">
                     <select name="category_id" class="form-control" 
                         placeholder="Pilih Kategori Diskusi" id="category-edit">
@@ -34,6 +39,7 @@
                         placeholder="Pilih Taggar Diskusi" id="tags-edit">
                     </select>
                 </div>
+
                 <div class="form-group mb-0">
                     <textarea name="content" class="form-control" rows="3" id="content-edit"
                         placeholder="Masukkan konten diskusi.."></textarea>

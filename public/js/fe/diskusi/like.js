@@ -1,8 +1,16 @@
 $(document).ready(function () {
     var buttonSuka = $(".btn-suka-diskusi");
+    var logined = buttonSuka.data("logined");
     
     buttonSuka.on("click", function (e) {
         e.preventDefault();
+
+        if (!logined) {
+            alertifyLog('default', 'Kamu harus login terlebih dahulu untuk menyukai diskusi ini.', () => {
+                $("body").css('overflow', 'auto');
+            });
+            return;
+        }
 
         var $this = $(this);
         var idModel = $this.data('id');

@@ -84,7 +84,7 @@ class ThreadModel extends Model
     {
         $this->db->table('likes')
             ->where('model_id', $thread->id)
-            ->where('model_class', "App\Models\Thread")
+            ->where('model_class', "App\Models\ThreadModel")
             ->delete();
     }
 
@@ -98,7 +98,7 @@ class ThreadModel extends Model
     {
         $this->db->table("notifications")
             ->where('model_id', $thread_id)
-            ->where('model_class', "App\Models\Thread")
+            ->where('model_class', "App\Models\ThreadModel")
             ->delete();
     }
 
@@ -112,7 +112,7 @@ class ThreadModel extends Model
     {
         $this->db->table("reports")
             ->where('model_id', $thread_id)
-            ->where('model_class', "App\Models\Thread")
+            ->where('model_class', "App\Models\ThreadModel")
             ->delete();
     }
 
@@ -164,21 +164,40 @@ class ThreadModel extends Model
     }
 
     /**
-     * Reply main thread
+     * Status published
      * 
-     * @param object $post
-     * @param bool $isSub
      */
-    public function reply($post, $isSub = false)
+    public function published()
     {
-        $replyModel = new ReplyModel();
-        
-        $replyModel->save([
-            'content' => $post['content'],
-            'approved' => 1,
-            'thread_id' => base64_decode($post['thread_id']),
-            'user_id' => auth()->id,
-            'parent_id' => $isSub ? $post['parent_id'] : null,
-        ]);
+        return $this->where('status', 'published');
+    }
+
+    /**
+     * Status draft
+     * 
+     */
+    public function draft()
+    {
+        return $this->where('status', 'draft');
+    }
+    
+    /**
+     * incrementViews
+     *
+     * @param  mixed $threadId
+     * @return void
+     */
+    public function incrementViews($threadId)
+    {
+        $session = session();
+        $key = 'viewed_thread_' . $threadId;
+
+        // Check if the thread has been viewed in the current session
+        if (!$session->has($key)) {
+            // Increment views in the database
+            $this->db->table('threads')->where('id', $threadId)->increment('views');
+            // Mark the thread as viewed in the current session
+            $session->set($key, true);
+        }
     }
 }

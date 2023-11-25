@@ -1,11 +1,19 @@
 $(document).ready(function () {
     var modalReply = $(".modal-diskusi-reply");
     var modalBody = modalReply.find(".modal-body");
-    var buttonReply = $(".btn-komen-diskusi");
+    var buttonReply = $(".btn-reply-thread");
+    var buttonReplyChild = $(".btn-reply-thread-child");
     var textarea = "#content-reply";
     var viewThread = modalReply.data("view-thread");
     var formReply = modalReply.find("form");
     var buttonSubmit = formReply.find("button[type=submit]");
+    var logined = modalReply.data("logined");
+
+    $('.btn-reply-thread-child').hover(function () {
+        $(this).closest('.thread-reply-box').addClass('is-active');
+    }, function () {
+        $(this).closest('.thread-reply-box').removeClass('is-active');
+    });
 
     $(document).on("click", '.modal-close-reply', function (e) {
         e.preventDefault();
@@ -19,8 +27,35 @@ $(document).ready(function () {
         }
     });
 
+    buttonReplyChild.on("click", function (e) {
+        e.preventDefault();
+
+        if (!logined) {
+            alertifyLog('default', 'Kamu harus login terlebih dahulu untuk membalas diskusi ini.', () => {
+                $("body").css('overflow', 'auto');
+            });
+            return;
+        }
+
+        modalReply.find("#title").append(` @${$(this).data("username")}`);
+        modalReply.find("#thread_id").val($(this).data("thread_id"));
+        modalReply.find("#parent_id").val($(this).data("parent_id"));
+        modalReply.find("#child_id").val($(this).data("child_id"));
+
+        initTinyMce(textarea);
+
+        modalReply.modal("show");
+    });
+
     buttonReply.on("click", function (e) {
         e.preventDefault();
+
+        if (!logined) {
+            alertifyLog('default', 'Kamu harus login terlebih dahulu untuk membalas diskusi ini.', () => {
+                $("body").css('overflow', 'auto');
+            });
+            return;
+        }
 
         const id = $(this).data("id");
         const url = $(this).data("url");
@@ -37,7 +72,23 @@ $(document).ready(function () {
     });
 
     /**
-     * Show thread
+     * Show thread without view thread (for page detail)
+     * 
+     * @param {object} res
+     * @param {string} id
+     * @param {boolean} child
+     */
+    function showThread(res, id)
+    {
+        modalReply.find("#thread_id").val(id);
+
+        initTinyMce(textarea);
+
+        modalReply.modal("show");
+    }
+
+    /**
+     * Show thread with view thread (for page profile)
      * 
      * @param {object} res
      * @param {string} id
@@ -63,6 +114,9 @@ $(document).ready(function () {
         }, 1000);
 
         Prism.highlightAllUnder(modalBody[0]);
+    }).on("hidden.bs.modal", function () {
+        modalReply.find("#title").text("Balas Diskusi");
+        tinymce.get('content-reply').setContent('');
     });
 
     formReply.on("submit", function (e) {
@@ -101,10 +155,7 @@ $(document).ready(function () {
                     });
                 } else {
                     modalReply.modal('hide');
-
-                    alertifyLog('success', res.message, () => {
-                        location.reload();
-                    });
+                    location.reload();
                 }
             }
         });

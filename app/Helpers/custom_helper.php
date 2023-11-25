@@ -10,6 +10,8 @@ use Carbon\Carbon;
  */
 function auth() 
 {
+    $user = null;
+
     if (session()->get('logged_in') === true) {
         $userModel = new UserModel();
         $user = $userModel->where('id', session()->get('id'))->first();
@@ -21,7 +23,7 @@ function auth()
         die;
     }
 
-    return $user ?? null;
+    return $user;
 }
 
 /**
@@ -31,7 +33,7 @@ function auth()
  */
 function auth_check()
 {
-    return session()->get('logged_in') === true;
+    return session()->get('logged_in') === true;   
 }
 
 /**
@@ -181,6 +183,17 @@ function getClass($object, $prefix = true)
 }
 
 /**
+ * Check if author of entity.
+ * 
+ * @param object $entity
+ * @return bool
+ */
+function isAuthor($thread, $user)
+{
+    return $thread->user_id === $user->id;
+}
+
+/**
  * print
  * 
  * @param mixed $data
@@ -194,4 +207,27 @@ function print_data($data)
     echo '</pre>';
 
     die;
+}
+
+/**
+ * HTML button like
+ * 
+ * @param object $entity
+ */
+function buttonLike($entity)
+{
+    $textDanger = $entity->like ? 'text-danger' : '';
+    $dataId = base64_encode($entity->id);
+    $dataClass = base64_encode(getClass($entity));
+    $countLikes = count($entity->likes);
+    $icon = $entity->like ? 's fa-beat' : 'r';
+    $logined = auth_check() ? true : false;
+
+    return "
+        <button class='btn-suka-diskusi btn love $textDanger'
+            data-id='$dataId' data-class='$dataClass' data-logined='$logined'>
+            <i class='fa$icon fa-heart'></i>
+            <small>$countLikes</small>
+        </button>
+    ";
 }

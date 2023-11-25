@@ -57,7 +57,7 @@
                                 Bagikan
                             </a>
                             
-                            <a class="dropdown-item" href="javascript:void(0);">
+                            <a class="dropdown-item" href="<?= route_to('diskusi.show', $thread->slug) ?>">
                                 <i class="fas text-primary fa-external-link-alt mr-2"></i>
                                 Lihat
                             </a>
@@ -70,7 +70,7 @@
                     </div>
                 </div>
 
-                <a class="thread-link" href="javascript:void(0)">
+                <a class="thread-link" href="<?= route_to('diskusi.show', $thread->slug) ?>">
                     <h3 class="thread-comment-title">
                         <?= $thread->title ?>
                     </h3>
@@ -102,16 +102,12 @@
                     <div></div>
                     
                     <div class="thread-tengah">
-                        <button class="btn-suka-diskusi btn love <?= $thread->like ? 'text-danger' : '' ?>"
-                            data-id="<?= base64_encode($thread->id) ?>" data-class="<?= base64_encode(getClass($thread)) ?>">
-                            <i class="fa<?= $thread->like ? 's fa-beat' : 'r' ?> fa-heart"></i>
-                            <small><?= count($thread->likes) ?></small>
-                        </button>
+                        <?= buttonLike($thread) ?>
 
-                        <button class="btn btn-komen-diskusi comment" data-id="<?= base64_encode($thread->id) ?>"
+                        <button class="btn btn-reply-thread comment" data-id="<?= base64_encode($thread->id) ?>"
                             data-url="<?= route_to('diskusi.reply-show') ?>">
                             <i class="far fa-comment"></i>
-                            <small><?= count($thread->replies) ?></small>
+                            <small><?= $thread->count_replies ?></small>
                         </button>
 
                         <button class="btn views cursor-default">
@@ -133,11 +129,10 @@
 <?php endif ?>
 
 <?= $this->section('js') ?>
-    <script src="<?= base_url('js/fe/diskusi/like.js') ?>"></script>
+    <?= view('frontend/diskusi/reply-modal', ['view_thread' => true]) ?>
 
-    <?php if(auth_check()): ?>
-        <?= view('frontend/diskusi/reply', ['view_thread' => true]) ?>
-
+    <?php if (auth_check()): ?>
+        <?= view('frontend/diskusi/edit', ['detail' => false]) ?>
         <script src="<?= base_url('js/fe/diskusi/delete.js') ?>"></script>
         <script src="<?= base_url('js/fe/diskusi/status.js') ?>"></script>
     <?php endif ?>

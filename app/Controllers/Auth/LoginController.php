@@ -36,7 +36,6 @@ class LoginController extends BaseController
             return response()->setJSON([
                 'status' => 400,
                 'validate' => true,
-                'message' => 'Silahkan login terlebih dahulu!',
                 'errors' => $this->validation->getErrors(),
             ]);
         }

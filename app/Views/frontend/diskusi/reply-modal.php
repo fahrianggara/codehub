@@ -1,15 +1,15 @@
 <?= $this->section('js') ?>
 
 <div class="modal fade modal-diskusi-reply" role="dialog" data-view-thread="<?= $view_thread ?? false ?>"
-    aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    aria-hidden="true" data-backdrop="static" data-keyboard="false" data-logined="<?= auth_check() ? true : false ?>">
 
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
         <form class="modal-content" method="POST" autocomplete="off" action="<?= route_to('diskusi.reply') ?>">
             
             <?= csrf_field() ?>
             <input type="hidden" name="thread_id" id="thread_id">
+            <input type="hidden" name="child_id" id="child_id">
             <input type="hidden" name="parent_id" id="parent_id">
-            <input type="hidden" name="reply_id" id="reply_id">
 
             <div class="modal-header p-2">
                 <div class="modal-title d-flex align-items-center ml-2">
@@ -17,7 +17,7 @@
                     <?php if ($view_thread): ?>
                         <div id="title" class="text-truncate mx-1"></div>
                     <?php else: ?>
-                        Balas Diskusi
+                        <div id="title" class="text-truncate mx-1">Balas Diskusi</div>
                     <?php endif ?>
                 </div>
                 <button type="button" class="btn btn-primary modal-close-reply">
@@ -31,7 +31,7 @@
                         <ul class="list-group mt-2">
                             <li class="list-group-item ">
                                 <div class="item-content mb-2 d-flex align-items-center justify-content-between">
-                                    <div class="name-content flex-row align-items-center">
+                                    <div class="name-content d-flex flex-row align-items-center">
                                         <span id="author" class="mr-1"></span> • <span id="date" class="thread-count ml-1"></span>
                                     </div>
                                 </div>
@@ -42,7 +42,7 @@
                 <?php endif ?>
 
                 <div class="form-group mb-0">
-                    <label for="content-reply">Komentar</label>
+                    <?= $view_thread ? '<label for="content-reply">Komentar</label>' : '' ?>
                     <textarea name="content" class="form-control" rows="3" id="content-reply"
                         placeholder="Masukkan komentar anda.."></textarea>
                 </div>

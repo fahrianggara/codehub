@@ -388,11 +388,11 @@ class ProfileController extends BaseController
                 ]
             ],
             'username' => [
-                'rules' => "required|min_length[3]|max_length[25]|alpha_numeric|is_unique[users.username,id,{$user_id}]",
+                'rules' => "required|min_length[3]|max_length[20]|alpha_numeric|is_unique[users.username,id,{$user_id}]",
                 'errors' => [
                     'required' => 'Username harus diisi.',
                     'min_length' => 'Username minimal 3 karakter.',
-                    'max_length' => 'Username maksimal 25 karakter.',
+                    'max_length' => 'Username maksimal 20 karakter.',
                     'alpha_numeric' => 'Username hanya boleh berisi huruf dan angka.',
                     'is_unique' => 'Username sudah digunakan.'
                 ]
@@ -464,6 +464,8 @@ class ProfileController extends BaseController
         return $query->with(['users', 'thread_categories', 'thread_tags', 'replies'])
             ->where('status', $status)
             ->orderBy('(SELECT COUNT(*) FROM likes WHERE model_id = threads.id)', 'desc')
+            ->orderBy('(SELECT COUNT(*) FROM replies WHERE thread_id = threads.id)', 'desc')
+            ->orderBy('views', 'desc')
             ->paginate(10, 'user-thread');
     }
     

@@ -2,6 +2,7 @@
 
 namespace App\Entities;
 
+use App\Models\ReplyModel;
 use Config\Database;
 use CodeIgniter\Entity\Entity;
 
@@ -106,5 +107,33 @@ class Thread extends Entity
         }
 
         return false;
+    }
+
+    /**
+     * get replies main
+     * 
+     * @return object
+     */
+    public function getReplies()
+    {
+        $replies = new ReplyModel();
+
+        return $replies->where('thread_id', $this->attributes['id'])
+            ->where('parent_id', null)
+            ->orderBy('created_at', 'DESC')
+            ->findAll();
+    }
+
+    /**
+     * Count replies
+     * 
+     * @return int
+     */
+    public function getCountReplies()
+    {
+        $replies = new ReplyModel();
+
+        return $replies->where('thread_id', $this->attributes['id'])
+            ->countAllResults();
     }
 }

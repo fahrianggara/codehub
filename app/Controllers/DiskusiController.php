@@ -6,11 +6,13 @@ use App\Models\CategoryModel;
 use App\Models\TagModel;
 use App\Models\ThreadModel;
 use App\Controllers\BaseController;
+use App\Models\ReplyModel;
+use CodeIgniter\Exceptions\PageNotFoundException;
 use HTMLPurifier_Config, HTMLPurifier;
 
 class DiskusiController extends BaseController
 {
-    protected $categoryModel, $tagModel, $threadModel;
+    protected $categoryModel, $tagModel, $threadModel, $replyModel;
     
     /**
      * Constructor.
@@ -22,6 +24,32 @@ class DiskusiController extends BaseController
         $this->threadModel = new ThreadModel();
         $this->categoryModel = new CategoryModel();
         $this->tagModel = new TagModel();
+        $this->replyModel = new ReplyModel();
+    }
+
+    /**
+     * Show the specified resource.
+     * 
+     * @param string $slug
+     * @return void
+     */
+    public function show($slug)
+    {
+        $thread = $this->threadModel->published()
+            ->with(['users'])
+            ->where('slug', $slug)
+            ->first();
+
+        if (!$thread) throw PageNotFoundException::forPageNotFound();
+
+        $this->threadModel->incrementViews($thread->id);
+
+        return view('frontend/diskusi/detail', [
+            'title' => $thread->title,
+            'thread' => $thread,
+            'user' => $thread->user,
+            'category' => $thread->category,
+        ]);
     }
 
     /**
@@ -32,7 +60,6 @@ class DiskusiController extends BaseController
     public function store()
     {
         $post = $this->request->getPost();
-        // print_r($post); die;
 
         if (!$this->validate($this->rules())) {
             return response()->setJSON([
@@ -50,7 +77,7 @@ class DiskusiController extends BaseController
             
             $this->threadModel->insert([
                 'title'=> $title,
-                'slug' => slug($title),
+                'slug' => slug($title) . '-' . rand(10000, 99999),
                 'content' => $purifier->purify($post['content']),
                 'status' => 'published',
                 'views' => 0,
@@ -111,6 +138,14 @@ class DiskusiController extends BaseController
                 'category' => $thread->category,
                 'tags' => $thread->tags
             ]);
+        } else if (isset($post['reply_id'])) {
+            $id = base64_decode($post['reply_id']);
+            $reply = $this->replyModel->select('id, content')->find($id);
+
+            return response()->setJSON([
+                'status' => 200,
+                'reply' => $reply,
+            ]);
         }
         
         return false;
@@ -124,9 +159,10 @@ class DiskusiController extends BaseController
     public function update()
     {
         $post = $this->request->getPost();
-        $id = base64_decode($post['id']);
+        $id = base64_decode(isset($post['id']) ? $post['id'] : $post['reply_id']);
+        $hasReplyId = isset($post['reply_id']);
 
-        if (!$this->validate($this->rules($id))) {
+        if (!$this->validate($this->rules($id, $hasReplyId))) {
             return response()->setJSON([
                 'status' => 400,
                 'validate' => true,
@@ -138,15 +174,38 @@ class DiskusiController extends BaseController
         try {
             $config = HTMLPurifier_Config::createDefault();
             $purifier = new HTMLPurifier($config);
+            
+            if (isset($post['reply_id'])) {
+                $this->replyModel->update($id, [
+                    'content' => $purifier->purify($post['content']),
+                ]);
+
+                return response()->setJSON([
+                    'status' => 200,
+                    'message' => 'Balasan berhasil diperbarui.'
+                ]);
+            }
+
+            $thread = $this->threadModel->find($id);
             $title = $purifier->purify($post['title']);
+
+            // get last number slug example: lorem-ipsum-dolor-sit-amet-12345
+            $lastSlug = explode('-', $thread->slug);
+            $numberId = end($lastSlug);
+
+            // jika terakhir explode bukan angka, maka set random number
+            if (!is_numeric($numberId)) {
+                $numberId = rand(10000, 99999);
+            }
 
             $this->threadModel->update($id, [
                 'title'=> $title,
-                'slug' => slug($title),
+                'slug' => slug($title) . '-' . $numberId,
                 'content' => $purifier->purify($post['content']),
             ]);
 
             $tags = [];
+            
             foreach ($post['tag_ids'] as $tag) {
                 $slug = slug($tag);
                 $pattern = '/[#@$%^*()+=\-[\]\';,.\/{}|":<>?~\\_\\\\]/';
@@ -244,7 +303,7 @@ class DiskusiController extends BaseController
                 'status' => 200,
                 'data' => $data
             ]);
-        }
+        } 
         
         return false;
     }
@@ -259,11 +318,11 @@ class DiskusiController extends BaseController
         $post = $this->request->getPost();
         $rule = [
             'content' => [
-                'rules' => "required|min_length[10]|max_length[10000]|string",
+                'rules' => "required|min_length[10]|max_length[20000]|string",
                 'errors' => [
                     'required' => 'Konten diskusi harus diisi.',
                     'min_length' => 'Konten diskusi minimal 10 karakter.',
-                    'max_length' => 'Konten diskusi maksimal 10000 karakter.',
+                    'max_length' => 'Konten diskusi maksimal 20000 karakter.',
                     'string' => 'Konten diskusi hanya boleh berisi huruf dan spasi.',
                 ]
             ]
@@ -279,9 +338,14 @@ class DiskusiController extends BaseController
 
         $this->db->transBegin();
         try {
-            empty($post['reply_id']) 
-                ? $this->threadModel->reply($post)
-                : $this->threadModel->reply($post, true);
+            $this->replyModel->save([
+                'content' => $post['content'],
+                'approved' => 1,
+                'thread_id' => base64_decode($post['thread_id']),
+                'user_id' => auth()->id,
+                'child_id' => $post['child_id'] !== "" ? base64_decode($post['child_id']) : null,
+                'parent_id' => $post['parent_id'] !== "" ? base64_decode($post['parent_id']) : null,
+            ]);
 
             return response()->setJSON([
                 'status' => 200,
@@ -290,6 +354,53 @@ class DiskusiController extends BaseController
         } catch (\Throwable $th) {
             $this->db->transRollback();
 
+            return response()->setJSON([
+                'status' => 400,
+                'message' => $th->getMessage()
+            ]);
+        } finally {
+            $this->db->transCommit();
+        }
+    }
+
+    /**
+     * Reply delete the specified resource from storage.
+     * 
+     * @return void
+     */
+    public function replyDestroy()
+    {
+        $post = $this->request->getPost();
+
+        $this->db->transBegin();
+        try {
+            $id = base64_decode($post['id']);
+            $reply = $this->replyModel->find($id);
+
+            // jika ada child, maka hapus childnya
+            if ($reply->childs) {
+                foreach ($reply->childs as $child) {
+                    if ($child->likes) {
+                        $this->replyModel->deleteLikes($child);
+                    }
+
+                    $this->replyModel->delete($child->id);
+                }
+            }
+
+            if ($reply->likes) {
+                $this->replyModel->deleteLikes($reply);
+            }
+
+            $this->replyModel->delete($id);
+            
+            return response()->setJSON([
+                'status' => 200,
+                'message' => 'Balasan berhasil dihapus.'
+            ]);
+        } catch (\Throwable $th) {
+            $this->db->transRollback();
+            
             return response()->setJSON([
                 'status' => 400,
                 'message' => $th->getMessage()
@@ -468,37 +579,43 @@ class DiskusiController extends BaseController
      * 
      * @return array
      */
-    private function rules($id = null)
+    private function rules($id = null, $hasReplyId = false)
     {
         $unique = $id ? ",id,$id" : '';
 
-        return [
-            'title' => [
-                'rules' => "required|min_length[3]|max_length[100]|string|alpha_numeric_space|is_unique[threads.slug$unique]",
-                'errors' => [
-                    'required' => 'Judul diskusi harus diisi.',
-                    'min_length' => 'Judul diskusi minimal 3 karakter.',
-                    'max_length' => 'Judul diskusi maksimal 100 karakter.',
-                    'alpha_numeric_space' => 'Judul hanya boleh berisi huruf dan angka.',
-                    'is_unique' => 'Judul diskusi sudah ada.',
-                ]
-            ],
-            'category_id' => [
-                'rules' => "required",
-                'errors' => [
-                    'required' => 'Kategori diskusi harus dipilih.',
-                ]
-            ],
-            'tag_ids' => ['rules' => "permit_empty"],
+        if (!$hasReplyId) { // jika bukan edit balasan
+            $ruleDiskusi = [
+                'title' => [
+                    'rules' => "required|min_length[3]|max_length[100]|string|thread_title|is_unique[threads.slug$unique]",
+                    'errors' => [
+                        'required' => 'Judul diskusi harus diisi.',
+                        'min_length' => 'Judul diskusi minimal 3 karakter.',
+                        'max_length' => 'Judul diskusi maksimal 100 karakter.',
+                        'is_unique' => 'Judul diskusi sudah ada.',
+                    ]
+                ],
+                'category_id' => [
+                    'rules' => "required",
+                    'errors' => [
+                        'required' => 'Kategori diskusi harus dipilih.',
+                    ]
+                ],
+                'tag_ids' => ['rules' => "permit_empty"],
+            ];
+        }
+
+        $defaultRule = [
             'content' => [
-                'rules' => "required|min_length[10]|max_length[10000]|string",
+                'rules' => "required|min_length[10]|max_length[20000]|string",
                 'errors' => [
                     'required' => 'Konten diskusi harus diisi.',
                     'min_length' => 'Konten diskusi minimal 10 karakter.',
-                    'max_length' => 'Konten diskusi maksimal 10000 karakter.',
+                    'max_length' => 'Konten diskusi maksimal 20000 karakter.',
                     'string' => 'Konten diskusi hanya boleh berisi huruf dan spasi.',
                 ]
             ]
         ];
+
+        return array_merge($defaultRule, $ruleDiskusi ?? []);
     }
 }

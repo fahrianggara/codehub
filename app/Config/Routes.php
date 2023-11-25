@@ -61,6 +61,8 @@ $routes->post('update-thread', 'DiskusiController::update', ['as' => 'diskusi.up
 $routes->post('like-thread', 'DiskusiController::like', ['as' => 'diskusi.like', 'filter' => 'auth']);
 $routes->post('reply-show-thread', 'DiskusiController::replyShow', ['as' => 'diskusi.reply-show', 'filter' => 'auth']);
 $routes->post('reply-thread', 'DiskusiController::reply', ['as' => 'diskusi.reply', 'filter' => 'auth']);
+$routes->post('reply-destroy', 'DiskusiController::replyDestroy', ['as' => 'diskusi.reply-destroy', 'filter' => 'auth']);
+$routes->get('d/(:segment)', 'DiskusiController::show/$1', ['as' => 'diskusi.show']);
 
 // Profile User
 $routes->post('edit-avatar', 'ProfileController::editAvatar', ['as' => 'profile.edit-avatar', 'filter' => 'auth']);
