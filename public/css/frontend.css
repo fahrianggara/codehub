@@ -902,9 +902,6 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 
 @media (max-width: 576.98px) {
-	.thread-header-panel {
-		margin-left: 35px;
-	}
 	.thread-sub {
 		margin-left: 35px;
 		padding-left: 0;
