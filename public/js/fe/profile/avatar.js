@@ -90,6 +90,9 @@ $(document).ready(function () {
 
     cropButton.off("click").on('click', function (e) {
         if (cropper) {
+            cropButton.attr('disabled', true)
+                .html('<i class="fa fa-spinner fa-spin"></i> Loading...');
+
             if (imageType === 'image/gif') {
                 cropImageWithTypeGif();
             } else {
@@ -126,8 +129,8 @@ $(document).ready(function () {
      */
     function cropImageWithOutTypeGif() {  
         var canvas = cropper.getCroppedCanvas({
-            width: 500,
-            height: 500,
+            width: 300,
+            height: 300,
         });
 
         canvas.toBlob((blob) => {
@@ -138,9 +141,6 @@ $(document).ready(function () {
                 base64image.val(reader.result);
             };
         });
-
-        cropButton.attr('disabled', true)
-            .html('<i class="fa fa-spinner fa-spin"></i> Loading...');
 
         setTimeout(function () {
             form.submit();
@@ -160,8 +160,8 @@ $(document).ready(function () {
                 },
                 src: sampleImage[0].src,
                 background: '#fff',
-                maxWidth: 500,
-                maxHeight: 500,
+                maxWidth: 180,
+                maxHeight: 180,
                 onerror: function (code, error) {
                     alertify.alert(error);
                 }
@@ -173,9 +173,6 @@ $(document).ready(function () {
                     base64image.val(reader.result);
                 };
                 reader.readAsDataURL(blob);
-
-                cropButton.attr('disabled', true)
-                    .html('<i class="fa fa-spinner fa-spin"></i> Loading...');
 
                 setTimeout(function () {
                     form.submit();
