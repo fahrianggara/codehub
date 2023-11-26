@@ -128,10 +128,14 @@ function handleCropImage(modalCrop, btnCrop, cropper, sampleImage, imageField, i
         aspectRatio = 1 / 1;
         width = 600;
         height = 600;
-    } else {
+    } else if (imageField == 'banner') {
         aspectRatio = 3 / 1;
         width = 1200;
         height = 400;
+    } else {
+        aspectRatio = 16 / 9;
+        width = 1080;
+        height = 566;
     }
 
     modalCrop.on('shown.bs.modal', function () {

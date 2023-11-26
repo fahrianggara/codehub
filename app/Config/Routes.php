@@ -40,6 +40,16 @@ $routes->group('admin', ['filter' => ['auth', 'is_admin'], 'namespace' => Backen
         $routes->get('(:segment)/edit', 'LaporanController::edit/$1', ['as' => 'admin.laporan.edit']);
     });
 
+    //kategori
+    $routes->group('kategori', function (RouteCollection $routes) {
+        $routes->get('/', 'KategoriController::index', ['as' => 'admin.kategori']);
+        $routes->get('create', 'KategoriController::create', ['as' => 'admin.kategori.create']);
+        $routes->post('store', 'KategoriController::store', ['as' => 'admin.kategori.store']);
+        $routes->post('destroy', 'KategoriController::destroy', ['as' => 'admin.kategori.destroy']);
+        $routes->post('update', 'KategoriController::update', ['as' => 'admin.kategori.update']);
+        $routes->get('(:segment)/edit', 'KategoriController::edit/$1', ['as' => 'admin.kategori.edit']);
+    });
+
     // Tags
     $routes->group('tags', function (RouteCollection $routes) {
         $routes->get('/', 'TagsController::index', ['as' => 'admin.Tags']);
