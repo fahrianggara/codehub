@@ -7,7 +7,7 @@ use App\Controllers\BaseController;
 use CodeIgniter\Exceptions\PageNotFoundException;
 
 class PenggunaController extends BaseController
-{    
+{
     /**
      * Display a listing of the resource.
      *
@@ -186,7 +186,7 @@ class PenggunaController extends BaseController
             $rule_merge = [
                 'password' => [
                     'rules' => 'required|min_length[8]|max_length[16]',
-                    'errors'=> [
+                    'errors' => [
                         'required' => 'Kata sandi harus diisi.',
                         'min_length' => 'Kata sandi minimal 8 karakter.',
                         'max_length' => 'Kata sandi maksimal 16 karakter.'
