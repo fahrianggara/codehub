@@ -91,7 +91,7 @@ class KategoriController extends BaseController
 
         $this->db->transBegin();
         try {
-            $cover = $request->getVar('blob_cover') ? uploadImageBlob($request->getVar('blob_avatar'), 'images/categories', $categories->cover) : $categories->cover;
+            $cover = $request->getVar('blob_cover') ? uploadImageBlob($request->getVar('blob_cover'), 'images/categories', $categories->cover) : $categories->cover;
            
 
             $this->categoryModel->save([

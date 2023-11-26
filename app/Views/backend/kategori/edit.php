@@ -5,6 +5,7 @@
         <div class="col-xl-9 col-lg-12">
             <form id="formCreate" action="<?= route_to('admin.kategori.update') ?>" class="card" autocomplete="off" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="id" value="<?= base64_encode($categories->id) ?>">
+                
                 <input type="hidden" name="blob_cover">
                 <input type="hidden" name="_method" value="POST">
                 <?= csrf_field() ?>
