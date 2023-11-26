@@ -105,7 +105,7 @@
                 <ul class="list-group thread-reply">
                     <li>
                         <div class="thread-reply-box">
-                            <div class="mb-2 mt-1 d-flex align-items-center justify-content-between">
+                            <div class="thread-reply-box-header">
                                 <a class="thread-author" href="<?= route_to('profile', $user->username) ?>">
                                     <img class="mr-2 profile-pic-detail" src="<?= $user->photo ?>">
                                     <div class="name-content">
@@ -138,29 +138,31 @@
                                     </div>
                                 </div>
                             </div>
-                            <div>
-                                <h3 class="thread-comment-title mb-2">
-                                    <?= $thread->title ?>
-                                </h3>
-                                <div class="thread-comment d-block">
-                                    <?= $thread->content ?>
+                            <div class="thread-reply-box-body">
+                                <div>
+                                    <h3 class="thread-comment-title m-0 mb-2">
+                                        <?= $thread->title ?>
+                                    </h3>
+                                    <div class="thread-comment d-block">
+                                        <?= $thread->content ?>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="thread-action d-flex justify-content-between align-items-center">
-                                <ul class="thread-categories">
-                                    <li class="d-none"></li>
-                                    <?php if ($thread->tags): ?>
-                                        <?php foreach ($thread->tags as $tag): ?>
-                                            <li class="mb-0">
-                                                <a href="javascript:void(0)">
-                                                    <?= $tag->name ?>
-                                                </a>
-                                            </li>
-                                        <?php endforeach ?>
-                                    <?php endif; ?>
-                                </ul>
-                                <div class="thread-tengah">
-                                    <?= buttonLike($thread) ?>
+                                <div class="thread-action d-flex justify-content-between align-items-center">
+                                    <ul class="thread-categories">
+                                        <li class="d-none"></li>
+                                        <?php if ($thread->tags): ?>
+                                            <?php foreach ($thread->tags as $tag): ?>
+                                                <li class="mb-0">
+                                                    <a href="javascript:void(0)">
+                                                        <?= $tag->name ?>
+                                                    </a>
+                                                </li>
+                                            <?php endforeach ?>
+                                        <?php endif; ?>
+                                    </ul>
+                                    <div class="thread-tengah">
+                                        <?= buttonLike($thread) ?>
+                                    </div>
                                 </div>
                             </div>
                         </div>
