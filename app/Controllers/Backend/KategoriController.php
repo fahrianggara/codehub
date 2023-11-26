@@ -121,7 +121,7 @@ class KategoriController extends BaseController
             $id = base64_decode(request()->getVar('id'));
             $categories = $this->categoryModel->find($id);
 
-            deleteImage("images/cover", $categories->cover); // hapus cover
+            deleteImage("images/categories", $categories->cover); // hapus cover
             
 
             $this->categoryModel->delete($id); // hapus user

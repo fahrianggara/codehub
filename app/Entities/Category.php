@@ -20,4 +20,4 @@ class Category extends Entity
         $path = 'images/categories/' . $this->attributes['cover'];
         return file_exists($path) ? base_url($path) : base_url('images/empty.png');
     }
-}
+    }
