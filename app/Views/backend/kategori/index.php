@@ -14,13 +14,14 @@
                     </div>
                 </div>
                 <div class="card-body table-responsive">
-                    <table id="tablePengguna" class="table table-hover">
+                    <table id="tableKategori" class="table table-hover">
                         <thead>
                             <tr>
                                 <th>#</th>
                                 <th>Nama</th>
                                 <th>slug</th>
                                 <th>cover</th>
+                                <th>Jumlah Dipakai</th>
                                 <th>Dibuat Pada</th>
                                 <th>&nbsp;</th>
                             </tr>
@@ -36,6 +37,7 @@
                                     <td>
                                         <img src="<?= $category->photo ?>" alt="" class="img-fluid" width="80">
                                     </td>
+                                    <td><?= count($category->getThreads()) ?></td>
                                     <td><?= waktu($category->created_at, 'l, d F Y', false) ?></td>
                                     <td>
                                         <div class="btn-group dropleft">
@@ -46,8 +48,7 @@
                                                 <a href="<?= route_to('admin.kategori.edit', $id) ?>" class="dropdown-item py-1">
                                                     <i class="fas text-warning fa-pen mr-2"></i> Edit
                                                 </a>
-                                                <button type="button" value="<?= $id ?>" class="dropdown-item py-1 btn-delete"
-                                                    data-name=" <?= $category->name ?>" data-id="<?= $category->id ?>" data-action="<?= route_to('admin.kategori.destroy') ?>">
+                                                <button type="button" value="<?= $id ?>" class="dropdown-item py-1 btn-delete" data-name=" <?= $category->name ?>" data-id="<?= $category->id ?>" data-action="<?= route_to('admin.kategori.destroy') ?>">
                                                     <i class="fas text-danger fa-trash mr-2"></i> Hapus
                                                 </button>
                                             </div>
