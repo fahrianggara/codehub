@@ -14,13 +14,38 @@ class CategoryModel extends Model
     protected $allowedFields    = [
         'name', 'slug', 'cover'
     ];
+
     // public function threads()
     // {
     //     return $this->hasMany('App\Models\ThreadModel', 'category_id', 'id');
     // }
 
-    public function getCategoriesWithThreads()
+    // public function getCategoriesWithThreads()
+    // {
+    //     return $this->with('threads')->findAll();
+    // }
+    // public function getCategories()
+    // {
+    //     return $this->findAll();
+    // }
+
+    public function getCategory($id)
     {
-        return $this->with('threads')->findAll();
+        return $this->find($id);
+    }
+
+    public function createCategory($data)
+    {
+        return $this->insert($data);
+    }
+
+    public function updateCategory($id, $data)
+    {
+        return $this->update($id, $data);
+    }
+
+    public function deleteCategory($id)
+    {
+        return $this->delete($id);
     }
 }

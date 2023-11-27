@@ -15,6 +15,7 @@
                     </div>
 
                     <ul class="list-group mb-3">
+<<<<<<< Updated upstream
                         <li class="thread-most-item list-group-item d-flex align-items-center">
                             <a href="javascript:void(0)" class="">
                                 <img class="mr-2" src="<?= base_url('images/categories') ?>">
@@ -42,6 +43,20 @@
                                 </div>
                             </a>
                         </li>
+=======
+                        <?php foreach ($categories as $category) : ?>
+                            <li class="thread-most-item list-group-item d-flex align-items-center">
+                                <a href="javascript:void(0)" class="">
+                                    <img class="mr-2" src="<?= base_url('images/categories/' . $category->cover) ?>">
+                                    <div class="text-content">
+                                        <span class="name"><?= $category->name; ?></span>
+                                        <span class="thread-count"><?= count($category->getThreads()) ?> Diskusi Digunakan</span>
+                                    </div>
+                                </a>
+
+                            </li>
+                        <?php endforeach ?>
+>>>>>>> Stashed changes
                     </ul>
 
                     <div class="thread-header mb-3 list-group-item">
@@ -84,8 +99,7 @@
             <div class="col-lg-6 col-md-12 mb-3 order-lg-2 order-1">
                 <!-- baris tengah -->
                 <div class="most-liked">
-                    <div
-                        class="thread-header main mb-3 list-group-item d-flex justify-content-between align-items-center">
+                    <div class="thread-header main mb-3 list-group-item d-flex justify-content-between align-items-center">
                         <div class="most-title">Diskusi <span>Baru</span></div>
                         <img class="logo-most" src="<?= base_url('images/logo/sm.png') ?>">
                     </div>
@@ -101,8 +115,7 @@
                                     </div>
                                 </a>
                                 <div class="btn-group dropleft">
-                                    <button class="btn btn-sm btn-more dropdown-toggle" data-toggle="dropdown"
-                                        aria-expanded="false" data-display="static">
+                                    <button class="btn btn-sm btn-more dropdown-toggle" data-toggle="dropdown" aria-expanded="false" data-display="static">
                                         <i class="fas fa-ellipsis-h"></i>
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right">
@@ -181,8 +194,7 @@
                                     </div>
                                 </a>
                                 <div class="btn-group dropleft">
-                                    <button class="btn btn-sm btn-more dropdown-toggle" data-toggle="dropdown"
-                                        aria-expanded="false" data-display="static">
+                                    <button class="btn btn-sm btn-more dropdown-toggle" data-toggle="dropdown" aria-expanded="false" data-display="static">
                                         <i class="fas fa-ellipsis-h"></i>
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right">
@@ -261,8 +273,7 @@
                                     </div>
                                 </a>
                                 <div class="btn-group dropleft">
-                                    <button class="btn btn-sm btn-more dropdown-toggle" data-toggle="dropdown"
-                                        aria-expanded="false" data-display="static">
+                                    <button class="btn btn-sm btn-more dropdown-toggle" data-toggle="dropdown" aria-expanded="false" data-display="static">
                                         <i class="fas fa-ellipsis-h"></i>
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right">
@@ -348,15 +359,13 @@
                         <li class="list-group-item">
                             <div class="item-content mb-2 mt-1 d-flex align-items-center justify-content-between">
                                 <a class="d-flex align-items-center" href="javascript:void(0)">
-                                    <img class="mr-2 profile-pic-detail-kanan"
-                                        src="<?= base_url('images/avatar.png') ?>">
+                                    <img class="mr-2 profile-pic-detail-kanan" src="<?= base_url('images/avatar.png') ?>">
                                     <div class="name-content-kanan text-truncate">sultanjordy
                                         <span class="thread-count">2 Jam yang lalu</span>
                                     </div>
                                 </a>
                                 <div class="btn-group dropleft d-block d-lg-none">
-                                    <button class="btn btn-sm btn-more dropdown-toggle" data-toggle="dropdown"
-                                        aria-expanded="false" data-display="static">
+                                    <button class="btn btn-sm btn-more dropdown-toggle" data-toggle="dropdown" aria-expanded="false" data-display="static">
                                         <i class="fas fa-ellipsis-h"></i>
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right">
@@ -419,15 +428,13 @@
                         <li class="list-group-item">
                             <div class="item-content mb-2 mt-1 d-flex align-items-center justify-content-between">
                                 <a class="d-flex align-items-center" href="javascript:void(0)">
-                                    <img class="mr-2 profile-pic-detail-kanan"
-                                        src="<?= base_url('images/avatar.png') ?>">
+                                    <img class="mr-2 profile-pic-detail-kanan" src="<?= base_url('images/avatar.png') ?>">
                                     <div class="name-content-kanan text-truncate">sultanjordy
                                         <span class="thread-count">2 Jam yang lalu</span>
                                     </div>
                                 </a>
                                 <div class="btn-group dropleft d-block d-lg-none">
-                                    <button class="btn btn-sm btn-more dropdown-toggle" data-toggle="dropdown"
-                                        aria-expanded="false" data-display="static">
+                                    <button class="btn btn-sm btn-more dropdown-toggle" data-toggle="dropdown" aria-expanded="false" data-display="static">
                                         <i class="fas fa-ellipsis-h"></i>
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right">
@@ -490,15 +497,13 @@
                         <li class="list-group-item">
                             <div class="item-content mb-2 mt-1 d-flex align-items-center justify-content-between">
                                 <a class="d-flex align-items-center" href="javascript:void(0)">
-                                    <img class="mr-2 profile-pic-detail-kanan"
-                                        src="<?= base_url('images/avatar.png') ?>">
+                                    <img class="mr-2 profile-pic-detail-kanan" src="<?= base_url('images/avatar.png') ?>">
                                     <div class="name-content-kanan text-truncate">sultanjordy
                                         <span class="thread-count">2 Jam yang lalu</span>
                                     </div>
                                 </a>
                                 <div class="btn-group dropleft d-block d-lg-none">
-                                    <button class="btn btn-sm btn-more dropdown-toggle" data-toggle="dropdown"
-                                        aria-expanded="false" data-display="static">
+                                    <button class="btn btn-sm btn-more dropdown-toggle" data-toggle="dropdown" aria-expanded="false" data-display="static">
                                         <i class="fas fa-ellipsis-h"></i>
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right">
