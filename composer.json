@@ -12,6 +12,7 @@
     "require": {
         "php": "^7.4 || ^8.0",
         "codeigniter4/framework": "^4.0",
+        "defuse/php-encryption": "^2.4",
         "ezyang/htmlpurifier": "^4.16",
         "nesbot/carbon": "^2.71",
         "tatter/relations": "^2.1"
