@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\CategoryModel;
+use App\Models\ReportModel;
 use App\Models\TagModel;
 use App\Models\ThreadModel;
 use App\Controllers\BaseController;
@@ -13,7 +14,7 @@ use HTMLPurifier_Config, HTMLPurifier;
 class DiskusiController extends BaseController
 {
     protected $categoryModel, $tagModel, $threadModel, $replyModel;
-    
+
     /**
      * Constructor.
      *
@@ -74,9 +75,9 @@ class DiskusiController extends BaseController
             $config = HTMLPurifier_Config::createDefault();
             $purifier = new HTMLPurifier($config);
             $title = $purifier->purify($post['title']);
-            
+
             $this->threadModel->insert([
-                'title'=> $title,
+                'title' => $title,
                 'slug' => slug($title) . '-' . rand(10000, 99999),
                 'content' => $purifier->purify($post['content']),
                 'status' => 'published',
@@ -102,7 +103,7 @@ class DiskusiController extends BaseController
 
             $this->threadModel->syncCategories($insertId, $post['category_id']);
             if (!empty($tags)) $this->threadModel->syncTags($insertId, $tags);
-            
+
             return response()->setJSON([
                 'status' => 200,
                 'message' => 'Diskusi berhasil dibuat.'
@@ -147,7 +148,7 @@ class DiskusiController extends BaseController
                 'reply' => $reply,
             ]);
         }
-        
+
         return false;
     }
 
@@ -174,7 +175,7 @@ class DiskusiController extends BaseController
         try {
             $config = HTMLPurifier_Config::createDefault();
             $purifier = new HTMLPurifier($config);
-            
+
             if (isset($post['reply_id'])) {
                 $this->replyModel->update($id, [
                     'content' => $purifier->purify($post['content']),
@@ -199,13 +200,13 @@ class DiskusiController extends BaseController
             }
 
             $this->threadModel->update($id, [
-                'title'=> $title,
+                'title' => $title,
                 'slug' => slug($title) . '-' . $numberId,
                 'content' => $purifier->purify($post['content']),
             ]);
 
             $tags = [];
-            
+
             foreach ($post['tag_ids'] as $tag) {
                 $slug = slug($tag);
                 $pattern = '/[#@$%^*()+=\-[\]\';,.\/{}|":<>?~\\_\\\\]/';
@@ -261,7 +262,7 @@ class DiskusiController extends BaseController
             }
 
             $this->threadModel->delete($id);
-            
+
             return response()->setJSON([
                 'status' => 200,
                 'message' => 'Diskusi berhasil dihapus.'
@@ -303,8 +304,8 @@ class DiskusiController extends BaseController
                 'status' => 200,
                 'data' => $data
             ]);
-        } 
-        
+        }
+
         return false;
     }
 
@@ -393,14 +394,14 @@ class DiskusiController extends BaseController
             }
 
             $this->replyModel->delete($id);
-            
+
             return response()->setJSON([
                 'status' => 200,
                 'message' => 'Balasan berhasil dihapus.'
             ]);
         } catch (\Throwable $th) {
             $this->db->transRollback();
-            
+
             return response()->setJSON([
                 'status' => 400,
                 'message' => $th->getMessage()
@@ -423,7 +424,7 @@ class DiskusiController extends BaseController
 
         $this->db->transBegin();
         try {
-            $model = new $classModel; 
+            $model = new $classModel;
             $likeStatus = $model->likeOrUnlikeThread($idModel, $classModel);
 
             if ($likeStatus === 'unlike') {
@@ -464,7 +465,7 @@ class DiskusiController extends BaseController
             $id = base64_decode($post['id']);
 
             $this->threadModel->update($id, ['status' => 'draft']);
-            
+
             return response()->setJSON([
                 'status' => 200,
                 'message' => 'Diskusi berhasil di arsip.'
@@ -495,7 +496,7 @@ class DiskusiController extends BaseController
             $id = base64_decode($post['id']);
 
             $this->threadModel->update($id, ['status' => 'published']);
-            
+
             return response()->setJSON([
                 'status' => 200,
                 'message' => 'Diskusi berhasil di publish.'
@@ -524,17 +525,17 @@ class DiskusiController extends BaseController
 
         if (empty($post['search'])) {
             $categories = $this->categoryModel
-                ->orderBy('name','asc')
+                ->orderBy('name', 'asc')
                 ->findAll(5);
         } else {
-            $categories = $this->categoryModel->orderBy('name','asc')
+            $categories = $this->categoryModel->orderBy('name', 'asc')
                 ->like('name', $post['search'])->findAll(5);
         }
 
         foreach ($categories as $category) {
             $data[] = [
                 'id' => $category->id,
-                'text'=> $category->name,
+                'text' => $category->name,
             ];
         }
 
@@ -564,7 +565,7 @@ class DiskusiController extends BaseController
         foreach ($tags as $tag) {
             $data[] = [
                 'id' => $tag->name,
-                'text'=> $tag->name,
+                'text' => $tag->name,
             ];
         }
 
@@ -617,5 +618,55 @@ class DiskusiController extends BaseController
         ];
 
         return array_merge($defaultRule, $ruleDiskusi ?? []);
+    }
+
+    public function reportDiskusi()
+    {
+        if (!$this->validate([
+            'message' => [
+                'rules' => "required",
+                'errors' => [
+                    'required' => 'Pesan harus dipilih.',
+                ] 
+            ]
+        ])) {
+            return response()->setJSON([
+                'status' => 400,
+                'validate' => true,
+                'message' => $this->validator->getErrors()
+            ]);
+        }
+
+        $this->db->transBegin();
+        try {
+            $post = $this->request->getPost();
+
+            $user_id = base64_decode($post['pelaku_id']);
+            $model_id = base64_decode($post['model_id']);
+            $model_class = base64_decode($post['model_class']);
+
+            $reportModel = new ReportModel();
+
+            $reportModel->insert([
+                'message' => $post['message'],
+                'user_id' => $user_id,
+                'model_id' => $model_id,
+                'model_class' => $model_class,
+            ]);
+
+            return response()->setJSON([
+                'status' => 200,
+                'message' => 'Berhasil membuat laporan.'
+            ]);
+        } catch (\Throwable $th) {
+            $this->db->transRollback();
+
+            return response()->setJSON([
+                'status' => 400,
+                'message' => $th->getMessage()
+            ]);
+        } finally {
+            $this->db->transCommit();
+        }
     }
 }

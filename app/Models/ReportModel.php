@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Entities\Report;
 use CodeIgniter\Model;
 
+
 class ReportModel extends Model
 {
     protected $table            = 'reports';
@@ -22,5 +23,10 @@ class ReportModel extends Model
             ->get();
 
         return $query->getResult();
+    }
+
+    public function saveReport($data)
+    {
+        return $this->insert($data);
     }
 }

@@ -1,8 +1,6 @@
-
-
-<?php if ($threads): ?>
+<?php if ($threads) : ?>
     <ul class="list-group">
-        <?php foreach ( $threads as $thread ): ?>
+        <?php foreach ($threads as $thread) : ?>
             <?php $thread_id = base64_encode($thread->id) ?>
 
             <li class="list-group-item ">
@@ -19,32 +17,27 @@
                     </a>
 
                     <div class="btn-group dropleft">
-                        <button class="btn btn-sm btn-more dropdown-toggle" data-toggle="dropdown" aria-expanded="false"
-                            data-display="static">
+                        <button class="btn btn-sm btn-more dropdown-toggle" data-toggle="dropdown" aria-expanded="false" data-display="static">
                             <i class="fas fa-ellipsis-h"></i>
                         </button>
 
                         <div class="dropdown-menu dropdown-menu-right">
 
-                            <?php if (auth_check() && auth()->id === $user->id): ?>
-                                <a class="dropdown-item btn-edit-diskusi" href="javascript:void(0);"
-                                    data-id="<?= $thread_id ?>">
+                            <?php if (auth_check() && auth()->id === $user->id) : ?>
+                                <a class="dropdown-item btn-edit-diskusi" href="javascript:void(0);" data-id="<?= $thread_id ?>">
                                     <i class="fas text-warning fa-pen mr-2"></i> Edit
                                 </a>
 
-                                <a class="dropdown-item btn-hapus-diskusi" href="javascript:void(0);"
-                                    data-id="<?= $thread_id ?>">
+                                <a class="dropdown-item btn-hapus-diskusi" href="javascript:void(0);" data-id="<?= $thread_id ?>">
                                     <i class="fas text-danger fa-trash mr-2"></i> Hapus
                                 </a>
 
-                                <?php if ($thread->status === 'published'): ?> 
-                                    <a class="dropdown-item btn-draft-diskusi" href="javascript:void(0);"
-                                        data-id="<?= $thread_id ?>">
+                                <?php if ($thread->status === 'published') : ?>
+                                    <a class="dropdown-item btn-draft-diskusi" href="javascript:void(0);" data-id="<?= $thread_id ?>">
                                         <i class="fas text-secondary fa-archive mr-2"></i> Arsipkan
                                     </a>
-                                <?php else: ?> 
-                                    <a class="dropdown-item btn-publish-diskusi" href="javascript:void(0);"
-                                        data-id="<?= $thread_id ?>">
+                                <?php else : ?>
+                                    <a class="dropdown-item btn-publish-diskusi" href="javascript:void(0);" data-id="<?= $thread_id ?>">
                                         <i class="fas text-success fa-upload mr-2"></i> Publikasikan
                                     </a>
                                 <?php endif ?>
@@ -56,16 +49,19 @@
                                 <i class="fas text-info fa-share mr-2"></i>
                                 Bagikan
                             </a>
-                            
+
                             <a class="dropdown-item" href="<?= route_to('diskusi.show', $thread->slug) ?>">
                                 <i class="fas text-primary fa-external-link-alt mr-2"></i>
                                 Lihat
                             </a>
 
-                            <a class="dropdown-item btn-report-diskusi" href="javascript:void(0);">
+                            <a id="btnLaporkan" class="dropdown-item btn-report-diskusi" href="javascript:void(0);" 
+                                data-id="<?= $thread_id ?>" data-model="<?= base64_encode(getClass($thread)) ?>"
+                                data-logined="<?= auth_check() ?>" data-pelaku="<?= base64_encode($thread->user_id) ?>">
                                 <i class="fas text-warning fa-exclamation-triangle mr-2"></i>
                                 Laporkan
                             </a>
+
                         </div>
                     </div>
                 </div>
@@ -87,8 +83,8 @@
                         </a>
                     </li>
 
-                    <?php if ($thread->tags): ?>
-                        <?php foreach ($thread->tags as $tag): ?>
+                    <?php if ($thread->tags) : ?>
+                        <?php foreach ($thread->tags as $tag) : ?>
                             <li>
                                 <a href="javascript:void(0)">
                                     <?= $tag->name ?>
@@ -100,12 +96,11 @@
 
                 <div class="thread-action d-flex justify-content-between align-items-center">
                     <div></div>
-                    
+
                     <div class="thread-tengah">
                         <?= buttonLike($thread) ?>
 
-                        <button class="btn btn-reply-thread comment" data-id="<?= base64_encode($thread->id) ?>"
-                            data-url="<?= route_to('diskusi.reply-show') ?>">
+                        <button class="btn btn-reply-thread comment" data-id="<?= base64_encode($thread->id) ?>" data-url="<?= route_to('diskusi.reply-show') ?>">
                             <i class="far fa-comment"></i>
                             <small><?= $thread->count_replies ?></small>
                         </button>
@@ -117,11 +112,13 @@
                     </div>
                 </div>
             </li>
-        <?php endforeach ?>                   
+        <?php endforeach ?>
     </ul>
 
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
     <?= $pager->only(['status', 'order', 'category'])->links('user-thread', 'pg_profile') ?>
-<?php else: ?>
+<?php else : ?>
     <div class="alert alert-warning">
         <i class="fas fa-info-circle mr-2"></i>
         <span>Belum ada diskusi yang di <?= $displayStatus = ($status_selected === 'draft') ? 'arsip' : (($status_selected === 'published') ? 'publikasikan' : ''); ?>.</span>
@@ -129,12 +126,14 @@
 <?php endif ?>
 
 <?= $this->section('js') ?>
-    <?= view('frontend/diskusi/reply-modal', ['view_thread' => true]) ?>
 
-    <?php if (auth_check()): ?>
-        <?= view('frontend/diskusi/edit', ['detail' => false]) ?>
-        <script src="<?= base_url('js/fe/diskusi/delete.js') ?>"></script>
-        <script src="<?= base_url('js/fe/diskusi/status.js') ?>"></script>
-    <?php endif ?>
+<?= view('frontend/diskusi/reply-modal', ['view_thread' => true]) ?>
+<?= $this->include('frontend/diskusi/laporan') ?>
+
+<?php if (auth_check()) : ?>
+    <?= view('frontend/diskusi/edit', ['detail' => false]) ?>
+    <script src="<?= base_url('js/fe/diskusi/delete.js') ?>"></script>
+    <script src="<?= base_url('js/fe/diskusi/status.js') ?>"></script>
+<?php endif ?>
 
 <?= $this->endSection() ?>

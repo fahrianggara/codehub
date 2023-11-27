@@ -17,7 +17,7 @@
                     <ul class="list-group mb-3">
                         <li class="thread-most-item list-group-item d-flex align-items-center">
                             <a href="javascript:void(0)" class="">
-                                <img class="mr-2" src="<?= base_url('images/empty.png') ?>">
+                                <img class="mr-2" src="<?= base_url('images/categories') ?>">
                                 <div class="text-content">
                                     <span class="name">Artificial Intelligence</span>
                                     <span class="thread-count">50 Diskusi digunakan</span>

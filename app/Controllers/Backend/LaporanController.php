@@ -3,6 +3,8 @@
 namespace App\Controllers\Backend;
 
 use App\Controllers\BaseController;
+use App\Models\ReplyModel;
+use App\Models\ReportModel;
 
 class LaporanController extends BaseController
 {
@@ -71,5 +73,22 @@ class LaporanController extends BaseController
         } finally {
             $this->db->transCommit();
         }
+    }
+
+    public function reportDiskusi()
+    {
+        $reportModel = new ReplyModel();
+        $reports = $reportModel->getReports();
+
+        $data = [
+            'message' => $this->request->getPost('message'),
+            'user_id' => $this->request->getPost('user_id'),
+            'model_id' => $this->request->getPost('model_id'),
+            'model_class' => $this->request->getPost('model_class'),
+        ];
+
+        $reportModel->saveReport($data);
+
+        // Tambahkan logika untuk menampilkan pesan sukses atau gagal
     }
 }
