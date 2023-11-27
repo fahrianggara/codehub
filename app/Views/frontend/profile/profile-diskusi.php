@@ -3,7 +3,7 @@
 <?php if ($threads): ?>
     <ul class="list-group">
         <?php foreach ( $threads as $thread ): ?>
-            <?php $thread_id = base64_encode($thread->id) ?>
+            <?php $thread_id = encrypt($thread->id); ?>
 
             <li class="list-group-item ">
                 <div class="item-content mb-2 mt-1 d-flex align-items-center justify-content-between">
@@ -49,23 +49,27 @@
                                     </a>
                                 <?php endif ?>
 
-                                <div class="dropdown-divider"></div>
+                                <?php if ($thread->status === "published"): ?>
+                                    <div class="dropdown-divider"></div>
+                                <?php endif ?>
                             <?php endif ?>
 
-                            <a class="dropdown-item btn-share-diskusi" href="javascript:void(0);">
-                                <i class="fas text-info fa-share mr-2"></i>
-                                Bagikan
-                            </a>
-                            
-                            <a class="dropdown-item" href="<?= route_to('diskusi.show', $thread->slug) ?>">
-                                <i class="fas text-primary fa-external-link-alt mr-2"></i>
-                                Lihat
-                            </a>
+                            <?php if ($thread->status === "published"): ?>
+                                <a class="dropdown-item btn-share-diskusi" href="javascript:void(0);">
+                                    <i class="fas text-info fa-share mr-2"></i>
+                                    Bagikan
+                                </a>
+                                
+                                <a class="dropdown-item" href="<?= route_to('diskusi.show', $thread->slug) ?>">
+                                    <i class="fas text-primary fa-external-link-alt mr-2"></i>
+                                    Lihat
+                                </a>
 
-                            <a class="dropdown-item btn-report-diskusi" href="javascript:void(0);">
-                                <i class="fas text-warning fa-exclamation-triangle mr-2"></i>
-                                Laporkan
-                            </a>
+                                <a class="dropdown-item btn-report-diskusi" href="javascript:void(0);">
+                                    <i class="fas text-warning fa-exclamation-triangle mr-2"></i>
+                                    Laporkan
+                                </a>
+                            <?php endif ?>
                         </div>
                     </div>
                 </div>
@@ -81,9 +85,9 @@
 
                 <ul class="thread-categories">
                     <li>
-                        <a href="javascript:void(0)">
+                        <a href="<?= route_to("kategori.show", $thread->category->slug) ?>">
                             <i class="fas fa-bookmark"></i>
-                            <?= $thread->category->name ?? 'Kategori' ?>
+                            <?= $thread->category->name ?>
                         </a>
                     </li>
 
@@ -104,7 +108,8 @@
                     <div class="thread-tengah">
                         <?= buttonLike($thread) ?>
 
-                        <button class="btn btn-reply-thread comment" data-id="<?= base64_encode($thread->id) ?>"
+                        <button <?= $thread->status === "draft" ? "disabled" : ''  ?> 
+                            class="btn btn-reply-thread comment" data-id="<?= encrypt($thread->id) ?>"
                             data-url="<?= route_to('diskusi.reply-show') ?>">
                             <i class="far fa-comment"></i>
                             <small><?= $thread->count_replies ?></small>

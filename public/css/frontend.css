@@ -612,14 +612,14 @@ input[type="search"]::-webkit-search-results-decoration {
  *  THREAD REPLY
  * ======================================================================= */
 
-.thread-reply .badge-thread {
+.badge-thread {
 	border-radius: 6px;
 	font-size: 10px;
 	font-weight: 500;
 	background-color: #fff;
 	color: var(--primary-color);
 	position: relative;
-	bottom: 2px;
+	bottom: 1.5px;
 	transition: all 0.1s ease-in-out;
 }
 
@@ -1220,8 +1220,8 @@ input[type="search"]::-webkit-search-results-decoration {
 	color: var(--danger);
 }
 
-.thread .thread-tengah .btn.comment:hover i,
-.thread .thread-kanan .btn.comment:hover i {
+.thread .thread-tengah .btn:not([disabled]).comment:hover i,
+.thread .thread-kanan .btn:not([disabled]).comment:hover i {
 	color: var(--primary-color);
 }
 

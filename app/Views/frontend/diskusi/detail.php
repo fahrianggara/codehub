@@ -9,7 +9,7 @@
             <div class="col-xl-3 col-lg-4 col-md-12 mb-3 order-lg-1 order-3">
                 <div class="sticky">
                     <button class="btn btn-reply-thread in-side mb-3" type="button" 
-                        data-id="<?= base64_encode($thread->id) ?>">
+                        data-id="<?= encrypt($thread->id) ?>">
                         <i class="fas fa-comment mr-2"></i> Balas Diskusi Ini..
                     </button>
 
@@ -96,7 +96,7 @@
                         <ul>
                             <li><i class="fas fa-eye"></i> <?= $thread->views ?></li>
                             <li><i class="fas fa-comments"></i> <?= $thread->count_replies ?></li>
-                            <li><a href="javascript:void(0)"><?= $category->name ?></a></li>
+                            <li><a href="<?= route_to("kategori.show", $category->slug) ?>"><?= $category->name ?></a></li>
                         </ul>
                     </div>
                 </div>
@@ -124,7 +124,7 @@
                                     <div class="dropdown-menu dropdown-menu-right">
                                         <?php if (isAuthor($thread, $user) && (auth_check() && auth()->id === $thread->user_id)): ?>
                                             <a class="dropdown-item btn-edit-diskusi" href="javascript:void(0);"
-                                                data-id="<?= base64_encode($thread->id) ?>">
+                                                data-id="<?= encrypt($thread->id) ?>">
                                                 <i class="fas text-warning fa-pen mr-2"></i> Edit
                                             </a>
 
@@ -178,7 +178,7 @@
                     <?php endif; ?>
 
                     <li>
-                        <button class="btn-reply-thread" type="button" data-id="<?= base64_encode($thread->id) ?>" 
+                        <button class="btn-reply-thread" type="button" data-id="<?= encrypt($thread->id) ?>" 
                             data-url="<?= route_to('diskusi.reply-show') ?>">
                             <img src="<?= auth_check() ? auth()->photo : base_url('images/avatar.png') ?>"> 
                             Balas Diskusi Ini..
@@ -201,7 +201,7 @@
         <?= view('frontend/diskusi/edit', ['detail' => true]) ?>
     <?php endif; ?>
 
-    <button class="btn-reply-thread fixed" type="button" data-id="<?= base64_encode($thread->id) ?>" 
+    <button class="btn-reply-thread fixed" type="button" data-id="<?= encrypt($thread->id) ?>" 
         data-url="<?= route_to('diskusi.reply-show') ?>">
         <i class="fas fa-comment"></i>
     </button>

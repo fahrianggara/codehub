@@ -25,12 +25,12 @@
                 <div class="dropdown-menu dropdown-menu-right">
                     <?php if (auth_check() && auth()->id === $child->user_id): ?>
                         <a class="dropdown-item btn-edit-balasan" href="javascript:void(0);"
-                            data-id="<?= base64_encode($child->id) ?>">
+                            data-id="<?= encrypt($child->id) ?>">
                             <i class="fas text-warning fa-pen mr-2"></i> Edit
                         </a>
 
                         <a class="dropdown-item btn-hapus-balasan" href="javascript:void(0);"
-                            data-id="<?= base64_encode($child->id) ?>">
+                            data-id="<?= encrypt($child->id) ?>">
                             <i class="fas text-danger fa-trash mr-2"></i> Hapus
                         </a>
 
@@ -53,10 +53,10 @@
                 <div class="thread-tengah">
                     <?= buttonLike($child) ?>
                     <button class="btn btn-reply-thread-child"
-                        data-thread_id="<?= base64_encode($child->thread->id) ?>"
-                        data-reply_id="<?= base64_encode($child->id) ?>"
-                        data-child_id="<?= base64_encode($child->child_id) ?>"
-                        data-parent_id="<?= base64_encode($child->id)  ?>"
+                        data-thread_id="<?= encrypt($child->thread->id) ?>"
+                        data-reply_id="<?= encrypt($child->id) ?>"
+                        data-child_id="<?= encrypt($child->child_id) ?>"
+                        data-parent_id="<?= encrypt($child->id)  ?>"
                         data-username="<?= $user->username ?>">
                         <small>Balas</small>
                     </button>

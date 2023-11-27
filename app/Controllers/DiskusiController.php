@@ -129,7 +129,7 @@ class DiskusiController extends BaseController
         $post = $this->request->getPost();
 
         if (isset($post['id'])) {
-            $id = base64_decode($post['id']);
+            $id = decrypt($post['id']);
             $thread = $this->threadModel->select('id, title, content')->find($id);
 
             return response()->setJSON([
@@ -139,7 +139,7 @@ class DiskusiController extends BaseController
                 'tags' => $thread->tags
             ]);
         } else if (isset($post['reply_id'])) {
-            $id = base64_decode($post['reply_id']);
+            $id = decrypt($post['reply_id']);
             $reply = $this->replyModel->select('id, content')->find($id);
 
             return response()->setJSON([
@@ -159,7 +159,7 @@ class DiskusiController extends BaseController
     public function update()
     {
         $post = $this->request->getPost();
-        $id = base64_decode(isset($post['id']) ? $post['id'] : $post['reply_id']);
+        $id = decrypt(isset($post['id']) ? $post['id'] : $post['reply_id']);
         $hasReplyId = isset($post['reply_id']);
 
         if (!$this->validate($this->rules($id, $hasReplyId))) {
@@ -249,7 +249,7 @@ class DiskusiController extends BaseController
 
         $this->db->transBegin();
         try {
-            $id = base64_decode($post['id']);
+            $id = decrypt($post['id']);
             $thread = $this->threadModel->find($id);
 
             if ($thread->likes) {
@@ -288,7 +288,7 @@ class DiskusiController extends BaseController
         $post = $this->request->getPost();
 
         if (isset($post['id'])) {
-            $id = base64_decode($post['id']);
+            $id = decrypt($post['id']);
             $thread = $this->threadModel->with(['users', 'replies'])->find($id);
 
             $data = [
@@ -341,10 +341,10 @@ class DiskusiController extends BaseController
             $this->replyModel->save([
                 'content' => $post['content'],
                 'approved' => 1,
-                'thread_id' => base64_decode($post['thread_id']),
+                'thread_id' => decrypt($post['thread_id']),
                 'user_id' => auth()->id,
-                'child_id' => $post['child_id'] !== "" ? base64_decode($post['child_id']) : null,
-                'parent_id' => $post['parent_id'] !== "" ? base64_decode($post['parent_id']) : null,
+                'child_id' => $post['child_id'] !== "" ? decrypt($post['child_id']) : null,
+                'parent_id' => $post['parent_id'] !== "" ? decrypt($post['parent_id']) : null,
             ]);
 
             return response()->setJSON([
@@ -374,7 +374,7 @@ class DiskusiController extends BaseController
 
         $this->db->transBegin();
         try {
-            $id = base64_decode($post['id']);
+            $id = decrypt($post['id']);
             $reply = $this->replyModel->find($id);
 
             // jika ada child, maka hapus childnya
@@ -418,12 +418,12 @@ class DiskusiController extends BaseController
     public function like()
     {
         $post = $this->request->getPost();
-        $idModel = base64_decode($post['id']);
-        $classModel = base64_decode($post['class']); // value: App\Models\ThreadModel
+        $idModel = decrypt($post['id']);
+        $classModel = decrypt($post['class']); // value: App\Models\ThreadModel or App\Models\ReplyModel
 
         $this->db->transBegin();
         try {
-            $model = new $classModel; 
+            $model = new $classModel;
             $likeStatus = $model->likeOrUnlikeThread($idModel, $classModel);
 
             if ($likeStatus === 'unlike') {
@@ -461,7 +461,7 @@ class DiskusiController extends BaseController
 
         $this->db->transBegin();
         try {
-            $id = base64_decode($post['id']);
+            $id = decrypt($post['id']);
 
             $this->threadModel->update($id, ['status' => 'draft']);
             
@@ -492,13 +492,13 @@ class DiskusiController extends BaseController
 
         $this->db->transBegin();
         try {
-            $id = base64_decode($post['id']);
+            $id = decrypt($post['id']);
 
             $this->threadModel->update($id, ['status' => 'published']);
             
             return response()->setJSON([
                 'status' => 200,
-                'message' => 'Diskusi berhasil di publish.'
+                'message' => 'Diskusi berhasil di publikasikan.'
             ]);
         } catch (\Throwable $th) {
             $this->db->transRollback();

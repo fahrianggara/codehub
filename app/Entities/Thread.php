@@ -3,6 +3,7 @@
 namespace App\Entities;
 
 use App\Models\ReplyModel;
+use App\Models\UserModel;
 use Config\Database;
 use CodeIgniter\Entity\Entity;
 
@@ -21,7 +22,13 @@ class Thread extends Entity
     public function __construct()
     {
         $this->db = Database::connect();
-    }   
+    }
+
+    public function getUser()
+    {
+        $userModel = new UserModel();
+        return $userModel->where('id', $this->attributes['user_id'])->first();
+    }
 
     /**
      * Get Category

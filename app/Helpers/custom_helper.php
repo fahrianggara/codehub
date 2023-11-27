@@ -3,7 +3,7 @@
 use App\Models\UserModel;
 use Carbon\Carbon;
 
-define("ENCRYPTION_KEY", 'q$v#%&/()=?QWERTY<>1234567890#!$^#^%#');
+define("ENCRYPTION_KEY", 'q$v#%&/()=?QWERTY<>1234567890#!$^#^%#@_)^^$#fweHR#@$GM<>?:}|{P+_)(*&^%$#@!~`');
 
 /**
  * encrypt
@@ -264,8 +264,8 @@ function print_data($data)
 function buttonLike($entity)
 {
     $textDanger = $entity->like ? 'text-danger' : '';
-    $dataId = base64_encode($entity->id);
-    $dataClass = base64_encode(getClass($entity));
+    $dataId = encrypt($entity->id);
+    $dataClass = encrypt(getClass($entity));
     $countLikes = count($entity->likes);
     $icon = $entity->like ? 's fa-beat' : 'r';
     $logined = auth_check() ? true : false;
