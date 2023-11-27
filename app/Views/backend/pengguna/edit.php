@@ -9,7 +9,7 @@
             <form id="formEdit" action="<?= route_to('admin.pengguna.update') ?>" class="card" 
                 autocomplete="off" method="post" enctype="multipart/form-data">
 
-                <input type="hidden" name="id" value="<?= base64_encode($user->id) ?>">
+                <input type="hidden" name="id" value="<?= encrypt($user->id) ?>">
                 <input type="hidden" name="blob_avatar">
                 <input type="hidden" name="blob_banner">
                 <input type="hidden" name="_method" value="POST">
