@@ -8,11 +8,8 @@
 
             <div class="col-xl-3 col-lg-4 col-md-12 mb-3 order-lg-1 order-3">
                 <div class="sticky">
-<<<<<<< HEAD
-                    <button class="btn btn-reply-thread in-side mb-3" type="button" data-id="<?= base64_encode($thread->id) ?>" data-url="<?= route_to('diskusi.reply-show') ?>">
-=======
-                    <button class="btn btn-reply-thread in-side mb-3" type="button" 
-                        data-id="<?= encrypt($thread->id) ?>">
+
+                    <button class="btn btn-reply-thread in-side mb-3" type="button" data-id="<?= encrypt($thread->id) ?>">
                         <i class="fas fa-comment mr-2"></i> Balas Diskusi Ini..
                     </button>
 
@@ -118,15 +115,14 @@
                                         </div>
                                         <div class="thread-count text-truncate"><?= ago($thread->created_at) ?></div>
                                     </div>
-                                </a>    
+                                </a>
                                 <div class="btn-group dropleft">
                                     <button class="btn btn-sm btn-more dropdown-toggle" data-toggle="dropdown" aria-expanded="false" data-display="static">
                                         <i class="fas fa-ellipsis-h"></i>
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right">
-                                        <?php if (isAuthor($thread, $user) && (auth_check() && auth()->id === $thread->user_id)): ?>
-                                            <a class="dropdown-item btn-edit-diskusi" href="javascript:void(0);"
-                                                data-id="<?= encrypt($thread->id) ?>">
+                                        <?php if (isAuthor($thread, $user) && (auth_check() && auth()->id === $thread->user_id)) : ?>
+                                            <a class="dropdown-item btn-edit-diskusi" href="javascript:void(0);" data-id="<?= encrypt($thread->id) ?>">
                                                 <i class="fas text-warning fa-pen mr-2"></i> Edit
                                             </a>
 
@@ -136,7 +132,7 @@
                                             <i class="fas text-info fa-share mr-2"></i>
                                             Bagikan
                                         </a>
-                                        <a id="btnLaporkan" class="dropdown-item btn-report-diskusi" href="javascript:void(0);" data-id="<?= base64_encode($thread->id) ?>" data-model="<?= base64_encode(getClass($thread)) ?>" data-logined="<?= auth_check() ?>" data-pelaku="<?= base64_encode($thread->user_id) ?>">
+                                        <a id="btnLaporkan" class="dropdown-item btn-report-diskusi" href="javascript:void(0);" data-id="<?= encrypt($thread->id) ?>" data-model="<?= encrypt(getClass($thread)) ?>" data-logined="<?= auth_check() ?>" data-pelaku="<?= encrypt($thread->user_id) ?>">
                                             <i class="fas text-warning fa-exclamation-triangle mr-2"></i>
                                             Laporkan
                                         </a>
@@ -152,29 +148,12 @@
                                         <?= $thread->content ?>
                                     </div>
                                 </div>
-<<<<<<< HEAD
-                            </div>
-                            <div class="thread-action d-flex justify-content-between align-items-center">
-                                <ul class="thread-categories">
-                                    <li class="d-none"></li>
-                                    <?php if ($thread->tags) : ?>
-                                        <?php foreach ($thread->tags as $tag) : ?>
-                                            <li class="mb-0">
-                                                <a href="javascript:void(0)">
-                                                    <?= $tag->name ?>
-                                                </a>
-                                            </li>
-                                        <?php endforeach ?>
-                                    <?php endif; ?>
-                                </ul>
-                                <div class="thread-tengah">
-                                    <?= buttonLike($thread) ?>
-=======
+
                                 <div class="thread-action d-flex justify-content-between align-items-center">
                                     <ul class="thread-categories">
                                         <li class="d-none"></li>
-                                        <?php if ($thread->tags): ?>
-                                            <?php foreach ($thread->tags as $tag): ?>
+                                        <?php if ($thread->tags) : ?>
+                                            <?php foreach ($thread->tags as $tag) : ?>
                                                 <li class="mb-0">
                                                     <a href="javascript:void(0)">
                                                         <?= $tag->name ?>
@@ -186,9 +165,9 @@
                                     <div class="thread-tengah">
                                         <?= buttonLike($thread) ?>
                                     </div>
->>>>>>> ae34ca0c437169a6ee1f21e43f8ce10454eff978
                                 </div>
                             </div>
+
                         </div>
                     </li>
 
@@ -199,9 +178,8 @@
                     <?php endif; ?>
 
                     <li>
-                        <button class="btn-reply-thread" type="button" data-id="<?= encrypt($thread->id) ?>" 
-                            data-url="<?= route_to('diskusi.reply-show') ?>">
-                            <img src="<?= auth_check() ? auth()->photo : base_url('images/avatar.png') ?>"> 
+                        <button class="btn-reply-thread" type="button" data-id="<?= encrypt($thread->id) ?>" data-url="<?= route_to('diskusi.reply-show') ?>">
+                            <img src="<?= auth_check() ? auth()->photo : base_url('images/avatar.png') ?>">
                             Balas Diskusi Ini..
                         </button>
                     </li>
@@ -216,20 +194,21 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('js') ?>
-<?= $this->include('frontend/diskusi/laporan') ?>
 
-<?php if (auth_check()) : ?>
-    <?= view('frontend/diskusi/reply-edit') ?>
-    <?= view('frontend/diskusi/edit', ['detail' => true]) ?>
-<?php endif; ?>
+    <?= $this->include('frontend/diskusi/laporan') ?>
+
+    <?php if (auth_check()) : ?>
+        <?= view('frontend/diskusi/reply-edit') ?>
+        <?= view('frontend/diskusi/edit', ['detail' => true]) ?>
+    <?php endif; ?>
 
     <button class="btn-reply-thread fixed" type="button" data-id="<?= encrypt($thread->id) ?>" 
         data-url="<?= route_to('diskusi.reply-show') ?>">
         <i class="fas fa-comment"></i>
     </button>
 
-<?= view('frontend/diskusi/reply-modal', ['view_thread' => false]) ?>
+    <?= view('frontend/diskusi/reply-modal', ['view_thread' => false]) ?>
 
-<script src="<?= base_url('js/fe/diskusi/reply-delete.js') ?>"></script>
+    <script src="<?= base_url('js/fe/diskusi/reply-delete.js') ?>"></script>
 
 <?= $this->endSection() ?>

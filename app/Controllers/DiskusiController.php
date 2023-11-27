@@ -641,9 +641,9 @@ class DiskusiController extends BaseController
         try {
             $post = $this->request->getPost();
 
-            $user_id = base64_decode($post['pelaku_id']);
-            $model_id = base64_decode($post['model_id']);
-            $model_class = base64_decode($post['model_class']);
+            $user_id = decrypt($post['pelaku_id']);
+            $model_id = decrypt($post['model_id']);
+            $model_class = decrypt($post['model_class']);
 
             $reportModel = new ReportModel();
 

@@ -2,12 +2,12 @@
 
 <li>
     <div class="thread-reply-box main-reply">
-        <div class="mb-2 mt-1 d-flex align-items-center justify-content-between">
+        <div class="thread-reply-box-header">
             <a class="thread-author" href="<?= route_to('profile',$user->username) ?>">
                 <img class="mr-2 profile-pic-detail" src="<?= $user->photo ?>">
                 <div class="name-content">
                     <div class="author-name text-truncate">
-                        <?= $user->username ?>
+                        <?= $user->username ?> 
                         <?= isAuthor($thread, $user) ? '<i class="fas fa-pen"></i>' : '' ?>
                         <?= isYou($reply) ? "<span class='badge-thread text-secondary'>KAMU</span>" : '' ?>
                     </div>
@@ -17,7 +17,8 @@
                 </div>
             </a>
             <div class="btn-group dropleft">
-                <button class="btn btn-sm btn-more dropdown-toggle" data-toggle="dropdown" aria-expanded="false" data-display="static">
+                <button class="btn btn-sm btn-more dropdown-toggle" data-toggle="dropdown"
+                    aria-expanded="false" data-display="static">
                     <i class="fas fa-ellipsis-h"></i>
                 </button>
                 <div class="dropdown-menu dropdown-menu-right">
@@ -34,7 +35,10 @@
 
                         <div class="dropdown-divider"></div>
                     <?php endif ?>
-                    <a id="btnLaporkan" class="dropdown-item btn-report-diskusi" href="javascript:void(0);" data-id="<?= base64_encode($reply->id) ?>" data-model="<?= base64_encode(getClass($reply)) ?>" data-logined="<?= auth_check() ?>" data-pelaku="<?= base64_encode($reply->user_id) ?>">
+                    
+                    <a id="btnLaporkan" class="dropdown-item btn-report-diskusi" href="javascript:void(0);" 
+                        data-id="<?= encrypt($reply->id) ?>" data-model="<?= encrypt(getClass($reply)) ?>" 
+                        data-logined="<?= auth_check() ?>" data-pelaku="<?= encrypt($reply->user_id) ?>">
                         <i class="fas text-warning fa-exclamation-triangle mr-2"></i>
                         Laporkan
                     </a>
@@ -62,9 +66,9 @@
         </div>
     </div>
 
-    <?php if ($reply->childs) : ?> <!-- if reply has childs -->
+    <?php if ($reply->childs): ?> <!-- if reply has childs -->
         <ul class="thread-reply thread-sub">
-            <?php foreach ($reply->childs as $child) : ?>
+            <?php foreach($reply->childs as $child): ?>
                 <?= view('frontend/diskusi/detail/child', ['child' => $child]) ?>
             <?php endforeach ?>
         </ul>

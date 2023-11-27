@@ -5,6 +5,10 @@ $(document).ready(function () {
     var buttonLaporan = $(".btn-report-diskusi");
     var logined = buttonLaporan.data("logined");
 
+    modalLaporan.on("hidden.bs.modal", function (e) {
+        formLaporan.trigger("reset");
+    });
+
     buttonLaporan.on("click", function (e) {
         e.preventDefault();
 
@@ -56,6 +60,7 @@ $(document).ready(function () {
                 } else {
                     alertifyLog('success', res.message, () => {
                         modalLaporan.modal('hide');
+                        $("body").css('overflow', 'auto');
                     });
                 }
             }

@@ -59,8 +59,8 @@
                                 </a>
 
                                 <a id="btnLaporkan" class="dropdown-item btn-report-diskusi" href="javascript:void(0);" 
-                                data-id="<?= $thread_id ?>" data-model="<?= base64_encode(getClass($thread)) ?>"
-                                data-logined="<?= auth_check() ?>" data-pelaku="<?= base64_encode($thread->user_id) ?>">
+                                data-id="<?= $thread_id ?>" data-model="<?= encrypt(getClass($thread)) ?>"
+                                data-logined="<?= auth_check() ?>" data-pelaku="<?= encrypt($thread->user_id) ?>">
                                     <i class="fas text-warning fa-exclamation-triangle mr-2"></i>
                                     Laporkan
                                 </a>
