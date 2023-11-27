@@ -30,11 +30,25 @@ class Thread extends Entity
      */
     public function getCategory()
     {
-        return $this->db->table('categories')
+        $obj = "";
+
+        $category = $this->db->table('categories')
             ->join('thread_categories', 'thread_categories.category_id = categories.id')
             ->where('thread_categories.thread_id', $this->attributes['id'])
             ->select('categories.id, categories.name, categories.slug, categories.cover')
             ->get()->getRow();
+
+        if ($category) {
+            $obj = $category;
+        } else {
+            $obj = (object) [
+                'name' => "Uncategorized",
+                'slug' => "uncategorized",
+                'cover' => base_url('images/empty.png'),
+            ];
+        }
+
+        return $obj;
     }
 
     /**

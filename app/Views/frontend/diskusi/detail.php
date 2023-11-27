@@ -9,8 +9,7 @@
             <div class="col-xl-3 col-lg-4 col-md-12 mb-3 order-lg-1 order-3">
                 <div class="sticky">
                     <button class="btn btn-reply-thread in-side mb-3" type="button" 
-                        data-id="<?= base64_encode($thread->id) ?>"
-                        data-url="<?= route_to('diskusi.reply-show') ?>">
+                        data-id="<?= base64_encode($thread->id) ?>">
                         <i class="fas fa-comment mr-2"></i> Balas Diskusi Ini..
                     </button>
 
@@ -109,10 +108,14 @@
                                 <a class="thread-author" href="<?= route_to('profile', $user->username) ?>">
                                     <img class="mr-2 profile-pic-detail" src="<?= $user->photo ?>">
                                     <div class="name-content">
-                                        <div class="author-name text-truncate"><?= $user->username ?></div>
+                                        <div class="author-name text-truncate">
+                                            <?= $user->username ?>
+                                            <?= isAuthor($thread, $user) ? '<i class="fas fa-pen"></i>' : '' ?>
+                                            <?= isYou($thread) ? "<span class='badge-thread text-secondary'>KAMU</span>" : '' ?>
+                                        </div>
                                         <div class="thread-count text-truncate"><?= ago($thread->created_at) ?></div>
                                     </div>
-                                </a>
+                                </a>    
                                 <div class="btn-group dropleft">
                                     <button class="btn btn-sm btn-more dropdown-toggle" data-toggle="dropdown"
                                         aria-expanded="false" data-display="static">

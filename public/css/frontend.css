@@ -614,16 +614,12 @@ input[type="search"]::-webkit-search-results-decoration {
 
 .thread-reply .badge-thread {
 	border-radius: 6px;
-	padding: 0px 6px;
-	height: 15px;
-	width: 100%;
 	font-size: 10px;
 	font-weight: 500;
 	background-color: #fff;
 	color: var(--primary-color);
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	position: relative;
+	bottom: 2px;
 	transition: all 0.1s ease-in-out;
 }
 

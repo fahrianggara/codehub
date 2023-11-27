@@ -9,6 +9,7 @@
                     <div class="author-name text-truncate">
                         <?= $user->username ?> 
                         <?= isAuthor($thread, $user) ? '<i class="fas fa-pen"></i>' : '' ?>
+                        <?= isYou($reply) ? "<span class='badge-thread text-secondary'>KAMU</span>" : '' ?>
                     </div>
                     <div class="thread-count text-truncate">
                         <?= ago($reply->created_at) ?>

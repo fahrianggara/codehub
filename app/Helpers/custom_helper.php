@@ -220,6 +220,27 @@ function isAuthor($thread, $user)
 }
 
 /**
+ * Check if you are admin.
+ * 
+ * @return bool
+ */
+function isAdmin()
+{
+    return auth_check() && auth()->role === 'admin';
+}
+
+/**
+ * Check if you in thread detail page.
+ * 
+ * @param object $entity
+ * @return bool
+ */
+function isYou($entity)
+{
+    return auth_check() && auth()->id === $entity->user_id;
+}
+
+/**
  * print
  * 
  * @param mixed $data
