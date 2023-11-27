@@ -75,6 +75,7 @@ $routes->post('like-thread', 'DiskusiController::like', ['as' => 'diskusi.like',
 $routes->post('reply-show-thread', 'DiskusiController::replyShow', ['as' => 'diskusi.reply-show', 'filter' => 'auth']);
 $routes->post('reply-thread', 'DiskusiController::reply', ['as' => 'diskusi.reply', 'filter' => 'auth']);
 $routes->post('reply-destroy', 'DiskusiController::replyDestroy', ['as' => 'diskusi.reply-destroy', 'filter' => 'auth']);
+$routes->post('report', 'DiskusiController::reportDiskusi', ['as' => 'diskusi.report', 'filter' => 'auth']);
 $routes->get('d/(:segment)', 'DiskusiController::show/$1', ['as' => 'diskusi.show']);
 
 // Profile User

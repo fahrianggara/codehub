@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\ReplyModel;
 use App\Models\UserModel;
 use App\Controllers\BaseController;
 use App\Models\ThreadModel;
@@ -10,7 +11,7 @@ use CodeIgniter\Exceptions\PageNotFoundException;
 class ProfileController extends BaseController
 {
     protected $db, $userModel, $threadModel;
-    
+
     /**
      * ProfileController constructor.
      *
@@ -22,7 +23,7 @@ class ProfileController extends BaseController
         $this->db = \Config\Database::connect();
         $this->threadModel = new ThreadModel();
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -35,14 +36,14 @@ class ProfileController extends BaseController
         $user = $this->userModel->where('username', $username)->first();
 
         if (!$user) return redirect()->to('/');  // Jika user tidak ditemukan, redirect ke home
-                    
+
         $query = $this->threadModel->where('threads.user_id', $user->id);
         $statusSelected = (isset($get['status']) && in_array($get['status'], ['published', 'draft'])) ? $get['status'] : 'published';
         $orderSelected = (isset($get['order']) && in_array($get['order'], ['desc', 'asc', 'popular'])) ? $get['order'] : 'desc';
         $categorySelected = (isset($get['category']) && $get['category'] !== 'all') ? $get['category'] : 'all';
 
         if ($statusSelected === 'published') // Jika status published
-        { 
+        {
             if ($orderSelected === 'popular') { // Jika order popular
                 $threads = $this->threadPopular($query, $orderSelected);
             }
@@ -71,7 +72,7 @@ class ProfileController extends BaseController
                 $threads = $this->threadDefault($query, $orderSelected, 'draft');
             }
         }
-        
+
         return view('frontend/profile', [
             'title' => "Profile",
             'user' => $user,
@@ -122,7 +123,7 @@ class ProfileController extends BaseController
             ]);
 
             return response()->setJSON([
-                'status'=> 200,
+                'status' => 200,
                 'message' => 'Profile kamu berhasil diubah!',
                 'redirect' => base_url($username)
             ]);
@@ -152,14 +153,14 @@ class ProfileController extends BaseController
             $blob = $this->request->getVar('base64image');
 
             $avatarName = $blob ? uploadImageBlob($blob, $path, $oldAvatar) : $oldAvatar;
-            
+
             $this->userModel->save([
                 'id' => auth()->id,
                 'avatar' => $avatarName,
             ]);
 
             return response()->setJSON([
-                'status'=> 200,
+                'status' => 200,
                 'message' => 'Foto profile kamu berhasil diubah!',
             ]);
         } catch (\Throwable $th) {
@@ -185,11 +186,11 @@ class ProfileController extends BaseController
         try {
             $avatar = auth()->avatar;
 
-            if (check_photo('avatars', $avatar)) 
+            if (check_photo('avatars', $avatar))
                 unlink("images/avatars/$avatar");
 
             $this->userModel->save([
-                'id'=> auth()->id,
+                'id' => auth()->id,
                 'avatar' => 'avatar.png',
             ]);
 
@@ -223,14 +224,14 @@ class ProfileController extends BaseController
             $blob = $this->request->getVar('base64image');
 
             $bannerName = $blob ? uploadImageBlob($blob, $path, $oldBanner) : $oldBanner;
-            
+
             $this->userModel->save([
                 'id' => auth()->id,
                 'banner' => $bannerName,
             ]);
 
             return response()->setJSON([
-                'status'=> 200,
+                'status' => 200,
                 'message' => 'Foto sampul kamu berhasil diubah!',
             ]);
         } catch (\Throwable $th) {
@@ -256,11 +257,11 @@ class ProfileController extends BaseController
         try {
             $banner = auth()->banner;
 
-            if (check_photo('banners', $banner)) 
+            if (check_photo('banners', $banner))
                 unlink("images/banners/$banner");
 
             $this->userModel->save([
-                'id'=> auth()->id,
+                'id' => auth()->id,
                 'banner' => 'banner.png',
             ]);
 
@@ -289,7 +290,7 @@ class ProfileController extends BaseController
     {
         $request = $this->request;
 
-        if (!$request->isAJAX()) 
+        if (!$request->isAJAX())
             return PageNotFoundException::forPageNotFound();
 
         $oldpass = $request->getVar('oldpass');
@@ -344,7 +345,7 @@ class ProfileController extends BaseController
             session()->destroy(); // destroy session
 
             return response()->setJSON([
-                'status'=> 200,
+                'status' => 200,
                 'message' => 'Kata sandi kamu berhasil diubah. Silahkan login kembali.',
                 'redirect' => route_to('login')
             ]);
@@ -359,7 +360,7 @@ class ProfileController extends BaseController
             $this->db->transCommit();
         }
     }
-    
+
     /**
      * Rules profile
      *
@@ -411,7 +412,8 @@ class ProfileController extends BaseController
      * @param  mixed $user
      * @return void
      */
-    private function filteringCategories($user, $statusSelected) {
+    private function filteringCategories($user, $statusSelected)
+    {
         $categories = [];
         $categorySlugs = [];  // Untuk tracking slug agar tidak ada slug yang sama
         $threads = $this->threadModel->where('user_id', $user->id)
@@ -444,13 +446,13 @@ class ProfileController extends BaseController
      * @param  mixed $status
      * @return void
      */
-    private function threadDefault($query, $orderSelected, $status = 'published') 
+    private function threadDefault($query, $orderSelected, $status = 'published')
     {
         return $query->with(['users', 'replies'])
             ->where('status', $status)->orderBy('created_at', $orderSelected)
             ->paginate(10, 'user-thread');
     }
-    
+
     /**
      * threadPopular
      *
@@ -459,7 +461,7 @@ class ProfileController extends BaseController
      * @param  mixed $status
      * @return void
      */
-    private function threadPopular($query, $orderSelected, $status = 'published') 
+    private function threadPopular($query, $orderSelected, $status = 'published')
     {
         return $query->with(['users', 'thread_categories', 'thread_tags', 'replies'])
             ->where('status', $status)
@@ -468,7 +470,7 @@ class ProfileController extends BaseController
             ->orderBy('views', 'desc')
             ->paginate(10, 'user-thread');
     }
-    
+
     /**
      * threadCategory
      *
@@ -497,5 +499,22 @@ class ProfileController extends BaseController
         }
 
         return $builder->paginate(10, 'user-thread');
+    }
+
+    public function reportDiskusi()
+    {
+        $reportModel = new ReplyModel();
+        $reports = $reportModel->getReports();
+
+        $data = [
+            'message' => $this->request->getPost('message'),
+            'user_id' => $this->request->getPost('user_id'),
+            'model_id' => $this->request->getPost('model_id'),
+            'model_class' => $this->request->getPost('model_class'),
+        ];
+
+        $reportModel->saveReport($data);
+
+        // Tambahkan logika untuk menampilkan pesan sukses atau gagal
     }
 }
