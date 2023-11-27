@@ -15,10 +15,6 @@
                     </div>
 
                     <ul class="list-group mb-3">
-<<<<<<< Updated upstream
-                            </a>
-                                <img class="mr-2" src="<?= base_url('images/empty.png') ?>">
-
                         <?php foreach ($categories as $category) : ?>
                             <li class="thread-most-item list-group-item d-flex align-items-center">
                                 <a href="javascript:void(0)" class="">
