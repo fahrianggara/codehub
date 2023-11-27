@@ -3,12 +3,36 @@
 use App\Models\UserModel;
 use Carbon\Carbon;
 
+define("ENCRYPTION_KEY", 'q$v#%&/()=?QWERTY<>1234567890#!$^#^%#');
+
+/**
+ * encrypt
+ *
+ * @param  mixed $string
+ * @return void
+ */
+function encrypt($string)
+{
+    return base64_encode(openssl_encrypt($string, 'AES-256-CBC', ENCRYPTION_KEY, 0, str_pad(substr(ENCRYPTION_KEY, 0, 16), 16, '0', STR_PAD_LEFT)));
+}
+
+/**
+ * decrypt
+ *
+ * @param  mixed $encryptText
+ * @return void
+ */
+function decrypt($encryptText)
+{
+    return openssl_decrypt(base64_decode($encryptText), 'AES-256-CBC', ENCRYPTION_KEY, 0, str_pad(substr(ENCRYPTION_KEY, 0, 16), 16, '0', STR_PAD_LEFT));
+}
+
 /**
  * Get user session data.
  * 
  * @return object
  */
-function auth() 
+function auth()
 {
     $user = null;
 
@@ -33,7 +57,7 @@ function auth()
  */
 function auth_check()
 {
-    return session()->get('logged_in') === true;   
+    return session()->get('logged_in') === true;
 }
 
 /**
@@ -91,7 +115,7 @@ function uploadImageBlob($blob, $path, $oldImage = null)
  * @param string $filename
  * @return void
  */
-function deleteImage($path, $filename) 
+function deleteImage($path, $filename)
 {
     $pathUrl = "$path/$filename";
     if (file_exists($pathUrl)) unlink($pathUrl);
@@ -103,7 +127,8 @@ function deleteImage($path, $filename)
  * @param string $time
  * @return string
  */
-function waktu($time, $format = 'l, d F Y - H:i', $wib = true) {
+function waktu($time, $format = 'l, d F Y - H:i', $wib = true)
+{
     $wib = $wib ? ' WIB' : '';
     return Carbon::parse($time)->locale('id')->translatedFormat($format) . $wib;
 }
@@ -114,7 +139,8 @@ function waktu($time, $format = 'l, d F Y - H:i', $wib = true) {
  * @param string $time
  * @return string
  */
-function ago($time) {
+function ago($time)
+{
     return Carbon::parse($time)->locale('id')->diffForHumans();
 }
 
@@ -146,10 +172,10 @@ function randomName($length = 15)
 function slug($string)
 {
     $slug = strtolower($string);
-    $slug = preg_replace('/\s+/', '-', $slug);   
+    $slug = preg_replace('/\s+/', '-', $slug);
     $slug = preg_replace('/[^\w-]+/', '', $slug);
-    $slug = preg_replace('/-+/', '-', $slug);     
-    $slug = trim($slug, '-');                     
+    $slug = preg_replace('/-+/', '-', $slug);
+    $slug = trim($slug, '-');
 
     return $slug;
 }
@@ -203,7 +229,7 @@ function print_data($data)
 {
     // alert
     echo '<pre>';
-        print_r($data);
+    print_r($data);
     echo '</pre>';
 
     die;
@@ -230,4 +256,15 @@ function buttonLike($entity)
             <small>$countLikes</small>
         </button>
     ";
+}
+
+/**
+ * data is null or false ?
+ * 
+ * @param mixed $data
+ * @return bool
+ */
+function isNull($data)
+{
+    return !$data || is_array($data);
 }

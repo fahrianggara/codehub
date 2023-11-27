@@ -37,7 +37,6 @@ class TagsController extends BaseController
     {
         if (!$this->validate($this->rules())) {
             return redirect()->back()->withInput();
-            
         }
 
         $this->db->transBegin();
@@ -77,8 +76,15 @@ class TagsController extends BaseController
         $this->db->transBegin();
 
         try {
-            $id = base64_decode(request()->getVar('id'));
+            $id = decrypt(request()->getVar('id'));
             $tag = $this->tagModel->find($id);
+
+            if (isNull($tag)) {
+                return response()->setJSON([
+                    'status' => 400,
+                    'message' => 'Data tag tidak ditemukan.'
+                ]);
+            } 
 
             $this->tagModel->delete($id); // hapus tag
 

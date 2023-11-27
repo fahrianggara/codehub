@@ -31,7 +31,7 @@
                         <tbody>
                             <?php $no = 1; ?>
                             <?php foreach($users as $user): ?>
-                                <?php $id = base64_encode($user->id); ?>
+                                <?php $id = encrypt($user->id); ?>
                                 <tr>
                                     <td><?= $no++ ?></td>
                                     <td>
