@@ -16,34 +16,9 @@
 
                     <ul class="list-group mb-3">
 <<<<<<< Updated upstream
-                        <li class="thread-most-item list-group-item d-flex align-items-center">
-                            <a href="javascript:void(0)" class="">
-                                <img class="mr-2" src="<?= base_url('images/categories') ?>">
-                                <div class="text-content">
-                                    <span class="name">Artificial Intelligence</span>
-                                    <span class="thread-count">50 Diskusi digunakan</span>
-                                </div>
                             </a>
-                        </li>
-                        <li class="thread-most-item list-group-item d-flex align-items-center">
-                            <a href="javascript:void(0)" class="">
                                 <img class="mr-2" src="<?= base_url('images/empty.png') ?>">
-                                <div class="text-content">
-                                    <span class="name">Machine Learning</span>
-                                    <span class="thread-count">40 Diskusi digunakan</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="thread-most-item list-group-item d-flex align-items-center">
-                            <a href="javascript:void(0)" class="">
-                                <img class="mr-2" src="<?= base_url('images/empty.png') ?>">
-                                <div class="text-content">
-                                    <span class="name">Web Programming</span>
-                                    <span class="thread-count">35 Diskusi digunakan</span>
-                                </div>
-                            </a>
-                        </li>
-=======
+
                         <?php foreach ($categories as $category) : ?>
                             <li class="thread-most-item list-group-item d-flex align-items-center">
                                 <a href="javascript:void(0)" class="">
@@ -56,7 +31,7 @@
 
                             </li>
                         <?php endforeach ?>
->>>>>>> Stashed changes
+
                     </ul>
 
                     <div class="thread-header mb-3 list-group-item">
