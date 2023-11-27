@@ -3,13 +3,19 @@ $parent_user = $child->parent->user; ?>
 
 <li>
     <div class="thread-reply-box">
+<<<<<<< HEAD
         <div class="mb-2 mt-1 d-flex align-items-center justify-content-between">
             <a class="thread-author" href="<?= route_to('profile', $user->username) ?>">
+=======
+        <div class="thread-reply-box-header">
+            <a class="thread-author" href="<?= route_to('profile',$user->username) ?>">
+>>>>>>> ae34ca0c437169a6ee1f21e43f8ce10454eff978
                 <img class="mr-2 profile-pic-detail" src="<?= $user->photo ?>">
                 <div class="name-content">
                     <div class="author-name text-truncate">
                         <?= $user->username ?>
                         <?= isAuthor($thread, $user) ? '<i class="fas fa-pen"></i>' : '' ?>
+                        <?= isYou($child) ? "<span class='badge-thread text-secondary'>KAMU</span>" : '' ?>
                     </div>
                     <div class="thread-count text-truncate">
                         <?= ago($child->created_at) ?>
@@ -39,11 +45,12 @@ $parent_user = $child->parent->user; ?>
                 </div>
             </div>
         </div>
-        <div>
-            <div class="thread-comment d-block" style="margin-top: 12px;">
+        <div class="thread-comment thread-reply-box-body d-block">
+            <div class=" ">
                 <a href="<?= route_to('profile', $parent_user->username) ?>" class="reply-username">@<?= $parent_user->username ?></a>
                 <?= $child->content ?>
             </div>
+<<<<<<< HEAD
         </div>
         <div class="thread-action d-flex justify-content-between align-items-center">
             <div></div>
@@ -52,6 +59,21 @@ $parent_user = $child->parent->user; ?>
                 <button class="btn btn-reply-thread-child" data-thread_id="<?= base64_encode($child->thread->id) ?>" data-reply_id="<?= base64_encode($child->id) ?>" data-child_id="<?= base64_encode($child->child_id) ?>" data-parent_id="<?= base64_encode($child->id)  ?>" data-username="<?= $user->username ?>">
                     <small>Balas</small>
                 </button>
+=======
+            <div class="thread-action d-flex justify-content-between align-items-center">
+                <div></div>
+                <div class="thread-tengah">
+                    <?= buttonLike($child) ?>
+                    <button class="btn btn-reply-thread-child"
+                        data-thread_id="<?= base64_encode($child->thread->id) ?>"
+                        data-reply_id="<?= base64_encode($child->id) ?>"
+                        data-child_id="<?= base64_encode($child->child_id) ?>"
+                        data-parent_id="<?= base64_encode($child->id)  ?>"
+                        data-username="<?= $user->username ?>">
+                        <small>Balas</small>
+                    </button>
+                </div>
+>>>>>>> ae34ca0c437169a6ee1f21e43f8ce10454eff978
             </div>
         </div>
     </div>

@@ -66,7 +66,7 @@
                     </div>
                 </div>
 
-                <a class="thread-link" href="<?= route_to('diskusi.show', $thread->slug) ?>">
+                <a class="thread-link" href="<?= $thread->status === "published" ? route_to('diskusi.show', $thread->slug) : 'javascript:void(0);' ?>">
                     <h3 class="thread-comment-title">
                         <?= $thread->title ?>
                     </h3>
@@ -135,5 +135,12 @@
     <script src="<?= base_url('js/fe/diskusi/delete.js') ?>"></script>
     <script src="<?= base_url('js/fe/diskusi/status.js') ?>"></script>
 <?php endif ?>
+
+    <script>
+        $(".thread-link[href='javascript:void(0);']").on('click', function(e) {
+            e.preventDefault();
+            alertifyLog("Dark", "Diskusi belum dipublikasikan.");
+        });
+    </script>
 
 <?= $this->endSection() ?>

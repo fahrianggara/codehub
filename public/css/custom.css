@@ -186,7 +186,8 @@ table.not-wrap th, table.not-wrap td {
 }
 
 .tox .tox-textarea {
-	font-family: Monospace !important;
+	font-family: "Fira Code", monospace !important;
+	font-size: 14px !important;
 }
 
 .tox .tox-button {
@@ -214,11 +215,6 @@ table.not-wrap th, table.not-wrap td {
 
 .tox .tox-label, .tox .tox-toolbar-label {
 	font-weight: 600 !important;
-}
-
-.tox-textarea {
-	font-family: "Fira Code", monospace !important;
-	font-size: 14px !important;
 }
 
 /* =======================================================================

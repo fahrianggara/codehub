@@ -85,7 +85,11 @@ class PenggunaController extends BaseController
      */
     public function edit($id)
     {
-        $user = $this->userModel->find(base64_decode($id));
+        $user = $this->userModel->find(decrypt($id));
+
+        if (isNull($user)) {
+            return redirect()->route('admin.pengguna')->with('error', 'Data pengguna tidak ditemukan.');
+        }
 
         return view('backend/pengguna/edit', [
             'title' => 'Edit Pengguna',
@@ -102,8 +106,12 @@ class PenggunaController extends BaseController
     public function update()
     {
         $request = $this->request;
-        $id = base64_decode($request->getVar('id'));
+        $id = decrypt($request->getVar('id'));
         $user = $this->userModel->find($id);
+
+        if (isNull($user)) {
+            return redirect()->route('admin.pengguna')->with('error', 'Data pengguna tidak ditemukan.');
+        }
 
         if (!$this->validate($this->rules($id))) {
             return redirect()->back()->withInput();
@@ -146,8 +154,15 @@ class PenggunaController extends BaseController
 
         $this->db->transBegin();
         try {
-            $id = base64_decode(request()->getVar('id'));
+            $id = decrypt(request()->getVar('id'));
             $user = $this->userModel->find($id);
+
+            if (isNull($user)) {
+                return response()->setJSON([
+                    'status' => 400,
+                    'message' => 'Data pengguna tidak ditemukan.'
+                ]);
+            }
 
             deleteImage("images/avatars", $user->avatar); // hapus avatar
             deleteImage("images/banners", $user->banner); // hapus banner

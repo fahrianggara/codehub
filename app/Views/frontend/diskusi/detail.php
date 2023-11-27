@@ -8,7 +8,12 @@
 
             <div class="col-xl-3 col-lg-4 col-md-12 mb-3 order-lg-1 order-3">
                 <div class="sticky">
+<<<<<<< HEAD
                     <button class="btn btn-reply-thread in-side mb-3" type="button" data-id="<?= base64_encode($thread->id) ?>" data-url="<?= route_to('diskusi.reply-show') ?>">
+=======
+                    <button class="btn btn-reply-thread in-side mb-3" type="button" 
+                        data-id="<?= base64_encode($thread->id) ?>">
+>>>>>>> ae34ca0c437169a6ee1f21e43f8ce10454eff978
                         <i class="fas fa-comment mr-2"></i> Balas Diskusi Ini..
                     </button>
 
@@ -103,14 +108,18 @@
                 <ul class="list-group thread-reply">
                     <li>
                         <div class="thread-reply-box">
-                            <div class="mb-2 mt-1 d-flex align-items-center justify-content-between">
+                            <div class="thread-reply-box-header">
                                 <a class="thread-author" href="<?= route_to('profile', $user->username) ?>">
                                     <img class="mr-2 profile-pic-detail" src="<?= $user->photo ?>">
                                     <div class="name-content">
-                                        <div class="author-name text-truncate"><?= $user->username ?></div>
+                                        <div class="author-name text-truncate">
+                                            <?= $user->username ?>
+                                            <?= isAuthor($thread, $user) ? '<i class="fas fa-pen"></i>' : '' ?>
+                                            <?= isYou($thread) ? "<span class='badge-thread text-secondary'>KAMU</span>" : '' ?>
+                                        </div>
                                         <div class="thread-count text-truncate"><?= ago($thread->created_at) ?></div>
                                     </div>
-                                </a>
+                                </a>    
                                 <div class="btn-group dropleft">
                                     <button class="btn btn-sm btn-more dropdown-toggle" data-toggle="dropdown" aria-expanded="false" data-display="static">
                                         <i class="fas fa-ellipsis-h"></i>
@@ -134,13 +143,16 @@
                                     </div>
                                 </div>
                             </div>
-                            <div>
-                                <h3 class="thread-comment-title mb-2">
-                                    <?= $thread->title ?>
-                                </h3>
-                                <div class="thread-comment d-block">
-                                    <?= $thread->content ?>
+                            <div class="thread-reply-box-body">
+                                <div>
+                                    <h3 class="thread-comment-title m-0 mb-2">
+                                        <?= $thread->title ?>
+                                    </h3>
+                                    <div class="thread-comment d-block">
+                                        <?= $thread->content ?>
+                                    </div>
                                 </div>
+<<<<<<< HEAD
                             </div>
                             <div class="thread-action d-flex justify-content-between align-items-center">
                                 <ul class="thread-categories">
@@ -157,6 +169,24 @@
                                 </ul>
                                 <div class="thread-tengah">
                                     <?= buttonLike($thread) ?>
+=======
+                                <div class="thread-action d-flex justify-content-between align-items-center">
+                                    <ul class="thread-categories">
+                                        <li class="d-none"></li>
+                                        <?php if ($thread->tags): ?>
+                                            <?php foreach ($thread->tags as $tag): ?>
+                                                <li class="mb-0">
+                                                    <a href="javascript:void(0)">
+                                                        <?= $tag->name ?>
+                                                    </a>
+                                                </li>
+                                            <?php endforeach ?>
+                                        <?php endif; ?>
+                                    </ul>
+                                    <div class="thread-tengah">
+                                        <?= buttonLike($thread) ?>
+                                    </div>
+>>>>>>> ae34ca0c437169a6ee1f21e43f8ce10454eff978
                                 </div>
                             </div>
                         </div>

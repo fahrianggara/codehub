@@ -3,12 +3,13 @@
 <li>
     <div class="thread-reply-box main-reply">
         <div class="mb-2 mt-1 d-flex align-items-center justify-content-between">
-            <a class="thread-author" href="<?= route_to('profile', $user->username) ?>">
+            <a class="thread-author" href="<?= route_to('profile',$user->username) ?>">
                 <img class="mr-2 profile-pic-detail" src="<?= $user->photo ?>">
                 <div class="name-content">
                     <div class="author-name text-truncate">
                         <?= $user->username ?>
                         <?= isAuthor($thread, $user) ? '<i class="fas fa-pen"></i>' : '' ?>
+                        <?= isYou($reply) ? "<span class='badge-thread text-secondary'>KAMU</span>" : '' ?>
                     </div>
                     <div class="thread-count text-truncate">
                         <?= ago($reply->created_at) ?>
@@ -38,8 +39,8 @@
                 </div>
             </div>
         </div>
-        <div>
-            <div class="thread-comment d-block" style="margin-top: 12px;">
+        <div class="thread-reply-box-body">
+            <div class="thread-comment d-block">
                 <?= $reply->content ?>
             </div>
         </div>
@@ -47,7 +48,12 @@
             <div></div>
             <div class="thread-tengah">
                 <?= buttonLike($reply) ?>
-                <button class="btn btn-reply-thread-child" data-thread_id="<?= base64_encode($reply->thread->id) ?>" data-reply_id="<?= base64_encode($reply->id) ?>" data-child_id="<?= base64_encode($reply->id) ?>" data-parent_id="<?= base64_encode($reply->id ?? null)  ?>" data-username="<?= $user->username ?>">
+                <button class="btn btn-reply-thread-child" 
+                    data-thread_id="<?= base64_encode($reply->thread->id) ?>" 
+                    data-reply_id="<?= base64_encode($reply->id) ?>"
+                    data-child_id="<?= base64_encode($reply->id) ?>"
+                    data-parent_id="<?= base64_encode($reply->id ?? null)  ?>"
+                    data-username="<?= $user->username ?>">
                     <small>Balas</small>
                 </button>
             </div>

@@ -30,7 +30,7 @@
                         <tbody>
                             <?php $no = 1; ?>
                             <?php foreach ($tags as $tag) : ?>
-                                <?php $id = base64_encode($tag->id); ?>
+                                <?php $id = encrypt($tag->id); ?>
                                 <tr>
                                     <td><?= $no++ ?></td>
                                     <td><?= $tag->name ?></td>

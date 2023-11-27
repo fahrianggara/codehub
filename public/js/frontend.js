@@ -20,14 +20,21 @@ function hideMobileSearch() {
 !(function($) 
 {
     "use strict";
-    
+
+    var scrollNavStorage = localStorage.getItem('on-scroll-nav') || 0;
+    var scrollOnTop = $(window).scrollTop();
+
     $(window).scroll(function () {
         var scrollTop = $(window).scrollTop();
+        scrollNavStorage = localStorage.setItem('on-scroll-nav', scrollTop);
 
         (scrollTop > 20)
             ? $('.nav-top').addClass('nav-top-hide')
             : $('.nav-top').removeClass('nav-top-hide');
     });
+
+    if (scrollNavStorage > 20) $('.nav-top').addClass('nav-top-hide');
+    if (scrollOnTop === 0) $('.nav-top').removeClass('nav-top-hide');
 
     $(".mobile-nav-toggle").click(function () {
         $(".mobile-nav-toggle").toggleClass("active");

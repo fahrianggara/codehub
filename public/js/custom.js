@@ -198,12 +198,11 @@ function initTinyMce(textarea, menubar = false, height = 200) {
         convert_urls: false,
         height: height,
         width: '100%',
-        menubar: false,
+        menubar: menubar,
         plugins: [
-            "codemirror", "link", "lists", "codesample", "paste", "wordcount"
+            "codemirror", "link", "lists", "codesample", "paste", "wordcount", "autoresize"
         ],
         codesample_global_prismjs: true,
-        codesample_content_css: `${origin}/plugins/prism/prism.css`,
         codesample_languages: [
             { text: 'HTML/XML', value: 'markup' },
             { text: 'JavaScript', value: 'javascript' },
@@ -224,7 +223,7 @@ function initTinyMce(textarea, menubar = false, height = 200) {
             { text: 'Dart', value: 'dart' },
             { text: 'Bash/Shell', value: 'bash' },
         ],
-        toolbar: "bold italic underline strikeout blockquote | bullist numlist | link codesample",
+        toolbar: "bold italic underline blockquote strikeout bullist numlist link codesample",
         noneditable_noneditable_class: "mceNonEditable",
         codemirror: {
             indentOnInit: true, // Whether or not to indent code on init.

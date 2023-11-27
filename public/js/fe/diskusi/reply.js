@@ -9,24 +9,14 @@ $(document).ready(function () {
     var buttonSubmit = formReply.find("button[type=submit]");
     var logined = modalReply.data("logined");
 
+    // hover button reply thread
     $('.btn-reply-thread-child').hover(function () {
         $(this).closest('.thread-reply-box').addClass('is-active');
     }, function () {
         $(this).closest('.thread-reply-box').removeClass('is-active');
     });
 
-    $(document).on("click", '.modal-close-reply', function (e) {
-        e.preventDefault();
-
-        if (tinymce.get('content-reply').getContent() !== '') {
-            alertifyConfirm('Balasan diskusi yang kamu buat akan hilang, yakin ingin menutup modal ini?', function () {
-                modalReply.modal('hide');
-            }, null, 'IYA TUTUP', 'BATAL');
-        } else {
-            modalReply.modal('hide');
-        }
-    });
-
+    // Button Reply Child
     buttonReplyChild.on("click", function (e) {
         e.preventDefault();
 
@@ -47,6 +37,7 @@ $(document).ready(function () {
         modalReply.modal("show");
     });
 
+    // Button reply thread
     buttonReply.on("click", function (e) {
         e.preventDefault();
 
@@ -58,56 +49,48 @@ $(document).ready(function () {
         }
 
         const id = $(this).data("id");
-        const url = $(this).data("url");
+        modalReply.find("#thread_id").val(id);
 
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: {id: id},
-            dataType: "json",
-            success: function (res) {
-                viewThread ? showWithViewThread(res, id) : showThread(res, id);
-            }
-        });
+        if (!viewThread) { // Jika tidak ada data thread yang di reply button
+            initTinyMce(textarea);
+            modalReply.modal("show");
+        } else { // Jika ada data thread yang di reply button
+            $.ajax({
+                type: "POST",
+                url: $(this).data("url"),
+                data: {id: id},
+                dataType: "json",
+                success: function (res) {
+                    const {author, content, date, title} = res.data;
+
+                    modalReply.find("#thread_id").val(id);
+                    modalReply.find("#title").text(`Diskusi - ${title}`);
+                    modalReply.find("#author").text(author);
+                    modalReply.find("#date").text(date);
+                    modalReply.find("#content").html(content);
+
+                    initTinyMce(textarea);
+
+                    modalReply.modal("show");
+                }
+            });
+        }
     });
 
-    /**
-     * Show thread without view thread (for page detail)
-     * 
-     * @param {object} res
-     * @param {string} id
-     * @param {boolean} child
-     */
-    function showThread(res, id)
-    {
-        modalReply.find("#thread_id").val(id);
+    // Button Close Modal
+    $(document).on("click", '.modal-close-reply', function (e) {
+        e.preventDefault();
 
-        initTinyMce(textarea);
+        if (tinymce.get('content-reply').getContent() !== '') {
+            alertifyConfirm('Balasan diskusi yang kamu buat akan hilang, yakin ingin menutup modal ini?', function () {
+                modalReply.modal('hide');
+            }, null, 'IYA TUTUP', 'BATAL');
+        } else {
+            modalReply.modal('hide');
+        }
+    });
 
-        modalReply.modal("show");
-    }
-
-    /**
-     * Show thread with view thread (for page profile)
-     * 
-     * @param {object} res
-     * @param {string} id
-     */
-    function showWithViewThread(res, id)
-    {
-        const {author, content, date, slug, title} = res.data;
-
-        modalReply.find("#thread_id").val(id);
-        modalReply.find("#title").text(`Diskusi - ${title}`);
-        modalReply.find("#author").text(author);
-        modalReply.find("#date").text(date);
-        modalReply.find("#content").html(content);
-
-        initTinyMce(textarea);
-
-        modalReply.modal("show");
-    }
-
+    // modal on show and hidden
     modalReply.on("shown.bs.modal", function () {
         modalBody.animate({
             scrollTop: modalBody.prop("scrollHeight")
@@ -117,8 +100,10 @@ $(document).ready(function () {
     }).on("hidden.bs.modal", function () {
         modalReply.find("#title").text("Balas Diskusi");
         tinymce.get('content-reply').setContent('');
+        formReply.reset();
     });
 
+    // Form Reply
     formReply.on("submit", function (e) {
         e.preventDefault();
 

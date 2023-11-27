@@ -614,16 +614,12 @@ input[type="search"]::-webkit-search-results-decoration {
 
 .thread-reply .badge-thread {
 	border-radius: 6px;
-	padding: 0px 6px;
-	height: 15px;
-	width: 100%;
 	font-size: 10px;
 	font-weight: 500;
 	background-color: #fff;
 	color: var(--primary-color);
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	position: relative;
+	bottom: 2px;
 	transition: all 0.1s ease-in-out;
 }
 
@@ -716,10 +712,33 @@ input[type="search"]::-webkit-search-results-decoration {
 .thread-reply .thread-reply-box {
 	border-radius: 12px;
 	border: 1px solid var(--border-color);
-	padding: 0.75rem 1.25rem;
 	border-color: var(--border-color);
 	background-color: #fff;
+	position: relative;
+	width: 100%;
+	height: 100%;
 	transition: all .3s ease-in-out;
+}
+
+.thread-reply .thread-reply-box-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0.75rem 1.25rem;
+	/* margin-bottom: 60px; */
+	margin-top: 0;
+	border-bottom: 1px solid var(--border-color);
+	background-color: #fff;
+	position: -webkit-sticky;
+	position: sticky;
+	top: 65px;
+	z-index: 12;
+	border-radius: 12px 12px 0 0;
+}
+
+.thread-reply .thread-reply-box-body {
+	margin-top: .3rem;
+	padding: 0.75rem 1.25rem;
 	position: relative;
 }
 
@@ -1270,7 +1289,7 @@ pre[class*="language-"] {
 }
 :not(pre) > code[class*="language-"],
 pre[class*="language-"] {
-	background: #f4f4f4;
+	background: #ecf4f4;
 	border-radius: 12px;
 }
 :not(pre) > code[class*="language-"] {
