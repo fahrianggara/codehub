@@ -1,6 +1,6 @@
 <?php $user = $reply->user; ?>
 
-<li>
+<li class="thread-list">
     <div class="thread-reply-box main-reply">
         <div class="thread-reply-box-header">
             <a class="thread-author" href="<?= route_to('profile',$user->username) ?>">

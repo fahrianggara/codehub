@@ -1,7 +1,7 @@
 
 <?php $user = $child->user; $parent_user = $child->parent->user; ?>
 
-<li>
+<li class="thread-list">
     <div class="thread-reply-box">
         <div class="thread-reply-box-header">
             <a class="thread-author" href="<?= route_to('profile',$user->username) ?>">

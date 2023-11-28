@@ -109,7 +109,7 @@
                 </div>
 
                 <ul class="list-group thread-reply">
-                    <li>
+                    <li class="thread-list">
                         <div class="thread-reply-box">
                             <div class="thread-reply-box-header">
                                 <a class="thread-author" href="<?= route_to('profile', $user->username) ?>">
@@ -158,7 +158,7 @@
                                         <?php if ($thread->tags) : ?>
                                             <?php foreach ($thread->tags as $tag) : ?>
                                                 <li class="mb-0">
-                                                    <a href="javascript:void(0)">
+                                                    <a href="<?= route_to('tag.show', $tag->slug) ?>">
                                                         <?= $tag->name ?>
                                                     </a>
                                                 </li>

@@ -769,16 +769,16 @@ input[type="search"]::-webkit-search-results-decoration {
 	clear: both;
 }
 
-.thread-reply li {
+.thread-reply .thread-list {
 	display: block;
 	position: relative;
 }
 
-.thread-reply li:not(:last-child) {
+.thread-reply .thread-list:not(:last-child) {
 	margin-bottom: 10px;
 }
 
-.thread-reply li:after {
+.thread-reply .thread-list:after {
 	content: '';
 	display: block;
 	clear: both;
@@ -854,6 +854,28 @@ input[type="search"]::-webkit-search-results-decoration {
 .btn-reply-thread:not(.comment):hover {
 	color: #fff;
 	background-color: var(--primary-color);
+}
+
+.btn-more {
+	background-color: transparent;
+	border: none;
+	color: var(--secondary-color);
+	font-size: 20px;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.btn-more:hover,
+.btn-more[aria-expanded="true"] {
+	background-color: #f1f2f6;
+}
+
+.btn-more i {
+	font-size: 16px;
 }
 
 .thread-reply .btn-reply-thread {
@@ -1049,6 +1071,12 @@ input[type="search"]::-webkit-search-results-decoration {
 	font-weight: bolder;
 }
 
+.thread .most-title.subject {
+	font-size: 15px;
+	font-weight: 500;
+	line-height: 1.3;
+}
+
 .thread .thread-author {
 	display: flex;
 	align-items: center;
@@ -1090,6 +1118,40 @@ input[type="search"]::-webkit-search-results-decoration {
 	margin: 15px 0 5px 0;
 	line-height: 1.5;
 	transition: .2s all ease-in-out;
+}
+
+.thread .list-tags {
+	list-style-type: none;
+	padding: 0 !important;
+	margin: 5px 0 0 0;
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	font-size: 14px;
+}
+
+.thread .list-tags li {
+	margin-right: 5px;
+	margin-bottom: 8px;
+}
+
+.thread .list-tags a {
+	color: var(--secondary-color);
+	padding: 3px 8px;
+	border-radius: 6px;
+	border: 1px solid var(--border-color);
+	transition: all .3s ease-in-out;
+}
+
+.thread .list-tags a:hover {
+	color: var(--primary-color);
+	border-color: var(--primary-color);
+}
+
+.thread .list-tags a::before {
+	content: "#";
+	color: var(--primary-color);
+	margin-right: 1px;
 }
 
 .thread .thread-categories {
@@ -1817,203 +1879,6 @@ div.code-toolbar > .toolbar > .toolbar-item > span:hover {
 	transform: translateX(-8px);
 	opacity: 1;
 	visibility: visible;
-}
-
-/* =======================================================================
- *  THREAD LIST CSS
- * ======================================================================= */
-
-.thread-container {
-	width: 100%;
-	height: 100%;
-	position: relative;
-}
-
-.thread-container .thread-list {
-	list-style-type: none;
-	padding: 0;
-	margin: 0;
-}
-
-.thread-container .thread-item {
-	padding: 20px;
-	background-color: #fff;
-	border-radius: 10px;
-	border: 1px solid rgba(0, 0, 0, 0.225);
-	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-	margin: 15px 0;
-	position: relative;
-}
-
-.thread-container .thread-item:not(:first-child) {
-	margin-top: 30px;
-}
-
-.thread-container .thread-category {
-	position: absolute;
-	top: -15px;
-	left: 15px;
-	padding: 5px 10px;
-	border-radius: 6px;
-	background-color: #fff;
-	color: var(--secondary-color);
-	font-size: 12px;
-	font-weight: 400;
-	z-index: 1;
-	border: 1px solid var(--border-color);
-	transition: all 0.1s ease-in-out;
-}
-
-.thread-container .thread-category:hover {
-	color: #fff;
-	text-decoration: none;
-	background-color: var(--primary-color);
-	border: 1px solid var(--primary-color);
-}
-
-.thread-container .thread-header {
-	display: flex;
-	justify-content: space-between;
-	margin-top: 8px;
-	margin-bottom: 10px;
-	border-bottom: 1px solid var(--border-color);
-}
-
-.thread-container .thread-author {
-	display: flex;
-}
-
-.thread-container .thread-author .avatar {
-	margin-right: 15px;
-}
-
-.thread-container .thread-author .avatar img {
-	width: 40px;
-	height: 40px;
-	border-radius: 50%;
-	border: 1px solid var(--border-color);
-	object-fit: cover;
-}
-
-.thread-container .thread-author .info {
-	line-height: 1.2;
-}
-
-.thread-container .thread-author .info .name {
-	font-size: 16px;
-	font-weight: 500;
-	margin: 0;
-}
-
-.thread-container .thread-author .info .name a.category {
-	font-size: 14px;
-	color: var(--secondary-color);
-	text-decoration: none;
-	font-weight: 500;
-	transition: all 0.1s ease-in-out;
-}
-
-.thread-container .thread-author .info .name a.category:hover {
-	color: var(--primary-color);
-}
-
-.thread-container .thread-author .info .date {
-	font-size: 12px;
-	color: var(--secondary-color);
-	margin: 0;
-}
-
-.btn-more {
-	background-color: transparent;
-	border: none;
-	color: var(--secondary-color);
-	font-size: 20px;
-	width: 40px;
-	height: 40px;
-	border-radius: 50%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-.btn-more:hover,
-.btn-more[aria-expanded="true"] {
-	background-color: #f1f2f6;
-}
-
-.btn-more i {
-	font-size: 16px;
-}
-
-.thread-container .thread-tags {
-	list-style-type: none;
-	padding: 0;
-	margin-bottom: 10px;
-}
-
-.thread-container .thread-tags li {
-	display: inline-block;
-	margin-right: 1px;
-}
-
-.thread-container .thread-tags li a {
-	font-size: 12px;
-	color: var(--secondary-color);
-	text-decoration: none;
-	padding: 5px 10px;
-	border-radius: 6px;
-	border: 1px solid var(--border-color);
-	transition: all 0.1s ease-in-out;
-}
-
-.thread-container .thread-tags li a:hover {
-	background-color: var(--primary-color);
-	color: #fff;
-}
-
-.thread-container .thread-title {
-	color: #000;
-	width: 100%;
-}
-
-.thread-container .thread-title:hover {
-	text-decoration: none;
-	color: #000;
-}
-
-.thread-container .thread-title:hover h3 {
-	color: var(--hover-color);
-}
-
-.thread-container .thread-title h3 {
-	font-size: 17px;
-	font-weight: 500;
-	margin-top: 14px;
-	transition: all 0.3s ease-in-out;
-}
-
-.thread-container .thread-content {
-	/* margin: 10px 0 15px 0; */
-	display: -webkit-box;
-	overflow: hidden;
-	-webkit-line-clamp: 2;
-	-webkit-box-orient: vertical;
-}
-
-.thread-container .thread-action {
-	border-top: 1px solid var(--border-color);
-	margin-top: 10px;
-	padding-top: 10px;
-	display: flex;
-	justify-content: space-between;
-}
-
-.thread-container .thread-action .btn {
-	border-radius: 8px;
-}
-
-.thread-container .thread-action .btn:hover {
-	box-shadow: 0 0 2px rgba(0, 0, 0, 0.9);
 }
 
 /* =======================================================================

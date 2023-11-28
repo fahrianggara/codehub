@@ -35,6 +35,7 @@ class Category extends Entity
         return $this->db->table('threads')
             ->join('thread_categories', 'thread_categories.thread_id = threads.id')
             ->where('thread_categories.category_id', $this->attributes['id'])
+            ->where('status', 'published')
             ->get()->getResult();
     }
 }

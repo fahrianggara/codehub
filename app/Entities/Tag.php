@@ -28,6 +28,7 @@ class Tag extends Entity
         return $this->db->table('threads')
             ->join('thread_tags', 'thread_tags.thread_id = threads.id')
             ->where('thread_tags.tag_id', $this->attributes['id'])
+            ->where('status', 'published')
             ->get()->getResult();
     }
 }

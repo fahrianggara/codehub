@@ -62,6 +62,9 @@ $routes->group('admin', ['filter' => ['auth', 'is_admin'], 'namespace' => Backen
 // Kategori
 $routes->get('c/(:segment)', 'KategoriController::index/$1', ['as' => 'kategori.show']);
 
+// Tags
+$routes->get('t/(:segment)', 'TagController::index/$1', ['as' => 'tag.show']);
+
 // Diskusi
 $routes->post('get-categories', 'DiskusiController::getCategories', ['as' => 'diskusi.categories', 'filter' => 'auth']);
 $routes->post('get-tags', 'DiskusiController::getTags', ['as' => 'diskusi.tags', 'filter' => 'auth']);

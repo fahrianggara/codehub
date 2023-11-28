@@ -44,7 +44,10 @@ class Reply extends Entity
     public function getThread()
     {
         $threadModel = new ThreadModel();
-        return $threadModel->where('id', $this->attributes['thread_id'])->first();
+        
+        return $threadModel->published()
+            ->where('id', $this->attributes['thread_id'])
+            ->first();
     }
 
     /**
@@ -93,17 +96,6 @@ class Reply extends Entity
             ->orderBy('created_at', 'ASC')
             ->findAll();
     }
-
-
-    // /**
-    //  * Get parents replies
-    //  */
-    // public function getParents()
-    // {
-    //     $replies = new ReplyModel();
-
-    //     return $replies->where('p')
-    // }
 
     /**
      * Get child reply

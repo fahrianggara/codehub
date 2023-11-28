@@ -22,7 +22,6 @@
                         </button>
 
                         <div class="dropdown-menu dropdown-menu-right">
-
                             <?php if (auth_check() && auth()->id === $user->id) : ?>
                                 <a class="dropdown-item btn-edit-diskusi" href="javascript:void(0);" data-id="<?= $thread_id ?>">
                                     <i class="fas text-warning fa-pen mr-2"></i> Edit
@@ -85,7 +84,7 @@
                     <?php if ($thread->tags) : ?>
                         <?php foreach ($thread->tags as $tag) : ?>
                             <li>
-                                <a href="javascript:void(0)">
+                                <a href="<?= route_to('tag.show', $tag->slug) ?>">
                                     <?= $tag->name ?>
                                 </a>
                             </li>
@@ -121,8 +120,6 @@
         <?php endforeach ?>
     </ul>
 
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
     <?= $pager->only(['status', 'order', 'category'])->links('user-thread', 'pg_profile') ?>
 <?php else : ?>
     <div class="alert alert-warning">
@@ -133,19 +130,21 @@
 
 <?= $this->section('js') ?>
 
-<?= view('frontend/diskusi/reply-modal', ['view_thread' => true]) ?>
-<?= $this->include('frontend/diskusi/laporan') ?>
+    <?= view('frontend/diskusi/reply-modal', ['view_thread' => true]) ?>
+    <?= view('frontend/diskusi/laporan') ?>
 
-<?php if (auth_check()) : ?>
-    <?= view('frontend/diskusi/edit', ['detail' => false]) ?>
-    <script src="<?= base_url('js/fe/diskusi/delete.js') ?>"></script>
-    <script src="<?= base_url('js/fe/diskusi/status.js') ?>"></script>
-<?php endif ?>
+    <?php if (auth_check()) : ?>
+        <?= view('frontend/diskusi/edit', ['detail' => false]) ?>
+        <script src="<?= base_url('js/fe/diskusi/delete.js') ?>"></script>
+        <script src="<?= base_url('js/fe/diskusi/status.js') ?>"></script>
+    <?php endif ?>
 
     <script>
-        $(".thread-link[href='javascript:void(0);']").on('click', function(e) {
+        $(".thread-link[href='javascript:void(0);']").on('click', function(e) { // for status draft
             e.preventDefault();
-            alertifyLog("Dark", "Diskusi belum dipublikasikan.");
+            alertifyLog("Dark", "Diskusi belum dipublikasikan.", () => {
+                $("body").css("overflow", "auto");
+            });
         });
     </script>
 

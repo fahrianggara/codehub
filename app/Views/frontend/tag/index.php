@@ -9,81 +9,89 @@
             <div class="col-xl-3 col-lg-4 col-md-12 mb-3 pr-3 pr-md-normal order-lg-1 order-3">
                 <div class="sticky">
 
-                    <div class="thread-header mb-2 list-group-item">
-                        Kategori Lainnya
+                    <div class="thread-header mb-3 list-group-item">
+                        Tagar Lainnya
                     </div>
 
-                    <ul class="list-group mb-3">
-                        <li class="thread-most-item list-group-item d-flex align-items-center">
-                            <a href="javascript:void(0)" class="">
-                                <img class="mr-2" src="<?= base_url('images/empty.png') ?>">
-                                <div class="text-content">
-                                    <span class="name">Artificial Intelligence</span>
-                                    <span class="thread-count">50 Diskusi digunakan</span>
-                                </div>
+                    <ul class="list-tags mb-3">
+                        <li data-toggle="tooltip" title="1 Diskusi">
+                            <a href="<?= route_to('tag.show', 'php') ?>">
+                                php
                             </a>
                         </li>
-                        <li class="thread-most-item list-group-item d-flex align-items-center">
-                            <a href="javascript:void(0)" class="">
-                                <img class="mr-2" src="<?= base_url('images/empty.png') ?>">
-                                <div class="text-content">
-                                    <span class="name">Machine Learning</span>
-                                    <span class="thread-count">40 Diskusi digunakan</span>
-                                </div>
+                        <li data-toggle="tooltip" title="1 Diskusi">
+                            <a href="<?= route_to('tag.show', 'javascript') ?>">
+                                javascript
                             </a>
                         </li>
-                        <li class="thread-most-item list-group-item d-flex align-items-center">
-                            <a href="javascript:void(0)" class="">
-                                <img class="mr-2" src="<?= base_url('images/empty.png') ?>">
-                                <div class="text-content">
-                                    <span class="name">Web Programming</span>
-                                    <span class="thread-count">35 Diskusi digunakan</span>
-                                </div>
+                        <li data-toggle="tooltip" title="1 Diskusi">
+                            <a href="<?= route_to('tag.show', 'codeigniter') ?>">
+                                codeigniter
                             </a>
                         </li>
-                        <li class="thread-most-item list-group-item d-flex align-items-center">
-                            <a href="javascript:void(0)" class="">
-                                <img class="mr-2" src="<?= base_url('images/empty.png') ?>">
-                                <div class="text-content">
-                                    <span class="name">Web Programming</span>
-                                    <span class="thread-count">35 Diskusi digunakan</span>
-                                </div>
+                        <li data-toggle="tooltip" title="1 Diskusi">
+                            <a href="<?= route_to('tag.show', 'laravel') ?>">
+                                laravel
                             </a>
                         </li>
-                        <li class="thread-most-item list-group-item d-flex align-items-center">
-                            <a href="javascript:void(0)" class="">
-                                <img class="mr-2" src="<?= base_url('images/empty.png') ?>">
-                                <div class="text-content">
-                                    <span class="name">Web Programming</span>
-                                    <span class="thread-count">35 Diskusi digunakan</span>
-                                </div>
+                        <li data-toggle="tooltip" title="1 Diskusi">
+                            <a href="<?= route_to('tag.show', 'mysql') ?>">
+                                mysql
                             </a>
                         </li>
-                        <li class="thread-most-item list-group-item d-flex align-items-center">
-                            <a href="javascript:void(0)" class="">
-                                <img class="mr-2" src="<?= base_url('images/empty.png') ?>">
-                                <div class="text-content">
-                                    <span class="name">Web Programming</span>
-                                    <span class="thread-count">35 Diskusi digunakan</span>
-                                </div>
+                        <li data-toggle="tooltip" title="1 Diskusi">
+                            <a href="<?= route_to('tag.show', 'html') ?>">
+                                html
                             </a>
                         </li>
-                        <li class="thread-most-item list-group-item d-flex align-items-center">
-                            <a href="javascript:void(0)" class="">
-                                <img class="mr-2" src="<?= base_url('images/empty.png') ?>">
-                                <div class="text-content">
-                                    <span class="name">Web Programming</span>
-                                    <span class="thread-count">35 Diskusi digunakan</span>
-                                </div>
+                        <li data-toggle="tooltip" title="1 Diskusi">
+                            <a href="<?= route_to('tag.show', 'css') ?>">
+                                css
                             </a>
                         </li>
-                        <li class="thread-most-item list-group-item d-flex align-items-center">
-                            <a href="javascript:void(0)" class="">
-                                <img class="mr-2" src="<?= base_url('images/empty.png') ?>">
-                                <div class="text-content">
-                                    <span class="name">Web Programming</span>
-                                    <span class="thread-count">35 Diskusi digunakan</span>
-                                </div>
+                        <li data-toggle="tooltip" title="1 Diskusi">
+                            <a href="<?= route_to('tag.show', 'bootstrap') ?>">
+                                bootstrap
+                            </a>
+                        </li>
+                        <li data-toggle="tooltip" title="1 Diskusi">
+                            <a href="<?= route_to('tag.show', 'jquery') ?>">
+                                jquery
+                            </a>
+                        </li>
+                        <li data-toggle="tooltip" title="1 Diskusi">
+                            <a href="<?= route_to('tag.show', 'vuejs') ?>">
+                                vuejs
+                            </a>
+                        </li>
+                        <li data-toggle="tooltip" title="1 Diskusi">
+                            <a href="<?= route_to('tag.show', 'reactjs') ?>">
+                                reactjs
+                            </a>
+                        </li>
+                        <li data-toggle="tooltip" title="1 Diskusi">
+                            <a href="<?= route_to('tag.show', 'tips-trik') ?>">
+                                tips & trik
+                            </a>
+                        </li>
+                        <li data-toggle="tooltip" title="1 Diskusi">
+                            <a href="<?= route_to('tag.show', 'tutorial') ?>">
+                                tutorial
+                            </a>
+                        </li>
+                        <li data-toggle="tooltip" title="1 Diskusi">
+                            <a href="<?= route_to('tag.show', 'ngoding') ?>">
+                                ngoding
+                            </a>
+                        </li>
+                        <li data-toggle="tooltip" title="1 Diskusi">
+                            <a href="<?= route_to('tag.show', 'programming') ?>">
+                                programming
+                            </a>
+                        </li>
+                        <li data-toggle="tooltip" title="1 Diskusi">
+                            <a href="<?= route_to('tag.show', 'web-dev') ?>">
+                                web dev
                             </a>
                         </li>
                     </ul>
@@ -96,7 +104,7 @@
                     <div class="row">
                         <div class="col-lg-9 col-md-9 pr-2 pr-md-normal">
                             <div class="thread-header font-weight-light main mb-medium-2 list-group-item d-flex justify-content-between align-items-center">
-                                <div class="most-title subject"><?= count($threads) ?> Diskusi dalam Kategori <span><?= $category->name ?></span></div>
+                                <div class="most-title subject"><?= count($threads) ?> Diskusi dalam # <span><?= $tag->name ?></span></div>
                                 <img class="logo-most" src="<?= base_url('images/logo/sm.png') ?>">
                             </div>
                         </div>
@@ -219,7 +227,7 @@
                         <?php endforeach ?>
                     </ul>
 
-                    <?= $pager->only(['order'])->links('category-thread', 'pg_home') ?>
+                    <?= $pager->only(['order'])->links('tag-thread', 'pg_home') ?>
                 </div>
             </div>
         </div>

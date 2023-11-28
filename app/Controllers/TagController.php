@@ -3,13 +3,13 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\CategoryModel;
+use App\Models\TagModel;
 use App\Models\ThreadModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
 
-class KategoriController extends BaseController
+class TagController extends BaseController
 {    
-    protected $categoryModel, $threadModel;
+    protected $tagModel, $threadModel;
     
     /**
      * __construct
@@ -18,7 +18,7 @@ class KategoriController extends BaseController
      */
     public function __construct()
     {
-        $this->categoryModel = new CategoryModel();
+        $this->tagModel = new TagModel();
         $this->threadModel = new ThreadModel();
     }
 
@@ -30,16 +30,16 @@ class KategoriController extends BaseController
      */
     public function index($slug)
     {
-        $category = $this->categoryModel->where('slug', $slug)->first();
+        $tag = $this->tagModel->where('slug', $slug)->first();
 
-        if (!$category || !$category->threads) throw PageNotFoundException::forPageNotFound();
+        if (!$tag || !$tag->threads) throw PageNotFoundException::forPageNotFound();
 
         $get = $this->request->getVar();
         $orderSelected = (isset($get['order']) && in_array($get['order'], ['desc', 'asc', 'popular'])) ? $get['order'] : 'desc';
 
         $threads = $this->threadModel->published()
-            ->join("thread_categories", "thread_categories.thread_id = threads.id")
-            ->where("thread_categories.category_id", $category->id)
+            ->join("thread_tags", "thread_tags.thread_id = threads.id")
+            ->where("thread_tags.tag_id", $tag->id)
             ->groupBy("threads.id")
             ->select("threads.*");
 
@@ -51,11 +51,11 @@ class KategoriController extends BaseController
             $threads->orderBy('threads.created_at', $orderSelected);
         }
 
-        return view('frontend/kategori/index', [
-            'title' => "Kategori $category->name",
-            'threads' => $threads->paginate(10, 'category-thread'),
+        return view('frontend/tag/index', [
+            'title' => "#$tag->name",
+            'threads' => $threads->paginate(10, 'tag-thread'),
             'pager' => $this->threadModel->pager,
-            'category' => $category,
+            'tag' => $tag,
             'order_selected' => $orderSelected,
         ]);
     }

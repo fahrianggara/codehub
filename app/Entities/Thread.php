@@ -141,7 +141,7 @@ class Thread extends Entity
 
         return $replies->where('thread_id', $this->attributes['id'])
             ->where('parent_id', null)
-            ->orderBy('created_at', 'DESC')
+            ->orderBy('created_at', 'ASC')
             ->findAll();
     }
 
