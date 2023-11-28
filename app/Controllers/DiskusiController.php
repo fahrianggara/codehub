@@ -681,4 +681,5 @@ class DiskusiController extends BaseController
             $this->db->transCommit();
         }
     }
+    
 }

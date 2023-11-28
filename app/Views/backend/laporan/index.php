@@ -10,7 +10,7 @@
                 <div class="card-header p-2">
                     <div class="d-flex align-items-center justify-content-between">
                         <span class="ml-2">Daftar pengguna di CODEHUB</span>
-                        
+
                     </div>
                 </div>
                 <div class="card-body table-responsive">
@@ -19,10 +19,11 @@
                             <tr>
                                 <th>#</th>
                                 <th>Pesan</th>
-                                <th>ID User</th>
+                                <th>Data User</th>
                                 <th>ID Model</th>
                                 <th>Class Model</th>
                                 <th>Laporan Dibuat</th>
+                                <th>Total Pelapor</th>
                                 <th>&nbsp;</th>
                             </tr>
                         </thead>
@@ -33,10 +34,27 @@
                                 <tr>
                                     <td><?= $no++ ?></td>
                                     <td><?= $report->message ?></td>
-                                    <td><?= $report->user_id ?></td>
+
+                                    <?php $userInfo = $userModel->find($report->user_id); ?>
+                                    <td>
+                                        <?php if ($userInfo) : ?>
+                                            <div class="user-info">
+                                                <img src="<?= esc($userInfo->photo) ?>" alt="Avatar">
+                                                <div class="user-name">
+                                                    <span><?= esc($userInfo->fullname) ?></span>
+                                                    <small><?= esc($userInfo->username) ?></small>
+                                                </div>
+                                            </div>
+                                        <?php else : ?>
+                                            Pengguna tidak ditemukan
+                                        <?php endif; ?>
+                                    </td>
+
                                     <td><?= $report->model_id ?></td>
                                     <td><?= ucfirst($report->model_class) ?></td>
                                     <td><?= waktu($report->created_at, 'l, d F Y', false) ?></td>
+                                    <td><?= $reportModel->countReportsByModelId($report->model_id) ?></td>
+
                                     <td>
                                         <div class="btn-group dropleft">
                                             <button class="btn btn-sm btn-more dropdown-toggle" data-toggle="dropdown" aria-expanded="false" data-display="static">

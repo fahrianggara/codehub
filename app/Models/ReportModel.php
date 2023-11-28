@@ -15,18 +15,24 @@ class ReportModel extends Model
         'message', 'model_id', 'model_class', 'user_id', 'created_at'
     ];
 
-    public function getReports()
+    public function getReportsWithUserDetails($Id)
     {
-        $query = $this->db->table('reports')
-            ->select('reports.*, COUNT(reports.id) as total_reports')
-            ->groupBy('reports.id')
-            ->get();
-
-        return $query->getResult();
+        $builder = $this->db->table('reports');
+        $builder->select('reports.*, users.full_name, users.username, users.avatar');
+        $builder->join('users', 'users.id = reports.user_id');
+        $builder->where('id', $Id);
+        return $builder->get()->getRow();
     }
 
     public function saveReport($data)
     {
         return $this->insert($data);
     }
+
+    public function countReportsByModelId($modelId)
+    {
+        return $this->where('model_id', $modelId)->countAllResults();
+    }
+
+    
 }

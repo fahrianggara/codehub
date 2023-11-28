@@ -3,16 +3,18 @@
 namespace App\Controllers\Backend;
 
 use App\Controllers\BaseController;
-use App\Models\ReplyModel;
 use App\Models\ReportModel;
+use App\Models\UserModel;
 
 class LaporanController extends BaseController
 {
     protected $reportModel;
+    protected $userModel;
 
     public function __construct()
     {
         $this->reportModel = new \App\Models\ReportModel();
+        $this->userModel = new UserModel();
     }
     public function index()
     {
@@ -22,14 +24,8 @@ class LaporanController extends BaseController
             'title' => 'Laporan',
             'menu' => 'laporan',
             'reports' => $reports,
-        ]);
-    }
-
-    public function create()
-    {
-        return view('backend/laporan/create', [
-            'title' => 'Tambah Laporan',
-            'menu' => 'laporan'
+            'reportModel' => $this->reportModel,
+            'userModel' => $this->userModel,
         ]);
     }
 
@@ -77,8 +73,7 @@ class LaporanController extends BaseController
 
     public function reportDiskusi()
     {
-        $reportModel = new ReplyModel();
-        $reports = $reportModel->getReports();
+        $reportModel = new ReportModel();
 
         $data = [
             'message' => $this->request->getPost('message'),
@@ -90,5 +85,12 @@ class LaporanController extends BaseController
         $reportModel->saveReport($data);
 
         // Tambahkan logika untuk menampilkan pesan sukses atau gagal
+    }
+
+    public function showReport($id)
+    {
+        $report = $this->reportModel->getReportsWithUserDetails($id);
+
+        return view('backend/laporan/index', ['laporan' => $report]);
     }
 }
