@@ -96,7 +96,7 @@
                     <div class="row">
                         <div class="col-lg-9 col-md-12">
                             <div class="thread-header main mb2 list-group-item d-flex justify-content-between align-items-center">
-                                <div class="most-title">Diskusi - <span><?= $category->name ?></span></div>
+                                <div class="most-title"><?= count($threads) ?> Diskusi - <span><?= $category->name ?></span></div>
                                 <img class="logo-most" src="<?= base_url('images/logo/sm.png') ?>">
                             </div>
                         </div>

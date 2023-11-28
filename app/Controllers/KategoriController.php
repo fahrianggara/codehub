@@ -31,7 +31,7 @@ class KategoriController extends BaseController
     {
         $category = $this->categoryModel->where('slug', $slug)->first();
 
-        if (!$category->threads) throw PageNotFoundException::forPageNotFound();
+        if (!$category || !$category->threads) throw PageNotFoundException::forPageNotFound();
 
         $get = $this->request->getVar();
         $orderSelected = (isset($get['order']) && in_array($get['order'], ['desc', 'asc', 'popular'])) ? $get['order'] : 'desc';
