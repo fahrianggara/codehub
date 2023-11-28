@@ -422,6 +422,18 @@ class DiskusiController extends BaseController
         $idModel = decrypt($post['id']);
         $classModel = decrypt($post['class']); // value: App\Models\ThreadModel or App\Models\ReplyModel
 
+        // pengecekan jika tidak ada data di database
+        $model = new $classModel;
+        $check = $model->find($idModel);
+
+        if (!$check) {
+            return response()->setJSON([
+                'status' => 400,
+                'reload' => true, // reload page
+                'message' => 'Diskusi tidak ditemukan.'
+            ]);
+        }
+
         $this->db->transBegin();
         try {
             $model = new $classModel;

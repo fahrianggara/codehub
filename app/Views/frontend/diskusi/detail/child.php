@@ -22,19 +22,23 @@
                     aria-expanded="false" data-display="static">
                     <i class="fas fa-ellipsis-h"></i>
                 </button>
+
                 <div class="dropdown-menu dropdown-menu-right">
-                    <?php if (auth_check() && auth()->id === $child->user_id): ?>
-                        <a class="dropdown-item btn-edit-balasan" href="javascript:void(0);"
-                            data-id="<?= encrypt($child->id) ?>">
-                            <i class="fas text-warning fa-pen mr-2"></i> Edit
-                        </a>
+                    <?php if (auth_check()): ?>
+                        <?php if (auth()->id === $child->user_id): ?>
+                            <a class="dropdown-item btn-edit-balasan" href="javascript:void(0);"
+                                data-id="<?= encrypt($child->id) ?>">
+                                <i class="fas text-warning fa-pen mr-2"></i> Edit
+                            </a>
+                        <?php endif ?>
 
-                        <a class="dropdown-item btn-hapus-balasan" href="javascript:void(0);"
-                            data-id="<?= encrypt($child->id) ?>">
-                            <i class="fas text-danger fa-trash mr-2"></i> Hapus
-                        </a>
-
-                        <div class="dropdown-divider"></div>
+                        <?php if (auth()->id === $child->user_id || auth()->role === 'admin'): ?>
+                            <a class="dropdown-item btn-hapus-balasan" href="javascript:void(0);"
+                                data-id="<?= encrypt($child->id) ?>">
+                                <i class="fas text-danger fa-trash mr-2"></i> Hapus
+                            </a>
+                            <div class="dropdown-divider"></div>
+                        <?php endif ?>
                     <?php endif ?>
                     
                     <a id="btnLaporkan" class="dropdown-item btn-report-diskusi" href="javascript:void(0);" 

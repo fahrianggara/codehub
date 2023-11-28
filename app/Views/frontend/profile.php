@@ -31,11 +31,11 @@
                                 </a>
                             </li>
                             <?php if (auth_check() && auth()->id === $user->id): ?>
-                            <li class="nav-item">
-                                <a class="nav-link profile-tab" href="#" data-toggle="tab" data-target="#tab-security">
-                                    Keamanan
-                                </a>
-                            </li>
+                                <li class="nav-item">
+                                    <a class="nav-link profile-tab" href="#" data-toggle="tab" data-target="#tab-security">
+                                        Keamanan
+                                    </a>
+                                </li>
                             <?php endif ?>
                         </ul>
                     </div>
@@ -57,8 +57,8 @@
 
                                     <div class="card">
                                         <div class="card-header accordion">
-                                            <a href="#collapse-filter" class="btn btn-filter text-left p-0 ml-1 w-100" data-toggle="collapse"
-                                                aria-expanded="<?= $selected_true ? 'true' : 'false' ?>" aria-controls="collapse-filter">
+                                            <a href="javascript:void(0);" aria-expanded="<?= $selected_true ? 'true' : 'false' ?>"
+                                                class="btn btn-filter text-left p-0 ml-1 w-100">
                                                 <span>Filter Diskusi</span>
                                                 <i class="fas fa-chevron-down"></i>
                                             </a>
@@ -150,22 +150,26 @@
         const filterCategory = $('#filter-category');
         const btnResetFilter = $('.btn-reset-filter');
 
-        filterStatus.change(function () {
-            formFilter.submit();
-        });
-
-        filterOrder.change(function () {
-            formFilter.submit();
-        });
-
-        filterCategory.change(function () {
-            formFilter.submit();
-        });
+        filterStatus.change(() => { formFilter.submit() });
+        filterOrder.change(() => { formFilter.submit() });
+        filterCategory.change(() => { formFilter.submit() });
 
         btnResetFilter.click(function () {
             window.location.href = $(this).data('url');
-            // add loading
-            $(this).html('<i class="fas fa-spinner fa-spin"></i> Loading...');
+            $(this).html('<i class="fas fa-spinner fa-spin"></i> Loading...').attr('disabled', true);
+        });
+
+        // Collapse Filter
+        var btnFilter = $('.btn-filter');
+        var collapseFilter = $('#collapse-filter');
+
+        btnFilter.click(function () {
+            collapseFilter.collapse('toggle');
+
+            var ariaExpanded = $(this).attr('aria-expanded');
+            (ariaExpanded === 'true')
+                ? $(this).attr('aria-expanded', 'false') 
+                : $(this).attr('aria-expanded', 'true');
         });
     });
 </script>

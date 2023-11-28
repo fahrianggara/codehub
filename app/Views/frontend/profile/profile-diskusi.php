@@ -48,11 +48,6 @@
                             <?php endif ?>
 
                             <?php if ($thread->status === "published"): ?>
-                                <a class="dropdown-item btn-share-diskusi" href="javascript:void(0);">
-                                    <i class="fas text-info fa-share mr-2"></i>
-                                    Bagikan
-                                </a>
-    
                                 <a class="dropdown-item" href="<?= route_to('diskusi.show', $thread->slug) ?>">
                                     <i class="fas text-primary fa-external-link-alt mr-2"></i>
                                     Lihat
@@ -114,6 +109,11 @@
                         <button class="btn views cursor-default">
                             <i class="fas fa-eye"></i>
                             <small><?= $thread->views ?></small>
+                        </button>
+
+                        <button class="btn btn-sm btn-share-diskusi" type="button" data-toggle="tooltip" 
+                            title="Bagikan Diskusi">
+                            <i class="bi bi-share-fill"></i>
                         </button>
                     </div>
                 </div>

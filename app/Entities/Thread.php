@@ -148,13 +148,20 @@ class Thread extends Entity
     /**
      * Count replies
      * 
+     * @param bool $withOwner
      * @return int
      */
-    public function getCountReplies()
+    public function getCountReplies($withOwner = false)
     {
         $replies = new ReplyModel();
+        $builder = $replies->where('thread_id', $this->attributes['id']);
 
-        return $replies->where('thread_id', $this->attributes['id'])
-            ->countAllResults();
+        if ($withOwner) {
+            $output = $builder->where('user_id !=', $this->attributes['user_id']);
+        } else {
+            $output = $builder;
+        }
+
+        return $output->countAllResults();
     }
 }

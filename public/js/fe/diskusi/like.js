@@ -28,6 +28,7 @@ $(document).ready(function () {
             success: function (res) {
                 if (res.status === 400) {
                     alertifyLog('error', res.message, (e) => {
+                        if (res.reload) window.location.reload();
                         $("body").css("overflow", "auto");
                     });
                 } else {

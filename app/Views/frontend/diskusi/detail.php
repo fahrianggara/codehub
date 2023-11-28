@@ -2,11 +2,16 @@
 
 <?= $this->section('content') ?>
 
+<?php 
+    $count = $thread->getCountReplies(true); 
+    $count = $count ? ". $count orang membalas diskusi ini." : "." 
+?>
+
 <section class="homepage first" id="homepage">
     <div class="thread container-fluid">
         <div class="row justify-content-center">
 
-            <div class="col-xl-3 col-lg-4 col-md-12 mb-3 order-lg-1 order-3">
+            <div class="col-xl-3 col-lg-4 col-md-12 mb-3 pr-3 pr-md-normal order-lg-1 order-3">
                 <div class="sticky">
 
                     <button class="btn btn-reply-thread in-side mb-3" type="button" data-id="<?= encrypt($thread->id) ?>">
@@ -87,10 +92,12 @@
                 </div>
             </div>
 
-            <div class="col-xl-7 col-lg-8 col-md-12 mb-3 order-lg-2 order-1">
+            <div class="col-xl-7 col-lg-8 col-md-12 mb-3 pl-0 pl-md-normal order-lg-2 order-1">
                 <div class="thread-header-panel">
                     <div class="thread-message">
-                        <span><?= $user->username ?> memulai diskusi ini <?= ago($thread->created_at) ?>.</span>
+                        <span>
+                            <?= $user->username ?> memulai diskusi <?= ago($thread->created_at) ?><?= $count ?>
+                        </span>
                     </div>
                     <div class="thread-info">
                         <ul>
@@ -128,10 +135,6 @@
 
                                             <div class="dropdown-divider"></div>
                                         <?php endif ?>
-                                        <a class="dropdown-item" href="javascript:void(0);">
-                                            <i class="fas text-info fa-share mr-2"></i>
-                                            Bagikan
-                                        </a>
                                         <a id="btnLaporkan" class="dropdown-item btn-report-diskusi" href="javascript:void(0);" data-id="<?= encrypt($thread->id) ?>" data-model="<?= encrypt(getClass($thread)) ?>" data-logined="<?= auth_check() ?>" data-pelaku="<?= encrypt($thread->user_id) ?>">
                                             <i class="fas text-warning fa-exclamation-triangle mr-2"></i>
                                             Laporkan
@@ -164,6 +167,10 @@
                                     </ul>
                                     <div class="thread-tengah">
                                         <?= buttonLike($thread) ?>
+                                        <button class="btn btn-sm btn-share-diskusi" type="button" data-toggle="tooltip" 
+                                            title="Bagikan Diskusi">
+                                            <i class="bi bi-share-fill"></i>
+                                        </button>
                                     </div>
                                 </div>
                             </div>

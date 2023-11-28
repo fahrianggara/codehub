@@ -94,6 +94,17 @@ class Reply extends Entity
             ->findAll();
     }
 
+
+    // /**
+    //  * Get parents replies
+    //  */
+    // public function getParents()
+    // {
+    //     $replies = new ReplyModel();
+
+    //     return $replies->where('p')
+    // }
+
     /**
      * Get child reply
      * 

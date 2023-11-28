@@ -12,6 +12,10 @@ body {
 	--header-color: #efefef;
 }
 
+.text-main {
+	color: var(--hover-color);
+}
+
 .btn {
 	border-radius: 8px;
 }
@@ -66,6 +70,20 @@ label[required]::after {
 
 .swal2-styled {
     border-radius: 8px !important;
+}
+
+@media (max-width: 991.98px) {
+	.mb-medium-2 {
+		margin-bottom: 0.8rem !important;
+	}
+
+	.pr-md-normal {
+		padding-right: 15px !important;
+	}
+
+	.pl-md-normal {
+		padding-left: 15px !important;
+	}
 }
 
 @media (max-width: 767.98px) {

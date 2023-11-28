@@ -10,7 +10,7 @@ $(document).ready(function () {
     var logined = modalReply.data("logined");
 
     // hover button reply thread
-    $('.btn-reply-thread-child').hover(function () {
+    $('.btn-reply-thread-child, .btn-share-diskusi').hover(function () {
         $(this).closest('.thread-reply-box').addClass('is-active');
     }, function () {
         $(this).closest('.thread-reply-box').removeClass('is-active');

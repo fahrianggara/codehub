@@ -72,15 +72,3 @@ code {
     margin-right: 1.5rem;
     padding-right: 1rem
 }
-
-code[class*="language-"],
-pre[class*="language-"] {
-    font-family: "Fira Code", monospace !important;
-	font-size: 14px;
-}
-
-:not(pre) > code[class*="language-"],
-pre[class*="language-"] {
-	background: #f4f4f4;
-	border-radius: 12px;
-}
