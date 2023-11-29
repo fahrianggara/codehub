@@ -6,12 +6,11 @@ use App\Controllers\BaseController;
 
 class HomeController extends BaseController
 {
-<<<<<<< Updated upstream
-    protected $categoryModel, $threadModel, $userModel;
-=======
-    protected $categoryModel;
 
->>>>>>> Stashed changes
+    protected $categoryModel, $threadModel, $userModel;
+
+
+
     public function __construct()
     {
         $this->categoryModel = new \App\Models\CategoryModel();
@@ -20,7 +19,7 @@ class HomeController extends BaseController
 
     public function index()
     {
-<<<<<<< Updated upstream
+
 
         $categories =  $this->categoryModel->getTopCategories(3);
 
@@ -30,7 +29,8 @@ class HomeController extends BaseController
             'title' => 'Beranda',
             'categories' => $categories,
             'threads' => $threads,
-=======
+        ]);
+
         $categories = $this->categoryModel
             ->select('threads.id as thread_id, COUNT(*) as discussion_count, categories.*')
             ->join('thread_categories', 'thread_categories.category_id = categories.id')
@@ -42,7 +42,7 @@ class HomeController extends BaseController
         return view('frontend/home', [
             'title' => "Beranda",
             'categories' => $categories
->>>>>>> Stashed changes
+
         ]);
     }
 }
