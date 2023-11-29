@@ -22,7 +22,7 @@ class HomeController extends BaseController
 
 
         $categories =  $this->categoryModel->getTopCategories(3);
-        $threads = $this->threadModel->orderBy('created_at', 'DESC')->findAll();
+        $threads = $this->threadModel->orderBy('created_at', 'DESC')->published()->findAll();
         $TopThreads = $this->threadModel->orderBy('views', 'DESC')->findAll(3);
 
         return view('frontend/home', [
@@ -30,20 +30,6 @@ class HomeController extends BaseController
             'categories' => $categories,
             'threads' => $threads,
             'TopThreads' => $TopThreads,
-        ]);
-
-        $categories = $this->categoryModel
-            ->select('threads.id as thread_id, COUNT(*) as discussion_count, categories.*')
-            ->join('thread_categories', 'thread_categories.category_id = categories.id')
-            ->join('threads', 'threads.id = thread_categories.thread_id')
-            ->groupBy('threads.id, categories.id') // Sesuaikan dengan kolom yang dikelompokkan
-            ->orderBy('discussion_count', 'desc') // Menggunakan alias pada fungsi agregat
-            ->findAll(3);
-
-        return view('frontend/home', [
-            'title' => "Beranda",
-            'categories' => $categories
-
         ]);
     }
 }
