@@ -41,7 +41,7 @@
                     <div class="row">
                         <div class="col-lg-9 col-md-9 pr-2 pr-md-normal">
                             <div class="thread-header font-weight-light main mb-medium-2 list-group-item d-flex justify-content-between align-items-center">
-                                <div class="most-title subject"><?= count($threads) ?> Diskusi dalam Kategori <span><?= $category->name ?></span></div>
+                                <div class="most-title subject"><?= count($threads) ?> Diskusi dalam Kategori <span><?= $category_name?></span></div>
                                 <img class="logo-most" src="<?= base_url('images/logo/sm.png') ?>">
                             </div>
                         </div>

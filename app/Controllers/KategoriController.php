@@ -61,6 +61,7 @@ class KategoriController extends BaseController
             'order_selected' => $orderSelected,
             'categories' => $categories,
             'slug'  => $slug,
+            'category_name' => $category->name, 
         ]);
     }
 }
