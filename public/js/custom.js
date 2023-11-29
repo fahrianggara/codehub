@@ -21,6 +21,41 @@ if (toastAlert.length) {
     });
 }
 
+// Flash data alertify
+const alertifyAlert = $(".alertify-msg");
+
+if (alertifyAlert.length) {
+    const message = alertifyAlert.data('message');
+    const type = alertifyAlert.attr('class').split(' ')[1];
+
+    switch (type) {
+        case 'success':
+            alertify.success(message).delay(3000);
+            break;
+        case 'error':
+            alertify.error(message).delay(3000);
+            break;
+        case 'info':
+            alertify.log(message).delay(3000);
+            break;
+    }
+}
+
+/**
+ * Show loader overlay
+ * 
+ * @param {string} message
+ */
+function showLoader(message = null) {
+    var loaderOverlay = $(document).find(".loader-overlay");
+
+    if (message) {
+        loaderOverlay.find(".loader-text").html(message);
+        loaderOverlay.addClass("show");
+        $("body").css("overflow", "hidden");
+    }
+}
+
 /**
  * Validate image type
  */

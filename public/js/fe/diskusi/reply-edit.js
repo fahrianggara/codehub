@@ -69,6 +69,7 @@ $(document).ready(function () {
                         $("body").css('overflow', 'auto');
                     });
                 } else {
+                    showLoader("Tunggu sebentar ya, balasan kamu sedang diperbarui...");
                     modalBalasan.modal('hide');
                     location.reload();
                 }

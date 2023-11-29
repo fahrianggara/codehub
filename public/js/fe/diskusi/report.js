@@ -58,10 +58,9 @@ $(document).ready(function () {
                     
                     $(document).find(".alertify .msg").addClass("text-danger");
                 } else {
-                    alertifyLog('success', res.message, () => {
-                        modalLaporan.modal('hide');
-                        $("body").css('overflow', 'auto');
-                    });
+                    showLoader("Tunggu sebentar ya, laporan kamu sedang dibuat...");
+                    modalLaporan.modal('hide');
+                    location.reload();
                 }
             }
         });

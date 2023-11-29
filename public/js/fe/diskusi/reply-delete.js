@@ -21,6 +21,7 @@ $(document).ready(function () {
                             $("body").css("overflow", "auto");
                         });
                     } else {
+                        showLoader("Tunggu sebentar ya, balasan sedang dihapus...");
                         location.reload();
                     }
                 }

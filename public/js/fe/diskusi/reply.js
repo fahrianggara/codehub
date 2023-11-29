@@ -100,7 +100,7 @@ $(document).ready(function () {
     }).on("hidden.bs.modal", function () {
         modalReply.find("#title").text("Balas Diskusi");
         tinymce.get('content-reply').setContent('');
-        formReply.reset();
+        formReply.trigger('reset');
     });
 
     // Form Reply
@@ -139,6 +139,7 @@ $(document).ready(function () {
                         $("body").css('overflow', 'auto');
                     });
                 } else {
+                    showLoader("Tunggu sebentar ya, balasan sedang dikirim...");
                     modalReply.modal('hide');
                     location.reload();
                 }

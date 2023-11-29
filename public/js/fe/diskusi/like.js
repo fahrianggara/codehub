@@ -25,21 +25,23 @@ $(document).ready(function () {
                 class: classModel
             },
             dataType: "json",
-            success: function (res) {
-                if (res.status === 400) {
-                    alertifyLog('error', res.message, (e) => {
-                        if (res.reload) window.location.reload();
-                        $("body").css("overflow", "auto");
-                    });
-                } else {
-                    var small = $this.find("small");
-                    var count = small.html();
-
-                    $this.removeClass().addClass(res.btnClassAttr);
-                    $this.find("i").removeClass().addClass(res.iconClassAttr);
-
-                    res.likeStatus === "like" ? small.html(parseInt(count) + 1) : small.html(parseInt(count) - 1);
-                }
+        }).done(function (res) {
+            if (res.status === 400) {
+                alertifyLog('error', res.message, (e) => {
+                    if (res.reload) {
+                        showLoader("Tunggu sebentar ya, sedang memuat ulang halaman..");
+                        location.reload();
+                    }
+                    $("body").css("overflow", "auto");
+                });
+            } else {
+                var small = $this.find("small");
+                var count = small.html();
+    
+                $this.removeClass().addClass(res.btnClassAttr);
+                $this.find("i").removeClass().addClass(res.iconClassAttr);
+    
+                res.likeStatus === "like" ? small.html(parseInt(count) + 1) : small.html(parseInt(count) - 1);
             }
         });
     });

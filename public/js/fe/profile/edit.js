@@ -55,11 +55,9 @@ $(document).ready(function () {
                         alertError(res.message);
                     }
                 } else {
+                    showLoader("Tunggu sebentar ya, profile kamu sedang diperbarui...");
                     modal.modal('hide');
-
-                    alertifyLog('success', res.message, () => {
-                        location.href = res.redirect;
-                    });
+                    location.href = res.redirect;
                 }
             },
             error: function (err) {

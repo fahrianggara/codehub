@@ -52,7 +52,7 @@ class RegisterController extends BaseController
 
             // Insert user..
             $this->userModel->insert([
-                'username' => $this->generateUsername($email),
+                'username' => 'user' . rand(100000, 999999),
                 'email' => $email,
                 'password' => password_hash($request->getVar('password'), PASSWORD_BCRYPT),
                 'role' => 'user'

@@ -47,6 +47,7 @@ $(document).ready(function () {
                     }
                 } else {
                     alertifyLog('success', res.message, () => {
+                        showLoader("Tunggu sebentar ya, kamu sedang diarahkan ke halaman login...");
                         location.href = res.redirect ?? location.reload;
                     });
                 }

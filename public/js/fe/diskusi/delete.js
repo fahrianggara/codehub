@@ -21,9 +21,8 @@ $(document).ready(function () {
                             $("body").css("overflow", "auto");
                         });
                     } else {
-                        alertifyLog('success', res.message, (e) => {
-                            location.reload();
-                        });
+                        showLoader("Tunggu sebentar ya, diskusi kamu sedang dihapus...");
+                        location.reload();
                     }
                 }
             });

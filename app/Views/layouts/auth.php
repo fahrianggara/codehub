@@ -21,6 +21,18 @@
 </head>
 
 <body>
+    <!-- Loader -->
+    <div class="loader-overlay">
+        <div class="loader-container">
+            <div class="loader"></div>
+            <span class="loader-text"></span>
+        </div>
+    </div>
+
+    <!-- alert flash message -->
+    <?= $this->include('component/alertify-message') ?>
+
+    <!-- Content -->
     <?= $this->renderSection('content') ?>
 
     <!-- JS File -->

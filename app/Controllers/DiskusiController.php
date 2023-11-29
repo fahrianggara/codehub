@@ -104,6 +104,8 @@ class DiskusiController extends BaseController
             $this->threadModel->syncCategories($insertId, $post['category_id']);
             if (!empty($tags)) $this->threadModel->syncTags($insertId, $tags);
 
+            session()->setFlashdata('info', 'Diskusi berhasil dibuat.');
+
             return response()->setJSON([
                 'status' => 200,
                 'message' => 'Diskusi berhasil dibuat.'
@@ -181,6 +183,8 @@ class DiskusiController extends BaseController
                     'content' => $purifier->purify($post['content']),
                 ]);
 
+                session()->setFlashdata('info', 'Balasan berhasil diperbarui.');
+
                 return response()->setJSON([
                     'status' => 200,
                     'message' => 'Balasan berhasil diperbarui.'
@@ -223,9 +227,11 @@ class DiskusiController extends BaseController
             $this->threadModel->syncCategories($id, $post['category_id']);
             if (!empty($tags)) $this->threadModel->syncTags($id, $tags);
 
+            session()->setFlashdata('info', 'Diskusi berhasil diperbarui.');
+
             return response()->setJSON([
                 'status' => 200,
-                'message' => 'Diskusi berhasil diperbarui.'
+                'message' => 'Diskusi berhasil diperbarui.',
             ]);
         } catch (\Throwable $th) {
             $this->db->transRollback();
@@ -262,6 +268,8 @@ class DiskusiController extends BaseController
             }
 
             $this->threadModel->delete($id);
+
+            session()->setFlashdata('info', 'Diskusi berhasil dihapus.');
 
             return response()->setJSON([
                 'status' => 200,
@@ -348,6 +356,8 @@ class DiskusiController extends BaseController
                 'parent_id' => $post['parent_id'] !== "" ? decrypt($post['parent_id']) : null,
             ]);
 
+            session()->setFlashdata('info', 'Balasan berhasil dikirim.');
+
             return response()->setJSON([
                 'status' => 200,
                 'message' => 'Balasan berhasil dikirim.'
@@ -395,6 +405,8 @@ class DiskusiController extends BaseController
 
             $this->replyModel->delete($id);
 
+            session()->setFlashdata('info', 'Balasan berhasil dihapus.');
+
             return response()->setJSON([
                 'status' => 200,
                 'message' => 'Balasan berhasil dihapus.'
@@ -425,8 +437,11 @@ class DiskusiController extends BaseController
         // pengecekan jika tidak ada data di database
         $model = new $classModel;
         $check = $model->find($idModel);
+        
+        // Jika model adalah thread ber status draft dan bukan milik user yang login, maka tidak boleh like
+        $threadDraft = $classModel === "App\Models\ThreadModel" && $check->status === 'draft' && $check->user_id !== auth()->id;
 
-        if (!$check) {
+        if (! $check || $threadDraft) {
             return response()->setJSON([
                 'status' => 400,
                 'reload' => true, // reload page
@@ -478,6 +493,8 @@ class DiskusiController extends BaseController
 
             $this->threadModel->update($id, ['status' => 'draft']);
 
+            session()->setFlashdata('info', 'Diskusi berhasil di arsipkan.');
+
             return response()->setJSON([
                 'status' => 200,
                 'message' => 'Diskusi berhasil di arsip.'
@@ -508,6 +525,8 @@ class DiskusiController extends BaseController
             $id = decrypt($post['id']);
 
             $this->threadModel->update($id, ['status' => 'published']);
+
+            session()->setFlashdata('info', 'Diskusi berhasil di publikasikan.');
 
             return response()->setJSON([
                 'status' => 200,
@@ -665,6 +684,8 @@ class DiskusiController extends BaseController
                 'model_id' => $model_id,
                 'model_class' => $model_class,
             ]);
+
+            session()->setFlashdata('info', 'Terimakasih sudah melaporkan.');
 
             return response()->setJSON([
                 'status' => 200,

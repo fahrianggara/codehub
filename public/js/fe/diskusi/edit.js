@@ -134,6 +134,7 @@ $(document).ready(function () {
                         $("body").css('overflow', 'auto');
                     });
                 } else {
+                    showLoader("Tunggu sebentar ya, diskusi kamu sedang diperbarui...");
                     modalDiskusi.modal('hide');
                     location.reload();
                 }

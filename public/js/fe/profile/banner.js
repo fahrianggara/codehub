@@ -21,9 +21,8 @@ $(document).ready(function () {
                     if (res.status === 400) {
                         alertError(res.message);
                     } else {
-                        alertifyLog('success', res.message, () => {
-                            location.reload();
-                        });
+                        showLoader("Tunggu sebentar ya, foto sampul kamu sedang dihapus...");
+                        location.reload();
                     }
                 }
             });
@@ -129,9 +128,8 @@ $(document).ready(function () {
                 if (res.status === 400) {
                     cropButton.attr('disabled', false).html('Potong & Simpan');
                 } else {
-                    alertifyLog('success', res.message, () => {
-                        location.reload();
-                    });
+                    showLoader("Tunggu sebentar ya, foto sampul kamu sedang diupload...");
+                    location.reload();
                 }
             }
         });

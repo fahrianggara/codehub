@@ -150,11 +150,23 @@
         const filterCategory = $('#filter-category');
         const btnResetFilter = $('.btn-reset-filter');
 
-        filterStatus.change(() => { formFilter.submit() });
-        filterOrder.change(() => { formFilter.submit() });
-        filterCategory.change(() => { formFilter.submit() });
+        filterStatus.change(() => { 
+            formFilter.submit();
+            showLoader("Tunggu sebentar ya, sedang mengubah status diskusi...");
+        });
+
+        filterOrder.change(() => { 
+            formFilter.submit();
+            showLoader("Tunggu sebentar ya, sedang mengubah urutan diskusi...");
+        });
+
+        filterCategory.change(() => { 
+            formFilter.submit();
+            showLoader("Tunggu sebentar ya, sedang mengubah kategori diskusi...");
+        });
 
         btnResetFilter.click(function () {
+            showLoader("Tunggu sebentar ya, sedang mereset filter diskusi...");
             window.location.href = $(this).data('url');
             $(this).html('<i class="fas fa-spinner fa-spin"></i> Loading...').attr('disabled', true);
         });

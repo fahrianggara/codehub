@@ -110,8 +110,8 @@
                             <small><?= $thread->views ?></small>
                         </button>
 
-                        <button class="btn btn-sm btn-share-diskusi" type="button" data-toggle="tooltip" 
-                            title="Bagikan Diskusi">
+                        <button <?= $thread->status === "draft" ? "disabled" : 'data-toggle="tooltip" title="Bagikan Diskusi"'  ?> 
+                            class="btn btn-sm btn-share-diskusi" type="button">
                             <i class="bi bi-share-fill"></i>
                         </button>
                     </div>

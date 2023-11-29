@@ -78,14 +78,14 @@ class LoginController extends BaseController
                 case 'admin':
                     return response()->setJSON([
                         'status' => 200,
-                        'message' => "Login berhasil, kamu akan diarahkan ke halaman dashboard admin.",
+                        'message' => "kamu akan diarahkan ke halaman dashboard admin",
                         'redirect' => route_to("admin.dash"),
                     ]);
                     break;
                 case "user":
                     return response()->setJSON([
                         'status' => 200,
-                        'message' => "Login berhasil, kamu akan diarahkan ke halaman profile kamu.",
+                        'message' => "kamu akan diarahkan ke halaman profile kamu",
                         'redirect' => base_url("$user->username"),
                     ]);
                     break;
@@ -93,7 +93,7 @@ class LoginController extends BaseController
                     session()->destroy();
                     return response()->setJSON([
                         'status' => 400,
-                        'message' => "Role $user->role tidak ditemukan!",
+                        'message' => "role $user->role tidak ditemukan!",
                         'redirect' => route_to("login"),
                     ]);
                     break;

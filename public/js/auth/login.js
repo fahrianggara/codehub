@@ -67,15 +67,21 @@ $(document).ready(function ()
                         $("body").css('overflow', 'auto');
                     });
                 } else {
-                    alertifyLog('success', res.message, () => {
+                    showLoader(`Tunggu sebentar ya, ${res.message}...`);
+                    setTimeout(() => {
                         window.location.href = res.redirect;
+                    }, 1500);
 
-                        submit.attr("disabled", "disabled").html("<i class='fas fa-spinner fa-spin'></i> Loading...");
 
-                        $("a").each(function () {
-                            $(this).addClass("disabled");
-                        });
-                    });
+                    // alertifyLog('success', res.message, () => {
+                    //     window.location.href = res.redirect;
+
+                    //     submit.attr("disabled", "disabled").html("<i class='fas fa-spinner fa-spin'></i> Loading...");
+
+                    //     $("a").each(function () {
+                    //         $(this).addClass("disabled");
+                    //     });
+                    // });
                 }
             },
             error: function (err) {

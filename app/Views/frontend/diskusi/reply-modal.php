@@ -12,13 +12,15 @@
             <input type="hidden" name="parent_id" id="parent_id">
 
             <div class="modal-header p-2">
-                <div class="modal-title d-flex align-items-center ml-2">
-                    <i class="fas fa-comment text-primary mr-1"></i>
-                    <?php if ($view_thread): ?>
-                        <div id="title" class="text-truncate mx-1"></div>
-                    <?php else: ?>
-                        <div id="title" class="text-truncate mx-1">Balas Diskusi</div>
-                    <?php endif ?>
+                <div class="modal-header-responsive">
+                    <div class="modal-title d-flex align-items-center ml-2">
+                        <i class="fas fa-comment text-primary mr-1"></i>
+                        <?php if ($view_thread): ?>
+                            <div id="title" class="mx-1 text-truncate"></div>
+                        <?php else: ?>
+                            <div id="title" class="mx-1 text-truncate">Balas Diskusi</div>
+                        <?php endif ?>
+                    </div>
                 </div>
                 <button type="button" class="btn btn-primary modal-close-reply">
                     <i class="fas fa-times"></i>

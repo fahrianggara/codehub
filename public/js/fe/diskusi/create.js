@@ -110,11 +110,10 @@ $(document).ready(function () {
                     
                     $(document).find(".alertify .msg").addClass("text-danger");
                 } else {
+                    showLoader("Tunggu sebentar ya, diskusi kamu sedang dibuat...");
                     modalDiskusi.modal('hide');
+                    location.reload();
 
-                    alertifyLog('success', res.message, () => {
-                        location.reload();
-                    });
                 }
             }
         });

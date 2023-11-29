@@ -290,9 +290,11 @@ input[type="search"]::-webkit-search-results-button,
 input[type="search"]::-webkit-search-results-decoration {
 	display: none;
 }
-
-.icon-nav .dropdown-toggle:focus,
 .form-search .form-control:focus {
+	box-shadow: 0 0 0 0.2rem rgba(20, 184, 166, 0.25);
+}
+
+.icon-nav .dropdown-toggle:focus {
 	box-shadow: none;
 }
 
@@ -1264,7 +1266,7 @@ input[type="search"]::-webkit-search-results-decoration {
 	transition: 0.3s all ease-in-out;
 }
 
-.btn-share-diskusi {
+.btn-share-diskusi:not([disabled]) {
 	color: var(--hover-color);
 	height: 40px;
 	width: 40px;

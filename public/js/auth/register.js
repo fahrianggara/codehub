@@ -71,15 +71,18 @@ $(document).ready(function ()
                         $("body").css('overflow', 'auto');
                     });
                 } else {
-                    alertifyLog('success', res.message, () => {
-                        window.location.href = res.redirect;
+                    showLoader(`Pendaftar berhasil, kamu akan dialihkan ke halaman login.`);
+                    window.location.href = res.redirect;
 
-                        submit.attr("disabled", "disabled").html("<i class='fas fa-spinner fa-spin'></i> Loading...");
+                    // alertifyLog('success', res.message, () => {
+                    //     window.location.href = res.redirect;
 
-                        $("a").each(function () {
-                            $(this).addClass("disabled");
-                        });
-                    });
+                    //     submit.attr("disabled", "disabled").html("<i class='fas fa-spinner fa-spin'></i> Loading...");
+
+                    //     $("a").each(function () {
+                    //         $(this).addClass("disabled");
+                    //     });
+                    // });
                 }
             },
             error: function (err) {

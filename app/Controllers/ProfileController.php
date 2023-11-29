@@ -122,6 +122,8 @@ class ProfileController extends BaseController
                 'link_li' => $request->getVar('link_li'),
             ]);
 
+            session()->setFlashdata('info', 'Profile kamu berhasil diubah.');
+
             return response()->setJSON([
                 'status' => 200,
                 'message' => 'Profile kamu berhasil diubah!',
@@ -159,6 +161,8 @@ class ProfileController extends BaseController
                 'avatar' => $avatarName,
             ]);
 
+            session()->setFlashdata('info', 'Foto profile kamu berhasil diubah.');
+
             return response()->setJSON([
                 'status' => 200,
                 'message' => 'Foto profile kamu berhasil diubah!',
@@ -193,6 +197,8 @@ class ProfileController extends BaseController
                 'id' => auth()->id,
                 'avatar' => 'avatar.png',
             ]);
+
+            session()->setFlashdata('info', 'Foto profile kamu berhasil dihapus.');
 
             return response()->setJSON([
                 'status' => 200,
@@ -230,6 +236,8 @@ class ProfileController extends BaseController
                 'banner' => $bannerName,
             ]);
 
+            session()->setFlashdata('info', 'Foto sampul kamu berhasil diubah.');
+
             return response()->setJSON([
                 'status' => 200,
                 'message' => 'Foto sampul kamu berhasil diubah!',
@@ -264,6 +272,8 @@ class ProfileController extends BaseController
                 'id' => auth()->id,
                 'banner' => 'banner.png',
             ]);
+
+            session()->setFlashdata('info', 'Foto sampul kamu berhasil dihapus.');
 
             return response()->setJSON([
                 'status' => 200,
