@@ -113,11 +113,16 @@
                                 </a>
 
                                 <ul class="thread-categories">
-                                    <li class="d-none"></li>
+                                    <li>
+                                        <a href="<?= route_to("kategori.show", $thread->category->slug) ?>">
+                                            <i class="fas fa-bookmark"></i>
+                                            <?= $thread->category->name ?>
+                                        </a>
+                                    </li>
 
                                     <?php if ($thread->tags) : ?>
                                         <?php foreach ($thread->tags as $tag) : ?>
-                                            <li class="mb-0">
+                                            <li>
                                                 <a href="<?= route_to('tag.show', $tag->slug) ?>">
                                                     <?= $tag->name ?>
                                                 </a>
@@ -175,6 +180,8 @@
         const filterOrder = $('#filter-order');
 
         filterOrder.change(function() {
+            showLoader("Tunggu sebentar ya, sedang merubah urutan diskusi..");
+
             formFilter.submit();
         });
     });

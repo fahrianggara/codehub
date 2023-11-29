@@ -47,6 +47,47 @@ a:hover {
     opacity: .8;
 }
 
+.text-one-line {
+	display: -webkit-box;
+	overflow: hidden;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+}
+
+.no-result {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	margin-top: 40px;
+}
+
+.no-result img {
+	width: 100%;
+	height: 130px;
+	object-fit: contain;
+	margin-bottom: 20px;
+}
+
+.no-result h3 {
+	font-size: 18px;
+	font-weight: 600;
+	color: #000;
+	margin-bottom: 10px;
+}
+
+.no-result p {
+	font-size: 16px;
+	font-weight: 400;
+	color: var(--secondary-color);
+	margin-bottom: 10px;
+}
+
+.no-result p span {
+	color: var(--primary-color);
+}
+
 /* =======================================================================
  *  SECTION
  * ======================================================================= */

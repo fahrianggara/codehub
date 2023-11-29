@@ -24,7 +24,8 @@
 
         <?php foreach ($pager->links() as $link): ?>
             <li class="page-item <?= $link['active'] ? 'active' : '' ?>">
-                <a href="<?= $link['uri'] ?>#thread-profile" class="page-link">
+                <a href="<?= $link['active'] ? 'javascript:void(0);' : $link['uri'] ?>#thread-profile" 
+                    class="page-link <?= $link['active'] ? 'cursor-default' : '' ?>">
                     <?= $link['title'] ?>
                 </a>
             </li>

@@ -181,6 +181,8 @@
         const filterOrder = $('#filter-order');
 
         filterOrder.change(function() {
+            showLoader("Tunggu sebentar ya, sedang merubah urutan diskusi..");
+
             formFilter.submit();
         });
     });

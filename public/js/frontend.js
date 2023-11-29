@@ -55,7 +55,10 @@ function hideMobileSearch() {
         $(".mobile-search").addClass("active");
 
         setTimeout(function() {
+            var val = $(".mobile-search-input").val();
+            $(".mobile-search-input").val("");
             $(".mobile-search-input").focus();
+            $(".mobile-search-input").val(val);
         }, 50);
     });
 

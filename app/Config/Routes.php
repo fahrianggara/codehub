@@ -59,6 +59,9 @@ $routes->group('admin', ['filter' => ['auth', 'is_admin'], 'namespace' => Backen
     });
 });
 
+// Search
+$routes->get('search', 'SearchController::index', ['as' => 'search']);
+
 // Kategori
 $routes->get('c/(:segment)', 'KategoriController::index/$1', ['as' => 'kategori.show']);
 

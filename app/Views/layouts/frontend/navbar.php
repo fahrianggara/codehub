@@ -7,10 +7,10 @@
             <i class="fas fa-arrow-left"></i>
         </button>
 
-        <form class="w-100" action="#" method="post">
-            <?= csrf_field() ?>
+        <form class="w-100 search-query" action="<?= route_to('search') ?>" method="get" autocomplete="off">
             <div class="form-group m-0">
-                <input type="search" class="form-control mobile-search-input" placeholder="Cari Diskusi...">
+                <input type="search" name="q" class="form-control mobile-search-input" 
+                    placeholder="Cari Diskusi..." value="<?= $query ?? '' ?>">
             </div>
         </form>
 
@@ -116,14 +116,10 @@
 
                 </div>
 
-                <form class="form-search" action="#" method="post" autocomplete="off">
-                    <?= csrf_field() ?>
-
+                <form class="form-search search-query" action="<?= route_to('search') ?>" method="get" autocomplete="off">
                     <div class="form-group m-0">
-                        <input type="search" class="form-control" placeholder="Cari Diskusi...">
-                        <button type="submit" class="btn btn-search">
-                            <i class="fas fa-search"></i>
-                        </button>
+                        <input type="search" name="q" class="form-control" placeholder="Cari Diskusi..." value="<?= $query ?? '' ?>">
+                        <button type="submit" class="btn btn-search"><i class="fas fa-search"></i></button>
                     </div>
                 </form>
 
@@ -210,3 +206,17 @@
         </div>
     </nav>
 </header>
+
+<?= $this->section('js') ?>
+
+<script>
+    $(document).ready(function() {
+        var form = $('.search-query');
+        
+        form.submit(function() {
+            showLoader("Tunggu sebentar ya, sedang mencari diskusi...");
+        });
+    });
+</script>
+
+<?= $this->endSection() ?>
