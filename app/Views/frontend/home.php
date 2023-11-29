@@ -17,18 +17,13 @@
                     <ul class="list-group mb-3">
                         <?php foreach ($categories as $category) : ?>
                             <li class="thread-most-item list-group-item d-flex align-items-center">
-                                <a href="javascript:void(0)" class="">
-                                    <?php if ($category->cover == "empty.png") { ?>
-                                        <img class="mr-2" src="<?= base_url('images/empty.png') ?>">
-                                    <?php } else { ?>
-                                        <img class="mr-2" src="<?= base_url('images/categories/' . $category->cover) ?>">
-                                    <?php } ?>
-                                    <div class="text-content">
-                                        <span class="name"><?= $category->name; ?></span>
-                                        <span class="thread-count"><?= count($category->getThreads()) ?> Diskusi Digunakan</span>
-                                    </div>
-                                </a>
-
+                                <a href="<?= route_to("kategori.show", $category->slug) ?>">
+                                        <img class="mr-2" src="<?= $category->photo ?>">
+                                        <div class="text-content">
+                                            <span class="name"><?= $category->name; ?></span>
+                                            <span class="thread-count"><?= count($category->getThreads()) ?> Diskusi Digunakan</span>
+                                        </div>
+                                    </a>
                             </li>
                         <?php endforeach ?>
 
@@ -82,79 +77,79 @@
                     <ul class="list-group mt-2">
 
                         <?php foreach ($threads as $thread) : ?>
-                                <li class="list-group-item ">
-                                    <div class="item-content mb-2 mt-1 d-flex align-items-center justify-content-between">
-                                        <a class="d-flex align-items-center" href="javascript:void(0)">
-                                            <img class="mr-2 profile-pic-detail" src="<?= $thread->user->photo ?>">
-                                            <div class="name-content">
-                                                <?= $thread->user->username ?>
-                                                <span class="thread-count"><?= ago($thread->created_at) ?></span>
-                                            </div>
-                                        </a>
-                                        <div class="btn-group dropleft">
-                                            <button class="btn btn-sm btn-more dropdown-toggle" data-toggle="dropdown" aria-expanded="false" data-display="static">
-                                                <i class="fas fa-ellipsis-h"></i>
-                                            </button>
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                <a class="dropdown-item" href="javascript:void(0);">
-                                                    <i class="fas text-info fa-share mr-2"></i>
-                                                    Bagikan
-                                                </a>
-                                                <a class="dropdown-item" href="javascript:void(0);">
-                                                    <i class="fas text-primary fa-external-link-alt mr-2"></i>
-                                                    Lihat
-                                                </a>
-                                                <a class="dropdown-item" href="javascript:void(0);">
-                                                    <i class="fas text-warning fa-exclamation-triangle mr-2"></i>
-                                                    Laporkan
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <a class="thread-link" href="<?= $thread->status === "published" ? route_to('diskusi.show', $thread->slug) : 'javascript:void(0);' ?>">
-                                        <h3 class="thread-comment-title">
-                                            <?= $thread->title ?>
-                                        </h3>
-                                        <div class="thread-comment">
-                                            <?= text_limit($thread->content) ?>
+                            <li class="list-group-item ">
+                                <div class="item-content mb-2 mt-1 d-flex align-items-center justify-content-between">
+                                    <a class="d-flex align-items-center" href="javascript:void(0)">
+                                        <img class="mr-2 profile-pic-detail" src="<?= $thread->user->photo ?>">
+                                        <div class="name-content">
+                                            <?= $thread->user->username ?>
+                                            <span class="thread-count"><?= ago($thread->created_at) ?></span>
                                         </div>
                                     </a>
-                                    <ul class="thread-categories">
-                                        <li>
-                                            <a href="<?= route_to("kategori.show", $thread->category->slug) ?>">
-                                                <i class="fas fa-bookmark"></i>
-                                                <?= $thread->category->name ?>
+                                    <div class="btn-group dropleft">
+                                        <button class="btn btn-sm btn-more dropdown-toggle" data-toggle="dropdown" aria-expanded="false" data-display="static">
+                                            <i class="fas fa-ellipsis-h"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a class="dropdown-item" href="javascript:void(0);">
+                                                <i class="fas text-info fa-share mr-2"></i>
+                                                Bagikan
                                             </a>
-                                        </li>
-                                        <?php if ($thread->tags) : ?>
-                                            <?php foreach ($thread->tags as $tag) : ?>
-                                                <li>
-                                                    <a href="javascript:void(0)">
-                                                        <?= $tag->name ?>
-                                                    </a>
-                                                </li>
-                                            <?php endforeach ?>
-                                        <?php endif; ?>
-                                    </ul>
-                                    <div class="thread-action d-flex justify-content-between align-items-center">
-                                        <div></div>
-
-                                        <div class="thread-tengah">
-                                            <?= buttonLike($thread) ?>
-
-                                            <button <?= $thread->status === "draft" ? "disabled" : ''  ?> class="btn btn-reply-thread comment" data-id="<?= encrypt($thread->id) ?>" data-url="<?= route_to('diskusi.reply-show') ?>">
-                                                <i class="far fa-comment"></i>
-                                                <small><?= $thread->count_replies ?></small>
-                                            </button>
-
-                                            <button class="btn views cursor-default">
-                                                <i class="fas fa-eye"></i>
-                                                <small><?= $thread->views ?></small>
-                                            </button>
+                                            <a class="dropdown-item" href="javascript:void(0);">
+                                                <i class="fas text-primary fa-external-link-alt mr-2"></i>
+                                                Lihat
+                                            </a>
+                                            <a class="dropdown-item" href="javascript:void(0);">
+                                                <i class="fas text-warning fa-exclamation-triangle mr-2"></i>
+                                                Laporkan
+                                            </a>
                                         </div>
                                     </div>
+                                </div>
+                                <a class="thread-link" href="<?= $thread->status === "published" ? route_to('diskusi.show', $thread->slug) : 'javascript:void(0);' ?>">
+                                    <h3 class="thread-comment-title">
+                                        <?= $thread->title ?>
+                                    </h3>
+                                    <div class="thread-comment">
+                                        <?= text_limit($thread->content) ?>
+                                    </div>
+                                </a>
+                                <ul class="thread-categories">
+                                    <li>
+                                        <a href="<?= route_to("kategori.show", $thread->category->slug) ?>">
+                                            <i class="fas fa-bookmark"></i>
+                                            <?= $thread->category->name ?>
+                                        </a>
+                                    </li>
+                                    <?php if ($thread->tags) : ?>
+                                        <?php foreach ($thread->tags as $tag) : ?>
+                                            <li>
+                                                <a href="javascript:void(0)">
+                                                    <?= $tag->name ?>
+                                                </a>
+                                            </li>
+                                        <?php endforeach ?>
+                                    <?php endif; ?>
+                                </ul>
+                                <div class="thread-action d-flex justify-content-between align-items-center">
+                                    <div></div>
 
-                                </li>
+                                    <div class="thread-tengah">
+                                        <?= buttonLike($thread) ?>
+
+                                        <button <?= $thread->status === "draft" ? "disabled" : ''  ?> class="btn btn-reply-thread comment" data-id="<?= encrypt($thread->id) ?>" data-url="<?= route_to('diskusi.reply-show') ?>">
+                                            <i class="far fa-comment"></i>
+                                            <small><?= $thread->count_replies ?></small>
+                                        </button>
+
+                                        <button class="btn views cursor-default">
+                                            <i class="fas fa-eye"></i>
+                                            <small><?= $thread->views ?></small>
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </li>
                         <?php endforeach ?>
 
                     </ul>

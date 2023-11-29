@@ -17,12 +17,8 @@
                         <?php foreach ($categories as $category) : ?>
                             <?php if ($category->slug != $slug && count($category->getThreads()) != 0) : ?>
                                 <li class="thread-most-item list-group-item d-flex align-items-center">
-                                    <a href="javascript:void(0)">
-                                        <?php if ($category->cover == "empty.png") : ?>
-                                            <img class="mr-2" src="<?= base_url('images/empty.png') ?>">
-                                        <?php else : ?>
-                                            <img class="mr-2" src="<?= base_url('images/categories/' . $category->cover) ?>">
-                                        <?php endif; ?>
+                                    <a href="<?= route_to("kategori.show", $category->slug) ?>">
+                                        <img class="mr-2" src="<?= $category->photo ?>">
                                         <div class="text-content">
                                             <span class="name"><?= $category->name; ?></span>
                                             <span class="thread-count"><?= count($category->getThreads()) ?> Diskusi Digunakan</span>
@@ -41,7 +37,7 @@
                     <div class="row">
                         <div class="col-lg-9 col-md-9 pr-2 pr-md-normal">
                             <div class="thread-header font-weight-light main mb-medium-2 list-group-item d-flex justify-content-between align-items-center">
-                                <div class="most-title subject"><?= count($threads) ?> Diskusi dalam Kategori <span><?= $category_name?></span></div>
+                                <div class="most-title subject"><?= count($threads) ?> Diskusi dalam Kategori <span><?= $category_name ?></span></div>
                                 <img class="logo-most" src="<?= base_url('images/logo/sm.png') ?>">
                             </div>
                         </div>
