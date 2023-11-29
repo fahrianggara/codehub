@@ -16,20 +16,21 @@
                     <ul class="list-group mb-3">
                         <?php foreach ($categories as $category) : ?>
                             <?php if ($category->slug != $slug && count($category->getThreads()) != 0) : ?>
-
                                 <li class="thread-most-item list-group-item d-flex align-items-center">
-                                    <a href="javascript:void(0)" class="">
-
-                                        <img class="mr-2" src="<?= $category->cover ?>">
+                                    <a href="javascript:void(0)">
+                                        <?php if ($category->cover == "empty.png") : ?>
+                                            <img class="mr-2" src="<?= base_url('images/empty.png') ?>">
+                                        <?php else : ?>
+                                            <img class="mr-2" src="<?= base_url('images/categories/' . $category->cover) ?>">
+                                        <?php endif; ?>
                                         <div class="text-content">
                                             <span class="name"><?= $category->name; ?></span>
                                             <span class="thread-count"><?= count($category->getThreads()) ?> Diskusi Digunakan</span>
                                         </div>
                                     </a>
-                                <?php endif ?>
-
                                 </li>
-                            <?php endforeach ?>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
                     </ul>
                 </div>
             </div>
