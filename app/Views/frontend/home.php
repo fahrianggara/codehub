@@ -18,7 +18,11 @@
                         <?php foreach ($categories as $category) : ?>
                             <li class="thread-most-item list-group-item d-flex align-items-center">
                                 <a href="javascript:void(0)" class="">
-                                    <img class="mr-2" src="<?= base_url('images/categories/' . $category->cover) ?>">
+                                    <?php if ($category->cover == "empty.png") { ?>
+                                        <img class="mr-2" src="<?= base_url('images/empty.png') ?>">
+                                    <?php } else { ?>
+                                        <img class="mr-2" src="<?= base_url('images/categories/' . $category->cover) ?>">
+                                    <?php } ?>
                                     <div class="text-content">
                                         <span class="name"><?= $category->name; ?></span>
                                         <span class="thread-count"><?= count($category->getThreads()) ?> Diskusi Digunakan</span>

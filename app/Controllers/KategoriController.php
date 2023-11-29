@@ -9,7 +9,7 @@ use CodeIgniter\Exceptions\PageNotFoundException;
 
 class KategoriController extends BaseController
 {    
-    protected $categoryModel, $threadModel;
+    protected $categoryModel, $threadModel, $categoriesModel;
     
     /**
      * __construct
@@ -20,6 +20,7 @@ class KategoriController extends BaseController
     {
         $this->categoryModel = new CategoryModel();
         $this->threadModel = new ThreadModel();
+        $this->categoriesModel = new CategoryModel();
     }
 
     /**
@@ -30,6 +31,7 @@ class KategoriController extends BaseController
      */
     public function index($slug)
     {
+        $categories =  $this->categoryModel->orderby('RAND()')->findAll();
         $category = $this->categoryModel->where('slug', $slug)->first();
 
         if (!$category || !$category->threads) throw PageNotFoundException::forPageNotFound();
@@ -57,6 +59,8 @@ class KategoriController extends BaseController
             'pager' => $this->threadModel->pager,
             'category' => $category,
             'order_selected' => $orderSelected,
+            'categories' => $categories,
+            'slug'  => $slug,
         ]);
     }
 }

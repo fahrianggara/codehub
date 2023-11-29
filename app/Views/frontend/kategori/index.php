@@ -14,78 +14,22 @@
                     </div>
 
                     <ul class="list-group mb-3">
-                        <li class="thread-most-item list-group-item d-flex align-items-center">
-                            <a href="javascript:void(0)" class="">
-                                <img class="mr-2" src="<?= base_url('images/empty.png') ?>">
-                                <div class="text-content">
-                                    <span class="name">Artificial Intelligence</span>
-                                    <span class="thread-count">50 Diskusi digunakan</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="thread-most-item list-group-item d-flex align-items-center">
-                            <a href="javascript:void(0)" class="">
-                                <img class="mr-2" src="<?= base_url('images/empty.png') ?>">
-                                <div class="text-content">
-                                    <span class="name">Machine Learning</span>
-                                    <span class="thread-count">40 Diskusi digunakan</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="thread-most-item list-group-item d-flex align-items-center">
-                            <a href="javascript:void(0)" class="">
-                                <img class="mr-2" src="<?= base_url('images/empty.png') ?>">
-                                <div class="text-content">
-                                    <span class="name">Web Programming</span>
-                                    <span class="thread-count">35 Diskusi digunakan</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="thread-most-item list-group-item d-flex align-items-center">
-                            <a href="javascript:void(0)" class="">
-                                <img class="mr-2" src="<?= base_url('images/empty.png') ?>">
-                                <div class="text-content">
-                                    <span class="name">Web Programming</span>
-                                    <span class="thread-count">35 Diskusi digunakan</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="thread-most-item list-group-item d-flex align-items-center">
-                            <a href="javascript:void(0)" class="">
-                                <img class="mr-2" src="<?= base_url('images/empty.png') ?>">
-                                <div class="text-content">
-                                    <span class="name">Web Programming</span>
-                                    <span class="thread-count">35 Diskusi digunakan</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="thread-most-item list-group-item d-flex align-items-center">
-                            <a href="javascript:void(0)" class="">
-                                <img class="mr-2" src="<?= base_url('images/empty.png') ?>">
-                                <div class="text-content">
-                                    <span class="name">Web Programming</span>
-                                    <span class="thread-count">35 Diskusi digunakan</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="thread-most-item list-group-item d-flex align-items-center">
-                            <a href="javascript:void(0)" class="">
-                                <img class="mr-2" src="<?= base_url('images/empty.png') ?>">
-                                <div class="text-content">
-                                    <span class="name">Web Programming</span>
-                                    <span class="thread-count">35 Diskusi digunakan</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="thread-most-item list-group-item d-flex align-items-center">
-                            <a href="javascript:void(0)" class="">
-                                <img class="mr-2" src="<?= base_url('images/empty.png') ?>">
-                                <div class="text-content">
-                                    <span class="name">Web Programming</span>
-                                    <span class="thread-count">35 Diskusi digunakan</span>
-                                </div>
-                            </a>
-                        </li>
+                        <?php foreach ($categories as $category) : ?>
+                            <?php if ($category->slug != $slug && count($category->getThreads()) != 0) : ?>
+
+                                <li class="thread-most-item list-group-item d-flex align-items-center">
+                                    <a href="javascript:void(0)" class="">
+
+                                        <img class="mr-2" src="<?= $category->cover ?>">
+                                        <div class="text-content">
+                                            <span class="name"><?= $category->name; ?></span>
+                                            <span class="thread-count"><?= count($category->getThreads()) ?> Diskusi Digunakan</span>
+                                        </div>
+                                    </a>
+                                <?php endif ?>
+
+                                </li>
+                            <?php endforeach ?>
                     </ul>
                 </div>
             </div>
@@ -114,7 +58,7 @@
                             </form>
                         </div>
                     </div>
-                    
+
 
                     <ul class="list-group mt-2">
                         <?php foreach ($threads as $thread) : ?>
@@ -123,8 +67,7 @@
                             <li class="list-group-item ">
                                 <div class="item-content mb-2 mt-1 d-flex align-items-center justify-content-between">
 
-                                    <a class="thread-author d-flex align-items-center" 
-                                        href="<?= route_to("profile", $thread->user->username) ?>">
+                                    <a class="thread-author d-flex align-items-center" href="<?= route_to("profile", $thread->user->username) ?>">
                                         <img class="mr-2 profile-pic-detail" src="<?= $thread->user->photo ?>">
                                         <div class="name-content">
                                             <span class="author-name">
@@ -198,8 +141,7 @@
                                     <div class="thread-tengah">
                                         <?= buttonLike($thread) ?>
 
-                                        <button <?= $thread->status === "draft" ? "disabled" : ''  ?> class="btn btn-reply-thread comment" 
-                                            data-id="<?= encrypt($thread->id) ?>" data-url="<?= route_to('diskusi.reply-show') ?>">
+                                        <button <?= $thread->status === "draft" ? "disabled" : ''  ?> class="btn btn-reply-thread comment" data-id="<?= encrypt($thread->id) ?>" data-url="<?= route_to('diskusi.reply-show') ?>">
                                             <i class="far fa-comment"></i>
                                             <small><?= $thread->count_replies ?></small>
                                         </button>
@@ -209,8 +151,7 @@
                                             <small><?= $thread->views ?></small>
                                         </button>
 
-                                        <button class="btn btn-sm btn-share-diskusi" type="button" data-toggle="tooltip" 
-                                            title="Bagikan Diskusi">
+                                        <button class="btn btn-sm btn-share-diskusi" type="button" data-toggle="tooltip" title="Bagikan Diskusi">
                                             <i class="bi bi-share-fill"></i>
                                         </button>
                                     </div>
@@ -232,20 +173,20 @@
 
 <?= view('frontend/diskusi/reply-modal', ['view_thread' => true]) ?>
 
-    <?php if (auth_check()): ?>
-        <?= view('frontend/diskusi/edit', ['detail' => false]) ?>
-        <script src="<?= base_url('js/fe/diskusi/delete.js') ?>"></script>
-    <?php endif ?>
+<?php if (auth_check()) : ?>
+    <?= view('frontend/diskusi/edit', ['detail' => false]) ?>
+    <script src="<?= base_url('js/fe/diskusi/delete.js') ?>"></script>
+<?php endif ?>
 
-    <script>
-        $(document).ready(function () {
-            const formFilter = $('#formFilterDiskusi');
-            const filterOrder = $('#filter-order');
+<script>
+    $(document).ready(function() {
+        const formFilter = $('#formFilterDiskusi');
+        const filterOrder = $('#filter-order');
 
-            filterOrder.change(function () {
-                formFilter.submit();
-            });
+        filterOrder.change(function() {
+            formFilter.submit();
         });
-    </script>
+    });
+</script>
 
 <?= $this->endSection(); ?>

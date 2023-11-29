@@ -13,7 +13,7 @@ class Thread extends Entity
     protected $dates   = ['created_at', 'updated_at'];
     protected $casts   = [];
     protected $db;
-    
+
     /**
      * __construct
      *
