@@ -30,9 +30,14 @@ class TagController extends BaseController
      */
     public function index($slug)
     {
-        $tag = $this->tagModel->where('slug', $slug)->first();
+        $tag= $this->tagModel->where('slug', $slug)->first();
+        // dd($tag);
 
         if (!$tag || !$tag->threads) throw PageNotFoundException::forPageNotFound();
+
+        $tags=$this->tagModel->where('slug !=', $slug)->orderBy('name','asc')
+        ->findAll(50);
+
 
         $get = $this->request->getVar();
         $orderSelected = (isset($get['order']) && in_array($get['order'], ['desc', 'asc', 'popular'])) ? $get['order'] : 'desc';
@@ -55,7 +60,9 @@ class TagController extends BaseController
             'title' => "#$tag->name",
             'threads' => $threads->paginate(10, 'tag-thread'),
             'pager' => $this->threadModel->pager,
+            'tags'=> $tags,
             'tag' => $tag,
+            'tag_name'=>$tag->name,
             'order_selected' => $orderSelected,
         ]);
     }

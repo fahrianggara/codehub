@@ -14,86 +14,13 @@
                     </div>
 
                     <ul class="list-tags mb-3">
-                        <li data-toggle="tooltip" title="1 Diskusi">
-                            <a href="<?= route_to('tag.show', 'php') ?>">
-                                php
-                            </a>
-                        </li>
-                        <li data-toggle="tooltip" title="1 Diskusi">
-                            <a href="<?= route_to('tag.show', 'javascript') ?>">
-                                javascript
-                            </a>
-                        </li>
-                        <li data-toggle="tooltip" title="1 Diskusi">
-                            <a href="<?= route_to('tag.show', 'codeigniter') ?>">
-                                codeigniter
-                            </a>
-                        </li>
-                        <li data-toggle="tooltip" title="1 Diskusi">
-                            <a href="<?= route_to('tag.show', 'laravel') ?>">
-                                laravel
-                            </a>
-                        </li>
-                        <li data-toggle="tooltip" title="1 Diskusi">
-                            <a href="<?= route_to('tag.show', 'mysql') ?>">
-                                mysql
-                            </a>
-                        </li>
-                        <li data-toggle="tooltip" title="1 Diskusi">
-                            <a href="<?= route_to('tag.show', 'html') ?>">
-                                html
-                            </a>
-                        </li>
-                        <li data-toggle="tooltip" title="1 Diskusi">
-                            <a href="<?= route_to('tag.show', 'css') ?>">
-                                css
-                            </a>
-                        </li>
-                        <li data-toggle="tooltip" title="1 Diskusi">
-                            <a href="<?= route_to('tag.show', 'bootstrap') ?>">
-                                bootstrap
-                            </a>
-                        </li>
-                        <li data-toggle="tooltip" title="1 Diskusi">
-                            <a href="<?= route_to('tag.show', 'jquery') ?>">
-                                jquery
-                            </a>
-                        </li>
-                        <li data-toggle="tooltip" title="1 Diskusi">
-                            <a href="<?= route_to('tag.show', 'vuejs') ?>">
-                                vuejs
-                            </a>
-                        </li>
-                        <li data-toggle="tooltip" title="1 Diskusi">
-                            <a href="<?= route_to('tag.show', 'reactjs') ?>">
-                                reactjs
-                            </a>
-                        </li>
-                        <li data-toggle="tooltip" title="1 Diskusi">
-                            <a href="<?= route_to('tag.show', 'tips-trik') ?>">
-                                tips & trik
-                            </a>
-                        </li>
-                        <li data-toggle="tooltip" title="1 Diskusi">
-                            <a href="<?= route_to('tag.show', 'tutorial') ?>">
-                                tutorial
-                            </a>
-                        </li>
-                        <li data-toggle="tooltip" title="1 Diskusi">
-                            <a href="<?= route_to('tag.show', 'ngoding') ?>">
-                                ngoding
-                            </a>
-                        </li>
-                        <li data-toggle="tooltip" title="1 Diskusi">
-                            <a href="<?= route_to('tag.show', 'programming') ?>">
-                                programming
-                            </a>
-                        </li>
-                        <li data-toggle="tooltip" title="1 Diskusi">
-                            <a href="<?= route_to('tag.show', 'web-dev') ?>">
-                                web dev
-                            </a>
-                        </li>
+                        <?php foreach ($tags as $tag) : ?>
+                            <li data-toggle="tooltip" title="<?= count($tag->threads) ?> Diskusi">
+                                <a href="<?= route_to('tag.show',$tag->slug) ?>">
+                                    <?= $tag->name ?>
+                                </a>
+                            </li>
+                        <?php endforeach; ?>
                     </ul>
                 </div>
             </div>
@@ -104,7 +31,7 @@
                     <div class="row">
                         <div class="col-lg-9 col-md-9 pr-2 pr-md-normal">
                             <div class="thread-header font-weight-light main mb-medium-2 list-group-item d-flex justify-content-between align-items-center">
-                                <div class="most-title subject"><?= count($threads) ?> Diskusi dalam # <span><?= $tag->name ?></span></div>
+                                <div class="most-title subject"><?= count($threads) ?> Diskusi dalam # <span><?= $tag_name ?></span></div>
                                 <img class="logo-most" src="<?= base_url('images/logo/sm.png') ?>">
                             </div>
                         </div>
@@ -122,7 +49,7 @@
                             </form>
                         </div>
                     </div>
-                    
+
 
                     <ul class="list-group mt-2">
                         <?php foreach ($threads as $thread) : ?>
@@ -131,8 +58,7 @@
                             <li class="list-group-item ">
                                 <div class="item-content mb-2 mt-1 d-flex align-items-center justify-content-between">
 
-                                    <a class="thread-author d-flex align-items-center" 
-                                        href="<?= route_to("profile", $thread->user->username) ?>">
+                                    <a class="thread-author d-flex align-items-center" href="<?= route_to("profile", $thread->user->username) ?>">
                                         <img class="mr-2 profile-pic-detail" src="<?= $thread->user->photo ?>">
                                         <div class="name-content">
                                             <span class="author-name">
@@ -206,8 +132,7 @@
                                     <div class="thread-tengah">
                                         <?= buttonLike($thread) ?>
 
-                                        <button <?= $thread->status === "draft" ? "disabled" : ''  ?> class="btn btn-reply-thread comment" 
-                                            data-id="<?= encrypt($thread->id) ?>" data-url="<?= route_to('diskusi.reply-show') ?>">
+                                        <button <?= $thread->status === "draft" ? "disabled" : ''  ?> class="btn btn-reply-thread comment" data-id="<?= encrypt($thread->id) ?>" data-url="<?= route_to('diskusi.reply-show') ?>">
                                             <i class="far fa-comment"></i>
                                             <small><?= $thread->count_replies ?></small>
                                         </button>
@@ -217,8 +142,7 @@
                                             <small><?= $thread->views ?></small>
                                         </button>
 
-                                        <button class="btn btn-sm btn-share-diskusi" type="button" data-toggle="tooltip" 
-                                            title="Bagikan Diskusi">
+                                        <button class="btn btn-sm btn-share-diskusi" type="button" data-toggle="tooltip" title="Bagikan Diskusi">
                                             <i class="bi bi-share-fill"></i>
                                         </button>
                                     </div>
@@ -240,20 +164,20 @@
 
 <?= view('frontend/diskusi/reply-modal', ['view_thread' => true]) ?>
 
-    <?php if (auth_check()): ?>
-        <?= view('frontend/diskusi/edit', ['detail' => false]) ?>
-        <script src="<?= base_url('js/fe/diskusi/delete.js') ?>"></script>
-    <?php endif ?>
+<?php if (auth_check()) : ?>
+    <?= view('frontend/diskusi/edit', ['detail' => false]) ?>
+    <script src="<?= base_url('js/fe/diskusi/delete.js') ?>"></script>
+<?php endif ?>
 
-    <script>
-        $(document).ready(function () {
-            const formFilter = $('#formFilterDiskusi');
-            const filterOrder = $('#filter-order');
+<script>
+    $(document).ready(function() {
+        const formFilter = $('#formFilterDiskusi');
+        const filterOrder = $('#filter-order');
 
-            filterOrder.change(function () {
-                formFilter.submit();
-            });
+        filterOrder.change(function() {
+            formFilter.submit();
         });
-    </script>
+    });
+</script>
 
 <?= $this->endSection(); ?>
