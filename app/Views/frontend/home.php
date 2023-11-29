@@ -76,243 +76,83 @@
                     </div>
 
                     <ul class="list-group mt-2">
-                        <li class="list-group-item ">
-                            <div class="item-content mb-2 mt-1 d-flex align-items-center justify-content-between">
-                                <a class="d-flex align-items-center" href="javascript:void(0)">
-                                    <img class="mr-2 profile-pic-detail" src="<?= base_url('images/avatar.png') ?>">
-                                    <div class="name-content">
-                                        sultanjordy
-                                        <span class="thread-count">2 Jam yang lalu</span>
+
+                        <?php foreach ($threads as $thread) : ?>
+                            <li class="list-group-item ">
+                                <div class="item-content mb-2 mt-1 d-flex align-items-center justify-content-between">
+                                    <a class="d-flex align-items-center" href="javascript:void(0)">
+                                        <img class="mr-2 profile-pic-detail" src="<?= $thread->user->photo ?>">
+                                        <div class="name-content">
+                                            <?= $thread->user->getFullName() ?>
+                                            <span class="thread-count"><?= ago($thread->created_at) ?></span>
+                                        </div>
+                                    </a>
+                                    <div class="btn-group dropleft">
+                                        <button class="btn btn-sm btn-more dropdown-toggle" data-toggle="dropdown" aria-expanded="false" data-display="static">
+                                            <i class="fas fa-ellipsis-h"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a class="dropdown-item" href="javascript:void(0);">
+                                                <i class="fas text-info fa-share mr-2"></i>
+                                                Bagikan
+                                            </a>
+                                            <a class="dropdown-item" href="javascript:void(0);">
+                                                <i class="fas text-primary fa-external-link-alt mr-2"></i>
+                                                Lihat
+                                            </a>
+                                            <a class="dropdown-item" href="javascript:void(0);">
+                                                <i class="fas text-warning fa-exclamation-triangle mr-2"></i>
+                                                Laporkan
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a class="thread-link" href="<?= $thread->status === "published" ? route_to('diskusi.show', $thread->slug) : 'javascript:void(0);' ?>">
+                                    <h3 class="thread-comment-title">
+                                        <?= $thread->title ?>
+                                    </h3>
+                                    <div class="thread-comment">
+                                        <?= text_limit($thread->content) ?>
                                     </div>
                                 </a>
-                                <div class="btn-group dropleft">
-                                    <button class="btn btn-sm btn-more dropdown-toggle" data-toggle="dropdown" aria-expanded="false" data-display="static">
-                                        <i class="fas fa-ellipsis-h"></i>
-                                    </button>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item" href="javascript:void(0);">
-                                            <i class="fas text-info fa-share mr-2"></i>
-                                            Bagikan
+                                <ul class="thread-categories">
+                                    <li>
+                                        <a href="<?= route_to("kategori.show", $thread->category->slug) ?>">
+                                            <i class="fas fa-bookmark"></i>
+                                            <?= $thread->category->name ?>
                                         </a>
-                                        <a class="dropdown-item" href="javascript:void(0);">
-                                            <i class="fas text-primary fa-external-link-alt mr-2"></i>
-                                            Lihat
-                                        </a>
-                                        <a class="dropdown-item" href="javascript:void(0);">
-                                            <i class="fas text-warning fa-exclamation-triangle mr-2"></i>
-                                            Laporkan
-                                        </a>
+                                    </li>
+                                    <?php if ($thread->tags) : ?>
+                                        <?php foreach ($thread->tags as $tag) : ?>
+                                            <li>
+                                                <a href="javascript:void(0)">
+                                                    <?= $tag->name ?>
+                                                </a>
+                                            </li>
+                                        <?php endforeach ?>
+                                    <?php endif; ?>
+                                </ul>
+                                <div class="thread-action d-flex justify-content-between align-items-center">
+                                    <div></div>
+
+                                    <div class="thread-tengah">
+                                        <?= buttonLike($thread) ?>
+
+                                        <button <?= $thread->status === "draft" ? "disabled" : ''  ?> class="btn btn-reply-thread comment" data-id="<?= encrypt($thread->id) ?>" data-url="<?= route_to('diskusi.reply-show') ?>">
+                                            <i class="far fa-comment"></i>
+                                            <small><?= $thread->count_replies ?></small>
+                                        </button>
+
+                                        <button class="btn views cursor-default">
+                                            <i class="fas fa-eye"></i>
+                                            <small><?= $thread->views ?></small>
+                                        </button>
                                     </div>
                                 </div>
-                            </div>
-                            <a href="javascript:void(0)">
-                                <h3 class="thread-comment-title">
-                                    Lorem ipsum dolor
-                                </h3>
-                                <div class="thread-comment">
-                                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis adipisci hic
-                                    tempore dolore illo iste possimus tenetur nesciunt aliquid deserunt Lorem ipsum
-                                    dolor sit amet consectetur adipisicing elit. Illo voluptatibus numquam, sint, ipsam
-                                    expedita excepturi iste iusto omnis neque facere qui quam odit esse impedit repellat
-                                    repudiandae quasi, corrupti accusantium!.
-                                </div>
-                            </a>
-                            <ul class="thread-categories">
-                                <li>
-                                    <a href="javascript:void(0)">
-                                        <i class="fas fa-bookmark"></i>
-                                        Lorem Ipsum
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">python</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">learning html</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">ngoding</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">indonesia</a>
-                                </li>
-                            </ul>
-                            <div class="thread-action d-flex justify-content-between align-items-center">
-                                <div></div>
-                                <div class="thread-tengah">
-                                    <button class="btn love text-danger">
-                                        <i class="fas fa-heart fa-beat"></i>
-                                        <small>23</small>
-                                    </button>
-                                    <button class="btn comment">
-                                        <i class="far fa-comment"></i>
-                                        <small>5</small>
-                                    </button>
-                                    <button class="btn views cursor-default">
-                                        <i class="fas fa-eye"></i>
-                                        <small>100</small>
-                                    </button>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item ">
-                            <div class="item-content mb-2 mt-1 d-flex align-items-center justify-content-between">
-                                <a class="d-flex align-items-center" href="javascript:void(0)">
-                                    <img class="mr-2 profile-pic-detail" src="<?= base_url('images/avatar.png') ?>">
-                                    <div class="name-content">
-                                        sultanjordy
-                                        <span class="thread-count">2 Jam yang lalu</span>
-                                    </div>
-                                </a>
-                                <div class="btn-group dropleft">
-                                    <button class="btn btn-sm btn-more dropdown-toggle" data-toggle="dropdown" aria-expanded="false" data-display="static">
-                                        <i class="fas fa-ellipsis-h"></i>
-                                    </button>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item" href="javascript:void(0);">
-                                            <i class="fas text-info fa-share mr-2"></i>
-                                            Bagikan
-                                        </a>
-                                        <a class="dropdown-item" href="javascript:void(0);">
-                                            <i class="fas text-primary fa-external-link-alt mr-2"></i>
-                                            Lihat
-                                        </a>
-                                        <a class="dropdown-item" href="javascript:void(0);">
-                                            <i class="fas text-warning fa-exclamation-triangle mr-2"></i>
-                                            Laporkan
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="javascript:void(0)">
-                                <h3 class="thread-comment-title">
-                                    Lorem ipsum dolor
-                                </h3>
-                                <div class="thread-comment">
-                                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis adipisci hic
-                                    tempore dolore illo iste possimus tenetur nesciunt aliquid deserunt Lorem ipsum
-                                    dolor sit amet consectetur adipisicing elit. Illo voluptatibus numquam, sint, ipsam
-                                    expedita excepturi iste iusto omnis neque facere qui quam odit esse impedit repellat
-                                    repudiandae quasi, corrupti accusantium!.
-                                </div>
-                            </a>
-                            <ul class="thread-categories">
-                                <li>
-                                    <a href="javascript:void(0)">
-                                        <i class="fas fa-bookmark"></i>
-                                        Lorem Ipsum
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">python</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">learning html</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">ngoding</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">indonesia</a>
-                                </li>
-                            </ul>
-                            <div class="thread-action d-flex justify-content-between align-items-center">
-                                <div></div>
-                                <div class="thread-tengah">
-                                    <button class="btn love text-danger">
-                                        <i class="fas fa-heart fa-beat"></i>
-                                        <small>23</small>
-                                    </button>
-                                    <button class="btn comment">
-                                        <i class="far fa-comment"></i>
-                                        <small>5</small>
-                                    </button>
-                                    <button class="btn views cursor-default">
-                                        <i class="fas fa-eye"></i>
-                                        <small>100</small>
-                                    </button>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item ">
-                            <div class="item-content mb-2 mt-1 d-flex align-items-center justify-content-between">
-                                <a class="d-flex align-items-center" href="javascript:void(0)">
-                                    <img class="mr-2 profile-pic-detail" src="<?= base_url('images/avatar.png') ?>">
-                                    <div class="name-content">
-                                        sultanjordy
-                                        <span class="thread-count">2 Jam yang lalu</span>
-                                    </div>
-                                </a>
-                                <div class="btn-group dropleft">
-                                    <button class="btn btn-sm btn-more dropdown-toggle" data-toggle="dropdown" aria-expanded="false" data-display="static">
-                                        <i class="fas fa-ellipsis-h"></i>
-                                    </button>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item" href="javascript:void(0);">
-                                            <i class="fas text-info fa-share mr-2"></i>
-                                            Bagikan
-                                        </a>
-                                        <a class="dropdown-item" href="javascript:void(0);">
-                                            <i class="fas text-primary fa-external-link-alt mr-2"></i>
-                                            Lihat
-                                        </a>
-                                        <a class="dropdown-item" href="javascript:void(0);">
-                                            <i class="fas text-warning fa-exclamation-triangle mr-2"></i>
-                                            Laporkan
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="javascript:void(0)">
-                                <h3 class="thread-comment-title">
-                                    Lorem ipsum dolor
-                                </h3>
-                                <div class="thread-comment">
-                                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis adipisci hic
-                                    tempore dolore illo iste possimus tenetur nesciunt aliquid deserunt Lorem ipsum
-                                    dolor sit amet consectetur adipisicing elit. Illo voluptatibus numquam, sint, ipsam
-                                    expedita excepturi iste iusto omnis neque facere qui quam odit esse impedit repellat
-                                    repudiandae quasi, corrupti accusantium!.
-                                </div>
-                            </a>
-                            <ul class="thread-categories">
-                                <li>
-                                    <a href="javascript:void(0)">
-                                        <i class="fas fa-bookmark"></i>
-                                        Lorem Ipsum
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">python</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">learning html</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">ngoding</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">indonesia</a>
-                                </li>
-                            </ul>
-                            <div class="thread-action d-flex justify-content-between align-items-center">
-                                <div></div>
-                                <div class="thread-tengah">
-                                    <button class="btn love text-danger">
-                                        <i class="fas fa-heart fa-beat"></i>
-                                        <small>23</small>
-                                    </button>
-                                    <button class="btn comment">
-                                        <i class="far fa-comment"></i>
-                                        <small>5</small>
-                                    </button>
-                                    <button class="btn views cursor-default">
-                                        <i class="fas fa-eye"></i>
-                                        <small>100</small>
-                                    </button>
-                                </div>
-                            </div>
-                        </li>
+
+                            </li>
+                        <?php endforeach ?>
+
                     </ul>
 
                     <!-- pagination in here -->
