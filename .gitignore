@@ -125,3 +125,16 @@ nb-configuration.xml
 /phpunit*.xml
 /.phpunit.*.cache
 
+#-------------------------
+# ignore file image in public > images > [avatars, categories, banners, contents]
+#-------------------------
+
+public/images/avatars/*
+!public/images/avatars/.gitkeep
+
+public/images/categories/*
+!public/images/categories/.gitkeep
+
+public/images/banners/*
+!public/images/banners/.gitkeep
+
