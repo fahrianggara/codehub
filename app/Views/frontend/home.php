@@ -83,7 +83,7 @@
                                     <a class="d-flex align-items-center" href="javascript:void(0)">
                                         <img class="mr-2 profile-pic-detail" src="<?= $thread->user->photo ?>">
                                         <div class="name-content">
-                                            <?= $thread->user->getFullName() ?>
+                                            <?= $thread->user->username ?>
                                             <span class="thread-count"><?= ago($thread->created_at) ?></span>
                                         </div>
                                     </a>
@@ -167,213 +167,76 @@
                     </div>
 
                     <ul class="list-group">
-                        <li class="list-group-item">
-                            <div class="item-content mb-2 mt-1 d-flex align-items-center justify-content-between">
-                                <a class="d-flex align-items-center" href="javascript:void(0)">
-                                    <img class="mr-2 profile-pic-detail-kanan" src="<?= base_url('images/avatar.png') ?>">
-                                    <div class="name-content-kanan text-truncate">sultanjordy
-                                        <span class="thread-count">2 Jam yang lalu</span>
+                        <?php foreach ($TopThreads as $topThread) : ?>
+                            <li class="list-group-item">
+                                <div class="item-content mb-2 mt-1 d-flex align-items-center justify-content-between">
+                                    <a class="d-flex align-items-center" href="javascript:void(0)">
+                                        <img class="mr-2 profile-pic-detail-kanan" src="<?= $topThread->user->photo ?>">
+                                        <div class="name-content-kanan text-truncate"><?= $topThread->user->username ?>
+                                            <span class="thread-count"><?= ago($topThread->created_at) ?></span>
+                                        </div>
+                                    </a>
+                                    <div class="btn-group dropleft d-block d-lg-none">
+                                        <button class="btn btn-sm btn-more dropdown-toggle" data-toggle="dropdown" aria-expanded="false" data-display="static">
+                                            <i class="fas fa-ellipsis-h"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a class="dropdown-item" href="javascript:void(0);">
+                                                <i class="fas text-info fa-share mr-2"></i>
+                                                Bagikan
+                                            </a>
+                                            <a class="dropdown-item" href="javascript:void(0);">
+                                                <i class="fas text-primary fa-external-link-alt mr-2"></i>
+                                                Lihat
+                                            </a>
+                                            <a class="dropdown-item" href="javascript:void(0);">
+                                                <i class="fas text-warning fa-exclamation-triangle mr-2"></i>
+                                                Laporkan
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="javascript:void(0)">
+                                    <h3 class="thread-comment-kanan-title">
+                                        <?= $topThread->title ?>
+                                    </h3>
+                                    <div class="thread-comment-kanan">
+                                        <?= text_limit($topThread->content) ?>
                                     </div>
                                 </a>
-                                <div class="btn-group dropleft d-block d-lg-none">
-                                    <button class="btn btn-sm btn-more dropdown-toggle" data-toggle="dropdown" aria-expanded="false" data-display="static">
-                                        <i class="fas fa-ellipsis-h"></i>
-                                    </button>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item" href="javascript:void(0);">
-                                            <i class="fas text-info fa-share mr-2"></i>
-                                            Bagikan
+                                <ul class="thread-categories d-flex d-lg-none">
+                                    <li>
+                                        <a href="javascript:void(0)">
+                                            <i class="fas fa-bookmark"></i>
+                                            Lorem Ipsum
                                         </a>
-                                        <a class="dropdown-item" href="javascript:void(0);">
-                                            <i class="fas text-primary fa-external-link-alt mr-2"></i>
-                                            Lihat
-                                        </a>
-                                        <a class="dropdown-item" href="javascript:void(0);">
-                                            <i class="fas text-warning fa-exclamation-triangle mr-2"></i>
-                                            Laporkan
-                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)">python</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)">python</a>
+                                    </li>
+                                </ul>
+                                <div class="thread-action d-flex justify-content-between align-items-center">
+                                    <div class=""></div>
+                                    <div class="thread-kanan">
+                                        <?= buttonLike($topThread) ?>
+
+                                        <button <?= $topThread->status === "draft" ? "disabled" : ''  ?> class="btn btn-reply-thread comment" data-id="<?= encrypt($topThread->id) ?>" data-url="<?= route_to('diskusi.reply-show') ?>">
+                                            <i class="far fa-comment"></i>
+                                            <small><?= $topThread->count_replies ?></small>
+                                        </button>
+
+                                        <button class="btn views cursor-default">
+                                            <i class="fas fa-eye"></i>
+                                            <small><?= $topThread->views ?></small>
+                                        </button>
                                     </div>
                                 </div>
-                            </div>
-                            <a href="javascript:void(0)">
-                                <h3 class="thread-comment-kanan-title">
-                                    Lorem ipsum dolor
-                                </h3>
-                                <div class="thread-comment-kanan">
-                                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis adipisci hic
-                                    tempore dolore illo iste possimus tenetur nesciunt aliquid deserunt.
-                                </div>
-                            </a>
-                            <ul class="thread-categories d-flex d-lg-none">
-                                <li>
-                                    <a href="javascript:void(0)">
-                                        <i class="fas fa-bookmark"></i>
-                                        Lorem Ipsum
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">python</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">python</a>
-                                </li>
-                            </ul>
-                            <div class="thread-action d-flex justify-content-between align-items-center">
-                                <div class=""></div>
-                                <div class="thread-kanan">
-                                    <button class="btn love">
-                                        <i class="far fa-heart"></i>
-                                        <small>50</small>
-                                    </button>
-                                    <button class="btn comment">
-                                        <i class="far fa-comment"></i>
-                                        <small>1</small>
-                                    </button>
-                                    <button class="btn views">
-                                        <i class="fas fa-eye"></i>
-                                        <small>100</small>
-                                    </button>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="item-content mb-2 mt-1 d-flex align-items-center justify-content-between">
-                                <a class="d-flex align-items-center" href="javascript:void(0)">
-                                    <img class="mr-2 profile-pic-detail-kanan" src="<?= base_url('images/avatar.png') ?>">
-                                    <div class="name-content-kanan text-truncate">sultanjordy
-                                        <span class="thread-count">2 Jam yang lalu</span>
-                                    </div>
-                                </a>
-                                <div class="btn-group dropleft d-block d-lg-none">
-                                    <button class="btn btn-sm btn-more dropdown-toggle" data-toggle="dropdown" aria-expanded="false" data-display="static">
-                                        <i class="fas fa-ellipsis-h"></i>
-                                    </button>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item" href="javascript:void(0);">
-                                            <i class="fas text-info fa-share mr-2"></i>
-                                            Bagikan
-                                        </a>
-                                        <a class="dropdown-item" href="javascript:void(0);">
-                                            <i class="fas text-primary fa-external-link-alt mr-2"></i>
-                                            Lihat
-                                        </a>
-                                        <a class="dropdown-item" href="javascript:void(0);">
-                                            <i class="fas text-warning fa-exclamation-triangle mr-2"></i>
-                                            Laporkan
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="javascript:void(0)">
-                                <h3 class="thread-comment-kanan-title">
-                                    Lorem ipsum dolor
-                                </h3>
-                                <div class="thread-comment-kanan">
-                                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis adipisci hic
-                                    tempore dolore illo iste possimus tenetur nesciunt aliquid deserunt.
-                                </div>
-                            </a>
-                            <ul class="thread-categories d-flex d-lg-none">
-                                <li>
-                                    <a href="javascript:void(0)">
-                                        <i class="fas fa-bookmark"></i>
-                                        Lorem Ipsum
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">python</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">python</a>
-                                </li>
-                            </ul>
-                            <div class="thread-action d-flex justify-content-between align-items-center">
-                                <div class=""></div>
-                                <div class="thread-kanan">
-                                    <button class="btn love">
-                                        <i class="far fa-heart"></i>
-                                        <small>50</small>
-                                    </button>
-                                    <button class="btn comment">
-                                        <i class="far fa-comment"></i>
-                                        <small>1</small>
-                                    </button>
-                                    <button class="btn views">
-                                        <i class="fas fa-eye"></i>
-                                        <small>100</small>
-                                    </button>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="item-content mb-2 mt-1 d-flex align-items-center justify-content-between">
-                                <a class="d-flex align-items-center" href="javascript:void(0)">
-                                    <img class="mr-2 profile-pic-detail-kanan" src="<?= base_url('images/avatar.png') ?>">
-                                    <div class="name-content-kanan text-truncate">sultanjordy
-                                        <span class="thread-count">2 Jam yang lalu</span>
-                                    </div>
-                                </a>
-                                <div class="btn-group dropleft d-block d-lg-none">
-                                    <button class="btn btn-sm btn-more dropdown-toggle" data-toggle="dropdown" aria-expanded="false" data-display="static">
-                                        <i class="fas fa-ellipsis-h"></i>
-                                    </button>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item" href="javascript:void(0);">
-                                            <i class="fas text-info fa-share mr-2"></i>
-                                            Bagikan
-                                        </a>
-                                        <a class="dropdown-item" href="javascript:void(0);">
-                                            <i class="fas text-primary fa-external-link-alt mr-2"></i>
-                                            Lihat
-                                        </a>
-                                        <a class="dropdown-item" href="javascript:void(0);">
-                                            <i class="fas text-warning fa-exclamation-triangle mr-2"></i>
-                                            Laporkan
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="javascript:void(0)">
-                                <h3 class="thread-comment-kanan-title">
-                                    Lorem ipsum dolor
-                                </h3>
-                                <div class="thread-comment-kanan">
-                                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis adipisci hic
-                                    tempore dolore illo iste possimus tenetur nesciunt aliquid deserunt.
-                                </div>
-                            </a>
-                            <ul class="thread-categories d-flex d-lg-none">
-                                <li>
-                                    <a href="javascript:void(0)">
-                                        <i class="fas fa-bookmark"></i>
-                                        Lorem Ipsum
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">python</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">python</a>
-                                </li>
-                            </ul>
-                            <div class="thread-action d-flex justify-content-between align-items-center">
-                                <div class=""></div>
-                                <div class="thread-kanan">
-                                    <button class="btn love">
-                                        <i class="far fa-heart"></i>
-                                        <small>50</small>
-                                    </button>
-                                    <button class="btn comment">
-                                        <i class="far fa-comment"></i>
-                                        <small>1</small>
-                                    </button>
-                                    <button class="btn views">
-                                        <i class="fas fa-eye"></i>
-                                        <small>100</small>
-                                    </button>
-                                </div>
-                            </div>
-                        </li>
+                            </li>
+                        <?php endforeach ?>
+
                     </ul>
                 </div>
             </div>

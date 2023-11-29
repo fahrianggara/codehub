@@ -16,13 +16,14 @@ class HomeController extends BaseController
     {
 
         $categories =  $this->categoryModel->getTopCategories(3);
-
         $threads = $this->threadModel->orderBy('created_at', 'DESC')->findAll();
+        $TopThreads = $this->threadModel->orderBy('views', 'DESC')->findAll(3);
 
         return view('frontend/home', [
             'title' => 'Beranda',
             'categories' => $categories,
             'threads' => $threads,
+            'TopThreads' => $TopThreads,
         ]);
     }
 }
