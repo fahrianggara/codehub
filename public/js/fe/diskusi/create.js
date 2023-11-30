@@ -34,7 +34,7 @@ $(document).ready(function () {
             },
             processResults: function (res) {
                 return {
-                    results: res.data,
+                    results: res.data
                 };
             },
             cache: true,
