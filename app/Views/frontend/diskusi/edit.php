@@ -36,7 +36,7 @@
                 </div>
                 <div class="form-group mb-2">
                     <select multiple="multiple" name="tag_ids[]" class="form-control" 
-                        placeholder="Pilih Taggar Diskusi" id="tags-edit">
+                        placeholder="Pilih Tagar Diskusi" id="tags-edit">
                     </select>
                 </div>
 
