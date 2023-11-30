@@ -556,17 +556,19 @@ class DiskusiController extends BaseController
 
         if (empty($post['search'])) {
             $categories = $this->categoryModel
-                ->orderBy('name', 'asc')
+                ->orderBy('(SELECT COUNT(*) FROM thread_categories WHERE category_id = categories.id)', 'desc')
                 ->findAll(20);
         } else {
-            $categories = $this->categoryModel->orderBy('name', 'asc')
-                ->like('name', $post['search'])->findAll(10);
+            $categories = $this->categoryModel
+                ->orderBy('(SELECT COUNT(*) FROM thread_categories WHERE category_id = categories.id)', 'desc')
+                ->like('name', $post['search'])
+                ->findAll(10);
         }
 
         foreach ($categories as $category) {
             $data[] = [
                 'id' => $category->id,
-                'text' => $category->name,
+                'text' => $category->name . ' (' . count($category->threads) . ')',
             ];
         }
 
@@ -587,15 +589,19 @@ class DiskusiController extends BaseController
         $data = [];
 
         if (empty($post['search'])) {
-            $tags = $this->tagModel->findAll(20);
+            $tags = $this->tagModel
+                ->orderBy('(SELECT COUNT(*) FROM thread_tags WHERE tag_id = tags.id)', 'desc')
+                ->findAll(20);
         } else {
-            $tags = $this->tagModel->like('name', $post['search'])->findAll(10);
+            $tags = $this->tagModel
+                ->orderBy('(SELECT COUNT(*) FROM thread_tags WHERE tag_id = tags.id)', 'desc')
+                ->like('name', $post['search'])->findAll(10);
         }
 
         foreach ($tags as $tag) {
             $data[] = [
                 'id' => $tag->name,
-                'text' => $tag->name,
+                'text' => $tag->name . ' (' . count($tag->threads) . ')',
             ];
         }
 
