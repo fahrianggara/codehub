@@ -6,30 +6,32 @@
     <div class="thread container-fluid">
         <!-- row container -->
         <div class="row justify-content-center">
-            <div class="col-xl-3 col-lg-4 col-md-12 mb-3 pr-3 pr-md-normal order-lg-1 order-3">
-                <div class="sticky">
+            <?php if ($categories): ?>
+                <div class="col-xl-3 col-lg-4 col-md-12 mb-3 pr-3 pr-md-normal order-lg-1 order-3">
+                    <div class="sticky">
 
-                    <div class="thread-header mb-2 list-group-item">
-                        Kategori Lainnya
+                        <div class="thread-header mb-2 list-group-item">
+                            Kategori Lainnya
+                        </div>
+
+                        <ul class="list-group mb-3">
+                            <?php foreach ($categories as $category) : ?>
+                                <?php if ($category->slug != $slug && count($category->threads) != 0) : ?>
+                                    <li class="thread-most-item list-group-item d-flex align-items-center">
+                                        <a href="<?= route_to("kategori.show", $category->slug) ?>">
+                                            <img class="mr-2" src="<?= $category->photo ?>">
+                                            <div class="text-content">
+                                                <span class="name"><?= $category->name; ?></span>
+                                                <span class="thread-count"><?= count($category->threads) ?> Diskusi Digunakan</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        </ul>
                     </div>
-
-                    <ul class="list-group mb-3">
-                        <?php foreach ($categories as $category) : ?>
-                            <?php if ($category->slug != $slug && count($category->getThreads()) != 0) : ?>
-                                <li class="thread-most-item list-group-item d-flex align-items-center">
-                                    <a href="<?= route_to("kategori.show", $category->slug) ?>">
-                                        <img class="mr-2" src="<?= $category->photo ?>">
-                                        <div class="text-content">
-                                            <span class="name"><?= $category->name; ?></span>
-                                            <span class="thread-count"><?= count($category->getThreads()) ?> Diskusi Digunakan</span>
-                                        </div>
-                                    </a>
-                                </li>
-                            <?php endif; ?>
-                        <?php endforeach; ?>
-                    </ul>
                 </div>
-            </div>
+            <?php endif ?>
 
             <div class="col-xl-7 col-lg-8 col-md-12 mb-3 pl-0 pl-md-normal order-lg-2 order-1">
                 <!-- baris tengah -->

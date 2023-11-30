@@ -6,24 +6,26 @@
     <div class="thread container-fluid">
         <!-- row container -->
         <div class="row justify-content-center">
-            <div class="col-xl-3 col-lg-4 col-md-12 mb-3 pr-3 pr-md-normal order-lg-1 order-3">
-                <div class="sticky">
+            <?php if ($tags): ?>
+                <div class="col-xl-3 col-lg-4 col-md-12 mb-3 pr-3 pr-md-normal order-lg-1 order-3">
+                    <div class="sticky">
 
-                    <div class="thread-header mb-3 list-group-item">
-                        Tagar Lainnya
+                        <div class="thread-header mb-3 list-group-item">
+                            Tagar Lainnya
+                        </div>
+
+                        <ul class="list-tags mb-3">
+                            <?php foreach ($tags as $tag) : ?>
+                                <li data-toggle="tooltip" title="<?= count($tag->threads) ?> Diskusi">
+                                    <a href="<?= route_to('tag.show',$tag->slug) ?>">
+                                        <?= $tag->name ?>
+                                    </a>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
                     </div>
-
-                    <ul class="list-tags mb-3">
-                        <?php foreach ($tags as $tag) : ?>
-                            <li data-toggle="tooltip" title="<?= count($tag->threads) ?> Diskusi">
-                                <a href="<?= route_to('tag.show',$tag->slug) ?>">
-                                    <?= $tag->name ?>
-                                </a>
-                            </li>
-                        <?php endforeach; ?>
-                    </ul>
                 </div>
-            </div>
+            <?php endif ?>
 
             <div class="col-xl-7 col-lg-8 col-md-12 mb-3 pl-0 pl-md-normal order-lg-2 order-1">
                 <!-- baris tengah -->

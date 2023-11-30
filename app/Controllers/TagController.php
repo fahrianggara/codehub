@@ -30,14 +30,16 @@ class TagController extends BaseController
      */
     public function index($slug)
     {
-        $tag= $this->tagModel->where('slug', $slug)->first();
-        // dd($tag);
+        $tag = $this->tagModel->where('slug', $slug)->first();
 
         if (!$tag || !$tag->threads) throw PageNotFoundException::forPageNotFound();
 
-        $tags=$this->tagModel->where('slug !=', $slug)->orderBy('name','asc')
-        ->findAll(50);
-
+        $tags = $this->tagModel->where('slug !=', $slug)
+            ->join('thread_tags', 'thread_tags.tag_id = tags.id')
+            ->groupBy('tags.id')
+            ->select('tags.*')
+            ->orderBy('name','asc')
+            ->findAll(50);
 
         $get = $this->request->getVar();
         $orderSelected = (isset($get['order']) && in_array($get['order'], ['desc', 'asc', 'popular'])) ? $get['order'] : 'desc';
