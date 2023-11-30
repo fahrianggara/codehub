@@ -144,7 +144,7 @@
                             </div>
                             <div class="thread-reply-box-body">
                                 <div>
-                                    <h3 class="thread-comment-title m-0 mb-2">
+                                    <h3 class="thread-comment-title detail m-0 mb-2">
                                         <?= $thread->title ?>
                                     </h3>
                                     <div class="thread-comment d-block">
