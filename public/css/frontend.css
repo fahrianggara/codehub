@@ -1788,7 +1788,7 @@ div.code-toolbar > .toolbar > .toolbar-item > span:hover {
 }
 
 /* Responsive */
-@media (max-width: 991.98px) {
+@media (max-width: 798.98px) {
 	.section-profile-top.logined {
 		padding-bottom: 0;
 	}
@@ -1871,7 +1871,7 @@ div.code-toolbar > .toolbar > .toolbar-item > span:hover {
 	}
 
 	.profile-info {
-		margin-bottom: 40px;
+		margin-bottom: 35px;
 	}
 
 	.profile-name h3 {

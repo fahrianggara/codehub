@@ -557,10 +557,10 @@ class DiskusiController extends BaseController
         if (empty($post['search'])) {
             $categories = $this->categoryModel
                 ->orderBy('name', 'asc')
-                ->findAll(5);
+                ->findAll(20);
         } else {
             $categories = $this->categoryModel->orderBy('name', 'asc')
-                ->like('name', $post['search'])->findAll(5);
+                ->like('name', $post['search'])->findAll(10);
         }
 
         foreach ($categories as $category) {
@@ -587,10 +587,9 @@ class DiskusiController extends BaseController
         $data = [];
 
         if (empty($post['search'])) {
-            $tags = $this->tagModel->findAll(5);
+            $tags = $this->tagModel->findAll(20);
         } else {
-            $tags = $this->tagModel->like('name', $post['search'])
-                ->findAll(5);
+            $tags = $this->tagModel->like('name', $post['search'])->findAll(10);
         }
 
         foreach ($tags as $tag) {

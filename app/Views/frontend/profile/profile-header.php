@@ -13,7 +13,7 @@
 
 <?= $this->section('css') ?>
     <style>
-        @media (max-width: 991.98px) {
+        @media (max-width: 798.98px) {
             .profile-user {
                 flex-direction: column;
                 height: calc(100px + <?= $height991 ?>);

@@ -3,9 +3,9 @@
 <?= $this->section('content'); ?>
 
 <section class="section-bg section-profile-top first <?= !auth_check() ? 'logined' : '' ?>">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-lg-12">
+            <div class="col-xl-10 col-lg-12 col-md-12">
 
                 <div class="profile-container">
                     <?= $this->include('frontend/profile/profile-header') ?>
@@ -17,9 +17,9 @@
 </section>
 
 <section style="padding-top: 30px;">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 mb-3" id="thread-profile">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-xl-10 col-lg-12 mb-3" id="thread-profile">
 
                 <div class="card mb-1">
                     <div class="card-body p-2">
@@ -27,7 +27,7 @@
                             <li class="nav-item">
                                 <a class="nav-link profile-tab active" href="#" data-toggle="tab" data-target="#tab-post">
                                     Diskusi 
-                                    <?= $user->threads ? "(" . count($user->threads) . ")" : '' ?>
+                                    <?= $user->threads ? "(" . number_short(count($user->threads)) . ")" : '' ?>
                                 </a>
                             </li>
                             <?php if (auth_check() && auth()->id === $user->id): ?>
@@ -42,7 +42,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-12">
+            <div class="col-xl-10 col-lg-12">
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="tab-post" role="tabpanel">
                         <div class="row">
@@ -57,14 +57,14 @@
 
                                     <div class="card">
                                         <div class="card-header accordion">
-                                            <a href="javascript:void(0);" aria-expanded="<?= $selected_true ? 'true' : 'false' ?>"
+                                            <a href="javascript:void(0);" aria-expanded="true"
                                                 class="btn btn-filter text-left p-0 ml-1 w-100">
                                                 <span>Filter Diskusi</span>
                                                 <i class="fas fa-chevron-down"></i>
                                             </a>
                                         </div>
 
-                                        <div class="collapse <?= $selected_true ? 'show' : '' ?>" id="collapse-filter">
+                                        <div class="collapse show" id="collapse-filter">
                                             <div class="card-body">
                                                 <form action="#thread-profile" id="formFilterDiskusi" method="GET">
                                                     <?php if (auth_check() && auth()->id === $user->id): ?>

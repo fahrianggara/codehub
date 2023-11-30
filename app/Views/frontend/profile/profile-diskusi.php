@@ -53,8 +53,8 @@
                                 </a>
 
                                 <a id="btnLaporkan" class="dropdown-item btn-report-diskusi" href="javascript:void(0);" 
-                                data-id="<?= $thread_id ?>" data-model="<?= encrypt(getClass($thread)) ?>"
-                                data-logined="<?= auth_check() ?>" data-pelaku="<?= encrypt($thread->user_id) ?>">
+                                    data-id="<?= $thread_id ?>" data-model="<?= encrypt(getClass($thread)) ?>"
+                                    data-logined="<?= auth_check() ?>" data-pelaku="<?= encrypt($thread->user_id) ?>">
                                     <i class="fas text-warning fa-exclamation-triangle mr-2"></i>
                                     Laporkan
                                 </a>
@@ -102,12 +102,12 @@
                             class="btn btn-reply-thread comment" data-id="<?= encrypt($thread->id) ?>"
                             data-url="<?= route_to('diskusi.reply-show') ?>">
                             <i class="far fa-comment"></i>
-                            <small><?= $thread->count_replies ?></small>
+                            <small><?= number_short($thread->count_replies) ?></small>
                         </button>
 
                         <button class="btn views cursor-default">
                             <i class="fas fa-eye"></i>
-                            <small><?= $thread->views ?></small>
+                            <small><?= number_short($thread->views) ?></small>
                         </button>
 
                         <button <?= $thread->status === "draft" ? "disabled" : 'data-toggle="tooltip" title="Bagikan Diskusi"'  ?> 

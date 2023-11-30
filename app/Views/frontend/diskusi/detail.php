@@ -101,8 +101,8 @@
                     </div>
                     <div class="thread-info">
                         <ul>
-                            <li><i class="fas fa-eye"></i> <?= $thread->views ?></li>
-                            <li><i class="fas fa-comments"></i> <?= $thread->count_replies ?></li>
+                            <li><i class="fas fa-eye"></i> <?= number_short($thread->views) ?></li>
+                            <li><i class="fas fa-comments"></i> <?= number_short($thread->count_replies) ?></li>
                             <li><a href="<?= route_to("kategori.show", $category->slug) ?>"><?= $category->name ?></a></li>
                         </ul>
                     </div>

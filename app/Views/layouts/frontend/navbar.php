@@ -28,8 +28,8 @@
                 <p>Agar dapat mengakses semua fitur di CODEHUB.</p>
             </div>
             <div class="action">
-                <a href="javascript:void(0)" class="login">Masuk</a>
-                <a href="javascript:void(0)" class="register">Daftar</a>
+                <a href="<?= route_to('login') ?>" class="login">Masuk</a>
+                <a href="<?= route_to('register') ?>" class="register">Daftar</a>
             </div>
         </div>
     <?php endif ?>

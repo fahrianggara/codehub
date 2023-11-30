@@ -30,7 +30,7 @@ class SearchController extends BaseController
         $get = $this->request->getVar();
         $currQuery = isset($get['q']) ? $get['q'] : '';
 
-        if (!$currQuery) throw PageNotFoundException::forPageNotFound();
+        if (!$currQuery) return redirect()->back()->with('info', 'Kata kunci pencarian tidak boleh kosong!');
 
         $orderSelected = (isset($get['order']) && in_array($get['order'], ['desc', 'asc', 'popular'])) ? $get['order'] : 'desc';
 

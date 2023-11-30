@@ -7,7 +7,7 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
-$routes->get('/', 'HomeController::index');
+$routes->get('/', 'HomeController::index', ['as' => 'home']);
 
 // Auth Login, Register and Logout
 $routes->group('', ['namespace' => Auth::class], function (RouteCollection $routes) {
