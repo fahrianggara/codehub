@@ -19,11 +19,12 @@ class HomeController extends BaseController
 
     public function index()
     {
-
-
         $categories =  $this->categoryModel->getTopCategories(3);
         $threads = $this->threadModel->orderBy('created_at', 'DESC')->published()->findAll();
-        $TopThreads = $this->threadModel->orderBy('views', 'DESC')->findAll(3);
+        $TopThreads = $this->threadModel->published()
+            ->orderBy('(SELECT COUNT(*) FROM replies WHERE thread_id = threads.id)', 'desc')
+            ->orderBy('(SELECT COUNT(*) FROM likes WHERE model_id = threads.id)', 'desc')
+            ->orderBy('views', 'desc')->findAll(3);
 
         return view('frontend/home', [
             'title' => 'Beranda',
