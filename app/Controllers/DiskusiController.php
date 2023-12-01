@@ -44,12 +44,17 @@ class DiskusiController extends BaseController
         if (!$thread) throw PageNotFoundException::forPageNotFound();
 
         $this->threadModel->incrementViews($thread->id);
+        $threads = $this->threadModel->published()->where('id !=', $thread->id)
+            ->orderBy('RAND()')
+            ->findAll(3);
 
         return view('frontend/diskusi/detail', [
             'title' => $thread->title,
             'thread' => $thread,
+            'threads' => $threads,
             'user' => $thread->user,
             'category' => $thread->category,
+            'categories' => $this->categoryModel->getTopCategories(3),
         ]);
     }
 
@@ -325,6 +330,9 @@ class DiskusiController extends BaseController
     public function reply()
     {
         $post = $this->request->getPost();
+        $childId = $post['child_id'];
+        $parentId = $post['parent_id'];
+
         $rule = [
             'content' => [
                 'rules' => "required|min_length[10]|max_length[20000]|string",
@@ -345,6 +353,17 @@ class DiskusiController extends BaseController
             ]);
         }
 
+        $checkParent = $this->replyModel->find(decrypt($parentId));
+        $checkChild = $this->replyModel->find(decrypt($childId));
+
+        if (!$checkParent || !$checkChild) {
+            return response()->setJSON([
+                'status' => 400,
+                'message' => 'Balasan tidak ditemukan.',
+                'reload' => true // reload page
+            ]);
+        }
+
         $this->db->transBegin();
         try {
             $this->replyModel->save([
@@ -352,8 +371,8 @@ class DiskusiController extends BaseController
                 'approved' => 1,
                 'thread_id' => decrypt($post['thread_id']),
                 'user_id' => auth()->id,
-                'child_id' => $post['child_id'] !== "" ? decrypt($post['child_id']) : null,
-                'parent_id' => $post['parent_id'] !== "" ? decrypt($post['parent_id']) : null,
+                'child_id' => $childId !== "" ? decrypt($childId) : null,
+                'parent_id' => $parentId !== "" ? decrypt($parentId) : null,
             ]);
 
             session()->setFlashdata('info', 'Balasan berhasil dikirim.');

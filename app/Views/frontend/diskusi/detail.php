@@ -1,10 +1,27 @@
 <?= $this->extend('layouts/frontend') ?>
 
+<?= $this->section('meta') ?>
+
+<meta name="robots" content="index, follow">
+<meta name="title" content="<?= $thread->title ?>">
+<meta name="description" content="<?= text_limit($thread->content, 200) ?>">
+<meta name="author" content="<?= $user->full_name ?>">
+<meta name="keywords" content="codehub,<?= "$category->name," ?><?= $thread->tags ? implode(',', array_column($thread->tags, 'name')) : '' ?>">
+<meta property="og:type" content="article">
+<meta property="og:title" content="<?= $thread->title ?>">
+<meta property="og:description" content="<?= text_limit($thread->content, 200) ?>">
+<meta property="og:url" content="<?= base_url("d/$thread->slug") ?>">
+<meta property="og:image" content="<?= base_url('images/og.png') ?>">
+<meta property="og:site_name" content="Codehub">
+<link rel="canonical" href="<?= base_url("d/$thread->slug") ?>">
+
+<?= $this->endSection() ?>
+
 <?= $this->section('content') ?>
 
-<?php 
-    $count = $thread->getCountReplies(true); 
-    $count = $count ? ". $count orang membalas diskusi ini." : "." 
+<?php
+    $count = $thread->getCountReplies(true);
+    $count = $count ? ". $count orang membalas diskusi ini." : "."
 ?>
 
 <section class="homepage first" id="homepage">
@@ -18,77 +35,46 @@
                         <i class="fas fa-comment mr-2"></i> Balas Diskusi Ini..
                     </button>
 
-                    <div class="thread-header mb-2 list-group-item">
-                        Diskusi Lainnya
-                    </div>
+                    <?php if ($threads) : ?>
+                        <div class="thread-header mb-2 list-group-item">
+                            3 Diskusi Lainnya
+                        </div>
 
-                    <ul class="list-group mb-3">
-                        <li class="thread-most-item list-group-item d-flex align-items-center">
-                            <a href="javascript:void(0)" class="">
-                                <div class="text-content">
-                                    <span class="name">Lorem ipsum dolor, sit amet consectetur?</span>
-                                    <span class="thread-count">
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit, magnam.
-                                    </span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="thread-most-item list-group-item d-flex align-items-center">
-                            <a href="javascript:void(0)" class="">
-                                <div class="text-content">
-                                    <span class="name">Lorem ipsum dolor sit amet.</span>
-                                    <span class="thread-count">Lorem ipsum dolor sit, amet consectetur adipisicing
-                                        elit.
-                                        Dolorem, impedit.</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="thread-most-item list-group-item d-flex align-items-center">
-                            <a href="javascript:void(0)" class="">
-                                <div class="text-content">
-                                    <span class="name">Lorem, ipsum dolor sit amet consectetur adipisicing
-                                        elit.</span>
-                                    <span class="thread-count">Lorem ipsum dolor sit amet, consectetur adipisicing
-                                        elit.
-                                        Cumque, dolor!</span>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
+                        <ul class="list-group mb-3">
+                            <?php foreach ($threads as $t) : ?>
+                                <li class="thread-most-item list-group-item d-flex align-items-center">
+                                    <a href="<?= route_to('diskusi.show', $t->slug) ?>" class="">
+                                        <div class="text-content">
+                                            <span class="name"><?= $t->title ?></span>
+                                            <span class="thread-count">
+                                                <?= text_limit($t->content, 200) ?>
+                                            </span>
+                                        </div>
+                                    </a>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    <?php endif; ?>
 
-                    <div class="thread-header mb-2 list-group-item">
-                        3 Kategori Teratas
-                    </div>
+                    <?php if ($categories) : ?>
+                        <div class="thread-header mb-2 list-group-item">
+                            3 Kategori Teratas
+                        </div>
 
-                    <ul class="list-group mb-3">
-                        <li class="thread-most-item list-group-item d-flex align-items-center">
-                            <a href="javascript:void(0)" class="">
-                                <img class="mr-2" src="<?= base_url('images/empty.png') ?>">
-                                <div class="text-content">
-                                    <span class="name">Artificial Intelligence</span>
-                                    <span class="thread-count">50 Diskusi digunakan</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="thread-most-item list-group-item d-flex align-items-center">
-                            <a href="javascript:void(0)" class="">
-                                <img class="mr-2" src="<?= base_url('images/empty.png') ?>">
-                                <div class="text-content">
-                                    <span class="name">Machine Learning</span>
-                                    <span class="thread-count">40 Diskusi digunakan</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="thread-most-item list-group-item d-flex align-items-center">
-                            <a href="javascript:void(0)" class="">
-                                <img class="mr-2" src="<?= base_url('images/empty.png') ?>">
-                                <div class="text-content">
-                                    <span class="name">Web Programming</span>
-                                    <span class="thread-count">35 Diskusi digunakan</span>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
+                        <ul class="list-group mb-3">
+                            <?php foreach ($categories as $c) : ?>
+                                <li class="thread-most-item list-group-item d-flex align-items-center">
+                                    <a href="<?= route_to("kategori.show", $c->slug) ?>">
+                                        <img class="mr-2" src="<?= $c->photo ?>">
+                                        <div class="text-content">
+                                            <span class="name"><?= $c->name; ?></span>
+                                            <span class="thread-count"><?= count($c->threads) ?> Diskusi Digunakan</span>
+                                        </div>
+                                    </a>
+                                </li>
+                            <?php endforeach ?>
+                        </ul>
+                    <?php endif ?>
                 </div>
             </div>
 
@@ -167,8 +153,7 @@
                                     </ul>
                                     <div class="thread-tengah">
                                         <?= buttonLike($thread) ?>
-                                        <button class="btn btn-sm btn-share-diskusi" type="button" data-toggle="tooltip" 
-                                            title="Bagikan Diskusi">
+                                        <button class="btn btn-sm btn-share-diskusi" type="button" data-toggle="tooltip" title="Bagikan Diskusi">
                                             <i class="bi bi-share-fill"></i>
                                         </button>
                                     </div>
@@ -202,20 +187,19 @@
 
 <?= $this->section('js') ?>
 
-    <?= $this->include('frontend/diskusi/laporan') ?>
+<?= $this->include('frontend/diskusi/laporan') ?>
 
-    <?php if (auth_check()) : ?>
-        <?= view('frontend/diskusi/reply-edit') ?>
-        <?= view('frontend/diskusi/edit', ['detail' => true]) ?>
-    <?php endif; ?>
+<?php if (auth_check()) : ?>
+    <?= view('frontend/diskusi/reply-edit') ?>
+    <?= view('frontend/diskusi/edit', ['detail' => true]) ?>
+<?php endif; ?>
 
-    <button class="btn-reply-thread fixed" type="button" data-id="<?= encrypt($thread->id) ?>" 
-        data-url="<?= route_to('diskusi.reply-show') ?>">
-        <i class="fas fa-comment"></i>
-    </button>
+<button class="btn-reply-thread fixed" type="button" data-id="<?= encrypt($thread->id) ?>" data-url="<?= route_to('diskusi.reply-show') ?>">
+    <i class="fas fa-comment"></i>
+</button>
 
-    <?= view('frontend/diskusi/reply-modal', ['view_thread' => false]) ?>
+<?= view('frontend/diskusi/reply-modal', ['view_thread' => false]) ?>
 
-    <script src="<?= base_url('js/fe/diskusi/reply-delete.js') ?>"></script>
+<script src="<?= base_url('js/fe/diskusi/reply-delete.js') ?>"></script>
 
 <?= $this->endSection() ?>
