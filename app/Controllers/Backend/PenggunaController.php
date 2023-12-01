@@ -17,12 +17,14 @@ class PenggunaController extends BaseController
     {
         $users = $this->userModel->orderBy('role', 'ASC')
             ->orderBy('created_at', 'DESC') // urutkan berdasarkan role dan waktu bergabung
-            ->where('id !=', auth()->id); // jangan tampilkan data yg sedang login
+            ->where('id !=', 1) // jangan tampilkan data admin
+            ->where('id !=', auth()->id) // jangan tampilkan data yg sedang login
+            ->findAll();
 
         return view('backend/pengguna/index', [
             'title' => 'Pengguna',
             'menu' => 'pengguna',
-            'users' => $users->findAll()
+            'users' => $users
         ]);
     }
 

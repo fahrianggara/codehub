@@ -39,7 +39,9 @@
                                             <img src="<?= $user->photo ?>">
                                             <div class="user-name">
                                                 <span><?= $user->full_name ?></span>
-                                                <small><?= $user->username ?></small>
+                                                <a href="<?= base_url("$user->username") ?>" target="_blank" style="font-size: 12px;">
+                                                    <?= $user->username ?>
+                                                </a>
                                             </div>
                                         </div>
                                     </td>

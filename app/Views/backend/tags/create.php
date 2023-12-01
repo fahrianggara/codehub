@@ -13,7 +13,7 @@
 
                 <div class="card-header p-2">
                     <div class="d-flex align-items-center justify-content-between">
-                        <span class="ml-2 py-1">Form Tambah Tag</span>
+                        <span class="ml-2 py-1">Form Tambah Tagar</span>
                     </div>
                 </div>
 
@@ -21,7 +21,7 @@
 
                     <div class="row">
                         <div class="form-group col-md-12 mb-2">
-                            <label for="name">Nama Tag</label>
+                            <label for="name">Nama Tagar</label>
 
                             <input type="text" name="name" id="name" class="form-control <?= validation_show_error('name') ? 'is-invalid' : '' ?>" value="<?= old('name') ?>" placeholder="Masukkan Nama Tag">
 

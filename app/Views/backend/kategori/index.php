@@ -18,10 +18,10 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Nama</th>
-                                <th>slug</th>
-                                <th>cover</th>
-                                <th>Jumlah Dipakai</th>
+                                <th>Kategori</th>
+                                <th>Kategori URL</th>
+                                <th>Sampul</th>
+                                <th>Diskusi Dipakai</th>
                                 <th>Dibuat Pada</th>
                                 <th>&nbsp;</th>
                             </tr>
@@ -29,15 +29,21 @@
                         <tbody>
                             <?php $no = 1; ?>
                             <?php foreach ($categories as $category) : ?>
-                                <?php $id = base64_encode($category->id); ?>
+                                <?php $id = encrypt($category->id); ?>
                                 <tr>
                                     <td><?= $no++ ?></td>
                                     <td><?= $category->name ?></td>
-                                    <td><?= $category->slug ?></td>
                                     <td>
-                                        <img src="<?= $category->photo ?>" alt="" class="img-fluid" width="80">
+                                        <?php if ($category->threads): ?>
+                                                <a href="<?= route_to('kategori.show', $category->slug) ?>" target="_blank" class="url-slug"><?= $category->slug ?></a>
+                                            <?php else: ?>
+                                                <?= $category->slug ?>
+                                            <?php endif; ?>
+                                        </td>
+                                    <td>
+                                        <img src="<?= $category->photo ?>" alt="" class="img-fluid" width="80" style="border-radius: 6px;">
                                     </td>
-                                    <td><?= count($category->getThreads()) ?></td>
+                                    <td><?= count($category->threads) ?></td>
                                     <td><?= waktu($category->created_at, 'l, d F Y', false) ?></td>
                                     <td>
                                         <div class="btn-group dropleft">
@@ -64,6 +70,7 @@
     </div>
 </div>
 <?= $this->endSection() ?>
+
 <?= $this->section('js') ?>
 <script>
     const btnDelete = $(".btn-delete");
@@ -72,6 +79,7 @@
             url: `${origin}/plugins/datatables/datatables-language/idn.json`
         },
     });
+
     btnDelete.on("click", function(e) {
         e.preventDefault();
         const id = $(this).val();
@@ -79,6 +87,7 @@
         const message = `Apakah kamu yakin ingin menghapus Kategori <strong>${name}</strong>?`;
         const confirm = (e) => {
             e.preventDefault();
+
             $.ajax({
                 url: $(this).data("action"),
                 type: "POST",
@@ -88,11 +97,11 @@
                 dataType: "JSON",
                 success: (res) => {
                     if (res.status === 400) {
-                        alertError(res.message);
-                    } else {
-                        alertifyLog('success', res.message, () => {
-                            location.reload();
+                        alertifyLog('danger', res.message, (e) => {
+                            $('body').css('overflow', 'auto');
                         });
+                    } else {
+                        location.reload();
                     }
                 },
                 error: (xhr, status, error) => {
@@ -101,6 +110,7 @@
                 }
             });
         }
+
         alertifyConfirm(message, confirm, (e) => {
             $('body').removeClass('modal-open');
         });

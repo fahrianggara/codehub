@@ -13,6 +13,21 @@ class CategorySeeder extends Seeder
 
         $model->insertBatch([
             [
+                'name' => 'Asking',
+                'slug' => 'asking',
+                'cover' => 'empty.png', // add this line
+            ],
+            [
+                'name' => 'Solved',
+                'slug' => 'solved',
+                'cover' => 'empty.png', // add this line
+            ],
+            [
+                'name' => 'Fixing Bug',
+                'slug' => 'fixing-bug',
+                'cover' => 'empty.png', // add this line
+            ],
+            [
                 'name' => 'Artificial Intelligence',
                 'slug' => 'artificial-intelligence',
                 'cover' => 'empty.png', // add this line
@@ -40,16 +55,6 @@ class CategorySeeder extends Seeder
             [
                 'name' => 'Web Development',
                 'slug' => 'web-development',
-                'cover' => 'empty.png', // add this line
-            ],
-            [
-                'name' => 'Ask',
-                'slug' => 'ask',
-                'cover' => 'empty.png', // add this line
-            ],
-            [
-                'name' => 'Fixing Bug',
-                'slug' => 'fixing-bug',
                 'cover' => 'empty.png', // add this line
             ],
             [

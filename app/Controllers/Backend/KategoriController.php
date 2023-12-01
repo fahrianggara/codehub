@@ -3,39 +3,78 @@
 namespace App\Controllers\Backend;
 
 use App\Controllers\BaseController;
+use CodeIgniter\Exceptions\PageNotFoundException;
 
 class KategoriController extends BaseController
 {
     protected $categoryModel;
+    
+    /**
+     * Constructor.
+     *
+     * @return void
+     */
     public function __construct()
     {
         $this->categoryModel = new \App\Models\CategoryModel();
     }
+    
+    /**
+     * Display a listing of the resource.
+     *
+     * @return void
+     */
     public function index()
-    // Nampilin Index.php di section Category Backend
     {
-        $categories =  $this->categoryModel->findAll();
+        $categories =  $this->categoryModel
+            ->orderBy('(SELECT COUNT(*) FROM thread_categories WHERE category_id = categories.id)', 'desc')
+            ->findAll();
+
         return view('backend/kategori/index', [
-            'title' => 'Kategori',
+            'title' => 'Kategori Diskusi',
             'menu' => 'kategori',
             'categories' => $categories,
         ]);
     }
-    // Nyimpen hasil Create
+    
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return void
+     */
+    public function create()
+    {
+        return view('backend/kategori/create', [
+            'title' => 'Kategori',
+            'menu' => 'kategori',
+        ]);
+    }
+    
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @return void
+     */
     public function store()
     {
         if (!$this->validate($this->rules())) {
             return redirect()->back()->withInput();
         }
+
         $this->db->transBegin();
         try {
             $request = $this->request;
-            $cover = $request->getVar('blob_cover') ? uploadImageBlob($request->getVar('blob_cover'), 'images/categories') : 'empty.png';
+            $name = trim($request->getVar('name'));
+            $cover = $request->getVar('blob_cover') 
+                ? uploadImageBlob($request->getVar('blob_cover'), 'images/categories') 
+                : 'empty.png';
+
             $this->categoryModel->insert([
-                'name' => $request->getVar('name'),
-                'slug' => slug($request->getVar('name')),
+                'name' => $name,
+                'slug' => slug($name),
                 'cover' => $cover
             ]);
+
             return redirect()->route('admin.kategori')->with('success', 'Data kateogri berhasil ditambahkan.');
         } catch (\Throwable $th) {
             $this->db->transRollback();
@@ -44,61 +83,56 @@ class KategoriController extends BaseController
             $this->db->transCommit();
         }
     }
-    // create
-    public function create()
-    {
-        return view('backend/kategori/create', [
-            'title' => 'Kategori',
-            'menu' => 'kategori',
-        ]);
-    }
-    // Ketentuan Buat setiap Kolom
-    private function rules()
-    {
-        return [
-            'name' => [
-                'rules' => 'required|min_length[4]|max_length[28]',
-                'errors' => [
-                    'required' => 'Nama Kategori Tidak Boleh Kosong',
-                    'min_length' => 'Nama Kategori minimal 4 karakter',
-                    'max_length' => 'Nama Kategori maksimal 28 karakter'
-                ]
-            ],
-        ];
-
-    }
-    // edit
+    
+    /**
+     * Display edit form.
+     *
+     * @param  mixed $id
+     * @return void
+     */
     public function edit($id)
     {
-        $categories = $this->categoryModel->find(base64_decode($id));
+        $category = $this->categoryModel->find(decrypt($id));
 
         return view('backend/kategori/edit', [
             'title' => 'Edit Kategori',
             'menu' => 'kategori',
-            'categories' => $categories
+            'category' => $category
         ]);
     }
-    // update
+    
+    /**
+     * Update the specified resource in storage.
+     *
+     * @return void
+     */
     public function update()
     {
         $request = $this->request;
-        $id = base64_decode($request->getVar('id'));
-        $categories = $this->categoryModel->find($id);
+        $id = decrypt($request->getVar('id'));
+        $category = $this->categoryModel->find($id);
 
         if (!$this->validate($this->rules($id))) {
             return redirect()->back()->withInput();
         }
 
+        if (isNull($category)) {
+            return redirect()->route('admin.kategori')
+                ->withInput()->with('error', 'Data kategori tidak ditemukan.');
+        } 
+
         $this->db->transBegin();
         try {
-            $cover = $request->getVar('blob_cover') ? uploadImageBlob($request->getVar('blob_cover'), 'images/categories', $categories->cover) : $categories->cover;
-           
+            $name = trim($request->getVar('name'));
+            $cover = $request->getVar('blob_cover') 
+                ? uploadImageBlob($request->getVar('blob_cover'), 'images/categories', $category->cover) 
+                : $category->cover;
 
             $this->categoryModel->save([
-                'id'            => $id,
-                'name'    => $request->getVar('name'),
-                'cover'        => $cover,
-               
+                'id'    => $id,
+                'name'  => $name,
+                'slug'  => slug($name),
+                'cover' => $cover,
             ]);
 
             return redirect()->route('admin.kategori')->with('success', 'Data kategori berhasil diubah.');
@@ -109,26 +143,42 @@ class KategoriController extends BaseController
             $this->db->transCommit();
         }
     }
-
-    // hapus
+    
+    /**
+     * Delete the specified resource in storage.
+     *
+     * @return void
+     */
     public function destroy()
     {
-        if (!request()->isAJAX()) // jika bukan ajax request, lempar ke 404
-            // throw PageNotFoundException::forPageNotFound();
-
         $this->db->transBegin();
         try {
-            $id = base64_decode(request()->getVar('id'));
-            $categories = $this->categoryModel->find($id);
+            $id = decrypt(request()->getVar('id'));
+            $category = $this->categoryModel->find($id);
 
-            deleteImage("images/categories", $categories->cover); // hapus cover
-            
+            // cek apakah data kategori kosong
+            if (isNull($category)) {
+                return response()->setJSON([
+                    'status' => 400,
+                    'message' => 'Data kategori tidak ditemukan.',
+                ]);
+            } 
+
+            // cek apakah didalam kategori tersebut ada thread
+            if (count($category->threads) > 0) {
+                return response()->setJSON([
+                    'status' => 400,
+                    'message' => 'Tidak dapat menghapus kategori yang memiliki diskusi.',
+                ]);
+            }
+
+            deleteImage("images/categories", $category->cover); // hapus cover
 
             $this->categoryModel->delete($id); // hapus user
 
+            session()->setFlashdata('success', 'Data tagar berhasil dihapus.');
             return response()->setJSON([
                 'status' => 200,
-                'message' => 'Data kategori berhasil dihapus.'
             ]);
         } catch (\Throwable $th) {
             $this->db->transRollback();
@@ -141,9 +191,27 @@ class KategoriController extends BaseController
             $this->db->transCommit();
         }
     }
+    
+    /**
+     * Rules for validation.
+     *
+     * @return array
+     */
+    private function rules($id = null)
+    {
+        $unique = $id ? ",id,$id" : '';
 
-  
+        return [
+            'name' => [
+                'rules' => "required|min_length[4]|max_length[30]|is_unique[categories.slug$unique]",
+                'errors' => [
+                    'required' => 'Nama Kategori Tidak Boleh Kosong',
+                    'min_length' => 'Nama Kategori minimal 4 karakter',
+                    'max_length' => 'Nama Kategori maksimal 30 karakter',
+                    'is_unique' => 'Nama Kategori sudah digunakan'
+                ]
+            ],
+        ];
+    }
+
 }
-
-
- 

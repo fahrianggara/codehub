@@ -9,7 +9,7 @@
             <div class="card">
                 <div class="card-header p-2">
                     <div class="d-flex align-items-center justify-content-between">
-                        <span class="ml-2">Daftar Taggar Diskusi pada CODEHUB</span>
+                        <span class="ml-2">Daftar Tagar Diskusi pada CODEHUB</span>
                         <a href="<?= route_to('admin.Tags.create') ?>" class="btn btn-sm btn-success">
                             <i class="fas fa-plus mr-1"></i>
                             Tambah
@@ -21,9 +21,9 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Taggar</th>
-                                <th>Taggar URL</th>
-                                <th>Jumlah Dipakai</th>
+                                <th>Tagar</th>
+                                <th>Tagar URL</th>
+                                <th>Diskusi Dipakai</th>
                                 <th>&nbsp;</th>
                             </tr>
                         </thead>
@@ -34,13 +34,20 @@
                                 <tr>
                                     <td><?= $no++ ?></td>
                                     <td><?= $tag->name ?></td>
-                                    <td><?= $tag->slug ?></td>
+                                    <td>
+                                        <?php if ($tag->threads): ?>
+                                            <a href="<?= route_to('tag.show', $tag->slug) ?>" target="_blank" class="url-slug"><?= $tag->slug ?></a>
+                                        <?php else: ?>
+                                            <?= $tag->slug ?>
+                                        <?php endif; ?>
+                                    </td>
                                     <td><?= count($tag->threads) ?></td>
                                     <td>
                                         <div class="btn-group dropleft">
                                             <button class="btn btn-sm btn-more dropdown-toggle" data-toggle="dropdown" aria-expanded="false" data-display="static">
                                                 <button type="button" value="<?= $id ?>" class="dropdown-item py-1 btn-delete" data-id="<?= $tag->id ?>" 
-                                                    data-action="<?= route_to('admin.Tags.destroy') ?>" data-tag-name="<?= $tag->name ?>">
+                                                    data-action="<?= route_to('admin.Tags.destroy') ?>" data-tag-name="<?= $tag->name ?>"
+                                                    style="border-radius: 8px;">
                                                     <i class="fas text-danger fa-trash mr-2"></i> Hapus
                                                 </button>
                                             </button>
@@ -87,7 +94,9 @@
                 dataType: "JSON",
                 success: (res) => {
                     if (res.status === 400) {
-                        alertError(res.message);
+                        alertifyLog('danger', res.message, (e) => {
+                            $('body').css('overflow', 'auto');
+                        });
                     } else {
                         location.reload();
                     }
