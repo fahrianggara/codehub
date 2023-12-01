@@ -1,5 +1,22 @@
 <?= $this->extend('layouts/frontend') ?>
 
+<?= $this->section('meta') ?>
+
+<meta name="robots" content="index, follow">
+<meta name="title" content="<?= $category_name ?>">
+<meta name="description" content="<?= "Kategori $category_name di codehub, silahkan diskusikan atau lihat diskusi seputar kategori $category_name disini." ?>">  
+<meta name="author" content="Codehub">
+<meta name="keywords" content="codehub,<?= $category_name ?>">
+<meta property="og:type" content="article">
+<meta property="og:title" content="<?= $category_name ?>">
+<meta property="og:description" content="<?= "Kategori $category_name di codehub, silahkan diskusikan atau lihat diskusi seputar kategori $category_name disini." ?>"> 
+<meta property="og:url" content="<?= base_url("c/$category->slug") ?>">
+<meta property="og:image" content="<?= $category->photo ?>">
+<meta property="og:site_name" content="Codehub">
+<link rel="canonical" href="<?= base_url("c/$category->slug") ?>">
+
+<?= $this->endSection() ?>
+
 <?= $this->section('content'); ?>
 
 <section class="homepage first" id="homepage">

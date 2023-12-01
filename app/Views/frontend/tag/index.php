@@ -1,5 +1,22 @@
 <?= $this->extend('layouts/frontend') ?>
 
+<?= $this->section('meta') ?>
+
+<meta name="robots" content="index, follow">
+<meta name="title" content="#<?= $tag_name ?>">
+<meta name="description" content="<?= "Tagar $tag_name di codehub, silahkan diskusikan atau lihat diskusi seputar tagar $tag_name disini." ?>">  
+<meta name="author" content="Codehub">
+<meta name="keywords" content="codehub,<?= $tag_name ?>">
+<meta property="og:type" content="article">
+<meta property="og:title" content="#<?= $tag_name ?>">
+<meta property="og:description" content="<?= "Tagar $tag_name di codehub, silahkan diskusikan atau lihat diskusi seputar tagar $tag_name disini." ?>"> 
+<meta property="og:url" content="<?= base_url("t/$tag->slug") ?>">
+<meta property="og:image" content="<?= base_url('images/og.png') ?>">
+<meta property="og:site_name" content="Codehub">
+<link rel="canonical" href="<?= base_url("t/$tag->slug") ?>">
+
+<?= $this->endSection() ?>
+
 <?= $this->section('content'); ?>
 
 <section class="homepage first" id="homepage">

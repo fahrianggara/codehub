@@ -1,5 +1,22 @@
 <?= $this->extend('layouts/frontend') ?>
 
+<?= $this->section('meta') ?>
+
+<meta name="robots" content="index, follow">
+<meta name="title" content="<?= $user->full_name ?>">
+<meta name="description" content="<?= "$user->full_name ada di Codehub. Bergabunglah dengan Codehub untuk terhubung dengan $user->full_name dan orang lain yang mungkin kamu kenal." ?>">
+<meta name="author" content="<?= $user->full_name ?>">
+<meta name="keywords" content="codehub,profile">
+<meta property="og:type" content="profile">
+<meta property="og:title" content="<?= $user->full_name ?>">
+<meta property="og:description" content="<?= "$user->full_name ada di Codehub. Bergabunglah dengan Codehub untuk terhubung dengan $user->full_name dan orang lain yang mungkin kamu kenal." ?>">
+<meta property="og:url" content="<?= base_url("$user->slug") ?>">
+<meta property="og:image" content="<?= $user->photo ?>">
+<meta property="og:site_name" content="Codehub">
+<link rel="canonical" href="<?= base_url("$user->slug") ?>">
+
+<?= $this->endSection() ?>
+
 <?= $this->section('content'); ?>
 
 <section class="section-bg section-profile-top first <?= !auth_check() ? 'logined' : '' ?>">

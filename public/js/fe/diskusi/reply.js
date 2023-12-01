@@ -136,6 +136,11 @@ $(document).ready(function () {
                     }
 
                     alertifyLog('danger', message, () => {
+                        if (res.reload) {
+                            location.reload();
+                            showLoader("Tunggu sebentar ya, sedang memuat ulang halaman...");
+                        }
+
                         $("body").css('overflow', 'auto');
                     });
                 } else {
