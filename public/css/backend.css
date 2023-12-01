@@ -35949,17 +35949,30 @@ a.disabled.mailbox-attachment-close {
 }
 .small-box {
 	border-radius: 0.25rem;
+	overflow: hidden;
 	box-shadow: 0 0 1px rgba(0, 0, 0, 0.125), 0 1px 3px rgba(0, 0, 0, 0.2);
 	display: block;
 	margin-bottom: 20px;
 	position: relative;
 }
+
+.small-box a::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+}
+
 .small-box > .inner {
 	padding: 10px;
+	color: black;
 }
 .small-box > .small-box-footer {
-	background-color: rgba(0, 0, 0, 0.1);
-	color: rgba(255, 255, 255, 0.8);
+	background-color: var(--primary-color);
+	color: #fff;
 	display: block;
 	padding: 3px 0;
 	position: relative;
@@ -35968,7 +35981,7 @@ a.disabled.mailbox-attachment-close {
 	z-index: 10;
 }
 .small-box > .small-box-footer:hover {
-	background-color: rgba(0, 0, 0, 0.15);
+	background-color: var(--hover-color);
 	color: #fff;
 }
 .small-box h3 {
@@ -36020,13 +36033,14 @@ a.disabled.mailbox-attachment-close {
 	z-index: 0;
 }
 .small-box .icon > i {
+	color: var(--primary-color);
 	font-size: 90px;
 	position: absolute;
 	right: 15px;
 	top: 15px;
 	transition: -webkit-transform 0.3s linear;
 	transition: transform 0.3s linear;
-	transition: transform 0.3s linear, -webkit-transform 0.3s linear;
+	transition: transform 0.3s linear, -webkit-transform 0.5s linear;
 }
 .small-box .icon > i.fa,
 .small-box .icon > i.fab,

@@ -18,12 +18,12 @@
                         <?php foreach ($categories as $category) : ?>
                             <li class="thread-most-item list-group-item d-flex align-items-center">
                                 <a href="<?= route_to("kategori.show", $category->slug) ?>">
-                                        <img class="mr-2" src="<?= $category->photo ?>">
-                                        <div class="text-content">
-                                            <span class="name"><?= $category->name; ?></span>
-                                            <span class="thread-count"><?= count($category->getThreads()) ?> Diskusi Digunakan</span>
-                                        </div>
-                                    </a>
+                                    <img class="mr-2" src="<?= $category->photo ?>">
+                                    <div class="text-content">
+                                        <span class="name"><?= $category->name; ?></span>
+                                        <span class="thread-count"><?= count($category->getThreads()) ?> Diskusi Digunakan</span>
+                                    </div>
+                                </a>
                             </li>
                         <?php endforeach ?>
 
@@ -137,14 +137,20 @@
                                     <div class="thread-tengah">
                                         <?= buttonLike($thread) ?>
 
-                                        <button <?= $thread->status === "draft" ? "disabled" : ''  ?> class="btn btn-reply-thread comment" data-id="<?= encrypt($thread->id) ?>" data-url="<?= route_to('diskusi.reply-show') ?>">
-                                            <i class="far fa-comment"></i>
-                                            <small><?= $thread->count_replies ?></small>
+                                        <button class="btn btn-reply-thread comment" data-id="<?= encrypt($thread->id) ?>">
+                                            <a class="thread-link" href="<?= $thread->status === "published" ? route_to('diskusi.show', $thread->slug) : 'javascript:void(0);' ?>">
+                                                <i class="far fa-comment"></i>
+                                            </a>
+                                            <small><?= number_short($thread->count_replies) ?></small>
                                         </button>
 
                                         <button class="btn views cursor-default">
                                             <i class="fas fa-eye"></i>
-                                            <small><?= $thread->views ?></small>
+                                            <small><?= number_short($thread->views) ?></small>
+                                        </button>
+
+                                        <button <?= $thread->status === "draft" ? "disabled" : 'data-toggle="tooltip" title="Bagikan Diskusi"'  ?> class="btn btn-sm btn-share-diskusi" type="button">
+                                            <i class="bi bi-share-fill"></i>
                                         </button>
                                     </div>
                                 </div>
@@ -195,7 +201,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <a href="javascript:void(0)">
+                                <a class="thread-link" href="<?= $topThread->status === "published" ? route_to('diskusi.show', $topThread->slug) : 'javascript:void(0);' ?>">
                                     <h3 class="thread-comment-kanan-title">
                                         <?= $topThread->title ?>
                                     </h3>
@@ -203,33 +209,44 @@
                                         <?= text_limit($topThread->content) ?>
                                     </div>
                                 </a>
+
                                 <ul class="thread-categories d-flex d-lg-none">
                                     <li>
-                                        <a href="javascript:void(0)">
+                                        <a href="<?= route_to("kategori.show", $topThread->category->slug) ?>">
                                             <i class="fas fa-bookmark"></i>
-                                            Lorem Ipsum
+                                            <?= $topThread->category->name ?>
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="javascript:void(0)">python</a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0)">python</a>
-                                    </li>
+                                    <?php if ($topThread->tags) : ?>
+                                        <?php foreach ($topThread->tags as $tag) : ?>
+                                            <li>
+                                                <a href="javascript:void(0)">
+                                                    <?= $tag->name ?>
+                                                </a>
+                                            </li>
+                                        <?php endforeach ?>
+                                    <?php endif; ?>
                                 </ul>
+
                                 <div class="thread-action d-flex justify-content-between align-items-center">
                                     <div class=""></div>
                                     <div class="thread-kanan">
                                         <?= buttonLike($topThread) ?>
 
-                                        <button <?= $topThread->status === "draft" ? "disabled" : ''  ?> class="btn btn-reply-thread comment" data-id="<?= encrypt($topThread->id) ?>" data-url="<?= route_to('diskusi.reply-show') ?>">
-                                            <i class="far fa-comment"></i>
-                                            <small><?= $topThread->count_replies ?></small>
+                                        <button <?= $topThread->status === "draft" ? "disabled" : ''  ?> class="btn btn-reply-thread comment" data-id="<?= encrypt($topThread->id) ?>">
+                                            <a class="thread-link" href="<?= $topThread->status === "published" ? route_to('diskusi.show', $topThread->slug) : 'javascript:void(0);' ?>">
+                                                <i class="far fa-comment"></i>
+                                            </a>
+                                            <small><?= number_short($topThread->count_replies) ?></small>
                                         </button>
 
                                         <button class="btn views cursor-default">
                                             <i class="fas fa-eye"></i>
-                                            <small><?= $topThread->views ?></small>
+                                            <small><?= number_short($topThread->views) ?></small>
+                                        </button>
+
+                                        <button <?= $topThread->status === "draft" ? "disabled" : 'data-toggle="tooltip" title="Bagikan Diskusi"'  ?> class="btn btn-sm btn-share-diskusi" type="button">
+                                            <i class="bi bi-share-fill"></i>
                                         </button>
                                     </div>
                                 </div>

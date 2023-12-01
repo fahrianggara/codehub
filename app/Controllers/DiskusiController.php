@@ -41,6 +41,8 @@ class DiskusiController extends BaseController
             ->where('slug', $slug)
             ->first();
 
+        $categories =  $this->categoryModel->getTopCategories(3);
+
         if (!$thread) throw PageNotFoundException::forPageNotFound();
 
         $this->threadModel->incrementViews($thread->id);
@@ -456,11 +458,11 @@ class DiskusiController extends BaseController
         // pengecekan jika tidak ada data di database
         $model = new $classModel;
         $check = $model->find($idModel);
-        
+
         // Jika model adalah thread ber status draft dan bukan milik user yang login, maka tidak boleh like
         $threadDraft = $classModel === "App\Models\ThreadModel" && $check->status === 'draft' && $check->user_id !== auth()->id;
 
-        if (! $check || $threadDraft) {
+        if (!$check || $threadDraft) {
             return response()->setJSON([
                 'status' => 400,
                 'reload' => true, // reload page
@@ -684,7 +686,7 @@ class DiskusiController extends BaseController
                 'rules' => "required",
                 'errors' => [
                     'required' => 'Pesan harus dipilih.',
-                ] 
+                ]
             ]
         ])) {
             return response()->setJSON([
@@ -728,5 +730,4 @@ class DiskusiController extends BaseController
             $this->db->transCommit();
         }
     }
-    
 }
