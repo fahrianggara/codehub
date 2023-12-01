@@ -23,7 +23,7 @@
                                 <th>ID Model</th>
                                 <th>Class Model</th>
                                 <th>Laporan Dibuat</th>
-                                <th>Total Pelapor</th>
+                                <th>Total Dilaporkan</th>
                                 <th>&nbsp;</th>
                             </tr>
                         </thead>
@@ -53,7 +53,7 @@
                                     <td><?= $report->model_id ?></td>
                                     <td><?= ucfirst($report->model_class) ?></td>
                                     <td><?= waktu($report->created_at, 'l, d F Y', false) ?></td>
-                                    <td><?= $reportModel->countReportsByModelId($report->model_id) ?></td>
+                                    <td><?= $reportModel->countReportsByModelId($report->user_id) ?></td>
 
                                     <td>
                                         <div class="btn-group dropleft">

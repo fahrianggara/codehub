@@ -18,7 +18,12 @@ class LaporanController extends BaseController
     }
     public function index()
     {
-        $reports = $this->reportModel->findAll();
+        $reports = $this->reportModel
+            // ->groupBy(['model_id', 'model_class'])
+            ->orderBy('model_id', 'asc')
+            ->orderBy('model_class', 'asc')
+            ->orderBy('user_id', 'asc')
+            ->findAll();
 
         return view('backend/laporan/index', [
             'title' => 'Laporan',

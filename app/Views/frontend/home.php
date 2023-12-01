@@ -99,7 +99,7 @@
                                                 <i class="fas text-primary fa-external-link-alt mr-2"></i>
                                                 Lihat
                                             </a>
-                                            <a class="dropdown-item" href="javascript:void(0);">
+                                            <a id="btnLaporkan" class="dropdown-item btn-report-diskusi" href="javascript:void(0);" data-id="<?= encrypt($thread->id) ?>" data-model="<?= encrypt(getClass($thread)) ?>" data-logined="<?= auth_check() ?>" data-pelaku="<?= encrypt($thread->user_id) ?>">
                                                 <i class="fas text-warning fa-exclamation-triangle mr-2"></i>
                                                 Laporkan
                                             </a>
@@ -194,7 +194,7 @@
                                                 <i class="fas text-primary fa-external-link-alt mr-2"></i>
                                                 Lihat
                                             </a>
-                                            <a class="dropdown-item" href="javascript:void(0);">
+                                            <a id="btnLaporkan" class="dropdown-item btn-report-diskusi" href="javascript:void(0);" data-id="<?= encrypt($thread->id) ?>" data-model="<?= encrypt(getClass($thread)) ?>" data-logined="<?= auth_check() ?>" data-pelaku="<?= encrypt($thread->user_id) ?>">
                                                 <i class="fas text-warning fa-exclamation-triangle mr-2"></i>
                                                 Laporkan
                                             </a>
@@ -261,3 +261,7 @@
 </section>
 
 <?= $this->endSection(); ?>
+
+<?= $this->section('js') ?>
+<?= $this->include('frontend/diskusi/laporan') ?>
+<?= $this->endSection() ?>

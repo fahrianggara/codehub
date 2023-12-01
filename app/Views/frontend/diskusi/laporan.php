@@ -20,12 +20,12 @@
                 <div class="form-group">
                     <label for="message">Jenis Masalah:</label>
                     <div class="form-check">
-                        <input type="radio" class="form-check-input" name="message" id="kebencian" value="Hate">
+                        <input type="radio" class="form-check-input" name="message" id="kebencian" value="Kebencian">
                         <label class="form-check-label" for="kebencian">Kebencian</label>
                         <p class="text-muted" for="kebencian">Cercaan, Stereotip rasis atau seksis, Dehumanisasi, Menyulut ketakutan atau diskriminasi, Referensi kebencian, Simbol & logo kebencian</p>
                     </div>
                     <div class="form-check">
-                        <input type="radio" class="form-check-input" name="message" id="penghinaan" value="Abuse & Harassment">
+                        <input type="radio" class="form-check-input" name="message" id="penghinaan" value="Penghinaan & Pelecehan">
                         <label class="form-check-label" for="penghinaan">Penghinaan & Pelecehan secara Online</label>
                         <p class="text-muted" for="penghinaan">Penghinaan, Konten Seksual yang Tidak Diinginkan & Objektifikasi Grafis, Konten NSFW & Grafis yang Tidak Diinginkan, Penyangkalan Peristiwa Kekerasan, Pelecehan Bertarget dan Memprovokasi Pelecehan</p>
                     </div>

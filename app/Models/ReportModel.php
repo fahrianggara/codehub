@@ -29,9 +29,10 @@ class ReportModel extends Model
         return $this->insert($data);
     }
 
-    public function countReportsByModelId($modelId)
+    public function countReportsByModelId($userId)
     {
-        return $this->where('model_id', $modelId)->countAllResults();
+        return $this->where('user_id', $userId)
+            ->countAllResults();
     }
 
     
