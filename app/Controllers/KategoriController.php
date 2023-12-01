@@ -31,7 +31,7 @@ class KategoriController extends BaseController
      */
     public function index($slug)
     {
-        $categories =  $this->categoryModel->orderBy('RAND()')->findAll();
+        $categories =  $this->categoryModel->orderBy('RAND()')->findAll(8);
         $category = $this->categoryModel->where('slug', $slug)->first();
 
         if (!$category || !$category->threads) throw PageNotFoundException::forPageNotFound();

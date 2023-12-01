@@ -28,7 +28,7 @@ class SearchController extends BaseController
     public function index()
     {
         $get = $this->request->getVar();
-        $currQuery = isset($get['q']) ? $get['q'] : '';
+        $currQuery = isset($get['q']) ? htmlspecialchars($get['q']) : '';
 
         if (!$currQuery) return redirect()->back()->with('info', 'Kata kunci pencarian tidak boleh kosong!');
 

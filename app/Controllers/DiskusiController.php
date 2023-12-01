@@ -358,13 +358,13 @@ class DiskusiController extends BaseController
         $checkParent = $this->replyModel->find(decrypt($parentId));
         $checkChild = $this->replyModel->find(decrypt($childId));
 
-        if (!$checkParent || !$checkChild) {
-            return response()->setJSON([
-                'status' => 400,
-                'message' => 'Balasan tidak ditemukan.',
-                'reload' => true // reload page
-            ]);
-        }
+        // if (!$checkParent || !$checkChild) {
+        //     return response()->setJSON([
+        //         'status' => 400,
+        //         'message' => 'Balasan tidak ditemukan.',
+        //         'reload' => true // reload page
+        //     ]);
+        // }
 
         $this->db->transBegin();
         try {
@@ -676,7 +676,7 @@ class DiskusiController extends BaseController
             ]
         ];
 
-        return array_merge($defaultRule, $ruleDiskusi ?? []);
+        return array_merge($ruleDiskusi ?? [], $defaultRule);
     }
 
     public function reportDiskusi()
