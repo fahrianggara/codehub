@@ -296,7 +296,12 @@ function initSelect2S(select, dropdownParent, ajax = null) {
         allowClear: true,
         width: '100%',
         dropdownParent: dropdownVal,
-        ajax: ajax
+        ajax: ajax,
+        templateResult: function (state) {
+            if (!state.id) return state.text;
+            count = state.count ? state.count : 0;
+            return $(`<span>${state.text} <span class="badge badge-pill badge-primary ml-1">${count}</span></span>`);
+        },
     });
 }
 
@@ -329,7 +334,12 @@ function initSelect2M(select, dropdownParent, ajax = null) {
                 newTag: true
             }
         },
-        ajax: ajax
+        ajax: ajax,
+        templateResult: function (state) {
+            if (!state.id) return state.text;
+            count = state.count ? state.count : 0;
+            return $(`<span>${state.text} <span class="badge badge-pill badge-primary ml-1">${count}</span></span>`);
+        },
     });
 }
 

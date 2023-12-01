@@ -1155,6 +1155,14 @@ input[type="search"]::-webkit-search-results-decoration {
 	color: var(--primary-color);
 }
 
+.thread .thread-comment-title:not(.detail),
+.thread .thread-comment-kanan-title {
+	display: -webkit-box;
+	overflow: hidden;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+}
+
 .thread .thread-comment-title {
 	font-weight: 600;
 	font-size: 16px;

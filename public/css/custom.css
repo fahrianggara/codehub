@@ -339,7 +339,7 @@ table.not-wrap td {
 }
 
 .select2-container--default .select2-selection--single {
-	height: 38px;
+	/* height: 38px; */
 }
 
 .select2-container--default .select2-selection--single:focus {
@@ -347,7 +347,7 @@ table.not-wrap td {
 }
 
 .select2-container .select2-selection--multiple {
-	height: 38px;
+	/* height: 38px; */
 	border-radius: 8px;
 	border: 1px solid var(--border-color) !important;
 }

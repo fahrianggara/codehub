@@ -568,7 +568,8 @@ class DiskusiController extends BaseController
         foreach ($categories as $category) {
             $data[] = [
                 'id' => $category->id,
-                'text' => $category->name . ' (' . count($category->threads) . ')',
+                'text' => $category->name,
+                'count' => count($category->threads)
             ];
         }
 
@@ -601,7 +602,8 @@ class DiskusiController extends BaseController
         foreach ($tags as $tag) {
             $data[] = [
                 'id' => $tag->name,
-                'text' => $tag->name . ' (' . count($tag->threads) . ')',
+                'text' => $tag->name,
+                'count' => count($tag->threads)
             ];
         }
 
