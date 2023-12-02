@@ -695,9 +695,10 @@ class DiskusiController extends BaseController
     {
         if (!$this->validate([
             'message' => [
-                'rules' => "required",
+                'rules' => "required|in_list[Spamming,Kebencian,Penghinaan & Pelecehan,Kekerasan]",
                 'errors' => [
                     'required' => 'Silahkan pilih masalah-nya untuk dilaporkan.',
+                    'in_list' => 'Silahkan pilih masalah-nya untuk dilaporkan.'
                 ]
             ]
         ])) {
