@@ -94,33 +94,35 @@
             popupShareCopyInput.select();
 
             if (document.execCommand('copy')) {
+                $(this).addClass('active');
                 $(this).find('span').text('Tersalin');
                 $(this).find('i').removeClass('fa-copy').addClass('fa-check');
                 $(this).parent().addClass('active');
 
                 setTimeout(() => {
                     window.getSelection().removeAllRanges();
+                    $(this).removeClass('active');
                     $(this).find('span').text('Salin Link');
                     $(this).find('i').removeClass('fa-check').addClass('fa-copy');
                     $(this).parent().removeClass('active');
-                }, 2000);
+                }, 1000);
             }
         });
 
-        shareOnFacebook = function(url) {
-            window.open('https://www.facebook.com/sharer/sharer.php?u=' + url, 'facebook-share-dialog', 'width=626,height=436');
+        shareOnFacebook = (url) => {
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, 'facebook-share-dialog', 'width=626,height=436');
         }
 
-        shareOnTwitter = function(url) {
-            window.open('https://twitter.com/intent/tweet?url=' + url, 'twitter-share-dialog', 'width=626,height=436');
+        shareOnTwitter = (url) => {
+            window.open(`https://twitter.com/intent/tweet?url=${url}`, 'twitter-share-dialog', 'width=626,height=436');
         }
 
-        shareOnWhatsapp = function(url) {
-            window.open('https://api.whatsapp.com/send?text=' + url, 'whatsapp-share-dialog', 'width=626,height=436');
+        shareOnWhatsapp = (url) => {
+            window.open(`https://api.whatsapp.com/send?text=${url}`, 'whatsapp-share-dialog', 'width=626,height=436');
         }
 
-        shareOnTelegram = function(url) {
-            window.open('https://telegram.me/share/url?url=' + url, 'telegram-share-dialog', 'width=626,height=436');
+        shareOnTelegram = (url) => {
+            window.open(`https://telegram.me/share/url?url=${url}`, 'telegram-share-dialog', 'width=626,height=436');
         }
     });
 </script>

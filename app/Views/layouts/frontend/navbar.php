@@ -186,11 +186,11 @@
                                             <i class="fas fa-user mr-2"></i>
                                             Profile
                                         </a>
-                                        <a class="dropdown-item" href="javascript:void(0);">
+                                        <!-- <a class="dropdown-item" href="javascript:void(0);">
                                             <i class="fas fa-bell mr-2"></i>
                                             Notifikasi
-                                            <!-- <span class="badge badge-pill badge-danger ml-auto">6</span> -->
-                                        </a>
+                                            <span class="badge badge-pill badge-danger ml-auto">6</span>
+                                        </a> -->
                                         <div class="dropdown-divider"></div>
                                         <a id="logoutButton" class="dropdown-item" href="javascript:void(0);">
                                             <i class="fas fa-sign-out-alt text-danger mr-2"></i> Logout
