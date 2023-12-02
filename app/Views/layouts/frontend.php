@@ -40,6 +40,9 @@
             <span class="loader-text"></span>
         </div>
     </div>
+
+    <!-- Popup Share -->
+    <?= $this->include('component/popup-share') ?>
     
     <!-- alert flash message -->
     <?= $this->include('component/alertify-message') ?>

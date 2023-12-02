@@ -56,7 +56,7 @@
                     <span>
                         Dapatkan informasi terbaru dari kami dengan berlangganan ke newsletter kami!
                     </span>
-                    <form action="#" class="form-newslatter mt-3" method="post">
+                    <form action="javascript:void(0);" class="form-newslatter mt-3" autocomplete="off">
                         <input type="email" class="form-control" id="email" placeholder="Masukkan email kamu">
                         <button type="submit" class="btn">
                             <span class="d-none d-sm-block">Berlangganan</span>

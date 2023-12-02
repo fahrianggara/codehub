@@ -169,7 +169,8 @@
                                             <small><?= number_short($thread->views) ?></small>
                                         </button>
 
-                                        <button class="btn btn-sm btn-share-diskusi" type="button" data-toggle="tooltip" title="Bagikan Diskusi">
+                                        <button class="btn btn-sm btn-share-diskusi" type="button" data-toggle="tooltip" title="Bagikan Diskusi"
+                                            data-url="<?= base_url("d/$thread->slug") ?>">
                                             <i class="bi bi-share-fill"></i>
                                         </button>
                                     </div>

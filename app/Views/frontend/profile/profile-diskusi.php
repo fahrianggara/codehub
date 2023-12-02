@@ -111,7 +111,7 @@
                         </button>
 
                         <button <?= $thread->status === "draft" ? "disabled" : 'data-toggle="tooltip" title="Bagikan Diskusi"'  ?> 
-                            class="btn btn-sm btn-share-diskusi" type="button">
+                            class="btn btn-sm btn-share-diskusi" type="button" data-url="<?= base_url("d/$thread->slug") ?>">
                             <i class="bi bi-share-fill"></i>
                         </button>
                     </div>
