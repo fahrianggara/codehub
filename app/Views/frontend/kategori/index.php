@@ -33,17 +33,15 @@
 
                         <ul class="list-group mb-3">
                             <?php foreach ($categories as $category) : ?>
-                                <?php if ($category->slug != $slug && count($category->threads) != 0) : ?>
-                                    <li class="thread-most-item list-group-item d-flex align-items-center">
-                                        <a href="<?= route_to("kategori.show", $category->slug) ?>">
-                                            <img class="mr-2" src="<?= $category->photo ?>">
-                                            <div class="text-content">
-                                                <span class="name"><?= $category->name; ?></span>
-                                                <span class="thread-count"><?= count($category->threads) ?> Diskusi Digunakan</span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                <?php endif; ?>
+                                <li class="thread-most-item list-group-item d-flex align-items-center">
+                                    <a href="<?= route_to("kategori.show", $category->slug) ?>">
+                                        <img class="mr-2" src="<?= $category->photo ?>">
+                                        <div class="text-content">
+                                            <span class="name"><?= $category->name; ?></span>
+                                            <span class="thread-count"><?= count($category->threads) ?> Diskusi Digunakan</span>
+                                        </div>
+                                    </a>
+                                </li>
                             <?php endforeach; ?>
                         </ul>
                     </div>
