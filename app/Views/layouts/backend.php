@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="<?= base_url('plugins/datatables/datatables-bs4/css/dataTables.bootstrap4.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('plugins/cropperjs/cropper.css') ?>">
     <link rel="stylesheet" href="<?= base_url('css/backend.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('css/content.css') ?>">
     <link rel="stylesheet" href="<?= base_url('css/custom.css') ?>">
 </head>
 
@@ -61,6 +62,7 @@
     <script src="<?= base_url('plugins/moment/moment.min.js') ?>"></script>
     <script src="<?= base_url('plugins/moment/locale/id.js') ?>"></script>
     <script src="<?= base_url('plugins/cropperjs/cropper.js') ?>"></script>
+    <script src="<?= base_url('plugins/prism/prism.js') ?>"></script>
     <script src="<?= base_url('js/backend.js') ?>"></script>
     <script src="<?= base_url('js/custom.js') ?>"></script>
 

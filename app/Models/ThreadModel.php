@@ -80,10 +80,10 @@ class ThreadModel extends Model
      * @param  mixed $thread
      * @return void
      */
-    public function deleteLikes($thread)
+    public function deleteLikes($thread_id)
     {
         $this->db->table('likes')
-            ->where('model_id', $thread->id)
+            ->where('model_id', $thread_id)
             ->where('model_class', "App\Models\ThreadModel")
             ->delete();
     }

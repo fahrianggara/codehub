@@ -540,8 +540,6 @@ pre code {
 	display: flex;
 	-ms-flex-wrap: wrap;
 	flex-wrap: wrap;
-	margin-right: 12px;
-	margin-left: 12px;
 }
 .no-gutters {
 	margin-right: 0;

@@ -33,10 +33,9 @@ $routes->group('admin', ['filter' => ['auth', 'is_admin'], 'namespace' => Backen
     // Laporan
     $routes->group('laporan', function (RouteCollection $routes) {
         $routes->get('/', 'LaporanController::index', ['as' => 'admin.laporan']);
-        $routes->get('create', 'LaporanController::create', ['as' => 'admin.laporan.create']);
-        $routes->post('store', 'LaporanController::store', ['as' => 'admin.laporan.store']);
+        $routes->post('object-show', 'LaporanController::objectShow', ['as' => 'admin.laporan.object-show']);
+        $routes->post('object-destroy', 'LaporanController::objectDestroy', ['as' => 'admin.laporan.object-destroy']);
         $routes->post('destroy', 'LaporanController::destroy', ['as' => 'admin.laporan.destroy']);
-        $routes->post('update', 'LaporanController::update', ['as' => 'admin.laporan.update']);
         $routes->get('(:segment)/edit', 'LaporanController::edit/$1', ['as' => 'admin.laporan.edit']);
     });
 
@@ -81,7 +80,7 @@ $routes->post('like-thread', 'DiskusiController::like', ['as' => 'diskusi.like',
 $routes->post('reply-show-thread', 'DiskusiController::replyShow', ['as' => 'diskusi.reply-show', 'filter' => 'auth']);
 $routes->post('reply-thread', 'DiskusiController::reply', ['as' => 'diskusi.reply', 'filter' => 'auth']);
 $routes->post('reply-destroy', 'DiskusiController::replyDestroy', ['as' => 'diskusi.reply-destroy', 'filter' => 'auth']);
-$routes->post('report', 'DiskusiController::reportDiskusi', ['as' => 'diskusi.report', 'filter' => 'auth']);
+$routes->post('report', 'DiskusiController::report', ['as' => 'diskusi.report', 'filter' => 'auth']);
 $routes->get('d/(:segment)', 'DiskusiController::show/$1', ['as' => 'diskusi.show']);
 
 // Profile User

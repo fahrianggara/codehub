@@ -94,23 +94,27 @@ class DiskusiController extends BaseController
 
             $insertId = $this->db->insertID();
 
-            $tags = [];
-            foreach ($post['tag_ids'] as $tag) {
-                $slug = slug($tag);
-                $pattern = '/[#@$%^*()+=\-[\]\';,.\/{}|":<>?~\\_\\\\]/';
-
-                if (empty($slug)) continue; // skip if tag empty (only symbol)
-                $tag = preg_replace($pattern, '', $tag); // remove symbol
-
-                $this->threadModel->tagNotExist($tag);
-                $tagModel = $this->tagModel->where('slug', $slug)->first();
-
-                if ($tagModel) $tags[] = $tagModel->id;
+            if (isset($post['tag_ids'])) {
+                $tags = [];
+                
+                foreach ($post['tag_ids'] as $tag) {
+                    $slug = slug($tag);
+                    $pattern = '/[#@$%^*()+=\-[\]\';,.\/{}|":<>?~\\_\\\\]/';
+    
+                    if (empty($slug)) continue; // skip if tag empty (only symbol)
+                    $tag = preg_replace($pattern, '', $tag); // remove symbol
+    
+                    $this->threadModel->tagNotExist($tag);
+                    $tagModel = $this->tagModel->where('slug', $slug)->first();
+    
+                    if ($tagModel) $tags[] = $tagModel->id;
+                }
+    
+                if (!empty($tags)) $this->threadModel->syncTags($insertId, $tags);
             }
 
             $this->threadModel->syncCategories($insertId, $post['category_id']);
-            if (!empty($tags)) $this->threadModel->syncTags($insertId, $tags);
-
+            
             session()->setFlashdata('info', 'Diskusi berhasil dibuat.');
 
             return response()->setJSON([
@@ -216,23 +220,28 @@ class DiskusiController extends BaseController
                 'content' => $purifier->purify($post['content']),
             ]);
 
-            $tags = [];
+            if (isset($post['tag_ids'])) {
+                $tags = [];
 
-            foreach ($post['tag_ids'] as $tag) {
-                $slug = slug($tag);
-                $pattern = '/[#@$%^*()+=\-[\]\';,.\/{}|":<>?~\\_\\\\]/';
+                foreach ($post['tag_ids'] as $tag) {
+                    $slug = slug($tag);
+                    $pattern = '/[#@$%^*()+=\-[\]\';,.\/{}|":<>?~\\_\\\\]/';
 
-                if (empty($slug)) continue; // skip if tag empty (only symbol)
-                $tag = preg_replace($pattern, '', $tag); // remove symbol
+                    if (empty($slug)) continue; // skip if tag empty (only symbol)
+                    $tag = preg_replace($pattern, '', $tag); // remove symbol
 
-                $this->threadModel->tagNotExist($tag);
-                $tagModel = $this->tagModel->where('slug', slug($tag))->first();
+                    $this->threadModel->tagNotExist($tag);
+                    $tagModel = $this->tagModel->where('slug', slug($tag))->first();
 
-                if ($tagModel) $tags[] = $tagModel->id;
+                    if ($tagModel) $tags[] = $tagModel->id;
+                }
+
+                if (!empty($tags)) $this->threadModel->syncTags($id, $tags);
+            } else {
+                $this->db->table('thread_tags')->where('thread_id', $id)->delete();
             }
 
             $this->threadModel->syncCategories($id, $post['category_id']);
-            if (!empty($tags)) $this->threadModel->syncTags($id, $tags);
 
             session()->setFlashdata('info', 'Diskusi berhasil diperbarui.');
 
@@ -267,11 +276,9 @@ class DiskusiController extends BaseController
             $thread = $this->threadModel->find($id);
 
             if ($thread->likes) {
-                $this->threadModel->deleteLikes($thread);
-            } else if ($thread->notifications) {
-                $this->threadModel->deleteNotifications($thread);
+                $this->threadModel->deleteLikes($thread->id);
             } else if ($thread->reports) {
-                $this->threadModel->deleteReports($thread);
+                $this->threadModel->deleteReports($thread->id);
             }
 
             $this->threadModel->delete($id);
@@ -358,13 +365,13 @@ class DiskusiController extends BaseController
         $checkParent = $this->replyModel->find(decrypt($parentId));
         $checkChild = $this->replyModel->find(decrypt($childId));
 
-        // if (!$checkParent || !$checkChild) {
-        //     return response()->setJSON([
-        //         'status' => 400,
-        //         'message' => 'Balasan tidak ditemukan.',
-        //         'reload' => true // reload page
-        //     ]);
-        // }
+        if (($parentId !== "" && !$checkParent) || ($childId !== "" && !$checkChild)) {
+            return response()->setJSON([
+                'status' => 400,
+                'message' => 'Balasan tidak ditemukan.',
+                'reload' => true // reload page
+            ]);
+        } 
 
         $this->db->transBegin();
         try {
@@ -678,14 +685,19 @@ class DiskusiController extends BaseController
 
         return array_merge($ruleDiskusi ?? [], $defaultRule);
     }
-
-    public function reportDiskusi()
+    
+    /**
+     * Report the specified resource from storage.
+     *
+     * @return void
+     */
+    public function report()
     {
         if (!$this->validate([
             'message' => [
                 'rules' => "required",
                 'errors' => [
-                    'required' => 'Pesan harus dipilih.',
+                    'required' => 'Silahkan pilih masalah-nya untuk dilaporkan.',
                 ]
             ]
         ])) {

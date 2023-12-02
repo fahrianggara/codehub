@@ -6,7 +6,7 @@ body {
 
 :root {
 	--primary-color: #14b8a6;
-	--hover-color: #33eed5;
+	--hover-color: #0f9d8b;
 	--secondary-color: #636c72;
 	--border-color: rgba(4, 32, 69, 0.14);
 	--header-color: #efefef;
@@ -182,6 +182,10 @@ label[required]::after {
  *  DASHBOARD CUSTOM BOOTSTRAP 4
  * ======================================================================= */
 
+.content-wrapper > .content {
+	/* padding: 0; */
+}
+
 .brand-image {
 	height: 40px;
 	width: 40px;
@@ -283,6 +287,19 @@ table.not-wrap td {
 .url-slug:hover {
 	color: var(--primary-color);
 	text-decoration: underline;
+}
+
+.report-object #author {
+	font-weight: 500;
+}
+
+.report-object #date {
+	font-size: 14px;
+	color: var(--secondary-color);
+}
+
+.report-object #content {
+	margin-top: 10px;
 }
 
 /* =======================================================================

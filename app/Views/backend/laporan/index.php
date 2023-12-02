@@ -9,7 +9,7 @@
             <div class="card">
                 <div class="card-header p-2">
                     <div class="d-flex align-items-center justify-content-between">
-                        <span class="ml-2">Daftar pengguna di CODEHUB</span>
+                        <span class="ml-2">Daftar laporan di CODEHUB</span>
 
                     </div>
                 </div>
@@ -19,56 +19,51 @@
                             <tr>
                                 <th>#</th>
                                 <th>Pesan</th>
-                                <th>Data User</th>
-                                <th>ID Model</th>
-                                <th>Class Model</th>
-                                <th>Laporan Dibuat</th>
-                                <th>Total Dilaporkan</th>
+                                <th>Author dari Objek</th>
+                                <th>Objek</th>
+                                <th>Objek ID</th>
+                                <th>Total Dilapor</th>
                                 <th>&nbsp;</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php $no = 1; ?>
-                            <?php foreach ($reports as $report) : ?>
-                                <?php $id = base64_encode($report->id); ?>
+                            <?php $no = 1;
+                            foreach ($reports as $report) : ?>
+                                <?php $user = (new App\Models\UserModel)->find($report->user_id); ?>
                                 <tr>
                                     <td><?= $no++ ?></td>
                                     <td><?= $report->message ?></td>
-
-                                    <?php $userInfo = $userModel->find($report->user_id); ?>
                                     <td>
-                                        <?php if ($userInfo) : ?>
-                                            <div class="user-info">
-                                                <img src="<?= esc($userInfo->photo) ?>" alt="Avatar">
-                                                <div class="user-name">
-                                                    <span><?= esc($userInfo->fullname) ?></span>
-                                                    <small><?= esc($userInfo->username) ?></small>
-                                                </div>
-                                            </div>
-                                        <?php else : ?>
-                                            Pengguna tidak ditemukan
-                                        <?php endif; ?>
-                                    </td>
-
-                                    <td><?= $report->model_id ?></td>
-                                    <td><?= ucfirst($report->model_class) ?></td>
-                                    <td><?= waktu($report->created_at, 'l, d F Y', false) ?></td>
-                                    <td><?= $reportModel->countReportsByModelId($report->user_id) ?></td>
-
-                                    <td>
-                                        <div class="btn-group dropleft">
-                                            <button class="btn btn-sm btn-more dropdown-toggle" data-toggle="dropdown" aria-expanded="false" data-display="static">
-                                                <i class="fas fa-ellipsis-v"></i>
-                                            </button>
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                <a href="<?= route_to('admin.laporan.edit', $id) ?>" class="dropdown-item py-1">
-                                                    <i class="fas text-warning fa-pen mr-2"></i> Edit
+                                        <div class="user-info">
+                                            <img src="<?= $user->photo ?>">
+                                            <div class="user-name">
+                                                <span><?= $user->full_name ?></span>
+                                                <a href="<?= base_url("{$user->username}") ?>" target="_blank" style="font-size: 12px;">
+                                                    <?= $user->username ?>
                                                 </a>
-                                                <button type="button" value="<?= $id ?>" class="dropdown-item py-1 btn-delete" data-id="<?= $report->id ?>" data-action="<?= route_to('admin.laporan.destroy') ?>">
-                                                    <i class="fas text-danger fa-trash mr-2"></i> Hapus
-                                                </button>
                                             </div>
                                         </div>
+                                    </td>
+                                    <td>
+                                        <?php
+                                        $exp = explode('\\', $report->model_class);
+                                        $model = $exp[2];
+                                        $model = explode('Model', $model)[0];
+                                        $model = $model === 'Thread' ? 'Diskusi' : 'Balasan / Komentar';
+                                        ?>
+
+                                        <p class="mb-0"><?= $model ?></p>
+                                        <a href="javascript:void(0)" class="url-slug btn-laporan" data-url="<?= route_to('admin.laporan.object-show') ?>" 
+                                            data-model_id="<?= $report->model_id ?>" data-model_class="<?= $report->model_class ?>">
+                                            Lihat...
+                                        </a>
+                                    </td>
+                                    <td><?= $report->model_id ?></td>
+                                    <td><?= $report->count ?></td>
+                                    <td>
+                                        <button type="button" value="<?= encrypt($report->id) ?>" class="btn btn-sm btn-danger btn-delete" data-action="<?= route_to('admin.laporan.destroy') ?>">
+                                            <i class="fas  fa-trash mr-1"></i> Hapus Laporan
+                                        </button>
                                     </td>
                                 </tr>
                             <?php endforeach ?>
@@ -85,7 +80,50 @@
 
 <?= $this->section('js') ?>
 
+<div class="modal fade modal-laporan" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header p-2">
+                <div class="modal-header-responsive">
+                    <div class="modal-title d-flex align-items-center ml-2">
+                        <div id="title" class="mx-1 text-truncate">Objek Konten</div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="report-object">
+                    <span id="author" class="mr-1">Mimin Admin</span> • <span id="date" class="ml-1">1 hari yang lalu</span>
+                    <div id="content">
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit magni quae voluptate porro nam iste minus natus, recusandae vitae voluptas adipisci aliquam dolorem officia ratione voluptatum necessitatibus sit neque eaque. Sit esse quas corporis doloribus dicta id officiis. Deserunt saepe maxime eaque? Dignissimos neque saepe assumenda tempora! Voluptates maiores quisquam officia, quasi facere corrupti voluptate sint mollitia autem doloremque asperiores.
+                        </p>
+                        <blockquote>
+                            Dolor a vel laborum dignissimos ab animi, totam non suscipit, laboriosam illo aspernatur magnam in sit provident officia minima incidunt et ratione modi sapiente? Recusandae explicabo pariatur facilis aut eius.Cum fugiat aliquam iure, quisquam soluta saepe fugit eum ad velit doloremque officiis ducimus aperiam labore eos voluptatibus temporibus consequuntur, accusamus numquam dolores ab eius. Dolor iste soluta delectus maiores.
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer p-1">
+                <button type="button" class="btn btn-danger btn-hapus-author">
+                    <i class="fas fa-user mr-1"></i> Hapus Author
+                </button>
+                <button type="button" class="btn btn-danger btn-hapus-objek">
+                    <i class="fas fa-comments mr-1"></i> Hapus Objek
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
+    const btnLaporan = $(".btn-laporan");
+    const modalLaporan = $(".modal-laporan");
     const btnDelete = $(".btn-delete");
     const table = $("#tablePengguna").DataTable({
         language: {
@@ -93,12 +131,12 @@
         },
     });
 
+    // Button Delete Click
     btnDelete.on("click", function(e) {
         e.preventDefault();
 
         const id = $(this).val();
-        const username = $(this).data("username");
-        const message = `Apakah kamu yakin ingin menghapus pengguna <strong>${username}</strong>?`;
+        const message = `Apakah kamu yakin ingin menghapus laporan ini?`;
         const confirm = (e) => {
             e.preventDefault();
 
@@ -106,16 +144,16 @@
                 url: $(this).data("action"),
                 type: "POST",
                 data: {
-                    id
+                    id: id
                 },
                 dataType: "JSON",
                 success: (res) => {
                     if (res.status === 400) {
-                        alertError(res.message);
-                    } else {
-                        alertifyLog('success', res.message, () => {
-                            location.reload();
+                        alertifyLog('danger', res.message, (e) => {
+                            $('body').css('overflow', 'auto');
                         });
+                    } else {
+                        location.reload();
                     }
                 },
                 error: (xhr, status, error) => {
@@ -129,6 +167,108 @@
             $('body').removeClass('modal-open');
         });
     });
+
+    // Button Laporan Click
+    btnLaporan.on("click", function(e) {
+        e.preventDefault();
+
+        const modelId = $(this).data("model_id");
+        const modelClass = $(this).data("model_class");
+
+        $.ajax({
+            type: "POST",
+            url: $(this).data("url"),
+            data: {
+                model_id: modelId,
+                model_class: modelClass
+            },
+            dataType: "json",
+            success: function (res) {
+                const {author, content, date, user_id} = res.data;
+                
+                if (user_id === "<?= encrypt(auth()->id) ?>") { // jika author sama dengan user yang login
+                    modalLaporan.find(".btn-hapus-author").remove();
+                } else {
+                    if (modalLaporan.find(".btn-hapus-author").length > 1) {
+                        modalLaporan.find(".btn-hapus-author").first().remove();
+                    }
+                }
+
+                modalLaporan.find(".btn-hapus-author").attr('data-user_id', user_id)
+                modalLaporan.find(".btn-hapus-objek").attr('data-model_id', modelId).attr('data-model_class', modelClass);
+                modalLaporan.find("#author").text(author);
+                modalLaporan.find("#date").text(date);
+                modalLaporan.find("#content").html(content);
+
+                modalLaporan.modal("show");
+            }
+        });
+    });
+
+    modalLaporan.on("shown.bs.modal", function () {
+        const btnHapusAuthor = $(this).find(".btn-hapus-author");
+        const btnHapusObjek = $(this).find(".btn-hapus-objek");
+        const cancelCb = () => {
+            $('body').css('overflow', 'auto');
+        };
+
+        Prism.highlightAllUnder(modalLaporan[0]); // Prism Highlight
+
+        // Button Hapus Author Click
+        btnHapusAuthor.off('click').on("click", function (e) {  
+            e.preventDefault();
+
+            alertifyConfirm("Apakah kamu yakin ingin menghapus author dari objek ini?", (e) => {
+                e.preventDefault();
+
+                deleteTarget({
+                    user_id: $(this).data("user_id"),
+                });
+            }, cancelCb);
+        });
+
+        // Button Hapus Objek Click
+        btnHapusObjek.off('click').on("click", function (e) {  
+            e.preventDefault();
+
+            alertifyConfirm("Apakah kamu yakin ingin menghapus objek ini?", (e) => {
+                e.preventDefault();
+
+                deleteTarget({
+                    model_id: $(this).data("model_id"),
+                    model_class: $(this).data("model_class"),
+                });
+            }, cancelCb);
+        });
+    }).on("hidden.bs.modal", function () {
+        $(this).find(".modal-footer").prepend(`
+            <button type="button" class="btn btn-danger btn-hapus-author">
+                <i class="fas fa-user mr-1"></i> Hapus Author
+            </button>
+        `);
+    });
+
+    /**
+     * Button delete target click
+     */
+    function deleteTarget(data)
+    {
+        $.ajax({
+            type: "POST",
+            url: "<?= route_to('admin.laporan.object-destroy') ?>",
+            data: data,
+            dataType: "json",
+            success: function (res) {
+                if (res.status === 400) {
+                    alertifyLog('danger', res.message, (e) => {
+                        $('body').css('overflow', 'auto');
+                    });
+                } else {
+                    location.reload();
+                }
+            }
+        });
+    }
 </script>
 
 <?= $this->endSection() ?>
