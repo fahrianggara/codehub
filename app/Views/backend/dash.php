@@ -36,7 +36,7 @@
                 <div class="inner">
                     <h3><?= $tag_count ?></h3>
 
-                    <p>Tag Diskusi</p>
+                    <p>Tagar Diskusi</p>
                 </div>
                 <div class="icon">
                     <i class="nav-icon fas fa-tags"></i>

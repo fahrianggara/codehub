@@ -24,6 +24,7 @@
                                 <th>Pengguna Info</th>
                                 <th>Email</th>
                                 <th>Peran</th>
+                                <th>Total Diskusi</th>
                                 <th>Bergabung Pada</th>
                                 <th>&nbsp;</th>
                             </tr>
@@ -47,6 +48,18 @@
                                     </td>
                                     <td><?= $user->email ?></td>
                                     <td><?= ucfirst($user->role) ?></td>
+                                    <td>
+                                        <?php if ($user->threads) : ?>
+                                            <p class="m-0">
+                                                <?= count($user->threads) ?> Diskusi <span class="badge badge-success">Publik</span>
+                                            </p>
+                                            <p class="m-0">
+                                                <?= count($user->getThreads('draft')) ?> Diskusi <span class="badge badge-secondary">Arsip</span>
+                                            </p>
+                                        <?php else: ?>
+                                            <span class="badge badge-secondary">Belum ada diskusi</span>
+                                        <?php endif; ?>
+                                    </td>
                                     <td><?= waktu($user->created_at, 'l, d F Y', false) ?></td>
                                     <td>
                                         <div class="btn-group dropleft">
