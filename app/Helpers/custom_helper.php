@@ -195,6 +195,14 @@ function text_limit($text, $limit = 230)
 
     return strip_tags($text);
 }
+function text_limits($text, $limit = 20)
+{
+    if (strlen($text) > $limit) {
+        $text = substr($text, 0, $limit);
+    }
+
+    return strip_tags($text);
+}
 
 /**
  * Get class name

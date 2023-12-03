@@ -13,12 +13,20 @@ $routes->get('/', 'HomeController::index', ['as' => 'home']);
 $routes->group('', ['namespace' => Auth::class], function (RouteCollection $routes) {
     $routes->match(['get', 'post'], 'login', 'LoginController::index', ['as' => 'login', 'filter' => 'guest']);
     $routes->match(['get', 'post'], 'register', 'RegisterController::index', ['as' => 'register', 'filter' => 'guest']);
-    $routes->delete('logout', 'LoginController::logout', ['as'=> 'logout', 'filter' => 'auth']);
+    $routes->delete('logout', 'LoginController::logout', ['as' => 'logout', 'filter' => 'auth']);
 });
 
 // Auth Backend Dashboard
 $routes->group('admin', ['filter' => ['auth', 'is_admin'], 'namespace' => Backend::class], function (RouteCollection $routes) {
     $routes->get('dash', 'DashController::index', ['as' => 'admin.dash']);
+
+
+    // Diskusi
+    $routes->group('diskusi', function (RouteCollection $routes) {
+        $routes->get('/', 'DiskusiController::index', ['as' => 'admin.diskusi']);
+        $routes->get('create', 'DiskusiController::create', ['as' => 'admin.diskusi.create']);
+        $routes->post('destroy', 'DiskusiController::destroy', ['as' => 'admin.diskusi.destroy']);
+    });
 
     // Pengguna
     $routes->group('pengguna', function (RouteCollection $routes) {
@@ -91,4 +99,3 @@ $routes->delete('destroy-banner', 'ProfileController::destroyBanner', ['as' => '
 $routes->post('edit-password', 'ProfileController::editPassword', ['as' => 'profile.edit-password', 'filter' => 'auth']);
 $routes->post('edit-profile', 'ProfileController::editProfile', ['as' => 'profile.edit-profile', 'filter' => 'auth']);
 $routes->get('(:any)', 'ProfileController::index/$1', ['as' => 'profile']);
-

@@ -32,11 +32,20 @@ class HomeController extends BaseController
             ->orderBy('(SELECT COUNT(*) FROM likes WHERE model_id = threads.id)', 'desc')
             ->orderBy('views', 'desc')->findAll(3);
 
+        $TopUsers = $this->userModel
+            ->select('users.*, 
+               (SELECT COUNT(*) FROM threads WHERE user_id = users.id AND status = "published") as thread_count,
+               (SELECT COUNT(*) FROM likes WHERE user_id = users.id) as like_count')
+            ->orderBy('like_count', 'desc')
+            ->orderBy('thread_count', 'desc')
+            ->findAll(3);
+
         return view('frontend/home', [
             'title' => 'Beranda',
             'categories' => $categories,
             'threads' => $threads,
             'TopThreads' => $TopThreads,
+            'TopUsers' => $TopUsers,
         ]);
     }
 
