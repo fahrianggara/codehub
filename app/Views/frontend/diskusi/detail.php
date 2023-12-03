@@ -37,7 +37,7 @@
 
                     <?php if ($threads) : ?>
                         <div class="thread-header mb-2 list-group-item">
-                            3 Diskusi Lainnya
+                            <?= count($threads) ?> Diskusi Lainnya
                         </div>
 
                         <ul class="list-group mb-3">
@@ -58,7 +58,7 @@
 
                     <?php if ($categories) : ?>
                         <div class="thread-header mb-2 list-group-item">
-                            3 Kategori Teratas
+                            <?= count($categories) ?> Kategori Teratas
                         </div>
 
                         <ul class="list-group mb-3">
@@ -75,6 +75,7 @@
                             <?php endforeach ?>
                         </ul>
                     <?php endif ?>
+
                 </div>
             </div>
 

@@ -2100,7 +2100,8 @@ footer .footer-bottom {
 	transition: all .3s ease;
 }
 
-.popup-share-body .field .copy-link .btn-copy:hover {
+.popup-share-body .field .copy-link .btn-copy:hover,
+.popup-share-body .field .copy-link .btn-copy.active {
 	background-color: var(--hover-color);
 	color: #fff;
 }

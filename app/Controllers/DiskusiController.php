@@ -37,18 +37,20 @@ class DiskusiController extends BaseController
     public function show($slug)
     {
         $thread = $this->threadModel->published()
-            ->with(['users'])
-            ->where('slug', $slug)
-            ->first();
+            ->with(['users'])->where('slug', $slug)->first();
 
-        $categories =  $this->categoryModel->getTopCategories(3);
+        $categories =  $this->categoryModel
+            ->join('thread_categories', 'thread_categories.category_id = categories.id')
+            ->groupBy('categories.id')
+            ->select('categories.*, COUNT(category_id) as count')
+            ->orderBy('count', 'desc')
+            ->findAll(3);
 
         if (!$thread) throw PageNotFoundException::forPageNotFound();
 
         $this->threadModel->incrementViews($thread->id);
         $threads = $this->threadModel->published()->where('id !=', $thread->id)
-            ->orderBy('RAND()')
-            ->findAll(3);
+            ->orderBy('RAND()')->findAll(3);
 
         return view('frontend/diskusi/detail', [
             'title' => $thread->title,
@@ -56,7 +58,7 @@ class DiskusiController extends BaseController
             'threads' => $threads,
             'user' => $thread->user,
             'category' => $thread->category,
-            'categories' => $this->categoryModel->getTopCategories(3),
+            'categories' => $categories,
         ]);
     }
 
