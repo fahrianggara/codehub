@@ -96,17 +96,22 @@
                                         </button>
 
                                         <div class="dropdown-menu dropdown-menu-right">
+                                            <?php if (auth_check()) : ?>
+                                                <?php if (auth()->id === $thread->user_id): ?>
+                                                    <a class="dropdown-item btn-edit-diskusi" href="javascript:void(0);" 
+                                                        data-id="<?= $thread_id ?>">
+                                                        <i class="fas text-warning fa-pen mr-2"></i> Edit
+                                                    </a>
+                                                <?php endif ?>
 
-                                            <?php if (auth_check() && auth()->id === $thread->user->id) : ?>
-                                                <a class="dropdown-item btn-edit-diskusi" href="javascript:void(0);" data-id="<?= $thread_id ?>">
-                                                    <i class="fas text-warning fa-pen mr-2"></i> Edit
-                                                </a>
+                                                <?php if (auth()->id === $thread->user_id || auth()->role === 'admin'): ?>
+                                                    <a class="dropdown-item btn-hapus-diskusi" href="javascript:void(0);" 
+                                                        data-id="<?= $thread_id ?>">
+                                                        <i class="fas text-danger fa-trash mr-2"></i> Hapus
+                                                    </a>
 
-                                                <a class="dropdown-item btn-hapus-diskusi" href="javascript:void(0);" data-id="<?= $thread_id ?>">
-                                                    <i class="fas text-danger fa-trash mr-2"></i> Hapus
-                                                </a>
-
-                                                <div class="dropdown-divider"></div>
+                                                    <div class="dropdown-divider"></div>
+                                                <?php endif ?>
                                             <?php endif ?>
 
                                             <a class="dropdown-item" href="<?= route_to('diskusi.show', $thread->slug) ?>">

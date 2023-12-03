@@ -13,16 +13,14 @@ $(document).ready(function () {
         }
 
         var $this = $(this);
-        var idModel = $this.data('id');
-        var classModel = $this.data('class');
+        var model = $this.data('model');
         var url = `${origin}/like-thread`;
 
         $.ajax({
             type: "POST",
             url: url,
             data: {
-                id: idModel,
-                class: classModel
+                model: model,
             },
             dataType: "json",
         }).done(function (res) {
@@ -35,13 +33,16 @@ $(document).ready(function () {
                     $("body").css("overflow", "auto");
                 });
             } else {
-                var small = $this.find("small");
-                var count = small.html();
-    
-                $this.removeClass().addClass(res.btnClassAttr);
-                $this.find("i").removeClass().addClass(res.iconClassAttr);
-    
-                res.likeStatus === "like" ? small.html(parseInt(count) + 1) : small.html(parseInt(count) - 1);
+                var all = document.querySelectorAll(`[data-model="${model}"]`);
+                all.forEach((el) => {
+                    var small = $(el).find("small");
+                    var count = small.html();
+
+                    $(el).removeClass().addClass(res.btnClassAttr);
+                    $(el).find("i").removeClass().addClass(res.iconClassAttr);
+
+                    res.likeStatus === "like" ? small.html(parseInt(count) + 1) : small.html(parseInt(count) - 1);
+                });
             }
         });
     });

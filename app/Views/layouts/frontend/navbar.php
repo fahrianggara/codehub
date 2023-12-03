@@ -181,6 +181,7 @@
                                     <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
                                         <div class="dropdown-header">
                                             <?= auth()->full_name ?>
+                                            <?= auth()->role === 'admin' ? '<small>(admin)</small>' : '' ?>
                                         </div>
                                         <a class="dropdown-item" href="<?= base_url(auth()->username) ?>">
                                             <i class="fas fa-user mr-2"></i>

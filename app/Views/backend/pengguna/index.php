@@ -50,11 +50,14 @@
                                     <td><?= ucfirst($user->role) ?></td>
                                     <td>
                                         <?php if ($user->threads) : ?>
-                                            <p class="m-0">
-                                                <?= count($user->threads) ?> Diskusi <span class="badge badge-success">Publik</span>
+                                            <p class="m-0"><?= count($user->getThreads('all')) ?> Diskusi</p>
+                                            <p class="m-0 d-inline-block">
+                                                <?= count($user->threads) ?> 
+                                                <span class="badge badge-success">Publik</span>
                                             </p>
-                                            <p class="m-0">
-                                                <?= count($user->getThreads('draft')) ?> Diskusi <span class="badge badge-secondary">Arsip</span>
+                                            <p class="m-0 d-inline-block">
+                                                <?= count($user->getThreads('draft')) ?> 
+                                                <span class="badge badge-secondary">Arsip</span>
                                             </p>
                                         <?php else: ?>
                                             <span class="badge badge-secondary">Belum ada diskusi</span>

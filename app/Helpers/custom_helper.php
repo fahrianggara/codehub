@@ -9,7 +9,7 @@ define("ENCRYPTION_KEY", 'q$v#%&/()=?QWERTY<>1234567890#!$^#^%#@_)^^$#fweHR#@$GM
  * encrypt
  *
  * @param  mixed $string
- * @return void
+ * @return string
  */
 function encrypt($string)
 {
@@ -20,7 +20,7 @@ function encrypt($string)
  * decrypt
  *
  * @param  mixed $encryptText
- * @return void
+ * @return string
  */
 function decrypt($encryptText)
 {
@@ -272,15 +272,15 @@ function print_data($data)
 function buttonLike($entity)
 {
     $textDanger = $entity->like ? 'text-danger' : '';
-    $dataId = encrypt($entity->id);
-    $dataClass = encrypt(getClass($entity));
+    $getClass = getClass($entity);
+    $model = encrypt("$entity->id-$getClass");
     $countLikes = number_short(count($entity->likes));
     $icon = $entity->like ? 's fa-beat' : 'r';
     $logined = auth_check() ? true : false;
 
     return "
         <button class='btn-suka-diskusi btn love $textDanger'
-            data-id='$dataId' data-class='$dataClass' data-logined='$logined'>
+            data-model='$model' data-logined='$logined'>
             <i class='fa$icon fa-heart'></i>
             <small>$countLikes</small>
         </button>

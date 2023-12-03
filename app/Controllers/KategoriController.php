@@ -32,8 +32,11 @@ class KategoriController extends BaseController
     public function index($slug)
     {
         $category = $this->categoryModel->where('slug', $slug)->first();
+
         $categories =  $this->categoryModel->orderBy('RAND()')
             ->join('thread_categories', 'thread_categories.category_id = categories.id')
+            ->join('threads', 'threads.id = thread_categories.thread_id')
+            ->where('threads.status', 'published')
             ->where('categories.id !=', $category->id)
             ->groupBy('categories.id')
             ->select('categories.*')

@@ -12,7 +12,7 @@ class User extends Entity
     protected $dates   = ['created_at', 'updated_at', 'email_verified_at'];
     protected $casts   = [];
     protected $db;
-    
+
     /**
      * __construct
      *
@@ -22,7 +22,7 @@ class User extends Entity
     {
         $this->db = Database::connect();
     }
-    
+
     /**
      * Set password attribute
      *
@@ -53,7 +53,7 @@ class User extends Entity
      */
     public function getPoster()
     {
-        $path = 'images/banners/'. $this->attributes['banner'];
+        $path = 'images/banners/' . $this->attributes['banner'];
         return file_exists($path) ? base_url($path) : base_url('images/banner.png');
     }
 
@@ -88,32 +88,56 @@ class User extends Entity
      */
     public function getThreads($status = 'published')
     {
-        return $this->db->table('threads')
-            ->where('user_id', $this->attributes['id'])
-            ->where('status', $status)
+        $query = $this->db->table('threads')
             ->select('id, title, slug, content, status, user_id, views')
-            ->get()->getResult();
-    }
+            ->where('user_id', $this->attributes['id']);
 
-    public function formatLikeCount()
-    {
-        $likeCount = $this->like_count;
-
-        if ($likeCount >= 1000) {
-            return number_format($likeCount / 1000, 0, ',', '.') . ' rb';
+        if ($status !== 'all') {
+            $threads = $query->where('status', $status)->get()->getResult();
         } else {
-            return number_format($likeCount, 0, ',', '.');
+            $threads = $query->get()->getResult();
         }
-    }
-    public function formatThreadCount()
-    {
-        $threadCount = $this->thread_count;
 
-        if ($threadCount >= 1000) {
-            return number_format($threadCount / 1000, 0, ',', '.') . ' rb';
-        } else {
-            return number_format($threadCount, 0, ',', '.');
-        }
+        return $threads;
     }
+
+    /**
+     * Get count threads attribute
+     *
+     * @return int
+     */
+    public function getCountLiked()
+    {
+        $count = $this->db->table('likes')
+            ->where('model_class', 'App\Models\ThreadModel')
+            ->join('threads', 'threads.id = likes.model_id')
+            ->where('threads.status', 'published')
+            ->where('threads.user_id', $this->attributes['id'])
+            ->countAllResults();
+
+        return number_short($count);
+    }
+
+    // public function formatLikeCount()
+    // {
+    //     $likeCount = $this->like_count;
+
+    //     if ($likeCount >= 1000) {
+    //         return number_format($likeCount / 1000, 0, ',', '.') . ' rb';
+    //     } else {
+    //         return number_format($likeCount, 0, ',', '.');
+    //     }
+    // }
+
+    // public function formatThreadCount()
+    // {
+    //     $threadCount = $this->thread_count;
+
+    //     if ($threadCount >= 1000) {
+    //         return number_format($threadCount / 1000, 0, ',', '.') . ' rb';
+    //     } else {
+    //         return number_format($threadCount, 0, ',', '.');
+    //     }
+    // }
 
 }

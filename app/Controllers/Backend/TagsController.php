@@ -27,6 +27,7 @@ class TagsController extends BaseController
     {
         $tags = $this->tagModel
             ->orderBy('(SELECT COUNT(*) FROM thread_tags WHERE tag_id = tags.id)', 'desc')
+            ->orderBy('(SELECT status FROM threads WHERE id = (SELECT thread_id FROM thread_tags WHERE tag_id = tags.id LIMIT 1))', 'desc')
             ->findAll();
 
         return view('backend/tags/index', [

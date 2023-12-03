@@ -42,6 +42,8 @@ class DiskusiController extends BaseController
         $categories =  $this->categoryModel
             ->join('thread_categories', 'thread_categories.category_id = categories.id')
             ->groupBy('categories.id')
+            ->join('threads', 'threads.id = thread_categories.thread_id')
+            ->where('threads.status', 'published')
             ->select('categories.*, COUNT(category_id) as count')
             ->orderBy('count', 'desc')
             ->findAll(3);
@@ -461,8 +463,12 @@ class DiskusiController extends BaseController
     public function like()
     {
         $post = $this->request->getPost();
-        $idModel = decrypt($post['id']);
-        $classModel = decrypt($post['class']); // value: App\Models\ThreadModel or App\Models\ReplyModel
+        $explode = explode('-', decrypt($post['model']));
+        $idModel = $explode[0];
+        $classModel = $explode[1];
+        
+        // $idModel = decrypt($post['id']);
+        // $classModel = decrypt($post['class']); // value: App\Models\ThreadModel or App\Models\ReplyModel
 
         // pengecekan jika tidak ada data di database
         $model = new $classModel;

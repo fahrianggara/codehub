@@ -93,9 +93,11 @@ function alertifyLog(type, message, callback = null) {
  * @param {function} confirmCallback
  * @param {function} cancelCallback
  */
-function alertifyConfirm(message, confirmCallback, cancelCallback = null, btnOk = 'IYA', btnCancel = 'BATAL') {
+function alertifyConfirm(message, confirmCallback, cancelCallback = null, btnOk = 'IYA', btnCancel = 'BATAL', type = 'dark') {
     $('body').addClass('modal-open');
     alertify.okBtn(btnOk).cancelBtn(btnCancel).confirm(message, confirmCallback, cancelCallback);
+
+    $(document).find(".alertify .msg").addClass(`text-${type}`);
 }
 
 /**

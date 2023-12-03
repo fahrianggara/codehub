@@ -218,27 +218,33 @@
         btnHapusAuthor.off('click').on("click", function (e) {  
             e.preventDefault();
 
-            alertifyConfirm("Apakah kamu yakin ingin menghapus author dari objek ini?", (e) => {
+            message = `Apakah kamu yakin ingin menghapus author dari objek ini? Jika kamu menghapus,
+            maka semua yang berkaitan dengan author ini (diskusi, like, komentar) akan dihapus juga.`;
+
+            alertifyConfirm(message, (e) => {
                 e.preventDefault();
 
                 deleteTarget({
                     user_id: $(this).data("user_id"),
                 });
-            }, cancelCb);
+            }, cancelCb, 'HAPUS', 'BATAL', 'danger');
         });
 
         // Button Hapus Objek Click
         btnHapusObjek.off('click').on("click", function (e) {  
             e.preventDefault();
 
-            alertifyConfirm("Apakah kamu yakin ingin menghapus objek ini?", (e) => {
+            message = `Apakah kamu yakin ingin menghapus objek ini? Jika kamu menghapus, 
+                maka semua yang berkaitan dengan objek ini (like) akan dihapus juga.`;
+
+            alertifyConfirm(message, (e) => {
                 e.preventDefault();
 
                 deleteTarget({
                     model_id: $(this).data("model_id"),
                     model_class: $(this).data("model_class"),
                 });
-            }, cancelCb);
+            }, cancelCb, 'HAPUS', 'BATAL', 'danger');
         });
     }).on("hidden.bs.modal", function () {
         $(this).find(".modal-footer").prepend(`

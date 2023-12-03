@@ -88,8 +88,12 @@
                                                         <div class="form-group">
                                                             <label for="filter-status">Status</label>
                                                             <select name="status" id="filter-status" class="custom-select">
-                                                                <option <?= selected_option($status_selected, 'published') ?> value="published">Publik</option>
-                                                                <option <?= selected_option($status_selected, 'draft') ?> value="draft">Arsip</option>
+                                                                <option <?= selected_option($status_selected, 'published') ?> value="published">
+                                                                    Publik (<?= number_short(count($user->threads)) ?>)
+                                                                </option>
+                                                                <option <?= selected_option($status_selected, 'draft') ?> value="draft">
+                                                                    Arsip (<?= number_short(count($user->getThreads('draft'))) ?>)
+                                                                </option>
                                                             </select>
                                                         </div>
                                                     <?php endif ?>

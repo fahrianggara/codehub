@@ -34,8 +34,10 @@ class TagController extends BaseController
 
         if (!$tag || !$tag->threads) throw PageNotFoundException::forPageNotFound();
 
-        $tags = $this->tagModel->where('slug !=', $slug)
+        $tags = $this->tagModel->where('tags.slug !=', $slug)
             ->join('thread_tags', 'thread_tags.tag_id = tags.id')
+            ->join('threads', 'threads.id = thread_tags.thread_id')
+            ->where('threads.status', 'published')
             ->groupBy('tags.id')
             ->select('tags.*')
             ->orderBy('name','asc')
