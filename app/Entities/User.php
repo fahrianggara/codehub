@@ -86,11 +86,11 @@ class User extends Entity
      * 
      * @return object
      */
-    public function getThreads()
+    public function getThreads($status = 'published')
     {
         return $this->db->table('threads')
             ->where('user_id', $this->attributes['id'])
-            ->where('status', 'published')
+            ->where('status', $status)
             ->select('id, title, slug, content, status, user_id, views')
             ->get()->getResult();
     }
