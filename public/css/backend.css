@@ -59410,3 +59410,7 @@ a.text-muted:hover {
 	border-color: #4b545c !important;
 }
 /*# sourceMappingURL=adminlte.min.css.map */
+.select2-container .select2-selection--single .select2-selection__rendered {
+    line-height: 25px !important;
+    margin-left: 3px !important;
+}

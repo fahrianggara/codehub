@@ -34,33 +34,22 @@
                     </div>
 
                     <ul class="list-group">
-                        <li class="thread-most-item list-group-item d-flex align-items-center">
-                            <a href="javascript:void(0)" class="">
-                                <img class="mr-2 rounded-circle" src="<?= base_url('images/avatar.png') ?>">
-                                <div class="text-content">
-                                    <span class="name">ilhamramadan</span>
-                                    <span class="thread-count">20 Diskusi, 20rb Disukai</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="thread-most-item list-group-item d-flex align-items-center">
-                            <a href="javascript:void(0)" class="">
-                                <img class="mr-2 rounded-circle" src="<?= base_url('images/avatar.png') ?>">
-                                <div class="text-content">
-                                    <span class="name">dimasucup</span>
-                                    <span class="thread-count">15 Diskusi, 10rb Disukai</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="thread-most-item list-group-item d-flex align-items-center">
-                            <a href="javascript:void(0)" class="">
-                                <img class="mr-2 rounded-circle" src="<?= base_url('images/avatar.png') ?>">
-                                <div class="text-content">
-                                    <span class="name">fakhriakmal</span>
-                                    <span class="thread-count">13 Diskusi, 8rb Disukai</span>
-                                </div>
-                            </a>
-                        </li>
+                        <?php foreach ($TopUsers as $topUser) : ?>
+                            <li class="thread-most-item list-group-item d-flex align-items-center">
+                                <a href="javascript:void(0)" class="">
+                                    <img class="mr-2 rounded-circle" src="<?= $topUser->photo ?>">
+                                    <div class="text-content">
+                                        <a href="<?= base_url("{$topUser->username}") ?>">
+                                            <span class="name"><?= $topUser->username ?></span>
+                                        </a>
+                                        <span class="thread-count">
+                                            <?= $topUser->formatThreadCount() ?> Diskusi, <?= $topUser->formatLikeCount() ?> Like
+                                        </span>
+                                    </div>
+                                </a>
+                            </li>
+
+                        <?php endforeach ?>
 
                     </ul>
                 </div>
@@ -82,7 +71,9 @@
                                     <a class="d-flex align-items-center" href="javascript:void(0)">
                                         <img class="mr-2 profile-pic-detail" src="<?= $thread->user->photo ?>">
                                         <div class="name-content">
-                                            <?= $thread->user->username ?>
+                                            <a href="<?= base_url("{$thread->user->username}") ?>">
+                                                <?= $thread->user->username ?>
+                                            </a>
                                             <span class="thread-count"><?= ago($thread->created_at) ?></span>
                                         </div>
                                     </a>
@@ -175,9 +166,10 @@
                         <?php foreach ($TopThreads as $topThread) : ?>
                             <li class="list-group-item">
                                 <div class="item-content mb-2 mt-1 d-flex align-items-center justify-content-between">
-                                    <a class="d-flex align-items-center" href="javascript:void(0)">
+                                    <a class="d-flex align-items-center" href="<?= base_url("{$thread->user->username}") ?>">
                                         <img class="mr-2 profile-pic-detail-kanan" src="<?= $topThread->user->photo ?>">
-                                        <div class="name-content-kanan text-truncate"><?= $topThread->user->username ?>
+                                        <div class="name-content-kanan text-truncate">
+                                            <?= $topThread->user->username ?>
                                             <span class="thread-count"><?= ago($topThread->created_at) ?></span>
                                         </div>
                                     </a>
@@ -259,7 +251,7 @@
         </div>
     </div>
 </section>
-
+<script src="<?= base_url('js/fe/diskusi/create.js') ?>"></script>
 <?= $this->endSection(); ?>
 
 <?= $this->section('js') ?>

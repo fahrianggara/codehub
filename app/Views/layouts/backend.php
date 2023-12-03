@@ -15,11 +15,24 @@
     <link rel="stylesheet" href="<?= base_url('plugins/alertify/css/alerts.css') ?>">
     <link rel="stylesheet" href="<?= base_url('plugins/fontawesome-free/css/all.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('plugins/bootstrap4/icons/bootstrap-icons.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('plugins/select2/css/select2.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('plugins/datatables/datatables-bs4/css/dataTables.bootstrap4.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('plugins/cropperjs/cropper.css') ?>">
     <link rel="stylesheet" href="<?= base_url('css/backend.css') ?>">
     <link rel="stylesheet" href="<?= base_url('css/content.css') ?>">
     <link rel="stylesheet" href="<?= base_url('css/custom.css') ?>">
+    <style>
+        .select2-container .select2-selection--single .select2-selection__rendered {
+            line-height: 25px !important;
+            margin-left: 3px !important;
+        }
+
+        .select2-container .select2-search--inline .select2-search__field {
+            margin-left: 2px !important;
+            margin-top: 6px !important;
+            width: 100% !important;
+        }
+    </style>
 </head>
 
 <body class="sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -54,17 +67,21 @@
     <script src="<?= base_url('plugins/jquery/jquery.min.js') ?>"></script>
     <script src="<?= base_url('plugins/bootstrap4/bootstrap.bundle.min.js') ?>"></script>
     <script src="<?= base_url('plugins/datatables/jquery.dataTables.min.js') ?>"></script>
+    <script src="<?= base_url('plugins/tinymce5/jquery.tinymce.min.js') ?>"></script>
+    <script src="<?= base_url('plugins/tinymce5/tinymce.min.js') ?>"></script>
     <script src="<?= base_url('plugins/datatables/datatables-bs4/js/dataTables.bootstrap4.min.js') ?>"></script>
     <script src="<?= base_url('plugins/datatables/datatables-buttons/js/dataTables.buttons.min.js') ?>"></script>
     <script src="<?= base_url('plugins/datatables/datatables-buttons/js/buttons.print.min.js') ?>"></script>
     <script src="<?= base_url('plugins/alertify/js/alerts.js') ?>"></script>
     <script src="<?= base_url('plugins/sweetalert2/sweetalert2.min.js') ?>"></script>
+    <script src="<?= base_url('plugins/select2/js/select2.min.js') ?>"></script>
     <script src="<?= base_url('plugins/moment/moment.min.js') ?>"></script>
     <script src="<?= base_url('plugins/moment/locale/id.js') ?>"></script>
     <script src="<?= base_url('plugins/cropperjs/cropper.js') ?>"></script>
     <script src="<?= base_url('plugins/prism/prism.js') ?>"></script>
     <script src="<?= base_url('js/backend.js') ?>"></script>
     <script src="<?= base_url('js/custom.js') ?>"></script>
+    <?= $this->include('frontend/diskusi/create') ?>
 
     <?= $this->renderSection('js') ?>
 </body>

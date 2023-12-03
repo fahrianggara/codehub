@@ -94,4 +94,26 @@ class User extends Entity
             ->select('id, title, slug, content, status, user_id, views')
             ->get()->getResult();
     }
+
+    public function formatLikeCount()
+    {
+        $likeCount = $this->like_count;
+
+        if ($likeCount >= 1000) {
+            return number_format($likeCount / 1000, 0, ',', '.') . ' rb';
+        } else {
+            return number_format($likeCount, 0, ',', '.');
+        }
+    }
+    public function formatThreadCount()
+    {
+        $threadCount = $this->thread_count;
+
+        if ($threadCount >= 1000) {
+            return number_format($threadCount / 1000, 0, ',', '.') . ' rb';
+        } else {
+            return number_format($threadCount, 0, ',', '.');
+        }
+    }
+
 }
