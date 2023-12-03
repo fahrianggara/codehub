@@ -122,10 +122,46 @@
 
     <?= $pager->only(['status', 'order', 'category'])->links('user-thread', 'pg_profile') ?>
 <?php else : ?>
-    <div class="alert alert-warning">
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <div class="no-result" style="margin-top: 20px; margin-bottom: 30px;">
+                <img src="<?= base_url('images/nodiscussion.png') ?>" alt="Tidak ada Diskusi" class="img-fluid">
+
+                <?php if ($status_selected === 'published'): ?> <!-- jika status published -->
+                    <?php if (auth_check() && $user->id === auth()->id) : ?> <!-- jika sedang login -->
+                        <?php if ($user->getThreads('all')) : ?> <!-- jika ada tapi di draft -->
+                            <h3>Apa.. Kosong ?</h3>
+                            <p>Hmm.. sepertinya belum ada diskusi yang kamu publikasikan disini. Silahkan publish diskusi kamu yang di arsipkan atau engga buat diskusi baru.</p>
+                            <a href="javascript:void(0);" class="btn btn-buat-diskusi in-home" data-logined="<?= auth_check() ?>">
+                                <i class="fas fa-plus"></i>
+                                Buat Diskusi
+                            </a>
+                        <?php else: ?> <!-- jika belum ada -->
+                            <h3>Duh.. Masih kosong disini :(</h3>
+                            <p>Yuk <?= $user->full_name ?>, buat diskusi pertama kamu di Codehub. Harus sopan ya isi kontennya..</p>
+                            <a href="javascript:void(0);" class="btn btn-buat-diskusi in-home" data-logined="<?= auth_check() ?>">
+                                <i class="fas fa-plus"></i>
+                                Buat Diskusi
+                            </a>
+                        <?php endif ?>
+                    <?php else : ?> <!-- jika guest atau orang lain -->
+                        <h3>Yahh.. Kosong :(</h3>
+                        <p>
+                            Sepertinya belum ada diskusi yang di buat oleh <?= $user->full_name ?>.
+                        </p>
+                    <?php endif ?>
+                <?php else: ?> <!-- jika status arsip -->
+                    <h3>Kosong disini ?</h3>
+                    <p>Hmm.. sepertinya belum ada diskusi yang kamu arsipkan disini.</p>
+                <?php endif ?>
+                
+            </div>
+        </div>
+    </div>
+    <!-- <div class="alert alert-warning">
         <i class="fas fa-info-circle mr-2"></i>
         <span>Belum ada diskusi yang di <?= $displayStatus = ($status_selected === 'draft') ? 'arsip' : (($status_selected === 'published') ? 'publikasikan' : ''); ?>.</span>
-    </div>
+    </div> -->
 <?php endif ?>
 
 <?= $this->section('js') ?>

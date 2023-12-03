@@ -1,62 +1,92 @@
-# CodeIgniter 4 Application Starter
+# ANALISIS KEBUTUHAN SISTEM PADA APLIKASI FORUM DISKUSI
 
-## What is CodeIgniter?
+## A. Requirement
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+Aplikasi Forum Diskusi ini menggunakan [CodeIgniter](https://www.codeigniter.com/download) 4.4.3 dan PHP 8.1.
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+### a. Prasyarat
+1. [PHP](https://www.php.net/downloads.php) 7.4 atau versi diatasnya.
+2. [Composer](https://getcomposer.org/).
+3. [GIT](https://git-scm.com/).
+4. Local Server ([XAMPP](https://www.apachefriends.org/download.html) atau [Laragon](https://laragon.org/download/index.html)).
+5. Extenstion PHP: intl, mbstring.
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+### b. Instalasi
+1. Clone repository dengan cara buka folder `htdocs` atau `www` (jika kamu menggunakan laragon). Lalu klik kanan, pilih git bash here habis itu, ketikkan atau copas `git clone https://github.com/fahrianggara/codehub.git`.
+2. Jika sudah, ketikkan `cd codehub` untuk masuk ke folder yang baru di clone, lalu jalankan perintah `composer install` atau bisa juga `composer update`.
+3. Sekarang buka phpmyadmin untuk membuat database baru dengan nama `ci_forum`.
+4. Jika sudah, balik lagi ke terminal git bash lalu ketikkan `code .` Untuk membuka text editor (vscode).
+5. Ganti file `.env.example` jadi `.env`.
+6. Konfigurasikan file `.env` sebagai berikut:
+```env
+# --------------------------------------------------------------------
+# ENVIRONMENT
+# --------------------------------------------------------------------
 
-The user guide corresponding to the latest version of the framework can be found
-[here](https://codeigniter4.github.io/userguide/).
+CI_ENVIRONMENT = development
 
-## Installation & updates
+# --------------------------------------------------------------------
+# APP
+# --------------------------------------------------------------------
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+app.baseURL = 'http://localhost:8080'
+# If you have trouble with `.`, you could also use `_`.
+# app_baseURL = ''
+# app.forceGlobalSecureRequests = false
+# app.CSPEnabled = false
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+# --------------------------------------------------------------------
+# DATABASE
+# --------------------------------------------------------------------
 
-## Setup
+database.default.hostname = localhost
+database.default.database = ci_forum
+database.default.username = root
+database.default.password =
+database.default.DBDriver = MySQLi
+# database.default.DBPrefix =
+# database.default.port = 3306
+```
+7. Balik ke git bash terminal lalu ketikkan perintah `php spark migrate` jika sudah, ketikkan lagi `php spark db:seed Run`. Dan jangan lupa untuk mengaktifkan MySQL pada Local Server.
+8. Selanjutnya jalankan/ketikkan perintah `php spark serve` Dan aplikasi Forum Diskusi akan berjalan pada url `http://localhost:8080`.
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
+### c. Fitur
 
-## Important Change with index.php
+#### Guest / Pengunjung
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+- [X] Melihat Diskusi
+- [X] Memfilter Diskusi
+- [X] Membagikan Diskusi
+- [X] Mencari Diskusi
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+#### User / Pengguna
 
-**Please** read the user guide for a better explanation of how CI4 works!
+- [X] Autentikasi (Register, Login & Logout)
+- [X] Mengedit proϐile sendiri Seperti: Data sendiri, Avatar, Banner dan Password 
+- [X] Kelola atau CRUD + Draft/Publish Diskusinya (diri sendiri)
+- [X] Menyukai Diskusi 
+- [X] Melaporkan Diskusi 
+- [X] Membalas Diskusi dan Bisa di Kelola Balasannya (diri sendiri)
+- [X] Sama seperti Guest (Melihat, Memfilter, Membagikan dan Mencari Diskusi)
 
-## Repository Management
+#### Admin / Pengelola
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+- [X] Sama seperti User Requirement-nya
+- [X] Masuk ke Halaman Dashboard
+- [X] Kelola atau CRUD Pengguna 
+- [X] Kelola atau CRUD Diskusi Pengguna
+- [X] Kelola atau CRUD Kategori Diskusi
+- [X] Kelola atau CRUD Tagar Diskusi
+- [X] Memantau dan Hapus Laporan dari pengguna
 
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+## Entity Relationship Table (ERD)
 
-## Server Requirements
+![ERD](https://raw.githubusercontent.com/fahrianggara/codehub/main/public/images/erd.png)
 
-PHP version 7.4 or higher is required, with the following extensions installed:
+## Kontributor
 
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
-
-Additionally, make sure that the following extensions are enabled in your PHP:
-
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+- [10220009 - Fahri Anggara](https://fahrianggara.my.id/)
+- [10220014 - Dimas Yusuf Hidayat](https://www.instagram.com/dms.yusuf/)
+- [10220046 - Fakhri Akmal Fadillah](https://www.instagram.com/fakhriakm/)
+- [10220048 - Ilham Ramadhan](https://www.instagram.com/rmdhan_ilhmmm/)
+- [10220078 - Sultan Jordy Priadi](https://discord.com/users/745459226482049057)
