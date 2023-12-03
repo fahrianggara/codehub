@@ -74,7 +74,7 @@ class ProfileController extends BaseController
         }
 
         return view('frontend/profile', [
-            'title' => "Profile",
+            'title' => "$user->full_name",
             'user' => $user,
             'has_sosial_media' => $user->link_fb || $user->link_tw || $user->link_ig || $user->link_gh || $user->link_li,
             'threads' => $threads,
