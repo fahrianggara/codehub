@@ -25,11 +25,7 @@ $routes->group('admin', ['filter' => ['auth', 'is_admin'], 'namespace' => Backen
     $routes->group('diskusi', function (RouteCollection $routes) {
         $routes->get('/', 'DiskusiController::index', ['as' => 'admin.diskusi']);
         $routes->get('create', 'DiskusiController::create', ['as' => 'admin.diskusi.create']);
-        $routes->post('edit-thread', 'DiskusiController::edit', ['as' => 'diskusi.edit', 'filter' => 'auth']);
-        $routes->post('store', 'DiskusiController::store', ['as' => 'admin.diskusi.store']);
         $routes->post('destroy', 'DiskusiController::destroy', ['as' => 'admin.diskusi.destroy']);
-        $routes->post('update', 'DiskusiController::update', ['as' => 'admin.diskusi.update']);
-        $routes->get('(:segment)/edit', 'DiskusiController::edit/$1', ['as' => 'admin.diskusi.edit']);
     });
 
     // Pengguna

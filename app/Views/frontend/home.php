@@ -115,7 +115,7 @@
                                     <?php if ($thread->tags) : ?>
                                         <?php foreach ($thread->tags as $tag) : ?>
                                             <li>
-                                                <a href="javascript:void(0)">
+                                                <a href="<?= route_to('tag.show', $tag->slug) ?>">
                                                     <?= $tag->name ?>
                                                 </a>
                                             </li>
@@ -212,7 +212,7 @@
                                     <?php if ($topThread->tags) : ?>
                                         <?php foreach ($topThread->tags as $tag) : ?>
                                             <li>
-                                                <a href="javascript:void(0)">
+                                                <a href="<?= route_to('tag.show', $tag->slug) ?>">
                                                     <?= $tag->name ?>
                                                 </a>
                                             </li>
