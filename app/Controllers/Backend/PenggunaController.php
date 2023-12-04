@@ -62,7 +62,7 @@ class PenggunaController extends BaseController
             $this->userModel->insert([
                 'first_name'    => $request->getVar('first_name'),
                 'last_name'     => $request->getVar('last_name'),
-                'username'      => $request->getVar('username'),
+                'username'      => strtolower($request->getVar('username')),
                 'email'         => $request->getVar('email'),
                 'password'      => password_hash($request->getVar('password'), PASSWORD_BCRYPT),
                 'role'          => $request->getVar('role'),
@@ -128,7 +128,7 @@ class PenggunaController extends BaseController
                 'id'            => $id,
                 'first_name'    => $request->getVar('first_name'),
                 'last_name'     => $request->getVar('last_name'),
-                'username'      => $request->getVar('username'),
+                'username'      => strtolower($request->getVar('username')),
                 'email'         => $request->getVar('email'),
                 'role'          => $request->getVar('role'),
                 'avatar'        => $avatar,

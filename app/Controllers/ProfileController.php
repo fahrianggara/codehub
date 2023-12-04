@@ -114,7 +114,7 @@ class ProfileController extends BaseController
                 'id' => $user_id,
                 'first_name' => $request->getVar('first_name'),
                 'last_name' => $request->getVar('last_name'),
-                'username' => $username,
+                'username' => strtolower($username),
                 'link_fb' => $request->getVar('link_fb'),
                 'link_tw' => $request->getVar('link_tw'),
                 'link_ig' => $request->getVar('link_ig'),

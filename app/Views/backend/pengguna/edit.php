@@ -56,7 +56,7 @@
                             <label for="username" required>Username</label>
 
                             <input type="text" name="username" id="username" 
-                                class="form-control <?= validation_show_error('username') ? 'is-invalid' : '' ?>" 
+                                class="form-control text-lowercase <?= validation_show_error('username') ? 'is-invalid' : '' ?>" 
                                 value="<?= $user->username ?>" placeholder="Masukkan Username Pengguna">
 
                             <div class="invalid-feedback d-block">

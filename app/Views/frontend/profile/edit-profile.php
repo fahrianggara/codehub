@@ -38,7 +38,7 @@
                         <div class="form-group">
                             <label for="username" required>Username</label>
 
-                            <input type="text" class="form-control" id="username" placeholder="Masukkan username"
+                            <input type="text" class="form-control text-lowercase" id="username" placeholder="Masukkan username"
                                 name="username" value="<?= $user->username; ?>">
 
                             <div class="d-flex align-items-center justify-content-between mt-1">
