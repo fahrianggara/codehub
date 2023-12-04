@@ -891,7 +891,7 @@ input[type="search"]::-webkit-search-results-decoration {
 	content: '';
 	width: 2px;
 	height: 100%;
-	background: var(--border-color);
+	background: #ddd;
 	position: absolute;
 	left: -35px;
 	top: 0;
@@ -899,13 +899,12 @@ input[type="search"]::-webkit-search-results-decoration {
 
 .thread-sub li:before {
 	content: '';
-	width: 60px;
 	position: absolute;
-	top: 5px;
-	left: -40px;
+	top: 0px;
+	left: -40.2px;
 	height: 35px;
 	width: 30px;
-	border: 3px solid #dcdcdc;
+	border: 3px solid #ddd;
 	border-top-width: 3px;
     border-right-width: 3px;
     border-right: none;
