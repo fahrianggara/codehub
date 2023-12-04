@@ -43,7 +43,7 @@ function hideMobileSearch() {
         $("body").toggleClass("mobile-nav-active");
     });
 
-    $(".mobile-nav-overlay, .btn-buat-diskusi").click(function () {
+    $(".mobile-nav-overlay, .btn-buat-diskusi, .close-mobile-nav").click(function () {
         hideMobileMenu();
     });
 

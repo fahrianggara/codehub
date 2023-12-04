@@ -21,6 +21,17 @@
 
 <nav class="mobile-nav">
 
+    <div class="mobile-nav-header">
+        <div class="navbar-brand">
+            <a href="<?= base_url('/') ?>">
+                <img src="<?= base_url('images/logo/sm.png') ?>" alt="logo">
+            </a>
+        </div>
+        <button type="button" class="btn close-mobile-nav">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+    </div>
+
     <?php if (!session()->get('logged_in')): ?>
         <div class="mobile-nav-top">
             <div class="text">
