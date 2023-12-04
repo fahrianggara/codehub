@@ -10,6 +10,7 @@ use App\Controllers\BaseController;
 use App\Models\ReplyModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
 use HTMLPurifier_Config, HTMLPurifier;
+use Carbon\Carbon;
 
 class DiskusiController extends BaseController
 {
@@ -87,14 +88,22 @@ class DiskusiController extends BaseController
             $purifier = new HTMLPurifier($config);
             $title = $purifier->purify($post['title']);
 
-            $this->threadModel->insert([
-                'title' => $title,
-                'slug' => slug($title) . '-' . rand(10000, 99999),
-                'content' => $purifier->purify($post['content']),
-                'status' => 'published',
-                'views' => 0,
-                'user_id' => auth()->id
-            ]);
+            // handle duplicate thread title
+            $thread = $this->threadModel->where('title', trim($title))
+                ->where('user_id', auth()->id)
+                ->where('created_at >', Carbon::now()->subMinutes()) 
+                ->first();
+
+            if (!$thread) {
+                $this->threadModel->insert([
+                    'title' => $title,
+                    'slug' => slug($title) . '-' . rand(10000, 99999),
+                    'content' => $purifier->purify($post['content']),
+                    'status' => 'published',
+                    'views' => 0,
+                    'user_id' => auth()->id
+                ]);
+            }
 
             $insertId = $this->db->insertID();
 

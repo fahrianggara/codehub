@@ -13,9 +13,9 @@ class AdminSeeder extends Seeder
         $model->insert([
             'first_name'    => "Mimin",
             'last_name'     => "Admin",
-            'username'      => "mimin",
-            'email'         => "mimin@mail.com",
-            'password'      => password_hash("password", PASSWORD_BCRYPT),
+            'username'      => "admin",
+            'email'         => "admin@mail.com",
+            'password'      => password_hash("ilhamgans123", PASSWORD_BCRYPT),
             'role'          => "admin",
             'avatar'        => "avatar.png",
             'banner'        => "banner.png",

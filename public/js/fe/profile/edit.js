@@ -52,7 +52,9 @@ $(document).ready(function () {
                             $(`#${key}`).addClass('is-invalid');
                         });
                     } else {
-                        alertError(res.message);
+                        alertifyLog('danger', res.message, (e) => {
+                            $('body').css('overflow', 'auto');
+                        });
                     }
                 } else {
                     showLoader("Tunggu sebentar ya, profile kamu sedang diperbarui...");

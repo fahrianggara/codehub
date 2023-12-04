@@ -101,14 +101,16 @@ $(document).ready(function () {
             },
             success: function (res) {
                 if (res.status === 400) {
+                    var message = res.message;
+
                     if (res.validate) {
                         errors = Object.values(res.message);
-                        alertify.alert(errors.join("<br><br>"));
-                    } else {
-                        alertify.alert(res.message);
+                        message = errors.join("<br><br>");
                     }
-                    
-                    $(document).find(".alertify .msg").addClass("text-danger");
+
+                    alertifyLog('danger', message, () => {
+                        $("body").css('overflow', 'auto');
+                    });
                 } else {
                     showLoader("Tunggu sebentar ya, diskusi kamu sedang dibuat...");
                     modalDiskusi.modal('hide');

@@ -65,14 +65,20 @@ class KategoriController extends BaseController
         try {
             $request = $this->request;
             $name = trim($request->getVar('name'));
-            $cover = $request->getVar('blob_cover') 
-                ? uploadImageBlob($request->getVar('blob_cover'), 'images/categories') 
-                : 'empty.png';
+
+            $path = 'images/categories';
+            $blob = $request->getVar('blob_cover');
+            $uploadResult = $blob ? uploadImageBlob($blob , $path) : ['fileName' => 'empty.png'];
+
+            // cek apakah upload gagal
+            if (isset($uploadResult['error'])) {
+                return redirect()->back()->withInput()->with('error', $uploadResult['error']);
+            }
 
             $this->categoryModel->insert([
                 'name' => $name,
                 'slug' => slug($name),
-                'cover' => $cover
+                'cover' => $uploadResult['fileName'],
             ]);
 
             return redirect()->route('admin.kategori')->with('success', 'Data kateogri berhasil ditambahkan.');
@@ -124,17 +130,26 @@ class KategoriController extends BaseController
         $this->db->transBegin();
         try {
             $name = trim($request->getVar('name'));
-            $cover = $request->getVar('blob_cover') 
-                ? uploadImageBlob($request->getVar('blob_cover'), 'images/categories', $category->cover) 
-                : $category->cover;
+
+            $path = 'images/categories';
+            $blob = $request->getVar('blob_cover');
+            $old = $category->cover;
+
+            // cek apakah ada perubahan cover
+            $uploadResult = $blob ? uploadImageBlob($blob, $path, $old) : ['fileName' => $old];
+
+            // cek apakah upload gagal
+            if (isset($uploadResult['error'])) {
+                return redirect()->back()->withInput()->with('error', $uploadResult['error']);
+            }
 
             $this->categoryModel->save([
-                'id'    => $id,
-                'name'  => $name,
-                'slug'  => slug($name),
-                'cover' => $cover,
+                'id' => $id,
+                'name' => $name,
+                'slug' => slug($name),
+                'cover' => $uploadResult['fileName'],
             ]);
-
+            
             return redirect()->route('admin.kategori')->with('success', 'Data kategori berhasil diubah.');
         } catch (\Throwable $th) {
             $this->db->transRollback();

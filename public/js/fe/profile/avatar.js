@@ -113,6 +113,9 @@ $(document).ready(function () {
                 modal.modal('hide');
 
                 if (res.status === 400) {
+                    alertifyLog('danger', res.message, (e) => {
+                        $('body').css('overflow', 'auto');
+                    });
                     cropButton.attr('disabled', false).html('Potong & Simpan');
                 } else {
                     showLoader("Tunggu sebentar ya, foto profile kamu sedang diupload...");

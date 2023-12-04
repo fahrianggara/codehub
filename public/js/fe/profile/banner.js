@@ -19,7 +19,9 @@ $(document).ready(function () {
                 url: `${origin}/destroy-banner`,
                 success: function (res) {
                     if (res.status === 400) {
-                        alertError(res.message);
+                        alertifyLog('danger', res.message, (e) => {
+                            $('body').css('overflow', 'auto');
+                        });
                     } else {
                         showLoader("Tunggu sebentar ya, foto sampul kamu sedang dihapus...");
                         location.reload();

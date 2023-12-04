@@ -53,8 +53,8 @@ class HomeController extends BaseController
             ->where('likes.model_class', 'App\Models\ThreadModel')
             ->groupBy('users.id')
             ->select('users.*, COUNT(likes.model_id) as like_count, COUNT(threads.id) as thread_count')
-            ->orderBy('like_count', 'desc')
             ->orderBy('thread_count', 'desc')
+            ->orderBy('like_count', 'desc')
             ->orderBy('users.created_at', 'asc')
             ->findAll(3);
 

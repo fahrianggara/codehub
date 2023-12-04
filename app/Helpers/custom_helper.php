@@ -96,16 +96,34 @@ function selected_option($oldval, $value)
 function uploadImageBlob($blob, $path, $oldImage = null)
 {
     $imgParts = explode(";base64,", $blob);
-    $imgTypeAux = explode("image/", $imgParts[0]);
-    $imgType = $imgTypeAux[1];
     $imgBase64 = base64_decode($imgParts[1]);
 
-    if ($oldImage && file_exists("$path/$oldImage")) unlink("$path/$oldImage");
+    // invalid base64 format
+    if ($imgBase64 === false) {
+        return ['error' => 'Invalid base64 format.'];
+    }
 
+    // check image type
+    $imgInfo = getimagesizefromstring($imgBase64);
+    $mime = $imgInfo['mime'];
+
+    // invalid image type
+    $allowedMimes = ['image/jpeg', 'image/png', 'image/gif', 'image/jpg'];
+    if (!in_array($mime, $allowedMimes)) {
+        return ['error' => 'Invalid image type.'];
+    }
+    
+    // delete old image
+    if ($oldImage && file_exists("$path/$oldImage")) {
+        unlink("$path/$oldImage");
+    }
+
+    // upload image and return filename
+    $imgType = explode('/', $mime)[1];
     $fileName = randomName() . '.' . $imgType;
     file_put_contents("$path/$fileName", $imgBase64);
 
-    return $fileName;
+    return ['success' => true, 'fileName' => $fileName];
 }
 
 /**

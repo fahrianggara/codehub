@@ -154,7 +154,19 @@ class ProfileController extends BaseController
             $path = 'images/avatars/';
             $blob = $this->request->getVar('base64image');
 
-            $avatarName = $blob ? uploadImageBlob($blob, $path, $oldAvatar) : $oldAvatar;
+            $uploadResult = $blob ? uploadImageBlob($blob, $path, $oldAvatar) : ['fileName' => $oldAvatar];
+
+            // Check if there was an error during image upload
+            if (isset($uploadResult['error'])) {
+                $this->response->setStatusCode(400);
+
+                return response()->setJSON([
+                    'status' => 400,
+                    'message' => $uploadResult['error'],
+                ]);
+            }
+
+            $avatarName = $uploadResult['fileName'];
 
             $this->userModel->save([
                 'id' => auth()->id,
@@ -179,6 +191,7 @@ class ProfileController extends BaseController
         }
     }
 
+
     /**
      * Destroy avatar
      * 
@@ -190,8 +203,7 @@ class ProfileController extends BaseController
         try {
             $avatar = auth()->avatar;
 
-            if (check_photo('avatars', $avatar))
-                unlink("images/avatars/$avatar");
+            if (check_photo('avatars', $avatar)) unlink("images/avatars/$avatar");
 
             $this->userModel->save([
                 'id' => auth()->id,
@@ -229,11 +241,21 @@ class ProfileController extends BaseController
             $path = 'images/banners/';
             $blob = $this->request->getVar('base64image');
 
-            $bannerName = $blob ? uploadImageBlob($blob, $path, $oldBanner) : $oldBanner;
+            $uploadResult = $blob ? uploadImageBlob($blob, $path, $oldBanner) : ['fileName' => $oldBanner];
+
+            // Check if there was an error during image upload
+            if (isset($uploadResult['error'])) {
+                $this->response->setStatusCode(400);
+
+                return response()->setJSON([
+                    'status' => 400,
+                    'message' => $uploadResult['error'],
+                ]);
+            }
 
             $this->userModel->save([
                 'id' => auth()->id,
-                'banner' => $bannerName,
+                'banner' => $uploadResult['fileName'],
             ]);
 
             session()->setFlashdata('info', 'Foto sampul kamu berhasil diubah.');
@@ -265,8 +287,7 @@ class ProfileController extends BaseController
         try {
             $banner = auth()->banner;
 
-            if (check_photo('banners', $banner))
-                unlink("images/banners/$banner");
+            if (check_photo('banners', $banner)) unlink("images/banners/$banner");
 
             $this->userModel->save([
                 'id' => auth()->id,

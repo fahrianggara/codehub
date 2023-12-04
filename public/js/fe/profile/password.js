@@ -43,7 +43,9 @@ $(document).ready(function () {
                             $(`#${key}`).addClass('is-invalid');
                         });
                     } else {
-                        alertifyLog('danger', res.message);
+                        alertifyLog('danger', res.message, (e) => {
+                            $('body').css('overflow', 'auto');
+                        });
                     }
                 } else {
                     alertifyLog('success', res.message, () => {

@@ -84,6 +84,9 @@ function alertifyLog(type, message, callback = null) {
     $('body').css('overflow', 'hidden');
     alertify.okBtn("Ok").alert(message, callback);
     $(document).find(".alertify .msg").addClass(`text-${type}`);
+
+    // remove another alertify
+    $(document).find(".alertify").not(":last").remove();
 }
 
 /**
@@ -96,8 +99,8 @@ function alertifyLog(type, message, callback = null) {
 function alertifyConfirm(message, confirmCallback, cancelCallback = null, btnOk = 'IYA', btnCancel = 'BATAL', type = 'dark') {
     $('body').addClass('modal-open');
     alertify.okBtn(btnOk).cancelBtn(btnCancel).confirm(message, confirmCallback, cancelCallback);
-
     $(document).find(".alertify .msg").addClass(`text-${type}`);
+    $(document).find(".alertify").not(":last").remove();
 }
 
 /**
@@ -328,7 +331,7 @@ function initSelect2M(select, dropdownParent, ajax = null) {
         createTag: function (params) {
             var term = $.trim(params.term);
 
-            if (term === '') return null;
+            if (term.indexOf('<') == 0 || term === '') return null;
 
             return {
                 id: term,
