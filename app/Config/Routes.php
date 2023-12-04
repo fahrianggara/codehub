@@ -17,7 +17,7 @@ $routes->group('', ['namespace' => Auth::class], function (RouteCollection $rout
 });
 
 // Auth Backend Dashboard
-$routes->group('admin', ['filter' => ['auth', 'is_admin'], 'namespace' => Backend::class], function (RouteCollection $routes) {
+$routes->group('admin', ['filter' => ['is_admin'], 'namespace' => Backend::class], function (RouteCollection $routes) {
     $routes->get('dash', 'DashController::index', ['as' => 'admin.dash']);
 
 

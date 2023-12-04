@@ -26,13 +26,8 @@ class Guest implements FilterInterface
     public function before(RequestInterface $request, $arguments = null)
     {
         if (session()->get('logged_in')) {
-            $username = session()->get('username');
-            
-            if (session()->get('role') === 'admin') {
-                return redirect()->to('admin/dash');
-            } else {
-                return redirect()->to("$username");
-            }
+            $user = (new \App\Models\UserModel())->find(session()->get('id'));
+            return redirect()->to($user->username);
         }
     }
 

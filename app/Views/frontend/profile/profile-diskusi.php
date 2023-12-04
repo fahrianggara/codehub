@@ -22,23 +22,31 @@
                         </button>
 
                         <div class="dropdown-menu dropdown-menu-right">
-                            <?php if (auth_check() && auth()->id === $user->id) : ?>
-                                <a class="dropdown-item btn-edit-diskusi" href="javascript:void(0);" data-id="<?= $thread_id ?>">
-                                    <i class="fas text-warning fa-pen mr-2"></i> Edit
-                                </a>
-
-                                <a class="dropdown-item btn-hapus-diskusi" href="javascript:void(0);" data-id="<?= $thread_id ?>">
-                                    <i class="fas text-danger fa-trash mr-2"></i> Hapus
-                                </a>
-
-                                <?php if ($thread->status === 'published') : ?>
-                                    <a class="dropdown-item btn-draft-diskusi" href="javascript:void(0);" data-id="<?= $thread_id ?>">
-                                        <i class="fas text-secondary fa-archive mr-2"></i> Arsipkan
+                            <?php if (auth_check()) : ?>
+                                <?php if (auth()->id === $thread->user_id): ?>
+                                    <a class="dropdown-item btn-edit-diskusi" href="javascript:void(0);" 
+                                        data-id="<?= $thread_id ?>">
+                                        <i class="fas text-warning fa-pen mr-2"></i> Edit
                                     </a>
-                                <?php else : ?>
-                                    <a class="dropdown-item btn-publish-diskusi" href="javascript:void(0);" data-id="<?= $thread_id ?>">
-                                        <i class="fas text-success fa-upload mr-2"></i> Publikasikan
+                                <?php endif ?>
+
+                                <?php if (auth()->id === $thread->user_id || auth()->role === 'admin'): ?>
+                                    <a class="dropdown-item btn-hapus-diskusi" href="javascript:void(0);" 
+                                        data-id="<?= $thread_id ?>">
+                                        <i class="fas text-danger fa-trash mr-2"></i> Hapus
                                     </a>
+                                <?php endif ?>
+
+                                <?php if (auth()->id === $thread->user_id) : ?>
+                                    <?php if ($thread->status === 'published') : ?>
+                                        <a class="dropdown-item btn-draft-diskusi" href="javascript:void(0);" data-id="<?= $thread_id ?>">
+                                            <i class="fas text-secondary fa-archive mr-2"></i> Arsipkan
+                                        </a>
+                                    <?php else : ?>
+                                        <a class="dropdown-item btn-publish-diskusi" href="javascript:void(0);" data-id="<?= $thread_id ?>">
+                                            <i class="fas text-success fa-upload mr-2"></i> Publikasikan
+                                        </a>
+                                    <?php endif ?>
                                 <?php endif ?>
 
                                 <?php if ($thread->status === "published"): ?>
