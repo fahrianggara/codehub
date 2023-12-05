@@ -55,9 +55,17 @@ class PenggunaController extends BaseController
         $this->db->transBegin();
         try {
             $request = $this->request;
+            $path = ['avatar' => 'images/avatars', 'banner' => 'images/banners'];
+            $blob = ['avatar' => $request->getVar('blob_avatar'), 'banner' => $request->getVar('blob_banner')];
 
-            $avatar = $request->getVar('blob_avatar') ? uploadImageBlob($request->getVar('blob_avatar'), 'images/avatars') : 'avatar.png';
-            $banner = $request->getVar('blob_banner') ? uploadImageBlob($request->getVar('blob_banner'), 'images/banners') : 'banner.png';
+            $avatar = $blob['avatar'] ? uploadImageBlob($blob['avatar'], $path['avatar']) : ['fileName' => 'avatar.png'];
+            $banner = $blob['banner'] ? uploadImageBlob($blob['banner'], $path['banner']) : ['fileName' => 'banner.png'];
+
+            if (isset($avatar['error'])) {
+                return redirect()->back()->withInput()->with('error', $avatar['error']);
+            } elseif (isset($banner['error'])) {
+                return redirect()->back()->withInput()->with('error', $banner['error']);
+            }
 
             $this->userModel->insert([
                 'first_name'    => $request->getVar('first_name'),
@@ -66,8 +74,8 @@ class PenggunaController extends BaseController
                 'email'         => $request->getVar('email'),
                 'password'      => password_hash($request->getVar('password'), PASSWORD_BCRYPT),
                 'role'          => $request->getVar('role'),
-                'avatar'        => $avatar,
-                'banner'        => $banner,
+                'avatar'        => $avatar['fileName'],
+                'banner'        => $banner['fileName'],
             ]);
 
             return redirect()->route('admin.pengguna')->with('success', 'Data pengguna berhasil ditambahkan.');
@@ -121,8 +129,18 @@ class PenggunaController extends BaseController
 
         $this->db->transBegin();
         try {
-            $avatar = $request->getVar('blob_avatar') ? uploadImageBlob($request->getVar('blob_avatar'), 'images/avatars', $user->avatar) : $user->avatar;
-            $banner = $request->getVar('blob_banner') ? uploadImageBlob($request->getVar('blob_banner'), 'images/banners', $user->banner) : $user->banner;
+            $blob = ['avatar' => $request->getVar('blob_avatar'), 'banner' => $request->getVar('blob_banner')];
+            $old = ['avatar' => $user->avatar, 'banner' => $user->banner];
+
+            $avatar = $blob['avatar'] ? uploadImageBlob($blob['avatar'], 'images/avatars', $old['avatar']) : ['fileName' => $old['avatar']];
+            $banner = $blob['banner'] ? uploadImageBlob($blob['banner'], 'images/banners', $old['banner']) : ['fileName' => $old['banner']];
+
+            // cek apakah upload gagal
+            if (isset($avatar['error'])) {
+                return redirect()->back()->withInput()->with('error', $avatar['error']);
+            } elseif (isset($banner['error'])) {
+                return redirect()->back()->withInput()->with('error', $banner['error']);
+            }
 
             $this->userModel->save([
                 'id'            => $id,
@@ -131,8 +149,8 @@ class PenggunaController extends BaseController
                 'username'      => strtolower($request->getVar('username')),
                 'email'         => $request->getVar('email'),
                 'role'          => $request->getVar('role'),
-                'avatar'        => $avatar,
-                'banner'        => $banner,
+                'avatar'        => $avatar['fileName'], // ambil nama file dari array ['fileName' => 'nama_file.png'
+                'banner'        => $banner['fileName'],
             ]);
 
             return redirect()->route('admin.pengguna')->with('success', 'Data pengguna berhasil diubah.');

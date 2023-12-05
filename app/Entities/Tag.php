@@ -12,7 +12,12 @@ class Tag extends Entity
     protected $dates   = ['created_at', 'updated_at'];
     protected $casts   = [];
     protected $db;
-
+    
+    /**
+     * __construct
+     *
+     * @return void
+     */
     public function __construct()
     {
         $this->db = Database::connect();

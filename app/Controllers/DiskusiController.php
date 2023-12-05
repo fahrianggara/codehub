@@ -113,8 +113,9 @@ class DiskusiController extends BaseController
                 foreach ($post['tag_ids'] as $tag) {
                     $slug = slug($tag);
                     $pattern = '/[#@$%^*()+=\-[\]\';,.\/{}|":<>?~\\_\\\\]/';
+                    $script = preg_match('/<script\b[^>]*>(.*?)<\/script>/is', $tag);
     
-                    if (empty($slug)) continue; // skip if tag empty (only symbol)
+                    if (empty($slug) || $script) continue; // skip if tag empty (only symbol)
                     $tag = preg_replace($pattern, '', $tag); // remove symbol
     
                     $this->threadModel->tagNotExist($tag);
@@ -239,8 +240,9 @@ class DiskusiController extends BaseController
                 foreach ($post['tag_ids'] as $tag) {
                     $slug = slug($tag);
                     $pattern = '/[#@$%^*()+=\-[\]\';,.\/{}|":<>?~\\_\\\\]/';
+                    $script = preg_match('/<script\b[^>]*>(.*?)<\/script>/is', $tag);
 
-                    if (empty($slug)) continue; // skip if tag empty (only symbol)
+                    if (empty($slug) || $script) continue; // skip if tag empty (only symbol)
                     $tag = preg_replace($pattern, '', $tag); // remove symbol
 
                     $this->threadModel->tagNotExist($tag);

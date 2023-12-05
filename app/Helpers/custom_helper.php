@@ -358,3 +358,16 @@ function number_short($n, $precision = 1, $lang = 'id')
 
     return $n_format . $suffix;
 }
+
+/**
+ * purifier
+ *
+ * @param  mixed $string
+ * @return string
+ */
+function purifier($string)
+{
+    $config = \HTMLPurifier_Config::createDefault();
+    $purifier = new \HTMLPurifier($config);
+    return $purifier->purify($string);
+}

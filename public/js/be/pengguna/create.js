@@ -32,7 +32,7 @@ $(document).ready(function () {
             viewMode: 1,
         });
 
-        handleCropImage(modalCrop, btnCrop, bannerCropper, sampleImage, 'sampul', {
+        handleCropImage(modalCrop, btnCrop, bannerCropper, sampleImage, 'banner', {
             file: banner,
             blob: form.find('[name="blob_banner"]'),
             label: form.find('.custom-file-label[for="banner"]')
