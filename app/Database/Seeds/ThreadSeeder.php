@@ -9,7 +9,6 @@ class ThreadSeeder extends Seeder
 {
     public function run()
     {
-        $model = new ThreadModel();
         $db = \Config\Database::connect();
         
         $threads = [
@@ -322,8 +321,9 @@ user.name = \'Jane\'; // ini kok bisa ya?</code></pre>',
             ],
         ];
 
+        // Insert threads directly to avoid Tatter\Relations compatibility issue
         foreach ($threads as $thread) {
-            $model->insert($thread);
+            $db->table('threads')->insert($thread);
         }
     }
 }

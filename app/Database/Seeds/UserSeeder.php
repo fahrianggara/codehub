@@ -10,7 +10,7 @@ class UserSeeder extends Seeder
     {
         $db = \Config\Database::connect();
         
-        // Admin accounts
+        // Insert users one by one to avoid insertBatch compatibility issue
         $users = [
             // Admin 1 - Main admin
             [
@@ -198,6 +198,9 @@ class UserSeeder extends Seeder
             ],
         ];
 
-        $db->table('users')->insertBatch($users);
+        // Insert one by one instead of batch to avoid CI 4.7 compatibility issue
+        foreach ($users as $user) {
+            $db->table('users')->insert($user);
+        }
     }
 }

@@ -9,7 +9,7 @@ class ReplySeeder extends Seeder
 {
     public function run()
     {
-        $model = new ReplyModel();
+        $db = \Config\Database::connect();
         
         $replies = [
             // Replies for Thread 1 (Laravel optimization)
@@ -409,6 +409,7 @@ jobs:
             ],
         ];
 
-        $model->insertBatch($replies);
+        // Insert replies directly to avoid Tatter\Relations compatibility issue
+        $db->table('replies')->insertBatch($replies);
     }
 }
