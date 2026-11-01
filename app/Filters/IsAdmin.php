@@ -26,7 +26,15 @@ class IsAdmin implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
-        if (session()->get('role') !== 'admin') {
+        $authCheck = session()->get('logged_in') === true;
+
+        // jika ketika logout masih di dalam halaman admin akan di redirect ke halaman login
+        if (!$authCheck) {
+            header('Location: ' . base_url('login'));
+            die;
+        }
+
+        if ($authCheck && session()->get('role') !== 'admin') {
             throw PageNotFoundException::forPageNotFound();
         }
     }

@@ -7,6 +7,7 @@ use App\Models\UserModel;
 use App\Controllers\BaseController;
 use App\Models\ThreadModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
+use JonnyW\PhantomJs\Client;
 
 class ProfileController extends BaseController
 {
@@ -547,5 +548,46 @@ class ProfileController extends BaseController
         $reportModel->saveReport($data);
 
         // Tambahkan logika untuk menampilkan pesan sukses atau gagal
+    }
+
+    /**
+     * Generate opengraph image
+     * 
+     * @param  mixed $username
+     * @return void
+     */
+    public function ogProfile($username)
+    {
+        $user = $this->userModel->where('username', $username)->first();
+        if (!$user) return redirect()->to('/');  // Redirect to home if user not found
+
+        // Load the view and capture its output
+        // return view('component/og-profile', [
+        //     'user' => $user,
+        // ]);
+
+        $client = Client::getInstance();
+        $url = base_url("og/$username");
+
+        $width = 1200;
+        $height = 600;
+
+        $request = $client->getMessageFactory()->createRequest('GET', $url);
+        $response = $client->getMessageFactory()->createResponse();
+        $client->send($request, $response);
+
+        if ($response->getStatus() === 200) {
+            $image = $response->getContent();
+            $image = imagecreatefromstring($image);
+
+            $newImage = imagecreatetruecolor($width, $height);
+            imagecopyresampled($newImage, $image, 0, 0, 0, 0, $width, $height, 1200, 600);
+
+            header('Content-Type: image/png');
+            imagepng($newImage);
+            imagedestroy($newImage);
+        } else {
+            echo $response->getStatus();
+        }
     }
 }

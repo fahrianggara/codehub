@@ -91,6 +91,9 @@ $routes->post('reply-destroy', 'DiskusiController::replyDestroy', ['as' => 'disk
 $routes->post('report', 'DiskusiController::report', ['as' => 'diskusi.report', 'filter' => 'auth']);
 $routes->get('d/(:segment)', 'DiskusiController::show/$1', ['as' => 'diskusi.show']);
 
+// generate opengraph image
+$routes->get('og/(:segment)', 'ProfileController::ogProfile/$1', ['as' => 'og']);
+
 // Profile User
 $routes->post('edit-avatar', 'ProfileController::editAvatar', ['as' => 'profile.edit-avatar', 'filter' => 'auth']);
 $routes->delete('destroy-avatar', 'ProfileController::destroyAvatar', ['as' => 'profile.destroy-avatar', 'filter' => 'auth']);

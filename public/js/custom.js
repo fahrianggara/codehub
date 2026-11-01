@@ -263,7 +263,7 @@ function initTinyMce(textarea, menubar = false, height = 200) {
             { text: 'Dart', value: 'dart' },
             { text: 'Bash/Shell', value: 'bash' },
         ],
-        toolbar: "bold italic underline blockquote strikeout bullist numlist link codesample",
+        toolbar: "bold italic underline blockquote strikeout bullist numlist link codesample code",
         noneditable_noneditable_class: "mceNonEditable",
         codemirror: {
             indentOnInit: true, // Whether or not to indent code on init.
