@@ -213,7 +213,7 @@ class PenggunaController extends BaseController
      * @param string|null $tc_id
      * @return array
      */
-    private function rules($id = null)
+    private function rules(?int $id = null)
     {
         $unique = $id ? ",id,$id" : '';
 

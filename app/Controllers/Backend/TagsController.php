@@ -133,7 +133,7 @@ class TagsController extends BaseController
      * @param  mixed $id
      * @return void
      */
-    private function rules($id = null)
+    private function rules(?int $id = null)
     {
         $unique = $id ? ",id,$id" : '';
         return [

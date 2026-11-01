@@ -212,7 +212,7 @@ class KategoriController extends BaseController
      *
      * @return array
      */
-    private function rules($id = null)
+    private function rules(?int $id = null)
     {
         $unique = $id ? ",id,$id" : '';
 
