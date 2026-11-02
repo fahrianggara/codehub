@@ -13,9 +13,15 @@ class CustomRules
      * @param  mixed $error
      * @return bool
      */
-    public function thread_title(string $str, ?string &$error = null): bool 
+    public function thread_title(string $str, ?string &$error = null): bool
     {
-        if (preg_match('/^[a-zA-Z0-9 ?!.,]+$/', $str)) {
+        $str = trim($str);
+
+        if (
+            $str !== '' &&
+            mb_strlen($str) <= 150 &&
+            preg_match('/\A[\p{L}\p{N}\s?!.,:;()&\+\/-]+\z/u', $str)
+        ) {
             return true;
         }
 
