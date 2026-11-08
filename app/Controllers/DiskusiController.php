@@ -665,7 +665,7 @@ class DiskusiController extends BaseController
      * 
      * @return array
      */
-    private function rules($id = null, $hasReplyId = false)
+    private function rules(?int $id = null, bool $hasReplyId = false)
     {
         $unique = $id ? ",id,$id" : '';
 

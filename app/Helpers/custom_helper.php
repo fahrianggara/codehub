@@ -93,7 +93,7 @@ function selected_option($oldval, $value)
  * @param  mixed $oldImage
  * @return void
  */
-function uploadImageBlob($blob, $path, $oldImage = null)
+function uploadImageBlob($blob, $path, ?string $oldImage = null)
 {
     $imgParts = explode(";base64,", $blob);
     $imgBase64 = base64_decode($imgParts[1]);

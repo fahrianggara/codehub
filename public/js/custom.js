@@ -69,7 +69,7 @@ function validateImageType(image, gif = false) {
  * Validate image size
  */
 function validateImageSize(image, size = 1) {
-    var max_size = size * 1024 * 1024; // 1 MB
+    var max_size = size * 3072 * 3072; // 3 MB
     return image.size <= max_size;
 }
 
